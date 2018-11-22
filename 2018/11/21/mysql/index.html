@@ -1,174 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="数据库基本操作1数据库的增删改查
-库操作创建库1mysql &amp;gt; create database db1;
-查看库12mysql &amp;gt; show databases; mysql &amp;gt; show create databasee db1;  //更详细的查看库
-使用库1mysql &amp;gt">
-    
-
-    <!--Author-->
-    
-        <meta name="author" content="tiger">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="mysql">
-    
-
-    <!--Open Graph Description-->
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Tiger">
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
-
-    <!--Page Cover-->
-    
-
-    <meta name="twitter:card" content="summary">
-    
-
-    <!-- Title -->
-    
-    <title>mysql - Tiger</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Google Analytics -->
-    
-
-
+  <meta charset="utf-8">
+  
+  <title>mysql | Tiger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库基本操作1数据库的增删改查 库操作创建库1mysql &amp;gt; create database db1; 查看库12mysql &amp;gt; show databases; mysql &amp;gt; show create databasee db1;  //更详细的查看库 使用库1mysql &amp;gt; use db1; 表操作创建表1mysql &amp;gt; create tables 表名(字段 类">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/mysql/index.html">
+<meta property="og:site_name" content="Tiger">
+<meta property="og:description" content="数据库基本操作1数据库的增删改查 库操作创建库1mysql &amp;gt; create database db1; 查看库12mysql &amp;gt; show databases; mysql &amp;gt; show create databasee db1;  //更详细的查看库 使用库1mysql &amp;gt; use db1; 表操作创建表1mysql &amp;gt; create tables 表名(字段 类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-21T07:12:13.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql">
+<meta name="twitter:description" content="数据库基本操作1数据库的增删改查 库操作创建库1mysql &amp;gt; create database db1; 查看库12mysql &amp;gt; show databases; mysql &amp;gt; show create databasee db1;  //更详细的查看库 使用库1mysql &amp;gt; use db1; 表操作创建表1mysql &amp;gt; create tables 表名(字段 类">
+  
+  <link rel="stylesheet" href="/css/index.css">
 </head>
+</html>
+<body style="
 
 
-<body>
+  background-color: #eff0f6
 
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
-
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about.html">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/contact.html">
-                    Contact
-                </a>
-            </li>
-            
-        </ul>
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
     </div>
-</div>
-
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
 </nav>
-
-<div class="container">
-
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-    </div>
-</header>
-
-        <section class="main">
-            
-<div class="post">
-
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2018/11/21/mysql/">
-                mysql
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-11-21</span>
-            
-            
-            
-        </div>
-    </div>
-
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <h2 id="数据库基本操作"><a href="#数据库基本操作" class="headerlink" title="数据库基本操作"></a>数据库基本操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库的增删改查</span><br></pre></td></tr></table></figure>
+    <div id="main"><section class="article">
+  <h2 class="title">mysql</h2>
+  <p class="sub">11月 21, 2018</p>
+  <article class="content">
+    <h2 id="数据库基本操作"><a href="#数据库基本操作" class="headerlink" title="数据库基本操作"></a>数据库基本操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库的增删改查</span><br></pre></td></tr></table></figure>
 <h3 id="库操作"><a href="#库操作" class="headerlink" title="库操作"></a>库操作</h3><p><strong>创建库</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; create database db1;</span><br></pre></td></tr></table></figure></p>
 <h3 id="查看库"><a href="#查看库" class="headerlink" title="查看库"></a><strong>查看库</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; show databases; </span><br><span class="line">mysql &gt; show create databasee db1;  //更详细的查看库</span><br></pre></td></tr></table></figure>
 <p><strong>使用库</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; use db1;</span><br></pre></td></tr></table></figure></p>
@@ -238,193 +148,43 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6. 总分大于150分，平均分小于90分的人数有几个。</span><br><span class="line">select count(distinct name) from t1 group by name having sum(score) &gt; 150 and avg(score) &lt; 90;</span><br></pre></td></tr></table></figure>
 <h3 id="主从切换"><a href="#主从切换" class="headerlink" title="主从切换"></a>主从切换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">正常切换</span><br><span class="line"></span><br><span class="line">1.检查slave同步状态</span><br><span class="line"></span><br><span class="line">在开始切换之前先对主库进行锁表：</span><br><span class="line"></span><br><span class="line">flush tables with read lock</span><br><span class="line"></span><br><span class="line">（在执行完成后生产环境必须等待所有语句执行完成）</span><br><span class="line"></span><br><span class="line">在flush tables with read lock成功获得锁之前，必须等待所有语句执行完成（包括SELECT）。所以如果有个慢查询在执行，或者一个打开的事务，或者其他进程拿着表锁，flush tables with read lock就会被阻塞，直到所有的锁被释放。请看下面的例子：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">| Id | User | Host      | db   | Command    | Time | State             | Info                                                                 |</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">|  4 | root | localhost | test | Query      |   80 | Sending data      | select count(*) from t t1 join t t2 join t t3 join t t4 where t1.b=0 |</span><br><span class="line">|  5 | root | localhost | test | Query      |   62 | Flushing tables   | flush tables with read lock                                          |</span><br><span class="line">|  6 | root | localhost | test | Field List |   35 | Waiting for table |                                                                      |</span><br><span class="line">|  7 | root | localhost | test | Query      |    0 | NULL              | show processlist                                                     |</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line"></span><br><span class="line">flush data</span><br><span class="line"></span><br><span class="line">切换完成后可以释放锁</span><br><span class="line"></span><br><span class="line">unlock tables</span><br><span class="line"></span><br><span class="line">1）在master执行：show processlist;</span><br><span class="line"></span><br><span class="line">显示Master has sent all binlog to slave; waiting for binlog to be updated</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">2）在slave执行：show processlist；</span><br><span class="line"></span><br><span class="line">显示Slave has read all relay log; waiting for the slave I/O thread to update it</span><br><span class="line"></span><br><span class="line">mysql&gt; show slave status \G;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">检查IO及SQL线程是否正常，如果为NO表明同步不一致，需要重新将slave同步保持主从数据一致。</span><br><span class="line"></span><br><span class="line">3）停止slave io线程</span><br><span class="line"></span><br><span class="line">在slave执行：mysql&gt; STOP SLAVE IO_THREAD</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW PROCESSLIST;</span><br><span class="line"></span><br><span class="line">确保状态为：has read all relay log</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">以上都执行完成后可以把slave提升为master：</span><br><span class="line"></span><br><span class="line">4）提升slave为master</span><br><span class="line"></span><br><span class="line">Stop slave；</span><br><span class="line"></span><br><span class="line">Reset master;</span><br><span class="line"></span><br><span class="line">Reset slave all; 在5.6.3版本之后</span><br><span class="line"></span><br><span class="line">Reset slave; 在5.6.3版本之前</span><br><span class="line"></span><br><span class="line">查看slave是否只读模式：show variables like &apos;read_only&apos;;</span><br><span class="line"></span><br><span class="line">只读模式需要修改my.cnf文件，注释read-only=1并重启mysql服务。</span><br><span class="line"></span><br><span class="line">或者不重启使用命令关闭只读，但下次重启后失效：set global read_only=off;</span><br><span class="line"></span><br><span class="line">mysql&gt; show master status \G;</span><br><span class="line"></span><br><span class="line">备注：reset slave all 命令会删除从库的 replication 参数，之后 show slave status\G 的信息返回为空。</span><br><span class="line"></span><br><span class="line">5）将原来master变为slave</span><br><span class="line"></span><br><span class="line">在新的master上创建同步用户：</span><br><span class="line"></span><br><span class="line">grant replication slave on *.* repl@&apos;IP of slave&apos; identified by &apos;replpwd&apos;;</span><br><span class="line"></span><br><span class="line">在新的slave上重置binlog：</span><br><span class="line"></span><br><span class="line">Reset master;</span><br><span class="line"></span><br><span class="line">change master to master_host=&apos;192.168.0.104&apos;, //Master 服务器Ip</span><br><span class="line"></span><br><span class="line">master_port=3306,</span><br><span class="line"></span><br><span class="line">master_user=&apos;repl&apos;,</span><br><span class="line"></span><br><span class="line">master_password=’replpwd’,</span><br><span class="line"></span><br><span class="line">master_log_file=&apos;master-bin.000001&apos;,//Master服务器产生的日志</span><br><span class="line"></span><br><span class="line">master_log_pos=?;//master binlog pos</span><br><span class="line"></span><br><span class="line">以上最后两步可以在master执行：show master status</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">启动slave：start slave； 并查看slave状态：show slave status\G;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">           异常切换</span><br><span class="line"></span><br><span class="line">主机故障或者宕机：</span><br><span class="line"></span><br><span class="line">1)   在salve执行：</span><br><span class="line"></span><br><span class="line">stop slave；</span><br><span class="line"></span><br><span class="line">reset master；</span><br><span class="line"></span><br><span class="line">查看是否只读模式：show variables like &apos;read_only&apos;;</span><br><span class="line"></span><br><span class="line">只读模式需要修改my.cnf文件，注释read-only=1并重启mysql服务。</span><br><span class="line"></span><br><span class="line">或者不重启使用命令关闭只读，但下次重启后失效：set global read_only=off;</span><br><span class="line"></span><br><span class="line">查看show slave status \G;</span><br><span class="line"></span><br><span class="line">查看show master status \G;</span><br><span class="line"></span><br><span class="line">将从库IP地址改为主库IP地址，测试应用连接是否正常。</span><br></pre></td></tr></table></figure>
 
-    </div>
-
+  </article>
+  <footer class="f-cf">
     
-
+      <a href="/2018/11/21/使用dockerfile创建镜像/" class="link f-fl">⟵使用dockerfile创建镜像</a>
     
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/mysql/">#mysql</a>
-        </div>
     
-
-    <!-- Comments -->
+      <a href="/2018/11/21/mysql1/" class="link f-fr">mysql1⟶</a>
     
-
-</div>
-        </section>
-
-    </div>
-</div>
-
-
-</div>
-
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/cmdb-需求分析-md/">cmdb-需求分析.md</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/使用dockerfile创建镜像/">使用dockerfile创建镜像</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/mysql/">mysql</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/mysql1/">mysql1</a>
-            </li>
-            
-        </ul>
-    </div>
-
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=en">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-facebook"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.instagram.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-instagram"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://dribbble.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.behance.net/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-behance"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://500px.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-500px"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:test@example.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
-    </div>
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
 </footer>
-
-<!-- After footer scripts -->
-
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
-<script src="/js/main.js"></script>
-
-<!-- Disqus Comments -->
-
-
-
+  </div>
 </body>
-
 </html>

@@ -1,173 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<!-- Head tag -->
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--Description-->
-    
-        <meta name="description" content="###前言SQL语句主要分为三大类
-DDL语句DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用)
-DML语句DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用">
-    
-
-    <!--Author-->
-    
-        <meta name="author" content="tiger">
-    
-
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="mysql1">
-    
-
-    <!--Open Graph Description-->
-    
-
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="Tiger">
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article">
-    
-
-    <!--Page Cover-->
-    
-
-    <meta name="twitter:card" content="summary">
-    
-
-    <!-- Title -->
-    
-    <title>mysql1 - Tiger</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Google Analytics -->
-    
-
-
+  <meta charset="utf-8">
+  
+  <title>mysql1 | Tiger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###前言SQL语句主要分为三大类 DDL语句DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用) DML语句DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用) DCL语句DCL是数据控制语句,用于控制不同数据段直接的许可和访问级别的语句.定义了数据库、表、">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql1">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/mysql1/index.html">
+<meta property="og:site_name" content="Tiger">
+<meta property="og:description" content="###前言SQL语句主要分为三大类 DDL语句DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用) DML语句DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用) DCL语句DCL是数据控制语句,用于控制不同数据段直接的许可和访问级别的语句.定义了数据库、表、">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-21T07:10:33.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql1">
+<meta name="twitter:description" content="###前言SQL语句主要分为三大类 DDL语句DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用) DML语句DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用) DCL语句DCL是数据控制语句,用于控制不同数据段直接的许可和访问级别的语句.定义了数据库、表、">
+  
+  <link rel="stylesheet" href="/css/index.css">
 </head>
+</html>
+<body style="
 
 
-<body>
+  background-color: #eff0f6
 
-<div class="bg-gradient"></div>
-<div class="bg-pattern"></div>
-
-<!-- Menu -->
-<!--Menu Links and Overlay-->
-<div class="menu-bg">
-    <div class="menu-container">
-        <ul>
-            
-            <li class="menu-item">
-                <a href="/">
-                    Home
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/archives">
-                    Archives
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/about.html">
-                    About
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/tags">
-                    Tags
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/categories">
-                    Categories
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="/contact.html">
-                    Contact
-                </a>
-            </li>
-            
-        </ul>
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
     </div>
-</div>
-
-<!--Hamburger Icon-->
-<nav>
-    <a href="#menu"></a>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
 </nav>
-
-<div class="container">
-
-    <!-- Main Content -->
-    <div class="row">
-    <div class="col-sm-12">
-
-        <!--Title and Logo-->
-        <header>
-    <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-    </div>
-</header>
-
-        <section class="main">
-            
-<div class="post">
-
-    <div class="post-header">
-        <h1 class="title">
-            <a href="/2018/11/21/mysql1/">
-                mysql1
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-11-21</span>
-            
-            
-            
-        </div>
-    </div>
-
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <p>###前言<br>SQL语句主要分为三大类</p>
+    <div id="main"><section class="article">
+  <h2 class="title">mysql1</h2>
+  <p class="sub">11月 21, 2018</p>
+  <article class="content">
+    <p>###前言<br>SQL语句主要分为三大类</p>
 <p>DDL语句<br>DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用)</p>
 <p>DML语句<br>DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用)</p>
 <p>DCL语句<br>DCL是数据控制语句,用于控制不同数据段直接的许可和访问级别的语句.定义了数据库、表、字段、用户的访问权限和安全级别.主要是grant、revoke等(DBA常用)</p>
@@ -199,193 +110,43 @@ DML语句DML是数据操作语句,指对数据库表记录的基本操作，inse
 <h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [xe]&gt; select * from dept;</span><br><span class="line">+--------+----------+</span><br><span class="line">| deptno | deptname |</span><br><span class="line">+--------+----------+</span><br><span class="line">|      1 | tech     |</span><br><span class="line">|      2 | sale     |</span><br><span class="line">|      5 | fin      |</span><br><span class="line">+--------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [xe]&gt; select * from xe.emp;</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| ename  | hiredate   | sal     | deptno |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| zzx1   | 2000-01-01 |  100.00 |      1 |</span><br><span class="line">| lisa   | 2003-02-01 |  200.00 |      2 |</span><br><span class="line">| bjguan | 2004-04-02 |  100.00 |      1 |</span><br><span class="line">| dony   | 2005-02-01 | 2000.00 |      4 |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [xe]&gt; update emp a,dept b set a.sal=a.sal*b.deptno,b.deptname=a.ename where a.deptno=b.deptno;</span><br><span class="line">Query OK, 3 rows affected (0.01 sec)</span><br><span class="line">Rows matched: 5  Changed: 3  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [xe]&gt; select * from dept;</span><br><span class="line">+--------+----------+</span><br><span class="line">| deptno | deptname |</span><br><span class="line">+--------+----------+</span><br><span class="line">|      1 | tech     |</span><br><span class="line">|      2 | sale     |</span><br><span class="line">|      5 | fin      |</span><br><span class="line">+--------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [xe]&gt; select * from xe.emp;</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| ename  | hiredate   | sal     | deptno |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| zzx1   | 2000-01-01 |  100.00 |      1 |</span><br><span class="line">| lisa   | 2003-02-01 |  200.00 |      2 |</span><br><span class="line">| bjguan | 2004-04-02 |  100.00 |      1 |</span><br><span class="line">| dony   | 2005-02-01 | 2000.00 |      4 |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [xe]&gt; update emp a,dept b set a.sal=a.sal*b.deptno,b.deptname=a.ename where a.deptno=b.deptno;</span><br><span class="line">Query OK, 3 rows affected (0.01 sec)</span><br><span class="line">Rows matched: 5  Changed: 3  Warnings: 0</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from emp;</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| ename  | hiredate   | sal     | deptno |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">| zzx1   | 2000-01-01 |  100.00 |      1 |</span><br><span class="line">| lisa   | 2003-02-01 |  400.00 |      2 |</span><br><span class="line">| bjguan | 2004-04-02 |  100.00 |      1 |</span><br><span class="line">| dony   | 2005-02-01 | 2000.00 |      4 |</span><br><span class="line">+--------+------------+---------+--------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select * from dept;</span><br><span class="line">+--------+----------+</span><br><span class="line">| deptno | deptname |</span><br><span class="line">+--------+----------+</span><br><span class="line">|      1 | zzx1     |</span><br><span class="line">|      2 | lisa     |</span><br><span class="line">|      5 | fin      |</span><br><span class="line">+--------+----------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line">---------------------------------------------</span><br><span class="line"></span><br><span class="line">mysql&gt; select e.ename 名字,d.deptno  编号,e.sal 薪资 from xe.emp e LEFT JOIN xe.dept d  on  e.ename=d.deptname;</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">| 名字   | 编号   | 薪资    |</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">| zzx1   |      1 |  100.00 |</span><br><span class="line">| lisa   |      2 |  400.00 |</span><br><span class="line">| bjguan |   NULL |  100.00 |</span><br><span class="line">| dony   |   NULL | 2000.00 |</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select e.ename 名字,d.deptno  编号,e.sal 薪资 from xe.emp e LEFT JOIN xe.dept d  on  e.ename=d.deptname where e.sal &gt; &apos;300&apos;;</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">| 名字   | 编号   | 薪资    |</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">| lisa   |      2 |  400.00 |</span><br><span class="line">| dony   |   NULL | 2000.00 |</span><br><span class="line">+--------+--------+---------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line">---------------------------------------</span><br><span class="line"></span><br><span class="line">mysql&gt; select e.ename &apos;名字&apos;,d.deptno &apos;编号&apos;,e.sal &apos;薪资&apos; from xe.emp e LEFT JOIN xe.dept d  on e.ename=d.deptname where d.depptno != &apos;NULL&apos;;</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">| 名字   | 编号   | 薪资   |</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">| zzx1   |      1 | 100.00 |</span><br><span class="line">| lisa   |      2 | 400.00 |</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select e.ename &apos;名字&apos;,d.deptno &apos;编号&apos;,e.sal &apos;薪资&apos; from xe.emp e LEFT JOIN xe.dept d  on e.ename=d.deptname where d.depptno != &apos;NULL&apos;;</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">| 名字   | 编号   | 薪资   |</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">| zzx1   |      1 | 100.00 |</span><br><span class="line">| lisa   |      2 | 400.00 |</span><br><span class="line">+--------+--------+--------+</span><br><span class="line">2 rows in set, 1 warning (0.00 sec)</span><br></pre></td></tr></table></figure>
 
-    </div>
-
+  </article>
+  <footer class="f-cf">
     
-
+      <a href="/2018/11/21/mysql/" class="link f-fl">⟵mysql</a>
     
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/mysql/">#mysql</a>
-        </div>
     
-
-    <!-- Comments -->
+      <a href="/2018/11/21/grafana/" class="link f-fr">grafana⟶</a>
     
-
-</div>
-        </section>
-
-    </div>
-</div>
-
-
-</div>
-
-<!-- Footer -->
-<div class="push"></div>
-
-<footer class="footer-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
-                <h2>About</h2>
-                <p>
-                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
-                </p>
-            </div>
-            
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
-        <h2>Recent Posts</h2>
-        <ul>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/cmdb-需求分析-md/">cmdb-需求分析.md</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/使用dockerfile创建镜像/">使用dockerfile创建镜像</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/mysql/">mysql</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/11/21/mysql1/">mysql1</a>
-            </li>
-            
-        </ul>
-    </div>
-
-
-
-            
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline footer-social-icons">
-                    
-                    <li class="list-inline-item">
-                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://twitter.com/?lang=en">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.facebook.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-facebook"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.instagram.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-instagram"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://dribbble.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://plus.google.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-google-plus"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://www.behance.net/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-behance"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="https://500px.com/">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-500px"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="mailto:test@example.com">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-envelope-o"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="list-inline-item">
-                        <a href="\#">
-                            <span class="footer-icon-container">
-                                <i class="fa fa-rss"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="footer-copyright">
-                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
-                </div>
-            </div>
-        </div>
-    </div>
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
 </footer>
-
-<!-- After footer scripts -->
-
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Tween Max -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Custom JavaScript -->
-<script src="/js/main.js"></script>
-
-<!-- Disqus Comments -->
-
-
-
+  </div>
 </body>
-
 </html>
