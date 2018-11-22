@@ -1,122 +1,174 @@
 <!DOCTYPE html>
-<html>
-  <!-- Html Head Tag-->
-  <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="tiger">
-  <!-- Open Graph Data -->
-  <meta property="og:title" content="ansible-yaml">
-  <meta property="og:description" content="">
-  <meta property="og:site_name" content="tiger">
-  <meta property="og:type" content="article">
-  <meta property="og:image" content="http://yoursite.com">
-  
-    <link rel="alternate" href="/atom.xml" title="tiger" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
+<html lang="en">
 
-  <!-- Site Title -->
-  <title>tiger</title>
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <!-- Custom CSS -->
-  
-  <link rel="stylesheet" href="/css/style.dark.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Analytics -->
-  
+    <!--Description-->
+    
+        <meta name="description" content="###　YAML 语法
+提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言).
+我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库.
+你可能希望读 Playbooks 实">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="tiger">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ansible-yaml">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Tiger">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>ansible-yaml - Tiger</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
 
 </head>
 
-  <body>
-    <!-- Page Header -->
 
+<body>
 
-<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="page-title with-background-image">
-          <p class="title">ansible-yaml</p>
-          <p class="subtitle"></p>
-        </div>
-        <div class="site-menu with-background-image">
-          <ul>
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
             
-              <li>
+            <li class="menu-item">
                 <a href="/">
-                  
-                  Home
-                  
+                    Home
                 </a>
-              </li>
+            </li>
             
-              <li>
+            <li class="menu-item">
                 <a href="/archives">
-                  
-                  Archives
-                  
+                    Archives
                 </a>
-              </li>
+            </li>
             
-              <li>
-                <a href="https://github.com/<your-github-username>">
-                  
-                  Github
-                  
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
                 </a>
-              </li>
+            </li>
             
-              <li>
-                <a href="mailto:<your-email-address>">
-                  
-                  Email
-                  
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
                 </a>
-              </li>
+            </li>
             
-          </ul>
-        </div>
-      </div>
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
     </div>
-  </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
 </header>
 
-<article>
-  <div class="container typo">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-info text-muted">
-          
-            <!-- Author -->
-            <span class="author info">By tiger</span>
-          
-          <!-- Date -->
-          <span class="date-time info">On
-            <span class="date">2018-07-08</span>
-            <span class="time">16:11:00</span>
-          </span>
-          
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/08/ansible-yaml/">
+                ansible-yaml
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
         </div>
-        <!-- Tags -->
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
         
-          <div class="post-tags text-muted">
-            Tags: 
 
-<a class="tag" href="/tags/持续集成/">#持续集成</a>
-
-
-          </div>
-        
-        <!-- Post Main Content -->
-        <div class="post-content">
-          <p>###　YAML 语法</p>
+        <!-- Post Content -->
+        <p>###　YAML 语法</p>
 <p>提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言).</p>
 <p>我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库.</p>
 <p>你可能希望读 Playbooks 实践(<a href="http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的" target="_blank" rel="noopener">http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的</a>.</p>
@@ -148,42 +200,193 @@
 <hr>
 <p>it’s all</p>
 
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/持续集成/">#持续集成</a>
         </div>
-      </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
     </div>
-  </div>
-</article>
+</div>
 
 
+</div>
 
-    <!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <p class="copyright text-muted">
-          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
-          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
-        </p><p class="copyright text-muted">
-          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
-        </p>
-      </div>
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/21/cmdb-需求分析-md/">cmdb-需求分析.md</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/21/使用dockerfile创建镜像/">使用dockerfile创建镜像</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/21/mysql/">mysql</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/11/21/mysql1/">mysql1</a>
+            </li>
+            
+        </ul>
     </div>
-  </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
 
+<!-- After footer scripts -->
 
-    <!-- After Footer Scripts -->
-<script src="/js/highlight.pack.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
-    codeBlocks.forEach(function(block, index) {
-      hljs.highlightBlock(block);
-    });
-  });
-</script>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-  </body>
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
 </html>
-
