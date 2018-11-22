@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="docker部署dubbo">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="tiger">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
+  
+    <link rel="alternate" href="/atom.xml" title="tiger" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>tiger</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">docker部署dubbo</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-10-11</span>
+            <span class="time">16:06:15</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```本系列文章中所使用的框架版本为Spring Boot 2.0.3-RELEASE，Spring 5.0.7-RELEASE，Dubbo 2.6.2。</span><br></pre></td></tr></table></figure>
+<h3 id="Docker容器启动参数"><a href="#Docker容器启动参数" class="headerlink" title="Docker容器启动参数"></a>Docker容器启动参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">本文用到的运行参数说明：</span><br><span class="line"></span><br><span class="line">-d: 后台运行容器，并返回容器ID</span><br><span class="line">-i: 以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">–name: 为容器指定一个名称</span><br><span class="line">-e: 设置环境变量</span><br><span class="line">–env-file: 从指定文件读取环境变量</span><br><span class="line">-p: 端口映射，如果不做端口映射，容器外部无法访问容器内部</span><br><span class="line">-v: 文件挂载</span><br><span class="line">–link: 添加链接到容器，在default网络下，默认不会将容器名称解析到容器IP地址，必须要添加link选项才可以。而在自定义网络下，则不需要添加此选项</span><br></pre></td></tr></table></figure>
+<p>更多选项可以查看docker文档</p>
+<h3 id="Docker容器部署"><a href="#Docker容器部署" class="headerlink" title="Docker容器部署"></a>Docker容器部署</h3><h3 id="网络接口及数据卷"><a href="#网络接口及数据卷" class="headerlink" title="网络接口及数据卷"></a>网络接口及数据卷</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> # 创建网络接口</span><br><span class="line">sudo docker network create zookeeper</span><br><span class="line">sudo docker network create dubbo</span><br><span class="line"></span><br><span class="line"> # volumn创建，用来持久化数据</span><br><span class="line">sudo docker volume create background</span><br><span class="line">sudo docker volume create dubbo</span><br></pre></td></tr></table></figure>
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # zookeeper注册中心</span><br><span class="line">sudo docker run -d \</span><br><span class="line">    --name zookeeper \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    --net dubbo \</span><br><span class="line">    -v background:/var/lib/zookeeper/data \</span><br><span class="line">    -p 2181:2181 \</span><br><span class="line">    -p 2888:2888 \</span><br><span class="line">    -p 3888:3888 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    jplock/zookeeper:3.4.11</span><br></pre></td></tr></table></figure>
+<h3 id="dubbo-admin"><a href="#dubbo-admin" class="headerlink" title="dubbo-admin"></a>dubbo-admin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # dubbo-admin管理中心</span><br><span class="line">docker run -d \</span><br><span class="line">    --name dubbo-admin \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    -v background:/data \</span><br><span class="line">    -p 9600:8080 \</span><br><span class="line">    -e DUBBO_REGISTRY=&quot;zookeeper:\/\/ip:port&quot; \</span><br><span class="line">    -e DUBBO_ROOT_PASSWORD=root \</span><br><span class="line">    -e DUBBO_GUEST_PASSWORD=guest \</span><br><span class="line">    --restart=always \</span><br><span class="line">    riveryang/dubbo-admin</span><br></pre></td></tr></table></figure>
+<h3 id="dubbo-monitor"><a href="#dubbo-monitor" class="headerlink" title="dubbo-monitor"></a>dubbo-monitor</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # dubbo-monitor监控中心</span><br><span class="line">docker run -d \</span><br><span class="line">    --name dubbo-monitor \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    -v background:/dubbo-monitor/data \</span><br><span class="line">    -e DUBBO_IP_TO_REGISTRY=ip \</span><br><span class="line">    -e DUBBO_PORT_TO_REGISTRY=9700 \</span><br><span class="line">    -p &lt;ip&gt;:9700:9700 \</span><br><span class="line">    -p 9601:9601 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    jeromefromcn/dubbo-monitor</span><br></pre></td></tr></table></figure>
+<h3 id="Dubbo微服务"><a href="#Dubbo微服务" class="headerlink" title="Dubbo微服务"></a>Dubbo微服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # Dubbo微服务</span><br><span class="line">docker run -d \</span><br><span class="line">    --name &lt;containerName&gt; \</span><br><span class="line">    --net dubbo \</span><br><span class="line">    -e DUBBO_IP_TO_REGISTRY=&lt;ip&gt; \</span><br><span class="line">    -e DUBBO_PORT_TO_REGISTRY=&lt;port&gt; \</span><br><span class="line">    -p &lt;ip&gt;:&lt;port&gt;:&lt;port&gt; \</span><br><span class="line">    -v dubbo:/log \</span><br><span class="line">    --restart=always \</span><br><span class="line">    &lt;imageName&gt; \</span><br><span class="line">    --spring.profiles.active=&lt;env&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h3><p><img src="https://img-blog.csdn.net/20180816143528351?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3doeV9zdGlsbF9jb25mdXNlZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Docker常用命令图解"></p>
+<p>查看容器状态</p>
+<figure class="highlight docker"><figcaption><span>ps | grep $&#123;CONTAINER_ID&#125; ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查看容器日志</span><br><span class="line"></span><br><span class="line">```docker logs $&#123;CONTAINER_ID&#125;</span><br></pre></td></tr></table></figure>
+<p>交互式进入容器中</p>
+<figure class="highlight docker"><figcaption><span>exec -i -t $&#123;IMAGE_NAME&#125; sh```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">镜像打包</span><br><span class="line"></span><br><span class="line">```docker commit -m <span class="string">"message"</span> -a  <span class="string">"author"</span> $&#123;CONTAINER_ID&#125;  $&#123;NEW_IMAGE_NAME&#125;</span><br></pre></td></tr></table></figure>
+<p>标签</p>
+<figure class="highlight docker"><figcaption><span>tag $&#123;IMAGE_NAME&#125;  $&#123;NEW_IMAGE_NAME&#125;```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">推送至对应仓库</span><br><span class="line"></span><br><span class="line">```docker push $&#123;REGISTRY_URL&#125;/$&#123;IMAGE_NAME&#125;</span><br></pre></td></tr></table></figure>
+<p>删除所有退出的容器</p>
+<figure class="highlight docker"><figcaption><span>rm $(docker ps -a | grep Exit | awk '&#123; print $1 &#125;')```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">删除所有名称为none的镜像</span><br><span class="line"></span><br><span class="line">```docker images | grep none | awk <span class="string">'&#123;print $3&#125; '</span> | xargs docker rmi</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
