@@ -1,84 +1,122 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="ansible-yaml">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="Tiger">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
   
-  <title>ansible-yaml | Tiger</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###　YAML 语法 提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言). 我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库. 你可能希望读 Playbooks 实践(http://ansible-tran.readthedocs.io/en/latest/doc">
-<meta name="keywords" content="持续集成">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ansible-yaml">
-<meta property="og:url" content="http://yoursite.com/2018/07/08/ansible-yaml/index.html">
-<meta property="og:site_name" content="Tiger">
-<meta property="og:description" content="###　YAML 语法 提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言). 我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库. 你可能希望读 Playbooks 实践(http://ansible-tran.readthedocs.io/en/latest/doc">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-21T07:49:52.440Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ansible-yaml">
-<meta name="twitter:description" content="###　YAML 语法 提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言). 我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库. 你可能希望读 Playbooks 实践(http://ansible-tran.readthedocs.io/en/latest/doc">
+    <link rel="alternate" href="/atom.xml" title="Tiger" type="application/atom+xml">
   
-  <link rel="stylesheet" href="/css/index.css">
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Tiger</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
 </head>
-</html>
-<body style="
+
+  <body>
+    <!-- Page Header -->
 
 
-  background-color: #eff0f6
-
-">
-  <div id="container">
-    <nav id="nav">
-  <header class="header">
-    <a href="/" class="title">Clover Tuan</a>
-  </header>
-  <div class="ctnWrap">
-    <div class="icons">
-      
-        
-          
-            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
-          
-        
-          
-            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
-          
-        
-          
-            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
-          
-        
-          
-            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
-          
-        
-          
-            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
-          
-        
-      
-    </div>
-    <div class="menu">
-      
-        
-            <a href="/" class="nav-menu ">HOME</a>
-          
-        
-            <a href="/archives" class="nav-menu ">ARCHIVE</a>
-          
-        
-            <a href="/about" class="nav-menu ">ABOUT</a>
-          
-        
-      
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">ansible-yaml</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
-    <div id="main"><section class="article">
-  <h2 class="title">ansible-yaml</h2>
-  <p class="sub">7月 8, 2018</p>
-  <article class="content">
-    <p>###　YAML 语法</p>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-07-08</span>
+            <span class="time">16:26:07</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/持续集成/">#持续集成</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>###　YAML 语法</p>
 <p>提供一个正确的 YAML 语法的基本概述, 它被用来描述一个 playbooks(我们的配置管理语言).</p>
 <p>我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库.</p>
 <p>你可能希望读 Playbooks 实践(<a href="http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的" target="_blank" rel="noopener">http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的</a>.</p>
@@ -110,43 +148,42 @@
 <hr>
 <p>it’s all</p>
 
-  </article>
-  <footer class="f-cf">
-    
-      <a href="/2018/10/11/docker部署dubbo/" class="link f-fl">⟵docker部署dubbo</a>
-    
-    
-      <a href="/2018/07/04/ansible2/" class="link f-fr">ansible2⟶</a>
-    
-  </footer>
-</section></div>
-    <footer id="footer" class="f-cf">
-  d.guangying@foxmail.com
-  
-    
-      
-        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
-      
-    
-      
-        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
-      
-    
-      
-        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
-      
-    
-      
-        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
-      
-    
-      
-        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
-      
-    
-  
-  <span class="copyright">All rights reserved @Clover Tuan</span>
-</footer>
+        </div>
+      </div>
+    </div>
   </div>
-</body>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
 </html>
+
