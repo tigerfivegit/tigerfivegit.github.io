@@ -84,13 +84,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">cmdb项目构建过程：</span><br><span class="line"></span><br><span class="line">后端：</span><br><span class="line">1. 分析需求：</span><br><span class="line">   - 数据库中需要存放什么数据</span><br><span class="line">       - 都有那些表</span><br><span class="line">       - 表与表的关系</span><br><span class="line">       - 每张表里都有哪些字段</span><br><span class="line">         - 字段类型</span><br><span class="line">         - 字段属性</span><br><span class="line"></span><br><span class="line">   - 功能需求分析</span><br><span class="line">     - 比如报表系统</span><br><span class="line">     - 数据可视化</span><br><span class="line">     - api 接口</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line">2. 设计表结构</span><br><span class="line"></span><br><span class="line">3. 设计 app</span><br><span class="line"></span><br><span class="line">4. 每个应用可能需要多个功能</span><br><span class="line">   - 每个功能需要一个 url</span><br><span class="line">   - 每个 URL 需要一个视图函数</span><br><span class="line">   - 设计出 url 对应的视图函数</span><br><span class="line"></span><br><span class="line">5. 给每个功能编写视图</span><br><span class="line">   - 具体是实现功能的业务逻辑</span><br><span class="line"></span><br><span class="line">6. 测试路由和视图</span><br><span class="line"></span><br><span class="line">前端：</span><br><span class="line">1. 设计页面</span><br><span class="line">   - 根据功能和想展示出来数据进行页面的设置</span><br><span class="line"></span><br><span class="line">2. 为每个页面的具体功能设计布局</span><br><span class="line"></span><br><span class="line">3. 向后台发送数据进行交互测试</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1.前端菜单跳转url，模板语言实现</span><br><span class="line">   base.html</span><br><span class="line">&#123;% url &apos;server:idc_url&apos; %&#125;</span><br><span class="line"></span><br><span class="line">2. 去server应用里的url.py 中创建路由</span><br><span class="line">url(r&apos;^idc/$&apos;, views.IdcListView.as_view(), name=&quot;idc_url&quot;),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3. 在对应的视图中创建基于类的视图</span><br><span class="line"></span><br><span class="line">server view.py</span><br><span class="line"></span><br><span class="line">class Idclistview(View):</span><br><span class="line">   def get(self,request):</span><br><span class="line">     idc_info = &#123;&quot;idc&quot;: &quot;这是IDC View&quot;&#125;</span><br><span class="line">     return render(request, &quot;idc.html&quot;,&#123;&quot;idc_data&quot;: idc_info&#125;)</span><br><span class="line"></span><br><span class="line">4.  idc.html</span><br><span class="line">idc.html</span><br><span class="line"></span><br><span class="line">&#123;% extends &quot;base.html&quot; %&#125;</span><br><span class="line">&#123;% block page_content %&#125;</span><br><span class="line">   &lt;h1&gt;&#123;&#123; idc &#125;&#125;&lt;/h1&gt;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
-
+        <h3 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cmdb项目构建过程：</span><br><span class="line"></span><br><span class="line">后端：</span><br><span class="line">1. 分析需求：</span><br><span class="line">   - 数据库中需要存放什么数据</span><br><span class="line">       - 都有那些表</span><br><span class="line">       - 表与表的关系</span><br><span class="line">       - 每张表里都有哪些字段</span><br><span class="line">         - 字段类型</span><br><span class="line">         - 字段属性</span><br><span class="line"></span><br><span class="line">   - 功能需求分析</span><br><span class="line">     - 比如报表系统</span><br><span class="line">     - 数据可视化</span><br><span class="line">     - api 接口</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2018/11/21/cmdb-需求分析-md/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/cmdb-需求分析-md/" data-id="cjotexsxh0001utq3i9xqj4af" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/cmdb-需求分析-md/" data-id="cjotf0b1w0001x0q31oxukwv4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cmdb/">cmdb</a></li></ul>
@@ -137,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/使用dockerfile创建镜像/" data-id="cjotexsxv000eutq32m4gurry" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/使用dockerfile创建镜像/" data-id="cjotf0b2b000ex0q3vjw75lvz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
@@ -244,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/mysql/" data-id="cjotext2f000vutq39nr7jpjn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/mysql/" data-id="cjotf0b3g000vx0q3lr7yeq5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
@@ -313,7 +316,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/mysql1/" data-id="cjotexsxs000autq3e53qtz1w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/mysql1/" data-id="cjotf0b28000ax0q330oxn3rx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
@@ -358,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/grafana/" data-id="cjotexsxq0008utq3vj2wao0y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/grafana/" data-id="cjotf0b270008x0q309svpto1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -407,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/sar/" data-id="cjotexsxt000cutq3n8dddlt1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/21/sar/" data-id="cjotf0b2a000cx0q3vjjrtazg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -498,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/rsync/" data-id="cjotexsyq000qutq3sn41o2go" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/20/rsync/" data-id="cjotf0b37000qx0q3dquto4xz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -577,7 +580,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/19/confluence/" data-id="cjotexsxl0003utq3krio8nn1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/19/confluence/" data-id="cjotf0b220003x0q32hrni328" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
@@ -632,7 +635,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/11/docker部署dubbo/" data-id="cjotexsxn0004utq37bsg7q2i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/10/11/docker部署dubbo/" data-id="cjotf0b230004x0q3wkaoeg61" class="article-share-link">Share</a>
       
       
     </footer>
@@ -699,7 +702,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/08/ansible-yaml/" data-id="cjotexsxa0000utq3hx24ybqt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/08/ansible-yaml/" data-id="cjotf0b1n0000x0q3icozxd7k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持续集成/">持续集成</a></li></ul>
