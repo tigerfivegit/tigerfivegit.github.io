@@ -1,93 +1,122 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-
-  
-  <title>rsync | Tiger Keep It Simple Do It Well</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="rsync服务介绍 rsync功能  做为命令，实现本地-远程文件同步 做为服务，实现本地-远程文件同步   rsync特点  可以镜像保存整个目录树和文件系统 可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息 传输效率高，使用同步算法，至比较变化的 支持匿名传输，方便网站镜；也可以做验证，加强安全   rsyn">
-<meta name="keywords" content="Linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="rsync">
-<meta property="og:url" content="http://yoursite.com/2018/11/20/rsync/index.html">
-<meta property="og:site_name" content="Tiger Keep It Simple Do It Well">
-<meta property="og:description" content="rsync服务介绍 rsync功能  做为命令，实现本地-远程文件同步 做为服务，实现本地-远程文件同步   rsync特点  可以镜像保存整个目录树和文件系统 可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息 传输效率高，使用同步算法，至比较变化的 支持匿名传输，方便网站镜；也可以做验证，加强安全   rsyn">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-21T07:19:57.063Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rsync">
-<meta name="twitter:description" content="rsync服务介绍 rsync功能  做为命令，实现本地-远程文件同步 做为服务，实现本地-远程文件同步   rsync特点  可以镜像保存整个目录树和文件系统 可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息 传输效率高，使用同步算法，至比较变化的 支持匿名传输，方便网站镜；也可以做验证，加强安全   rsyn">
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="rsync">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="Tiger Keep It Simple Do It Well">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
   
     <link rel="alternate" href="/atom.xml" title="Tiger Keep It Simple Do It Well" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
   
+
+  <!-- Site Title -->
+  <title>Tiger Keep It Simple Do It Well</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
   
-  <link rel="stylesheet" href="/css/style.css">
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Tiger Keep It Simple Do It Well</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">rsync</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-rsync" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/20/rsync/" class="article-date">
-  <time datetime="2018-11-20T07:19:29.000Z" itemprop="datePublished">2018-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      rsync
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="rsync服务介绍"><a href="#rsync服务介绍" class="headerlink" title="rsync服务介绍"></a>rsync服务介绍</h3><ul>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-20</span>
+            <span class="time">10:45:22</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/Linux/">#Linux</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h3 id="rsync服务介绍"><a href="#rsync服务介绍" class="headerlink" title="rsync服务介绍"></a>rsync服务介绍</h3><ul>
 <li><p>rsync功能</p>
 <ul>
 <li>做为命令，实现本地-远程文件同步</li>
@@ -110,6 +139,7 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="rsync语法介绍"><a href="#rsync语法介绍" class="headerlink" title="rsync语法介绍"></a>rsync语法介绍</h3><h4 id="man-rsync语法"><a href="#man-rsync语法" class="headerlink" title="man rsync语法"></a>man rsync语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rsync(1)                                                   rsync(1)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       rsync - a fast, versatile, remote (and local) file-copying tool             ##rsync命令介绍</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       Local:  rsync [OPTION...] SRC... [DEST]</span><br><span class="line"></span><br><span class="line">       Access via remote shell:</span><br><span class="line">         Pull: rsync [OPTION...] [USER@]HOST:SRC... [DEST]</span><br><span class="line">         Push: rsync [OPTION...] SRC... [USER@]HOST:DEST</span><br><span class="line"></span><br><span class="line">       Access via rsync daemon:</span><br><span class="line">         Pull: rsync [OPTION...] [USER@]HOST::SRC... [DEST]</span><br><span class="line">               rsync [OPTION...] rsync://[USER@]HOST[:PORT]/SRC... [DEST]</span><br><span class="line">         Push: rsync [OPTION...] SRC... [USER@]HOST::DEST</span><br><span class="line">               rsync [OPTION...] SRC... rsync://[USER@]HOST[:PORT]/DEST</span><br><span class="line"></span><br><span class="line">       Usages with just one SRC arg and no DEST arg will list the source files instead of copying.</span><br></pre></td></tr></table></figure>
 <p>####　rsync 相关参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-v      详细模式输出</span><br><span class="line">-a      归档模式，递归的方式传输文件，并保持文件的属性，equals -rlptgoD</span><br><span class="line">-r      递归拷贝目录</span><br><span class="line">-l      保留软链接</span><br><span class="line">-p      保留原有权限</span><br><span class="line">-t      保留原有时间（修改）</span><br><span class="line">-g      保留属组权限</span><br><span class="line">-o      保留属主权限</span><br><span class="line">-D      等于--devices  --specials    表示支持b,c,s,p类型的文件</span><br><span class="line">-R      保留相对路径</span><br><span class="line">-H      保留硬链接</span><br><span class="line">-A      保留ACL策略</span><br><span class="line">-e      指定要执行的远程shell命令</span><br><span class="line">-E      保留可执行权限</span><br><span class="line">-X      保留扩展属性信息  a属性</span><br></pre></td></tr></table></figure></p>
 <h3 id="rsync做为命令使用"><a href="#rsync做为命令使用" class="headerlink" title="rsync做为命令使用"></a>rsync做为命令使用</h3><h4 id="同步本地数据"><a href="#同步本地数据" class="headerlink" title="同步本地数据"></a>同步本地数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@116v85v26v24 tmp]# mkdir dir1</span><br><span class="line">[root@116v85v26v24 tmp]# mkdir dir2</span><br><span class="line">[root@116v85v26v24 tmp]# touch dir1/file&#123;1..5&#125;</span><br><span class="line">[root@116v85v26v24 tmp]# ls dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# ls dir2</span><br><span class="line">[root@116v85v26v24 tmp]# rsync -va  dir1 dir2/</span><br><span class="line">sending incremental file list</span><br><span class="line">dir1/</span><br><span class="line">dir1/file1</span><br><span class="line">dir1/file2</span><br><span class="line">dir1/file3</span><br><span class="line">dir1/file4</span><br><span class="line">dir1/file5</span><br><span class="line"></span><br><span class="line">sent 279 bytes  received 111 bytes  780.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/</span><br><span class="line">dir1</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# rsync -va  dir1/ dir2/</span><br><span class="line">sending incremental file list</span><br><span class="line">./</span><br><span class="line">file1</span><br><span class="line">file2</span><br><span class="line">file3</span><br><span class="line">file4</span><br><span class="line">file5</span><br><span class="line"></span><br><span class="line">sent 266 bytes  received 110 bytes  752.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/</span><br><span class="line">dir1  file1  file2  file3  file4  file5</span><br></pre></td></tr></table></figure>
@@ -141,140 +171,42 @@
 <h3 id="rsync做为服务运行"><a href="#rsync做为服务运行" class="headerlink" title="rsync做为服务运行"></a>rsync做为服务运行</h3><p>  rsync作为服务是托管给xinetd服务管理的，有以下特点：①进程在后台运行，不受终端影响（关终端不会关闭服务，除非杀死相关进程）②可以用相关参数实现一些功能，比如:日志记录，访问控制，验证登录等</p>
 <h4 id="无密码同步"><a href="#无密码同步" class="headerlink" title="无密码同步"></a>无密码同步</h4><p>修改配置文件 /etc/rsyncd.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/20/rsync/" data-id="cjotf0b37000qx0q3dquto4xz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/11/21/sar/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          sar
-        
+        </div>
       </div>
-    </a>
-  
-  
-    <a href="/2018/11/19/confluence/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">confluence</div>
-    </a>
-  
-</nav>
-
-  
+    </div>
+  </div>
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmdb/">cmdb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续集成/">持续集成</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/cmdb/" style="font-size: 10px;">cmdb</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/持续集成/" style="font-size: 20px;">持续集成</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/11/21/cmdb-需求分析-md/">cmdb-需求分析.md</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/使用dockerfile创建镜像/">使用dockerfile创建镜像</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/mysql/">mysql</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/mysql1/">mysql1</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/grafana/">grafana</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 tiger<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
 
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
+  </body>
 </html>
+

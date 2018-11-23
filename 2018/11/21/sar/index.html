@@ -1,96 +1,126 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-
-  
-  <title>sar | Tiger Keep It Simple Do It Well</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
-<meta name="keywords" content="Linux">
-<meta property="og:type" content="article">
-<meta property="og:title" content="sar">
-<meta property="og:url" content="http://yoursite.com/2018/11/21/sar/index.html">
-<meta property="og:site_name" content="Tiger Keep It Simple Do It Well">
-<meta property="og:description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-21T06:26:21.352Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sar">
-<meta name="twitter:description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="sar">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="Tiger Keep It Simple Do It Well">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
   
     <link rel="alternate" href="/atom.xml" title="Tiger Keep It Simple Do It Well" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
   
+
+  <!-- Site Title -->
+  <title>Tiger Keep It Simple Do It Well</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
   
-  <link rel="stylesheet" href="/css/style.css">
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Tiger Keep It Simple Do It Well</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">sar</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-sar" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/21/sar/" class="article-date">
-  <time datetime="2018-11-21T05:55:33.000Z" itemprop="datePublished">2018-11-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      sar
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> – tiger</p>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-21</span>
+            <span class="time">10:45:22</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/Linux/">#Linux</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p> – tiger</p>
 <h3 id="什么是sar"><a href="#什么是sar" class="headerlink" title="什么是sar"></a>什么是sar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。</span><br></pre></td></tr></table></figure>
 <p>如果你没有安装该软件包，可以使用下面一条命令来安装它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install sysstat</span><br><span class="line"></span><br><span class="line">启动sadc(system activity data collector)服务(sysstat)，这样报告就会被写入到日志文件“/var/log/sa/saDD”中并且已经存在的文档将会被归档。DD表示当前日期。</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start sysstat</span><br><span class="line">[root@localhost ~]# systemctl enable sysstat</span><br><span class="line"></span><br><span class="line">它每隔10分钟收集一次数据并且每天形成一份报告。</span><br></pre></td></tr></table></figure></p>
-<h3 id="sar命令的使用"><a href="#sar命令的使用" class="headerlink" title="sar命令的使用"></a>sar命令的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sar命令常用格式</span><br><span class="line">sar [options] [-A] [-o file] t [n]</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line"></span><br><span class="line">t为采样间隔，n为采样次数，默认值是1；</span><br><span class="line"></span><br><span class="line">-o file表示将命令结果以二进制格式存放在文件中，file 是文件名。</span><br></pre></td></tr></table></figure>
+<h3 id="sar命令的使用"><a href="#sar命令的使用" class="headerlink" title="sar命令的使用"></a>sar命令的使用</h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sar命令常用格式</span><br><span class="line">sar [options] [-A] [-o file] t [n]</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line"></span><br><span class="line">t为采样间隔，n为采样次数，默认值是1；</span><br><span class="line"></span><br><span class="line">-o file表示将命令结果以二进制格式存放在文件中，file 是文件名。</span><br></pre></td></tr></table></figure>
 <h4 id="查看CPU使用率"><a href="#查看CPU使用率" class="headerlink" title="查看CPU使用率"></a>查看CPU使用率</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -u : 默认情况下显示的cpu使用率等信息就是sar -u</span><br></pre></td></tr></table></figure>
 <h4 id="查看平均负载"><a href="#查看平均负载" class="headerlink" title="查看平均负载"></a>查看平均负载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sar -q: 查看平均负载</span><br><span class="line"></span><br><span class="line">指定-q后，就能查看运行队列中的进程数、系统上的进程大小、平均负载等；与其它命令相比，它能查看各项指标随时间变化的情况；</span><br><span class="line">runq-sz：运行队列的长度（等待运行的进程数）</span><br><span class="line">plist-sz：进程列表中进程（processes）和线程（threads）的数量</span><br><span class="line">ldavg-1：最后1分钟的系统平均负载 ldavg-5：过去5分钟的系统平均负载</span><br><span class="line">ldavg-15：过去15分钟的系统平均负载</span><br></pre></td></tr></table></figure>
 <h4 id="网络流量"><a href="#网络流量" class="headerlink" title="网络流量"></a>网络流量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sar -n DEV 网卡</span><br><span class="line"></span><br><span class="line">IFACE 表示设备名称</span><br><span class="line">rxpck/s 每秒接收的包的数量</span><br><span class="line">txpck/s 每秒发出的包的数量</span><br><span class="line">rxKB/s 每秒接收的数据量，单位KByte 1KB=1000byte=8000bit</span><br><span class="line">txKB/s 每秒发出的数据量，单位KByte</span><br><span class="line">若服务器丢包非常严重，需要查看网卡流量是否异常。接收数据部分 rxpck大于4000，或者rxKB大于5000，则有可能被攻击了，正常服务器网卡流量没有这么大。除非自己在拷贝数据。</span><br><span class="line">计算实际速度，取 rxkb或txkb的峰值，换算成KB，比如是686KByte，然后用686*8/1000=5.4MBit</span><br><span class="line">Bytes 字节,缩写为B 【电脑硬盘的最小单位】</span><br><span class="line">bit 位, 1Byte=8bit 【网络中最小的单位】</span><br><span class="line"></span><br><span class="line">bps =bit per second 每秒位数</span><br><span class="line">pps =package per second 每秒数据包 Mb ,Gb,10Gb</span><br><span class="line">10Gb=10000Mb 【电脑中1GB=1024MB，网络中1Gb=1000Mb】</span><br><span class="line"></span><br><span class="line">宽带10Mb，下载速度是1.25MB，10Mb=10Mbit 10Mbit/8=1.25Mbyte=1.25MB</span><br></pre></td></tr></table></figure>
@@ -99,140 +129,42 @@
 <h3 id="sar的综合使用"><a href="#sar的综合使用" class="headerlink" title="sar的综合使用"></a>sar的综合使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">要判断系统瓶颈问题，有时需几个 sar 命令选项结合起来；</span><br><span class="line"></span><br><span class="line">怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</span><br><span class="line">怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</span><br><span class="line">怀疑I/O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</span><br></pre></td></tr></table></figure>
 <h3 id="其他sar参数说明"><a href="#其他sar参数说明" class="headerlink" title="其他sar参数说明"></a>其他sar参数说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-A 汇总所有的报告</span><br><span class="line">-a 报告文件读写使用情况</span><br><span class="line">-B 报告附加的缓存的使用情况</span><br><span class="line">-b 报告缓存的使用情况</span><br><span class="line">-c 报告系统调用的使用情况</span><br><span class="line">-d 报告磁盘的使用情况</span><br><span class="line">-g 报告串口的使用情况</span><br><span class="line">-h 报告关于buffer使用的统计数据</span><br><span class="line">-m 报告IPC消息队列和信号量的使用情况</span><br><span class="line">-n 报告命名cache的使用情况</span><br><span class="line">-p 报告调页活动的使用情况</span><br><span class="line">-q 报告运行队列和交换队列的平均长度</span><br><span class="line">-R 报告进程的活动情况</span><br><span class="line">-r 报告没有使用的内存页面和硬盘块</span><br><span class="line">-u 报告CPU的利用率</span><br><span class="line">-v 报告进程、i节点、文件和锁表状态</span><br><span class="line">-w 报告系统交换活动状况</span><br><span class="line">-y 报告TTY设备活动状况</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/sar/" data-id="cjotf0b2a000cx0q3vjjrtazg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/11/21/grafana/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          grafana
-        
+        </div>
       </div>
-    </a>
-  
-  
-    <a href="/2018/11/20/rsync/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">rsync</div>
-    </a>
-  
-</nav>
-
-  
+    </div>
+  </div>
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmdb/">cmdb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/持续集成/">持续集成</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/cmdb/" style="font-size: 10px;">cmdb</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/mysql/" style="font-size: 13.33px;">mysql</a> <a href="/tags/持续集成/" style="font-size: 20px;">持续集成</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/11/21/cmdb-需求分析-md/">cmdb-需求分析.md</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/使用dockerfile创建镜像/">使用dockerfile创建镜像</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/mysql/">mysql</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/mysql1/">mysql1</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/21/grafana/">grafana</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 tiger<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
 
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
+  </body>
 </html>
+
