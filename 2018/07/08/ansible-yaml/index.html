@@ -100,7 +100,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2018-07-08</span>
-            <span class="time">10:45:22</span>
+            <span class="time">11:36:27</span>
           </span>
           
         </div>
@@ -121,7 +121,8 @@
 <p>我们使用 YAML 是因为它像 XML 或 JSON 是一种利于人们读写的数据格式. 此外在大多数变成语言中有使用 YAML 的库.</p>
 <p>你可能希望读 Playbooks 实践(<a href="http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的" target="_blank" rel="noopener">http://ansible-tran.readthedocs.io/en/latest/docs/playbooks.html)中如何使用的</a>.</p>
 <h3 id="基本的-YAML"><a href="#基本的-YAML" class="headerlink" title="基本的 YAML"></a>基本的 YAML</h3><p>对于 Ansible, 每一个 YAML 文件都是从一个列表开始. 列表中的每一项都是一个键值对, 通常它们被称为一个 “哈希” 或 “字典”. 所以, 我们需要知道如何在 YAML 中编写列表和字典.</p>
-<p>YAML 还有一个小的怪癖. 所有的 YAML 文件(无论和 Ansible 有没有关系)开始行都应该是 <figure class="highlight plain"><figcaption><span>这是 YAML 格式的一部分, 表明一个文件的开始.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">列表中的所有成员都开始于相同的缩进级别, 并且使用一个 ```&quot;- &quot;``` 作为开头(一个横杠和一个空格):</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure></p>
+<p>YAML 还有一个小的怪癖. 所有的 YAML 文件(无论和 Ansible 有没有关系)开始行都应该是 <figure class="highlight plain"><figcaption><span>这是 YAML 格式的一部分, 表明一个文件的开始.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">列表中的所有成员都开始于相同的缩进级别, 并且使用一个 ```&quot;- &quot;``` 作为开头(一个横杠和一个空格):</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>-–<br># 一个美味水果的列表</p>
 <ul>
 <li>Apple</li>
