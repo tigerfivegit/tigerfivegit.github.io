@@ -94,6 +94,33 @@
     <div class="col-lg-10 col-md-10 col-md-offset-1">
       
         <div class="post-item-wrapper">
+  <a href="/2018/12/07/tmux-初探/" class="post-title">
+      tmux-初探
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018-12-07</div>
+      <div class="categories">
+        
+          Uncategorized
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        <div class="untagged">Untagged</div>
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
   <a href="/2018/11/29/hexo-githubpage构建自己的博客/" class="post-title">
       hexo+githubpage构建自己的博客
   </a>
@@ -394,33 +421,6 @@
 <a class="tag" href="/tags/Linux/">Linux</a>
 
 
-      
-    </div>
-  </div>
-</div>
-
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/10/11/docker部署dubbo/" class="post-title">
-      docker部署dubbo
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">2018-10-11</div>
-      <div class="categories">
-        
-          Uncategorized
-        
-      </div>
-    </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```本系列文章中所使用的框架版本为Spring Boot 2.0.3-RELEASE，Spring 5.0.7-RELEASE，Dubbo 2.6.2。</span><br></pre></td></tr></table></figure>
-<h3 id="Docker容器启动参数"><a href="#Docker容器启动参数" class="headerlink" title="Docker容器启动参数"></a>Docker容器启动参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">本文用到的运行参数说明：</span><br><span class="line"></span><br><span class="line">-d: 后台运行容器，并返回容器ID</span><br><span class="line">-i: 以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">–name: 为容器指定一个名称</span><br><span class="line">-e: 设置环境变量</span><br><span class="line">–env-file: 从指定文件读取环境变量</span><br><span class="line">-p: 端口映射，如果不做端口映射，容器外部无法访问容器内部</span><br><span class="line">-v: 文件挂载</span><br><span class="line">–link: 添加链接到容器，在default网络下，默认不会将容器名称解析到容器IP地址，必须要添加link选项才可以。而在自定义网络下，则不需要添加此选项</span><br></pre></td></tr></table></figure></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        <div class="untagged">Untagged</div>
       
     </div>
   </div>

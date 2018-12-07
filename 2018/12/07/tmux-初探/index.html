@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="tmux-初探">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
+  
+    <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">tmux-初探</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-12-07</span>
+            <span class="time">14:27:21</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Tmux功能："><a href="#Tmux功能：" class="headerlink" title="Tmux功能："></a>Tmux功能：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-  提供了强劲的、易于使用的命令行界面。</span><br><span class="line">-  可横向和纵向分割窗口。</span><br><span class="line">-  窗格可以自由移动和调整大小，或直接利用四个预设布局之一。</span><br><span class="line">-  支持 UTF-8 编码及 256 色终端。</span><br><span class="line">-  可在多个缓冲区进行复制和粘贴。</span><br><span class="line">-  可通过交互式菜单来选择窗口、会话及客户端。</span><br><span class="line">-  支持跨窗口搜索。</span><br><span class="line">-  支持自动及手动锁定窗口。</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux安装"><a href="#Tmux安装" class="headerlink" title="Tmux安装"></a>Tmux安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install tmux</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux个性化配置"><a href="#Tmux个性化配置" class="headerlink" title="Tmux个性化配置"></a>Tmux个性化配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">此类配置可以在命令行模式中输入show-options -g查询</span><br><span class="line"></span><br><span class="line">tmux加上下列参数,实现个性化设置</span><br><span class="line">set-option -g base-index 1                        # 窗口的初始序号；默认为0，这里设置为1</span><br><span class="line">set-option -g display-time 5000                   # 提示信息的持续时间；设置足够的时间以避免看不清提示，单位为毫秒</span><br><span class="line">set-option -g repeat-time 1000                    # 控制台激活后的持续时间；设置合适的时间以避免每次操作都要先激活控制台，单位为毫秒</span><br><span class="line">set-option -g status-keys vi                      # 操作状态栏时的默认键盘布局；可以设置为vi或emacs</span><br><span class="line">set-option -g status-utf8 on                      # 开启状态栏的UTF-8支持</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">set-option -g status-bg blue</span><br><span class="line">set-option -g status-fg &apos;#bbbbbb&apos;</span><br><span class="line">set-option -g status-left-fg green</span><br><span class="line">set-option -g status-left-bg blue</span><br><span class="line">set-option -g status-right-fg green</span><br><span class="line">set-option -g status-right-bg blue</span><br><span class="line">set-option -g status-left-length 10               # 状态栏左方的内容长度；</span><br><span class="line">set-option -g status-right-length 15              # 状态栏右方的内容长度；建议把更多的空间留给状态栏左方（用于列出当前窗口）</span><br><span class="line">set-option -g status-left &apos;[#(whoami)]&apos;           # 状态栏左方的内容</span><br><span class="line">set-option -g status-right &apos;[#(date +&quot; %m-%d %H:%M &quot;)]&apos;     # 状态栏右方的内容；这里的设置将得到类似23:59的显示</span><br><span class="line">set-option -g status-justify &quot;centre&quot;             # 窗口列表居中显示</span><br><span class="line">set-option -g default-terminal &quot;screen-256color&quot;  # 支持256色显示</span><br><span class="line">分割窗口边界的颜色</span><br><span class="line">set-option -g pane-active-border-fg &apos;#55ff55&apos;</span><br><span class="line">set-option -g pane-border-fg &apos;#555555&apos;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">此类设置可以在命令行模式中输入show-window-options -g查询</span><br><span class="line">set-window-option -g mode-keys vi    # 复制模式中的默认键盘布局；可以设置为vi或emacs</span><br><span class="line">set-window-option -g utf8 on         # 开启窗口的UTF-8支持</span><br><span class="line">set-window-option -g mode-mouse on   # 窗口切换后让人可以用鼠标上下滑动显示历史输出</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">窗口切分快捷键(没设置成功)</span><br><span class="line">bind \ split-window -h                      # 使用 \ 将窗口竖切</span><br><span class="line">bind - split-window -v                      # 使用 - 将窗口横切</span><br><span class="line">bind K confirm-before -p &quot;kill-window #W? (y/n)&quot; kill-window    # 使用大写 K 来关闭窗口</span><br><span class="line">bind &apos;&quot;&apos; choose-window                      # 双引号选择窗口</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">Pane之间切换的快捷键</span><br><span class="line">bind h select-pane -L                       # 定位到左边窗口的快捷键</span><br><span class="line">bind j select-pane -D                       # 定位到上边窗口的快捷键</span><br><span class="line">bind k select-pane -U                       # 定位到下方窗口的快捷键</span><br><span class="line">bind l select-pane -R                       # 定位到右边窗口的快捷键</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">设置window属性</span><br><span class="line">setw -g window-status-current-bg red</span><br><span class="line">setw -g window-status-current-fg white</span><br><span class="line">setw -g window-status-current-attr bright</span><br><span class="line">setw -g window-status-attr bright</span><br><span class="line">set-option -g window-status-format &apos;#I #W&apos;</span><br><span class="line">set-option -g window-status-current-format &apos; #I #W &apos;</span><br><span class="line">setw -g window-status-current-bg blue</span><br><span class="line">setw -g window-status-current-fg green</span><br><span class="line">不使用prefix键，使用Ctrl和左右方向键方便切换窗口</span><br><span class="line">bind-key -n &quot;C-Left&quot; select-window -t :-</span><br><span class="line">bind-key -n &quot;C-Right&quot; select-window -t :+</span><br></pre></td></tr></table></figure>
+<h3 id="tmux-session-使用介绍"><a href="#tmux-session-使用介绍" class="headerlink" title="tmux session 使用介绍"></a>tmux session 使用介绍</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">运行tmux并开启一个新的会话</span><br><span class="line">tmux</span><br><span class="line"></span><br><span class="line">显示所有会话</span><br><span class="line">tmux ls</span><br><span class="line"></span><br><span class="line">新建会话并指定会话名称（建议制定会话名称，以便了解该会话用途）</span><br><span class="line">tmux new -s &lt;session-name&gt;</span><br><span class="line"></span><br><span class="line">新建会话（不指定会话名称）</span><br><span class="line">tmux new</span><br><span class="line"></span><br><span class="line">接入上一个会话</span><br><span class="line">tmux a</span><br><span class="line"></span><br><span class="line">接入指定名称的会话</span><br><span class="line">tmux a -t &lt;session-name&gt;</span><br><span class="line"></span><br><span class="line">断开当前会话（还可以使用快捷键：control+b，再按d）</span><br><span class="line">tmux detach</span><br><span class="line"></span><br><span class="line">关闭指定会话</span><br><span class="line">tmux kill-session -t session-name</span><br><span class="line"></span><br><span class="line">关闭除指定会话外的所有会话</span><br><span class="line">tmux kill-session -a -t session-name</span><br><span class="line"></span><br><span class="line">在会话中切换</span><br><span class="line">control+b，再按s 显示会话列表，再进行会话切换</span><br><span class="line"></span><br><span class="line">销毁所有会话并停止tmux</span><br><span class="line">tmux kill-serverG</span><br><span class="line"></span><br><span class="line">复制粘贴</span><br><span class="line">Ctrl+b   [          //进入复制模式</span><br><span class="line">空格+方向键      //选择</span><br><span class="line">回车                  //  确认</span><br><span class="line">Ctrl+b  [           //粘贴</span><br></pre></td></tr></table></figure>
+<h3 id="需要注意的几点"><a href="#需要注意的几点" class="headerlink" title="需要注意的几点"></a>需要注意的几点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1）进入tmux面板后，一定要先按ctrl+b，然后松开，再按其他的组合键才生效。</span><br><span class="line"> </span><br><span class="line">2）常用到的几个组合键：</span><br><span class="line">ctrl+b ?            显示快捷键帮助</span><br><span class="line">ctrl+b 空格键       采用下一个内置布局，这个很有意思，在多屏时，用这个就会将多有屏幕竖着展示</span><br><span class="line">ctrl+b !            把当前窗口变为新窗口</span><br><span class="line">ctrl+b  &quot;           模向分隔窗口</span><br><span class="line">ctrl+b %            纵向分隔窗口</span><br><span class="line">ctrl+b q            显示分隔窗口的编号</span><br><span class="line">ctrl+b o            跳到下一个分隔窗口。多屏之间的切换</span><br><span class="line">ctrl+b 上下键      上一个及下一个分隔窗口</span><br><span class="line">ctrl+b C-方向键    调整分隔窗口大小</span><br><span class="line">ctrl+b &amp;           确认后退出当前tmux</span><br><span class="line">ctrl+b [           复制模式，即将当前屏幕移到上一个的位置上，其他所有窗口都向前移动一个。</span><br><span class="line">ctrl+b c           创建新窗口</span><br><span class="line">ctrl+b n           选择下一个窗口</span><br><span class="line">ctrl+b l           最后使用的窗口</span><br><span class="line">ctrl+b p           选择前一个窗口</span><br><span class="line">ctrl+b w           以菜单方式显示及选择窗口</span><br><span class="line">ctrl+b s           以菜单方式显示和选择会话。这个常用到，可以选择进入哪个tmux</span><br><span class="line">ctrl+b t           显示时钟。然后按enter键后就会恢复到shell终端状态</span><br><span class="line">ctrl+b d           脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话</span><br></pre></td></tr></table></figure>
+<h3 id="tmux的常规运维命令"><a href="#tmux的常规运维命令" class="headerlink" title="tmux的常规运维命令"></a>tmux的常规运维命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">1）安装命令：　</span><br><span class="line">[root@Centos6 ~]# yum -y install tmux</span><br><span class="line">　　</span><br><span class="line">2）默认创建一个会话，以数字命名。（不推荐）</span><br><span class="line">[root@Centos6 ~]# tmux</span><br><span class="line">　　</span><br><span class="line">3）新建会话，比如新创建一个会话以&quot;ccc&quot;命名</span><br><span class="line">[root@Centos6 ~]# tmux new -s ccc</span><br><span class="line"> </span><br><span class="line">加上参数-d，表示在后台新建会话</span><br><span class="line">root@bobo:~# tmux new -s shibo -d</span><br><span class="line">root@bobo:~# tmux ls</span><br><span class="line">shibo: 1 windows (created Tue Oct  2 19:22:32 2018) [135x35]</span><br><span class="line"> </span><br><span class="line">4）查看创建得所有会话</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">0: 1 windows (created Wed Aug 30 17:58:20 2017) [112x22](attached)    #这里的attached表示该会话是当前会话</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">ccc: 1 windows (created Wed Aug 30 17:01:05 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">5）登录一个已知会话。即从终端环境进入会话。</span><br><span class="line">第一个参数a也可以写成attach。后面的aaa是会话名称。</span><br><span class="line">[root@Centos6 ~]# tmux a -t aaa </span><br><span class="line">　　</span><br><span class="line">6）退出会话不是关闭：</span><br><span class="line">登到某一个会话后，依次按键ctrl-b + d，这样就会退化该会话，但不会关闭会话。</span><br><span class="line">如果直接ctrl + d，就会在退出会话的通话也关闭了该会话！</span><br><span class="line">   </span><br><span class="line">7）关闭会话（销毁会话）</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">bbb: 1 windows (created Wed Aug 30 19:02:09 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux kill-session -t bbb</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">  </span><br><span class="line">8）重命名会话</span><br><span class="line">[root@Centos6 ~]# tmux ls  </span><br><span class="line">wangshibo: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux rename -t wangshibo kevin</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">kevin: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
