@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sar">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/sar/index.html">
+<meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+<meta property="og:description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-12T04:42:32.677Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sar">
+<meta name="twitter:description" content="– tiger 什么是sar1SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。 如果你没有安装该软件包，可以使用下面一条命令来安装它。12345678[root@lo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/21/sar/">
+
+
+
+
+
+  <title>sar | 当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">当你发现自己的才华撑不起野心时，就请安静下来学习吧</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/sar/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tiger">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sar</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-21T13:55:33+08:00">
+                2018-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> – tiger</p>
+<h3 id="什么是sar"><a href="#什么是sar" class="headerlink" title="什么是sar"></a>什么是sar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。</span><br></pre></td></tr></table></figure>
+<p>如果你没有安装该软件包，可以使用下面一条命令来安装它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install sysstat</span><br><span class="line"></span><br><span class="line">启动sadc(system activity data collector)服务(sysstat)，这样报告就会被写入到日志文件“/var/log/sa/saDD”中并且已经存在的文档将会被归档。DD表示当前日期。</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start sysstat</span><br><span class="line">[root@localhost ~]# systemctl enable sysstat</span><br><span class="line"></span><br><span class="line">它每隔10分钟收集一次数据并且每天形成一份报告。</span><br></pre></td></tr></table></figure></p>
+<h3 id="sar命令的使用"><a href="#sar命令的使用" class="headerlink" title="sar命令的使用"></a>sar命令的使用</h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sar命令常用格式</span><br><span class="line">sar [options] [-A] [-o file] t [n]</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line"></span><br><span class="line">t为采样间隔，n为采样次数，默认值是1；</span><br><span class="line"></span><br><span class="line">-o file表示将命令结果以二进制格式存放在文件中，file 是文件名。</span><br></pre></td></tr></table></figure>
+<h4 id="查看CPU使用率"><a href="#查看CPU使用率" class="headerlink" title="查看CPU使用率"></a>查看CPU使用率</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -u : 默认情况下显示的cpu使用率等信息就是sar -u</span><br></pre></td></tr></table></figure>
+<h4 id="查看平均负载"><a href="#查看平均负载" class="headerlink" title="查看平均负载"></a>查看平均负载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sar -q: 查看平均负载</span><br><span class="line"></span><br><span class="line">指定-q后，就能查看运行队列中的进程数、系统上的进程大小、平均负载等；与其它命令相比，它能查看各项指标随时间变化的情况；</span><br><span class="line">runq-sz：运行队列的长度（等待运行的进程数）</span><br><span class="line">plist-sz：进程列表中进程（processes）和线程（threads）的数量</span><br><span class="line">ldavg-1：最后1分钟的系统平均负载 ldavg-5：过去5分钟的系统平均负载</span><br><span class="line">ldavg-15：过去15分钟的系统平均负载</span><br></pre></td></tr></table></figure>
+<h4 id="网络流量"><a href="#网络流量" class="headerlink" title="网络流量"></a>网络流量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sar -n DEV 网卡</span><br><span class="line"></span><br><span class="line">IFACE 表示设备名称</span><br><span class="line">rxpck/s 每秒接收的包的数量</span><br><span class="line">txpck/s 每秒发出的包的数量</span><br><span class="line">rxKB/s 每秒接收的数据量，单位KByte 1KB=1000byte=8000bit</span><br><span class="line">txKB/s 每秒发出的数据量，单位KByte</span><br><span class="line">若服务器丢包非常严重，需要查看网卡流量是否异常。接收数据部分 rxpck大于4000，或者rxKB大于5000，则有可能被攻击了，正常服务器网卡流量没有这么大。除非自己在拷贝数据。</span><br><span class="line">计算实际速度，取 rxkb或txkb的峰值，换算成KB，比如是686KByte，然后用686*8/1000=5.4MBit</span><br><span class="line">Bytes 字节,缩写为B 【电脑硬盘的最小单位】</span><br><span class="line">bit 位, 1Byte=8bit 【网络中最小的单位】</span><br><span class="line"></span><br><span class="line">bps =bit per second 每秒位数</span><br><span class="line">pps =package per second 每秒数据包 Mb ,Gb,10Gb</span><br><span class="line">10Gb=10000Mb 【电脑中1GB=1024MB，网络中1Gb=1000Mb】</span><br><span class="line"></span><br><span class="line">宽带10Mb，下载速度是1.25MB，10Mb=10Mbit 10Mbit/8=1.25Mbyte=1.25MB</span><br></pre></td></tr></table></figure>
+<h4 id="查看内存使用状况"><a href="#查看内存使用状况" class="headerlink" title="查看内存使用状况"></a>查看内存使用状况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sar -r： 指定-r之后，可查看物理内存使用状况；</span><br><span class="line"></span><br><span class="line">kbmemfree：这个值和free命令中的free值基本一致,所以它不包括buffer和cache的空间.</span><br><span class="line">kbmemused：这个值和free命令中的used值基本一致,所以它包括buffer和cache的空间.</span><br><span class="line">%memused：物理内存使用率，这个值是kbmemused和内存总量(不包括swap)的一个百分比.</span><br><span class="line">kbbuffers和kbcached：这两个值就是free命令中的buffer和cache.</span><br><span class="line">kbcommit：保证当前系统所需要的内存,即为了确保不溢出而需要的内存(RAM+swap).</span><br><span class="line">%commit：这个值是kbcommit与内存总量(包括swap)的一个百分比.</span><br></pre></td></tr></table></figure>
+<h4 id="查看页面交换发生状况"><a href="#查看页面交换发生状况" class="headerlink" title="查看页面交换发生状况"></a>查看页面交换发生状况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sar -W：查看页面交换发生状况</span><br><span class="line"></span><br><span class="line">页面发生交换时，服务器的吞吐量会大幅下降；服务器状况不良时，如果怀疑因为内存不足而导致了页面交换的发生，可以使用这个命令来确认是否发生了大量的交换；</span><br><span class="line"></span><br><span class="line">pswpin/s：每秒系统换入的交换页面（swap page）数量</span><br><span class="line">pswpout/s：每秒系统换出的交换页面（swap page）数量</span><br></pre></td></tr></table></figure>
+<h3 id="sar的综合使用"><a href="#sar的综合使用" class="headerlink" title="sar的综合使用"></a>sar的综合使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">要判断系统瓶颈问题，有时需几个 sar 命令选项结合起来；</span><br><span class="line"></span><br><span class="line">怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</span><br><span class="line">怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</span><br><span class="line">怀疑I/O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看</span><br></pre></td></tr></table></figure>
+<h3 id="其他sar参数说明"><a href="#其他sar参数说明" class="headerlink" title="其他sar参数说明"></a>其他sar参数说明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-A 汇总所有的报告</span><br><span class="line">-a 报告文件读写使用情况</span><br><span class="line">-B 报告附加的缓存的使用情况</span><br><span class="line">-b 报告缓存的使用情况</span><br><span class="line">-c 报告系统调用的使用情况</span><br><span class="line">-d 报告磁盘的使用情况</span><br><span class="line">-g 报告串口的使用情况</span><br><span class="line">-h 报告关于buffer使用的统计数据</span><br><span class="line">-m 报告IPC消息队列和信号量的使用情况</span><br><span class="line">-n 报告命名cache的使用情况</span><br><span class="line">-p 报告调页活动的使用情况</span><br><span class="line">-q 报告运行队列和交换队列的平均长度</span><br><span class="line">-R 报告进程的活动情况</span><br><span class="line">-r 报告没有使用的内存页面和硬盘块</span><br><span class="line">-u 报告CPU的利用率</span><br><span class="line">-v 报告进程、i节点、文件和锁表状态</span><br><span class="line">-w 报告系统交换活动状况</span><br><span class="line">-y 报告TTY设备活动状况</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/20/rsync/" rel="next" title="rsync">
+                <i class="fa fa-chevron-left"></i> rsync
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/21/grafana/" rel="prev" title="grafana">
+                grafana <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tiger</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是sar"><span class="nav-number">1.</span> <span class="nav-text">什么是sar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sar命令的使用"><span class="nav-number">2.</span> <span class="nav-text">sar命令的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看CPU使用率"><span class="nav-number">2.1.</span> <span class="nav-text">查看CPU使用率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看平均负载"><span class="nav-number">2.2.</span> <span class="nav-text">查看平均负载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络流量"><span class="nav-number">2.3.</span> <span class="nav-text">网络流量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看内存使用状况"><span class="nav-number">2.4.</span> <span class="nav-text">查看内存使用状况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看页面交换发生状况"><span class="nav-number">2.5.</span> <span class="nav-text">查看页面交换发生状况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sar的综合使用"><span class="nav-number">3.</span> <span class="nav-text">sar的综合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他sar参数说明"><span class="nav-number">4.</span> <span class="nav-text">其他sar参数说明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tiger</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
