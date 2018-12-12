@@ -1,308 +1,122 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="tmux-初探">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
+  
+    <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="tmux,骚操作,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="Linux终端复用神器-tmux初探1Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的">
-<meta name="keywords" content="tmux,骚操作">
-<meta property="og:type" content="article">
-<meta property="og:title" content="tmux-初探">
-<meta property="og:url" content="http://yoursite.com/2018/12/07/tmux-初探/index.html">
-<meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
-<meta property="og:description" content="Linux终端复用神器-tmux初探1Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-12T04:43:34.275Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tmux-初探">
-<meta name="twitter:description" content="Linux终端复用神器-tmux初探1Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2018/12/07/tmux-初探/">
-
-
-
-
-
-  <title>tmux-初探 | 当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
+    <link rel="icon" href="/favicon.png">
   
 
+  <!-- Site Title -->
+  <title>当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
 
-
-
-
-
+  <!-- Google Analytics -->
+  
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">当你发现自己的才华撑不起野心时，就请安静下来学习吧</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            Archives
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
+  <body>
+    <!-- Page Header -->
 
 
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/tmux-初探/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="tiger">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">tmux-初探</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-07T13:59:25+08:00">
-                2018-12-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">tmux-初探</p>
+          <p class="subtitle"></p>
         </div>
-      </header>
-    
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-12-07</span>
+            <span class="time">13:10:16</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
 
-      
-      
+<a class="tag" href="/tags/tmux/">#tmux</a> <a class="tag" href="/tags/骚操作/">#骚操作</a>
 
-      
-        <h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
 <h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="Tmux功能："><a href="#Tmux功能：" class="headerlink" title="Tmux功能："></a>Tmux功能：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-  提供了强劲的、易于使用的命令行界面。</span><br><span class="line">-  可横向和纵向分割窗口。</span><br><span class="line">-  窗格可以自由移动和调整大小，或直接利用四个预设布局之一。</span><br><span class="line">-  支持 UTF-8 编码及 256 色终端。</span><br><span class="line">-  可在多个缓冲区进行复制和粘贴。</span><br><span class="line">-  可通过交互式菜单来选择窗口、会话及客户端。</span><br><span class="line">-  支持跨窗口搜索。</span><br><span class="line">-  支持自动及手动锁定窗口。</span><br></pre></td></tr></table></figure>
@@ -312,390 +126,42 @@
 <h3 id="需要注意的几点"><a href="#需要注意的几点" class="headerlink" title="需要注意的几点"></a>需要注意的几点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1）进入tmux面板后，一定要先按ctrl+b，然后松开，再按其他的组合键才生效。</span><br><span class="line"> </span><br><span class="line">2）常用到的几个组合键：</span><br><span class="line">ctrl+b ?            显示快捷键帮助</span><br><span class="line">ctrl+b 空格键       采用下一个内置布局，这个很有意思，在多屏时，用这个就会将多有屏幕竖着展示</span><br><span class="line">ctrl+b !            把当前窗口变为新窗口</span><br><span class="line">ctrl+b  &quot;           模向分隔窗口</span><br><span class="line">ctrl+b %            纵向分隔窗口</span><br><span class="line">ctrl+b q            显示分隔窗口的编号</span><br><span class="line">ctrl+b o            跳到下一个分隔窗口。多屏之间的切换</span><br><span class="line">ctrl+b 上下键      上一个及下一个分隔窗口</span><br><span class="line">ctrl+b C-方向键    调整分隔窗口大小</span><br><span class="line">ctrl+b &amp;           确认后退出当前tmux</span><br><span class="line">ctrl+b [           复制模式，即将当前屏幕移到上一个的位置上，其他所有窗口都向前移动一个。</span><br><span class="line">ctrl+b c           创建新窗口</span><br><span class="line">ctrl+b n           选择下一个窗口</span><br><span class="line">ctrl+b l           最后使用的窗口</span><br><span class="line">ctrl+b p           选择前一个窗口</span><br><span class="line">ctrl+b w           以菜单方式显示及选择窗口</span><br><span class="line">ctrl+b s           以菜单方式显示和选择会话。这个常用到，可以选择进入哪个tmux</span><br><span class="line">ctrl+b t           显示时钟。然后按enter键后就会恢复到shell终端状态</span><br><span class="line">ctrl+b d           脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话</span><br></pre></td></tr></table></figure>
 <h3 id="tmux的常规运维命令"><a href="#tmux的常规运维命令" class="headerlink" title="tmux的常规运维命令"></a>tmux的常规运维命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">1）安装命令：　</span><br><span class="line">[root@Centos6 ~]# yum -y install tmux</span><br><span class="line">　　</span><br><span class="line">2）默认创建一个会话，以数字命名。（不推荐）</span><br><span class="line">[root@Centos6 ~]# tmux</span><br><span class="line">　　</span><br><span class="line">3）新建会话，比如新创建一个会话以&quot;ccc&quot;命名</span><br><span class="line">[root@Centos6 ~]# tmux new -s ccc</span><br><span class="line"> </span><br><span class="line">加上参数-d，表示在后台新建会话</span><br><span class="line">root@bobo:~# tmux new -s shibo -d</span><br><span class="line">root@bobo:~# tmux ls</span><br><span class="line">shibo: 1 windows (created Tue Oct  2 19:22:32 2018) [135x35]</span><br><span class="line"> </span><br><span class="line">4）查看创建得所有会话</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">0: 1 windows (created Wed Aug 30 17:58:20 2017) [112x22](attached)    #这里的attached表示该会话是当前会话</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">ccc: 1 windows (created Wed Aug 30 17:01:05 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">5）登录一个已知会话。即从终端环境进入会话。</span><br><span class="line">第一个参数a也可以写成attach。后面的aaa是会话名称。</span><br><span class="line">[root@Centos6 ~]# tmux a -t aaa </span><br><span class="line">　　</span><br><span class="line">6）退出会话不是关闭：</span><br><span class="line">登到某一个会话后，依次按键ctrl-b + d，这样就会退化该会话，但不会关闭会话。</span><br><span class="line">如果直接ctrl + d，就会在退出会话的通话也关闭了该会话！</span><br><span class="line">   </span><br><span class="line">7）关闭会话（销毁会话）</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">bbb: 1 windows (created Wed Aug 30 19:02:09 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux kill-session -t bbb</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">  </span><br><span class="line">8）重命名会话</span><br><span class="line">[root@Centos6 ~]# tmux ls  </span><br><span class="line">wangshibo: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux rename -t wangshibo kevin</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">kevin: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/tmux/" rel="tag"># tmux</a>
-          
-            <a href="/tags/骚操作/" rel="tag"># 骚操作</a>
-          
         </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/29/hexo-githubpage构建自己的博客/" rel="next" title="hexo+githubpage构建自己的博客">
-                <i class="fa fa-chevron-left"></i> hexo+githubpage构建自己的博客
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/10/打造高逼格、可视化的Docker容器监控系统平台/" rel="prev" title="打造高逼格、可视化的Docker容器监控系统平台">
-                打造高逼格、可视化的Docker容器监控系统平台 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">tiger</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">18</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">18</span>
-                  <span class="site-state-item-name">tags</span>
-                
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux终端复用神器-tmux初探"><span class="nav-number">1.</span> <span class="nav-text">Linux终端复用神器-tmux初探</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux的使用场景"><span class="nav-number">2.</span> <span class="nav-text">Tmux的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux功能："><span class="nav-number">3.</span> <span class="nav-text">Tmux功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux安装"><span class="nav-number">4.</span> <span class="nav-text">Tmux安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux个性化配置"><span class="nav-number">5.</span> <span class="nav-text">Tmux个性化配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux-session-使用介绍"><span class="nav-number">6.</span> <span class="nav-text">tmux session 使用介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要注意的几点"><span class="nav-number">7.</span> <span class="nav-text">需要注意的几点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux的常规运维命令"><span class="nav-number">8.</span> <span class="nav-text">tmux的常规运维命令</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
       </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">tiger</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+    </div>
   </div>
+</article>
 
-  
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
 </script>
 
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
-</body>
+  </body>
 </html>
+
