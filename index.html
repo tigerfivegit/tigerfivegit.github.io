@@ -94,6 +94,36 @@
     <div class="col-lg-10 col-md-10 col-md-offset-1">
       
         <div class="post-item-wrapper">
+  <a href="/2018/12/11/InfluxDB基本概念和操作/" class="post-title">
+      InfluxDB基本概念和操作
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018-12-11</div>
+      <div class="categories">
+        
+          Uncategorized
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><h3 id="InfluxDB基本概念"><a href="#InfluxDB基本概念" class="headerlink" title="InfluxDB基本概念"></a>InfluxDB基本概念</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1、数据格式</span><br><span class="line"></span><br><span class="line">在 InfluxDB 中，我们可以粗略的将要存入的一条数据看作一个虚拟的 key 和其对应的 value(field value)。格式如下：</span><br><span class="line"></span><br><span class="line">?</span><br><span class="line">1</span><br><span class="line">cpu_usage,host=server01,region=us-west value=0.64 1434055562000000000</span><br><span class="line">虚拟的 key 包括以下几个部分： database, retention policy, measurement, tag sets, field name, timestamp。</span><br><span class="line"></span><br><span class="line">database: 数据库名，在 InfluxDB 中可以创建多个数据库，不同数据库中的数据文件是隔离存放的，存放在磁盘上的不同目录。</span><br><span class="line">retention policy: 存储策略，用于设置数据保留的时间，每个数据库刚开始会自动创建一个默认的存储策略 autogen，数据保留时间为永久，之后用户可以自己设置，例如保留最近2小时的数据。插入和查询数据时如果不指定存储策略，则使用默认存储策略，且默认存储策略可以修改。InfluxDB 会定期清除过期的数据。</span><br><span class="line">measurement: 测量指标名，例如 cpu_usage 表示 cpu 的使用率。</span><br><span class="line">tag sets: tags 在 InfluxDB 中会按照字典序排序，不管是 tagk 还是 tagv，只要不一致就分别属于两个 key，例如 host=server01,region=us-west 和 host=server02,region=us-west 就是两个不同的 tag set。</span><br><span class="line">tag--标签，在InfluxDB中，tag是一个非常重要的部分，表名+tag一起作为数据库的索引，是“key-value”的形式。</span><br><span class="line">field name: 例如上面数据中的 value 就是 fieldName，InfluxDB 中支持一条数据中插入多个 fieldName，这其实是一个语法上的优化，在实际的底层存储中，是当作多条数据来存储。</span><br><span class="line">timestamp: 每一条数据都需要指定一个时间戳，在 TSM 存储引擎中会特殊对待，以为了优化后续的查询操作。</span><br><span class="line">2、与传统数据库中的名词做比较</span><br><span class="line"></span><br><span class="line">influxDB中的名词	传统数据库中的概念</span><br><span class="line">database	数据库</span><br><span class="line">measurement	数据库中的表</span><br><span class="line">points	表里面的一行数据</span><br></pre></td></tr></table></figure></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/db/">db</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
   <a href="/2018/12/10/打造高逼格、可视化的Docker容器监控系统平台/" class="post-title">
       打造高逼格、可视化的Docker容器监控系统平台
   </a>
@@ -114,7 +144,7 @@
       
         
 
-<a class="tag" href="/tags/监控/">监控</a>
+<a class="tag" href="/tags/监控-docker/">监控,docker</a>
 
 
       
@@ -359,58 +389,6 @@
 <h3 id="什么是sar"><a href="#什么是sar" class="headerlink" title="什么是sar"></a>什么是sar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。</span><br></pre></td></tr></table></figure>
 <p>如果你没有安装该软件包，可以使用下面一条命令来安装它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install sysstat</span><br><span class="line"></span><br><span class="line">启动sadc(system activity data collector)服务(sysstat)，这样报告就会被写入到日志文件“/var/log/sa/saDD”中并且已经存在的文档将会被归档。DD表示当前日期。</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start sysstat</span><br><span class="line">[root@localhost ~]# systemctl enable sysstat</span><br><span class="line"></span><br><span class="line">它每隔10分钟收集一次数据并且每天形成一份报告。</span><br></pre></td></tr></table></figure></p>
 <h3 id="sar命令的使用"><a href="#sar命令的使用" class="headerlink" title="sar命令的使用"></a>sar命令的使用</h3></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/Linux/">Linux</a>
-
-
-      
-    </div>
-  </div>
-</div>
-
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/11/20/rsync/" class="post-title">
-      rsync
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">2018-11-20</div>
-      <div class="categories">
-        
-          Uncategorized
-        
-      </div>
-    </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><h3 id="rsync服务介绍"><a href="#rsync服务介绍" class="headerlink" title="rsync服务介绍"></a>rsync服务介绍</h3><ul>
-<li><p>rsync功能</p>
-<ul>
-<li>做为命令，实现本地-远程文件同步</li>
-<li>做为服务，实现本地-远程文件同步</li>
-</ul>
-</li>
-<li><p>rsync特点</p>
-<ul>
-<li>可以镜像保存整个目录树和文件系统</li>
-<li>可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息</li>
-<li>传输效率高，使用同步算法，至比较变化的</li>
-<li>支持匿名传输，方便网站镜；也可以做验证，加强安全</li>
-</ul>
-</li>
-<li><p>rsync同类服务</p>
-<ul>
-<li>sync同步:刷新文件系统缓存，强制将修改过的数据写入磁盘，并且更新超级块</li>
-<li>async异步:将数据先放到缓冲区，在周期性(一般是30s)的去同步到磁盘</li>
-<li>rsync 远程同步，remote synchronous</li>
-</ul>
-</li>
-</ul></div>
     <!-- Post Tags -->
     <div class="tags">
       
