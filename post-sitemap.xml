@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2018/12/14/zsh-on-my-zsh%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E6%8C%87%E5%8D%97/</loc>
+        <lastmod>2018-12-14T12:32:58.721Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/</loc>
         <lastmod>2018-12-14T12:18:09.752Z</lastmod>
         <changefreq>weekly</changefreq>
