@@ -139,7 +139,10 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">暂无文章摘要</div>
+    <div class="excerpt typo"><p>在讲gtop之前可以先说一下htop,功能类似于top,但是画面比top更出色，更加清晰明了，但是htop已经集成在epel源里边，只需要yum安装即可</p>
+<p>比htop更好看的是gtop，一个比htop更加漂亮美观的命令，但是并没有集成到epel源里面，需要使用npm 命令进行安装</p>
+<p>先来一波效果的展示</p>
+<p><img src="http://static.zybuluo.com/abcdocker/qgqz2x6jgmabjo370fpv4f7b/node.gif" alt="效果图"></p></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -169,7 +172,19 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">暂无文章摘要</div>
+    <div class="excerpt typo"><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+<li>方便的git管理</li>
+</ul>
+<p>支持基本所有的常用操作,图形化操作<br>git代码冲突合并<br>修改对比<br>图形化的git log历史，多分支显示<br>便捷的最新修改记录，git lens<br>多种多样的git插件</p>
+<ul>
+<li>markdown</li>
+</ul>
+<p>多样化的markdown展示<br>能够上传网络图片</p>
+<ul>
+<li><p>代码编写</p>
+<p>多点编辑</p>
+</li>
+</ul></div>
     <!-- Post Tags -->
     <div class="tags">
       
@@ -199,7 +214,12 @@
       </div>
     </div>
     <!-- Post Excerpt -->
-    <div class="excerpt typo">暂无文章摘要</div>
+    <div class="excerpt typo"><h3 id="常用的docker命令"><a href="#常用的docker命令" class="headerlink" title="常用的docker命令"></a>常用的docker命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker network connect     Connect a container to a network</span><br><span class="line">docker network create      Create a network</span><br><span class="line">docker network disconnect  Disconnect a container from a network</span><br><span class="line">docker network inspect     Display detailed information on one or more networks</span><br><span class="line">docker network ls          List networks</span><br><span class="line">docker network prune       Remove all unused networks</span><br><span class="line">docker network rm          Remove one or more networks</span><br></pre></td></tr></table></figure>
+<h3 id="创建网络"><a href="#创建网络" class="headerlink" title="创建网络"></a>创建网络</h3><p>docker的默认网络是名名为<code>docker0</code>的bridge网络，还可以创建自己的bridge网路或者overlay网路。</p>
+<ul>
+<li><code>bridge</code>网络用于在统一宿主机上的容器之间的相互通信</li>
+<li><code>overlay</code>网络用于不同主机之间的互通<br>首先以bridge网络进行测试</li>
+</ul></div>
     <!-- Post Tags -->
     <div class="tags">
       
