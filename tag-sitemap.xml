@@ -101,20 +101,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/tmux/</loc>
-        <lastmod>2018-12-12T04:43:34.275Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</loc>
-        <lastmod>2018-12-12T04:43:34.275Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E7%9B%91%E6%8E%A7/</loc>
         <lastmod>2018-12-14T12:12:20.057Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -145,6 +131,20 @@
     <url>
         <loc>http://yoursite.com/tags/docker/</loc>
         <lastmod>2018-12-14T12:13:16.738Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/tmux/</loc>
+        <lastmod>2018-12-14T12:18:09.752Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</loc>
+        <lastmod>2018-12-14T12:18:09.752Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

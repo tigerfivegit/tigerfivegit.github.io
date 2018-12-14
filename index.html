@@ -310,6 +310,7 @@
     </div>
     <!-- Post Excerpt -->
     <div class="excerpt typo"><h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
+<p>废话不多说来个效果图<br><img src="https://i.loli.net/2018/12/14/5c139f4ab6ad2.jpg" alt="tmux"></p>
 <h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure></div>
     <!-- Post Tags -->
     <div class="tags">
