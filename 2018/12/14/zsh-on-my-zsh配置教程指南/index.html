@@ -100,7 +100,7 @@
           <!-- Date -->
           <span class="date-time info">On
             <span class="date">2018-12-14</span>
-            <span class="time">16:26:38</span>
+            <span class="time">16:32:04</span>
           </span>
           
           <!--  Categories  -->
@@ -126,6 +126,7 @@
 <p>准备<br>查看当前环境shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure></p>
 <p>查看系统自带那些shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure></p>
 <p>安装zsh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install zsh # CentOS</span><br><span class="line">brew install zsh # mac安装</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>将zsh设置为默认shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh # CentOS</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Mac如下</span><br><span class="line"># 在 /etc/shells 文件中加入如下一行</span><br><span class="line">/usr/local/bin/zsh</span><br><span class="line"># 接着运行</span><br><span class="line">chsh -s /usr/local/bin/zsh</span><br></pre></td></tr></table></figure></p>
 <p>可以通过echo $SHELL查看当前默认的shell，如果没有改为/bin/zsh，那么需要重启shell。</p>
 <p>oh-my-zsh</p>
