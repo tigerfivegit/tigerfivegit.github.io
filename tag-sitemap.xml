@@ -137,14 +137,14 @@
 
     <url>
         <loc>http://yoursite.com/tags/Linux/</loc>
-        <lastmod>2018-12-20T03:07:10.226Z</lastmod>
+        <lastmod>2018-12-20T03:16:39.777Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</loc>
-        <lastmod>2018-12-20T03:07:10.226Z</lastmod>
+        <lastmod>2018-12-20T03:16:39.777Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
