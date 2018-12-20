@@ -59,13 +59,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/hexo/</loc>
-        <lastmod>2018-12-19T08:37:17.231Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/vscode/</loc>
         <lastmod>2018-12-19T08:39:44.708Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -137,14 +130,21 @@
 
     <url>
         <loc>http://yoursite.com/tags/Linux/</loc>
-        <lastmod>2018-12-20T03:16:39.777Z</lastmod>
+        <lastmod>2018-12-20T03:18:30.589Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/</loc>
-        <lastmod>2018-12-20T03:16:39.777Z</lastmod>
+        <lastmod>2018-12-20T03:18:30.589Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/hexo/</loc>
+        <lastmod>2018-12-20T03:21:20.242Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
