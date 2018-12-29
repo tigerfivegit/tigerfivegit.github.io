@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="go系列_go语言环境安装">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
+  
+    <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">go系列_go语言环境安装</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-12-29</span>
+            <span class="time">12:00:37</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/go/">go</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/go/">#go</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <h3 id="go语言环境安装"><a href="#go语言环境安装" class="headerlink" title="go语言环境安装"></a>go语言环境安装</h3><p>Go 语言支持以下系统：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Linux</span><br><span class="line">FreeBSD</span><br><span class="line">Mac OS X（也称为 Darwin）</span><br><span class="line">Windows</span><br><span class="line">安装包下载地址为：https://golang.org/dl/。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">如果打不开可以使用这个地址：https://golang.google.cn/dl/。</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>系列说明：本系列是在学习<a href="http://www.runoob.com/go/go-tutorial.html时,自己的笔记,方便自己使用。" target="_blank" rel="noopener">http://www.runoob.com/go/go-tutorial.html时,自己的笔记,方便自己使用。</a></p>
+<p>各个系统对应的包名：<br>| 操作系统 | 包名                           |<br>| ——– | —————————— |<br>| Windows  | go1.4.windows-amd64.msi        |<br>| Linux    | go1.4.linux-amd64.tar.gz       |<br>| Mac      | go1.4.darwin-amd64-osx10.8.pkg |<br>| FreeBSD  | go1.4.freebsd-amd64.tar.gz     |</p>
+<h3 id="UNIX-Linux-Mac-OS-X-和-FreeBSD-安装"><a href="#UNIX-Linux-Mac-OS-X-和-FreeBSD-安装" class="headerlink" title="UNIX/Linux/Mac OS X, 和 FreeBSD 安装"></a>UNIX/Linux/Mac OS X, 和 FreeBSD 安装</h3><p>以下介绍了在UNIX/Linux/Mac OS X, 和 FreeBSD系统下使用源码安装方法：</p>
+<p>1、下载二进制包：go1.4.linux-amd64.tar.gz。</p>
+<p>2、将下载的二进制包解压至 /usr/local目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -C /usr/local -xzf go1.4.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>3、将 /usr/local/go/bin 目录添加至PATH环境变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br></pre></td></tr></table></figure></p>
+<h3 id="Windows-系统下安装"><a href="#Windows-系统下安装" class="headerlink" title="Windows 系统下安装"></a>Windows 系统下安装</h3><p>Windows 下可以使用 .msi 后缀(在下载列表中可以找到该文件，如go1.4.2.windows-amd64.msi)的安装包来安装。</p>
+<p>默认情况下.msi文件会安装在 c:\Go 目录下。你可以将 c:\Go\bin 目录添加到 PATH 环境变量中。添加后你需要重启命令窗口才能生效。</p>
+<h3 id="安装测试"><a href="#安装测试" class="headerlink" title="安装测试"></a>安装测试</h3><p>创建工作目录 C:>Go_WorkSpace。</p>
+<p>文件名: test.go，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">   fmt.Println(&quot;Hello, World!&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用 go 命令执行以上代码输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Go_WorkSpace&gt;go run test.go</span><br><span class="line"></span><br><span class="line">Hello, World!</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+

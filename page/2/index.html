@@ -94,6 +94,122 @@
     <div class="col-lg-10 col-md-10 col-md-offset-1">
       
         <div class="post-item-wrapper">
+  <a href="/2018/11/21/grafana/" class="post-title">
+      grafana
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018-11-21</div>
+      <div class="categories">
+        
+          Uncategorized
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><h2 id="grafana介绍"><a href="#grafana介绍" class="headerlink" title="grafana介绍"></a>grafana介绍</h2><p>Grafana是一个可视化面板（Dashboard），有着非常漂亮的图表和布局展示，功能齐全的度量仪表盘和图形编辑器，支持Graphite、zabbix、InfluxDB、Prometheus和OpenTSDB作为数据源。Grafana主要特性：灵活丰富的图形化选项；可以混合多种风格；支持白天和夜间模式；多个数据源。<br><a href="http://www.ywnds.com/?p=5903" target="_blank" rel="noopener">http://www.ywnds.com/?p=5903</a></p>
+<h2 id="安装grafana"><a href="#安装grafana" class="headerlink" title="安装grafana"></a>安装grafana</h2><p>Centos安装grafana<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]#  wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.2.0-1.x86_64.rpm</span><br><span class="line"></span><br><span class="line">[root@alitiger ~]# yum localinstall grafana-4.2.0-1.x86_64.rpm</span><br></pre></td></tr></table></figure></p></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/监控/">监控</a> <a class="tag" href="/tags/Linux/">Linux</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
+  <a href="/2018/11/21/sar/" class="post-title">
+      sar
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018-11-21</div>
+      <div class="categories">
+        
+          Uncategorized
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><p> – tiger</p>
+<h3 id="什么是sar"><a href="#什么是sar" class="headerlink" title="什么是sar"></a>什么是sar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAR是系统活动报告(System Activity Report)英文单词的首字母缩写。正如它的名字所表示的那样，SAR是一个在Unix和Linux操作系统中用来收集、报告和保存CPU、内存、输入输出端口使用情况的命令。SAR命令可以动态产生报告，也可以把报告保存在日志文件中。</span><br></pre></td></tr></table></figure>
+<p>如果你没有安装该软件包，可以使用下面一条命令来安装它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install sysstat</span><br><span class="line"></span><br><span class="line">启动sadc(system activity data collector)服务(sysstat)，这样报告就会被写入到日志文件“/var/log/sa/saDD”中并且已经存在的文档将会被归档。DD表示当前日期。</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start sysstat</span><br><span class="line">[root@localhost ~]# systemctl enable sysstat</span><br><span class="line"></span><br><span class="line">它每隔10分钟收集一次数据并且每天形成一份报告。</span><br></pre></td></tr></table></figure></p>
+<h3 id="sar命令的使用"><a href="#sar命令的使用" class="headerlink" title="sar命令的使用"></a>sar命令的使用</h3></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/Linux/">Linux</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
+  <a href="/2018/11/20/rsync/" class="post-title">
+      rsync
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2018-11-20</div>
+      <div class="categories">
+        
+          Uncategorized
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><h3 id="rsync服务介绍"><a href="#rsync服务介绍" class="headerlink" title="rsync服务介绍"></a>rsync服务介绍</h3><ul>
+<li><p>rsync功能</p>
+<ul>
+<li>做为命令，实现本地-远程文件同步</li>
+<li>做为服务，实现本地-远程文件同步</li>
+</ul>
+</li>
+<li><p>rsync特点</p>
+<ul>
+<li>可以镜像保存整个目录树和文件系统</li>
+<li>可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息</li>
+<li>传输效率高，使用同步算法，至比较变化的</li>
+<li>支持匿名传输，方便网站镜；也可以做验证，加强安全</li>
+</ul>
+</li>
+<li><p>rsync同类服务</p>
+<ul>
+<li>sync同步:刷新文件系统缓存，强制将修改过的数据写入磁盘，并且更新超级块</li>
+<li>async异步:将数据先放到缓冲区，在周期性(一般是30s)的去同步到磁盘</li>
+<li>rsync 远程同步，remote synchronous</li>
+</ul>
+</li>
+</ul></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/Linux/">Linux</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
   <a href="/2018/11/19/confluence/" class="post-title">
       confluence
   </a>

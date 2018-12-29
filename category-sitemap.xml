@@ -134,8 +134,22 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/categories/%E7%9B%91%E6%8E%A7/</loc>
+        <lastmod>2018-12-29T03:46:02.727Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/categories/go/</loc>
-        <lastmod>2018-12-24T03:47:26.157Z</lastmod>
+        <lastmod>2018-12-29T03:48:30.987Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/mysql/</loc>
+        <lastmod>2018-12-29T04:00:33.603Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

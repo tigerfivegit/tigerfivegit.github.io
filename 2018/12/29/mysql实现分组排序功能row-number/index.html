@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="tiger">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="mysql实现分组排序功能row_number">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="当你发现自己的才华撑不起野心时，就请安静下来学习吧">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="http://yoursite.com">
+  
+    <link rel="alternate" href="/atom.xml" title="当你发现自己的才华撑不起野心时，就请安静下来学习吧" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>当你发现自己的才华撑不起野心时，就请安静下来学习吧</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.dark.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">mysql实现分组排序功能row_number</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/<your-github-username>">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:<your-email-address>">
+                  
+                  Email
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By tiger</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-12-29</span>
+            <span class="time">12:00:39</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/mysql/">mysql</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/mysql/">#mysql</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>今天遇到了一个需求,要求提取若干个省市的数据,但是只展示每个省市的前五条,省市不固定,数量不固定</p>
+<p>最后发现一个类似row_number的功能</p>
+<a id="more"></a>
+<p>创建表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `row_test` (</span><br><span class="line">	`ID` INT(10) NULL DEFAULT NULL,</span><br><span class="line">	`class` INT(10) NULL DEFAULT NULL,</span><br><span class="line">	`score` INT(10) NULL DEFAULT NULL</span><br><span class="line">)</span><br><span class="line">COLLATE=&apos;utf8_general_ci&apos;</span><br><span class="line">ENGINE=InnoDB;</span><br></pre></td></tr></table></figure></p>
+<p>制造数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">insert into row_test values (1,1,80);</span><br><span class="line">insert into row_test values (2,1,80);</span><br><span class="line">insert into row_test values (3,1,80);</span><br><span class="line">insert into row_test values (4,1,80);</span><br><span class="line">insert into row_test values (5,2,80);</span><br><span class="line">insert into row_test values (6,2,80);</span><br><span class="line">insert into row_test values (7,2,80);</span><br><span class="line">insert into row_test values (8,2,80);</span><br><span class="line">insert into row_test values (9,2,80);</span><br><span class="line">insert into row_test values (10,2,80);</span><br><span class="line">insert into row_test values (11,3,80);</span><br><span class="line">insert into row_test values (12,3,80);</span><br><span class="line">insert into row_test values (13,3,80);</span><br><span class="line">insert into row_test values (14,3,80);</span><br><span class="line">insert into row_test values (15,3,80);</span><br><span class="line">insert into row_test values (16,4,80);</span><br><span class="line">insert into row_test values (17,4,80);</span><br><span class="line">insert into row_test values (18,4,80);</span><br><span class="line">insert into row_test values (19,4,80);</span><br><span class="line">insert into row_test values (20,4,80);</span><br></pre></td></tr></table></figure></p>
+<p>对class进行分组(模拟省市),取每个class的前三条数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select id,class,score,rank from (</span><br><span class="line">select b.id,b.class,b.score,@rownum:=@rownum+1 ,</span><br><span class="line">if(@pdept=b.class,@rank:=@rank+1,@rank:=1) as rank,</span><br><span class="line">@pdept:=b.class</span><br><span class="line">from (</span><br><span class="line">select id,class,score from row_test order by id </span><br><span class="line">) b ,(select @rownum :=0 , @pdept := null ,@rank:=0) c ) result</span><br><span class="line">having rank &lt;4 ;</span><br></pre></td></tr></table></figure></p>
+<p>完美实现,如果存在联表,需要根据class数量加上limit。</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
