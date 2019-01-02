@@ -57,20 +57,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/ansible/</loc>
-        <lastmod>2018-12-19T08:48:38.409Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/categories/ansible/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</loc>
-        <lastmod>2018-12-19T08:48:38.409Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</loc>
         <lastmod>2018-12-19T08:49:54.120Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -150,6 +136,34 @@
     <url>
         <loc>http://yoursite.com/categories/mysql/</loc>
         <lastmod>2018-12-29T04:00:33.603Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/ansible/</loc>
+        <lastmod>2018-12-29T05:44:45.719Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/ansible/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</loc>
+        <lastmod>2018-12-29T05:44:45.719Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/linux/</loc>
+        <lastmod>2019-01-02T09:30:26.747Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/linux/java/</loc>
+        <lastmod>2019-01-02T09:30:26.747Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

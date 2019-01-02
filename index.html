@@ -94,6 +94,43 @@
     <div class="col-lg-10 col-md-10 col-md-offset-1">
       
         <div class="post-item-wrapper">
+  <a href="/2019/01/02/Log4j日志配置详解/" class="post-title">
+      Log4j日志配置详解
+  </a>
+  <div class="post-excerpt">
+    <!-- Post Date and Categories -->
+    <div class="date-and-category">
+      <div class="date">2019-01-02</div>
+      <div class="categories">
+        
+          
+
+<a href="/categories/linux/">linux</a> / <a href="/categories/linux/java/">java</a>
+
+        
+      </div>
+    </div>
+    <!-- Post Excerpt -->
+    <div class="excerpt typo"><h2 id="Log4j日志配置详解"><a href="#Log4j日志配置详解" class="headerlink" title="Log4j日志配置详解"></a>Log4j日志配置详解</h2><h3 id="1-Log4j组件"><a href="#1-Log4j组件" class="headerlink" title="1.Log4j组件"></a>1.Log4j组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Loggers(记录器)</span><br><span class="line">Appenders(输出源)</span><br><span class="line">Layouts(布局)</span><br></pre></td></tr></table></figure>
+<p>####1.1. Loggers(记录器)<br>Loggers组件在此系统中被分为五个级别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- DEBUG</span><br><span class="line"></span><br><span class="line">- INFO</span><br><span class="line"></span><br><span class="line">- WARN</span><br><span class="line"></span><br><span class="line">- ERROR</span><br><span class="line"></span><br><span class="line">- FATAL</span><br></pre></td></tr></table></figure></p>
+<p>五个级别的顺序,分别用来指定这条日志信息的重要程度：</p>
+<p>DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL</p>
+<p>Log4j规则：只输出级别不低于设定级别的日志信息，假如Loggers级别设定为INFO，则INFO、WARN、ERROR和FATAL级别的日志信息都会输出，而级别比INFO低的DEBUG则不会输出。<br></p></div>
+    <!-- Post Tags -->
+    <div class="tags">
+      
+        
+
+<a class="tag" href="/tags/Linux/">Linux</a> <a class="tag" href="/tags/java/">java</a>
+
+
+      
+    </div>
+  </div>
+</div>
+
+      
+        <div class="post-item-wrapper">
   <a href="/2018/12/29/mysql实现分组排序功能row-number/" class="post-title">
       mysql实现分组排序功能row_number
   </a>
@@ -722,41 +759,6 @@
     <div class="excerpt typo"><h2 id="数据库基本操作"><a href="#数据库基本操作" class="headerlink" title="数据库基本操作"></a>数据库基本操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库的增删改查</span><br></pre></td></tr></table></figure>
 <h3 id="库操作"><a href="#库操作" class="headerlink" title="库操作"></a>库操作</h3><p><strong>创建库</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; create database db1;</span><br></pre></td></tr></table></figure></p>
 <h3 id="查看库"><a href="#查看库" class="headerlink" title="查看库"></a><strong>查看库</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; show databases; </span><br><span class="line">mysql &gt; show create databasee db1;  //更详细的查看库</span><br></pre></td></tr></table></figure></div>
-    <!-- Post Tags -->
-    <div class="tags">
-      
-        
-
-<a class="tag" href="/tags/mysql/">mysql</a> <a class="tag" href="/tags/sql/">sql</a>
-
-
-      
-    </div>
-  </div>
-</div>
-
-      
-        <div class="post-item-wrapper">
-  <a href="/2018/11/21/mysql1/" class="post-title">
-      mysql1
-  </a>
-  <div class="post-excerpt">
-    <!-- Post Date and Categories -->
-    <div class="date-and-category">
-      <div class="date">2018-11-21</div>
-      <div class="categories">
-        
-          Uncategorized
-        
-      </div>
-    </div>
-    <!-- Post Excerpt -->
-    <div class="excerpt typo"><p>###前言<br>SQL语句主要分为三大类</p>
-<p>DDL语句<br>DDL是数据定义语句,是对数据库内部的对象进行创建、删除、修改等操作的语句.create、drop、alter等(DBA常用)</p>
-<p>DML语句<br>DML是数据操作语句,指对数据库表记录的基本操作，insert、update、delete、select等(开发常用)</p>
-<p>DCL语句<br>DCL是数据控制语句,用于控制不同数据段直接的许可和访问级别的语句.定义了数据库、表、字段、用户的访问权限和安全级别.主要是grant、revoke等(DBA常用)</p>
-<p>DML语句</p>
-<h3 id="插入记录"><a href="#插入记录" class="headerlink" title="插入记录"></a>插入记录</h3><p>建好表之后，往表里边插入数据<br>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO tablename (field1,field2,...,fieldn) VALUES(value1,value2,...,valuen);</span><br></pre></td></tr></table></figure></p></div>
     <!-- Post Tags -->
     <div class="tags">
       
