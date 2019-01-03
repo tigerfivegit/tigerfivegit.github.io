@@ -10,13 +10,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/sql/</loc>
-        <lastmod>2018-12-12T04:41:10.939Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/svn/</loc>
         <lastmod>2018-12-12T04:43:00.554Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -129,13 +122,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/mysql/</loc>
-        <lastmod>2018-12-29T04:00:33.603Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</loc>
         <lastmod>2018-12-29T05:44:45.719Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -159,6 +145,20 @@
     <url>
         <loc>http://yoursite.com/tags/java/</loc>
         <lastmod>2019-01-02T09:30:26.747Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/mysql/</loc>
+        <lastmod>2019-01-03T05:49:42.066Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/sql/</loc>
+        <lastmod>2019-01-03T05:49:42.066Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

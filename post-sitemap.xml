@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2018/11/21/mysql/</loc>
+        <lastmod>2019-01-03T05:49:42.066Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2019/01/02/Log4j%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
         <lastmod>2019-01-02T09:30:26.747Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -202,14 +210,6 @@
     <url>
         <loc>http://yoursite.com/2018/11/20/rsync/</loc>
         <lastmod>2018-12-12T04:42:01.924Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/2018/11/21/mysql/</loc>
-        <lastmod>2018-12-12T04:41:10.939Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
