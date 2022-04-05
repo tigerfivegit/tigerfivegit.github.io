@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、变量(variable)1、概要 要想要说变量，首先，要理解，编程是什么。编程，就是我们告诉计算机，你要帮我做什么。在这个过程中，有人、编程语言 、计算机三个角色，因为计算机是看不懂人类的语言的，而我们也无法直接地告诉计算机要做什么，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5、变量与常量.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/5%E3%80%81%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、变量(variable)1、概要 要想要说变量，首先，要理解，编程是什么。编程，就是我们告诉计算机，你要帮我做什么。在这个过程中，有人、编程语言 、计算机三个角色，因为计算机是看不懂人类的语言的，而我们也无法直接地告诉计算机要做什么，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.648Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.648Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/5%E3%80%81%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>5、变量与常量.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/5%E3%80%81%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5、变量与常量.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、变量-variable"><a href="#一、变量-variable" class="headerlink" title="一、变量(variable)"></a>一、变量(variable)</h2><h3 id="1、概要"><a href="#1、概要" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>要想要说变量，首先，要理解，编程是什么。编程，就是我们告诉计算机，你要帮我做什么。在这个过程中，有人、编程语言 、计算机三个角色，因为计算机是看不懂人类的语言的，而我们也无法直接地告诉计算机要做什么，</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="2-、什么是变量"><a href="#2-、什么是变量" class="headerlink" title="2 、什么是变量"></a>2 、什么是变量</h3><blockquote>
+<p>变：变化，核心在与变化 量：衡量，计量，表达是一种状态</p>
+<p>我们初学计算机语言的时候，就接触到了变量的概念，当然，那时候不可能给出精确的定义，很多书在讲的时候就像大家看到了变量这个词大概就能知道它是什么一样无需解释，比如《C语言程序设计》里直接就提到了变量的说明而没有说什么是变量。当我们带着这种模糊的感觉变成“有经验”的程序员时，似乎已经没人在意变量究竟是什么了</p>
+<p>​    In computer programming, a variable is a storage location and an associated symbolic name (an identifier) which contains some known or unknown quantity or information, a value</p>
+<p>变量是一个<strong>存储位置</strong>和一个关联的<strong>符号名字</strong>，这个<strong>存储位置</strong>包含了一些已知或未知的量或者信息，即值，所有理解变量要从这三个方面去理解</p>
+<ol>
+<li>名字（运行时会变成数字化的名字，内存地址）</li>
+<li>存储位置（某一位置开始的一定大小的存储空间）</li>
+<li>该存储位置里内容的解释方式（即类型，整数、浮点数还是字符串？）</li>
+</ol>
+</blockquote>
+<h2 id="二、变量声明与赋值"><a href="#二、变量声明与赋值" class="headerlink" title="二、变量声明与赋值"></a>二、变量声明与赋值</h2><h3 id="1、变量声明"><a href="#1、变量声明" class="headerlink" title="1、变量声明"></a>1、变量声明</h3><blockquote>
+<p>在Python中，变量不需要明确的声明类型来保留内存空间。当向变量分配值时，Python会自动发出声明。 等号(<code>=</code>)用于为变量赋值。Python 中的变量不需要声明。每个变量在使用前都必须赋值，变量赋值以后该变量才会被创建</p>
+</blockquote>
+<h3 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><ol>
+<li><p>基础使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">number1 = <span class="number">1</span> <span class="comment">#整形</span></span><br><span class="line">number2 = <span class="number">1.2</span> <span class="comment">#浮点型</span></span><br><span class="line">s= <span class="string">&#x27;字符串&#x27;</span> <span class="comment">#字符串类型</span></span><br><span class="line">t = Ture <span class="comment">#布尔类型</span></span><br></pre></td></tr></table></figure></li>
+<li><p>多重赋值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#不同的变量赋同一个值</span></span><br><span class="line">x=y=z=<span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>多元赋值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#多元赋值</span></span><br><span class="line"><span class="comment">#等号两边是元组 通常元组需要小括号,此处可以忽略</span></span><br><span class="line">x,y,z = <span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;a&#x27;</span></span><br><span class="line"><span class="comment">#建议加上小括号,增加可读性</span></span><br><span class="line">(x,y,z) = (<span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;a&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>变量交换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line">y =<span class="string">&#x27;3&#x27;</span></span><br><span class="line">x,y = y,x</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、变量的内存模型"><a href="#三、变量的内存模型" class="headerlink" title="三、变量的内存模型"></a>三、变量的内存模型</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
+<p>虽然 <code>python</code> 的变量使用起来非常简单，但是理解变量的内存模型也是非常重要的。</p>
+</blockquote>
+<h3 id="2、示例代码-1"><a href="#2、示例代码-1" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><ol>
+<li><p>示例1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;abc&quot;</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">b = a</span><br><span class="line">b = <span class="string">&quot;xyz&quot;</span></span><br><span class="line"><span class="built_in">print</span>(a)   <span class="comment"># abc</span></span><br><span class="line"><span class="built_in">print</span>(b)   <span class="comment"># xyz</span></span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+</li>
+</ol>
+<ul>
+<li><p>第1行代码做了3件事情：</p>
+<p>1、在内存中创建了一个字符串<code>&quot;abc&quot;</code></p>
+<p>2、在内容创建了一个变量，变量名为<code>a</code></p>
+<p>3、字符串<code>&quot;abc&quot;</code>在内存中的地址赋值给变量 <code>a</code>。即可以理解为变量 <code>a</code> 指向了字符串 <code>&quot;abc&quot;</code></p>
+</li>
+<li><p>第3行代码做了2件事情：</p>
+<p>1、创建一个变量，变量名是 <code>b</code></p>
+<p>2、把 变量 <code>a</code> 的值赋给变量 <code>b</code>。因为 <code>a</code> 中是存储的字符串 <code>&quot;abc&quot;</code> 的内存地址，则变量 <code>b</code> 存储的也是字符串 <code>&quot;abc&quot;</code> 的内存地址。即变量  <code>b</code> 也指向了字符串 <code>&quot;abc&quot;</code></p>
+</li>
+<li><p>第5行代码做了2件事情：</p>
+<p>1、在内存中创建了一个字符串<code>&quot;xyz&quot;</code></p>
+<p>2、字符串<code>&quot;xyz&quot;</code>在内存中的地址赋值给变量 <code>b</code>。则 <code>b</code> 中的值被更换为字符串 <code>&quot;xyz&quot;</code> 的内存地址， <code>b</code> 与 字符串 <code>&quot;abc&quot;</code> 则再无关系。</p>
+</li>
+</ul>
+<h3 id="3、总结"><a href="#3、总结" class="headerlink" title="3、总结"></a>3、总结</h3><blockquote>
+<p>计算机要处理的数据各种各样，每种数据的类型是不一样的，比如有的是数字，有的是字符串等。所以 python 把数据分成了多种类型。</p>
+<p>但是有一点要注意：由于 python 是弱类型语言，变量存储的值的类型并不固定。所以 <strong>不应该说变量的类型，而应该说变量的值的类型</strong>。</p>
+</blockquote>
+<h2 id="四、变量命名规范"><a href="#四、变量命名规范" class="headerlink" title="四、变量命名规范"></a>四、变量命名规范</h2><ol>
+<li><p>变量名可以包括字母、数字、下划线，但是数字不能做为开头。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name1 = <span class="string">&#x27;老王&#x27;</span> <span class="comment">#合法变量名，</span></span><br><span class="line">1name=<span class="string">&#x27;老王&#x27;</span>  <span class="comment">#错误声明</span></span><br></pre></td></tr></table></figure></li>
+<li><p>系统关键字不能做变量名使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> = <span class="number">1</span> <span class="comment">#错误</span></span><br><span class="line"><span class="keyword">class</span> = <span class="string">&#x27;werner&#x27;</span><span class="comment">#错误</span></span><br></pre></td></tr></table></figure></li>
+<li><p>除了下划线之个，其它符号不能做为变量名使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$name=<span class="string">&#x27;jack&#x27;</span> <span class="comment">#错误</span></span><br><span class="line">user_name=<span class="string">&#x27;jack&#x27;</span> <span class="comment">#正确(推荐命名,单词之间用下划线隔开,字母全部小写)</span></span><br><span class="line">userName =<span class="string">&quot;rose&quot;</span> <span class="comment">#正确</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Python的变量名是除分大小写的，例如：name和Name就是两个变量名，而非相同变量哦。 </p>
+</li>
+<li><p>变量命名尽量起的有意义,而且使用前尽量先赋值</p>
+</li>
+</ol>
+<h2 id="五、常量"><a href="#五、常量" class="headerlink" title="五、常量"></a>五、常量</h2><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><blockquote>
+<p>python中没有专门定义常量的方式，通常使用大写变量名表示。常量是一旦初始化之后就不能修改的固定值。例如:数字”5”,字符串”abc”都是常量</p>
+<p><strong>通常用全部大写的变量名表示常量</strong></p>
+</blockquote>
+<h3 id="2、示例代码-2"><a href="#2、示例代码-2" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><ol>
+<li><p>示例1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SYS_VERSION=<span class="number">1</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">但事实上 SYS_VERSION 仍然是一个变量，Python 根本没有任何机制保证 SYS_VERSION不会被 改变，所以，用全部大写的变量名表示常量只是一个习惯上的用法，如 果你一定要改变变量 SYS_VERSION 的值，也没人能拦住你</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>示例2</p>
+<p>Python中并没有提供定义常量的保留字。Python是一门功能强大的语言，可以自己定义一个常量类来实现常量的功能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#fileName:const.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">_const</span>:</span><br><span class="line">  <span class="keyword">class</span> <span class="title class_">ConstError</span>(<span class="title class_ inherited__">TypeError</span>):<span class="keyword">pass</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__setattr__</span>(<span class="params">self,name,value</span>):</span><br><span class="line">    <span class="keyword">if</span> name <span class="keyword">in</span> self.__dict__:</span><br><span class="line">      <span class="keyword">raise</span> self.ConstError(<span class="string">&quot;Can&#x27;t rebind const(%s)&quot;</span>%name)</span><br><span class="line">    self.__dict__[name] = value</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.modules[__name__] = _const()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> const</span><br><span class="line">const.name=<span class="string">&#x27;老王&#x27;</span></span><br><span class="line">const.name=<span class="string">&#x27;小明&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/39%E3%80%81%E9%80%92%E5%BD%92/" rel="prev" title="39、递归.md">
+      <i class="fa fa-chevron-left"></i> 39、递归.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/6%E3%80%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="next" title="6、输入输出.md">
+      6、输入输出.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8F%98%E9%87%8F-variable"><span class="nav-number">1.</span> <span class="nav-text">一、变量(variable)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">2 、什么是变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%8E%E8%B5%8B%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">二、变量声明与赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">1、变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">2、示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">三、变量的内存模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">1、简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-number">3.2.</span> <span class="nav-text">2、示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">3.3.</span> <span class="nav-text">3、总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="nav-number">4.</span> <span class="nav-text">四、变量命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%B8%B8%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">五、常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">5.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-2"><span class="nav-number">5.2.</span> <span class="nav-text">2、示例代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

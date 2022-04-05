@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="错误与异常一、概要 ​    一个程序即使没有任何语法错误，即使解题的逻辑也正确，在执行的时候仍然可能出现 各种“运行时错误”，导致程序无法按照预定的步骤顺利执行、正常结束。其后果是要么由系 统强行中止程序的运行，要么程序带着错误继续运行而得出错误的结果。这类运行时错误称 为异常或例外（exception）。产生异常的原因是复杂而多样的，既有程序设计的问题，也有运行环境的问题，如除数为零、用户输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="26、异常处理.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/26%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="错误与异常一、概要 ​    一个程序即使没有任何语法错误，即使解题的逻辑也正确，在执行的时候仍然可能出现 各种“运行时错误”，导致程序无法按照预定的步骤顺利执行、正常结束。其后果是要么由系 统强行中止程序的运行，要么程序带着错误继续运行而得出错误的结果。这类运行时错误称 为异常或例外（exception）。产生异常的原因是复杂而多样的，既有程序设计的问题，也有运行环境的问题，如除数为零、用户输入">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.634Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.634Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/26%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>26、异常处理.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/26%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          26、异常处理.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="错误与异常"><a href="#错误与异常" class="headerlink" title="错误与异常"></a>错误与异常</h1><h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>​    一个程序即使没有任何语法错误，即使解题的逻辑也正确，在执行的时候仍然可能出现 各种“运行时错误”，导致程序无法按照预定的步骤顺利执行、正常结束。其后果是要么由系 统强行中止程序的运行，要么程序带着错误继续运行而得出错误的结果。这类运行时错误称 为异常或例外（exception）。产生异常的原因是复杂而多样的，既有程序设计的问题，也有运行环境的问题，如除数为零、用户输入数据的类型或个数不对、列表索引越界,写入文件的时候，磁盘满了，或者从网络抓取数据，网络突然断掉了等等。</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>如果一个程序很容易受到异常的影响而崩溃（即中止执行），那就不是好的程序，因为程序崩溃意味着无法完成预定的计算，不能满足用户的需求。另外，程序崩溃时系统一般会输出一堆错误消息，这些消息对程序员来说没啥大不了，但对普通用户来说则是难以理解的一 堆技术术语。用户不知道发生了什么，也不知道该如何处理。</p>
+<p>​    因此，程序员必须在程序中加入处理错误的代码，以便在发生错误的情况下能自己处理 错误，使程序错误对用户是不可见的。这样的程序在发生错误的情况下也能正常结束而非崩 溃，并且显示给用户的也是可理解的友好的信息。我们称这样的程序是健壮的（robust）</p>
+<p>​    程序开发时，很难将所有的特殊情况都处理的面面俱到，通过异常捕获可以针对突发事件做集中的处理，从而保证程序的稳定性和健壮性</p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/exceptions.html#bltin-exceptions">官方文档</a></p>
+</blockquote>
+<p>二、为什么要使用异常</p>
+<ol>
+<li>错误处理，当python检查程序运行时的错误就引发异常，你可以在程序里捕捉和处理这些错误，或者忽略它们。</li>
+<li>事件通知，异常也可以作为某种条件的信号，而不需要在程序里传送结果标志或显式地测试它们。</li>
+<li>特殊情形处理，有时有些情况是很少发生的，把相应的处理代码改为异常处理会更好一些。</li>
+<li>奇特的控制流，异常是一个高层次的”goto”，可以把它作为实现奇特的控制流的基础。如反向跟踪等。</li>
+</ol>
+<h2 id="二、异常处理"><a href="#二、异常处理" class="headerlink" title="二、异常处理"></a>二、异常处理</h2><h3 id="1、概要"><a href="#1、概要" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>程序运行时如果发生错误，就“抛出”一个异常，而系统能够“捕获”这个异常并执行特定的异常处理代码，即使一条语句或表达式在语法上是正确的，当试图执行它时也可能会引发错误。运行期检测到的错误称为<em>异常</em>，并且程序不会无条件的崩溃,</p>
+</blockquote>
+<h3 id="2、捕获异常"><a href="#2、捕获异常" class="headerlink" title="2、捕获异常"></a>2、捕获异常</h3><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    &lt;语句块&gt; </span><br><span class="line"><span class="keyword">except</span> 异常类名 <span class="keyword">as</span> err:</span><br><span class="line">    &lt;异常处理语句块&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ol start="2">
+<li><p>解释</p>
+<ul>
+<li>执行&lt;语句块&gt;，如果一切正常，执行结束后控制转向 try-except 的下一条语句</li>
+<li>如果执行过程中发生了异常，则控制转向异常处理语句块，执行结束后控制转向 try-except 的下一条语句。</li>
+</ul>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    name = <span class="string">&#x27;laowang&#x27;</span></span><br><span class="line">    <span class="built_in">print</span>(name[<span class="number">7</span>])</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;索引越界&#x27;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">IndexError: string index out of range</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>索引越界错误发生之后，控制自动转到 except 子句下面的处理代码，处理完毕还可以继 续执行程序的其他语句。如果没有错误，则忽略 except 部分。</p>
+</li>
+<li><p>优点</p>
+<p>使用异常处理机制可以使程序的核心算法代码与错误处理代码相互分离，从而保持程序结构的清晰。如果要了解程序的主要算法，只需读 try 下面的语句块,例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    do_something1() </span><br><span class="line">    do_something2() </span><br><span class="line">    do_something3()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    do_error()</span><br></pre></td></tr></table></figure>
+
+<p>显然这种形式的代码既能保持算法逻辑的清晰完整，又能实现错误检测,</p>
+</li>
+</ol>
+<h3 id="3、捕获多个异常"><a href="#3、捕获多个异常" class="headerlink" title="3、捕获多个异常"></a>3、捕获多个异常</h3><ol>
+<li><p>概要</p>
+<p>以上用到的简单形式的 try 语句不加区分地对所有错误进行相同的处理，如果需要对不同错误类型进行不同的处理，则可使用更精细的控制</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	&lt;语句&gt;        <span class="comment">#运行核心代码</span></span><br><span class="line"><span class="keyword">except</span> &lt;名字&gt;：</span><br><span class="line">	&lt;语句&gt;        <span class="comment">#如果在try部份引发了&#x27;name&#x27;异常</span></span><br><span class="line"><span class="keyword">except</span> &lt;名字&gt;，&lt;数据&gt;:</span><br><span class="line">	&lt;语句&gt;        <span class="comment">#如果引发了&#x27;name&#x27;异常，获得附加的数据</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	&lt;语句&gt;        <span class="comment">#如果没有异常发生</span></span><br></pre></td></tr></table></figure></li>
+<li><p>解释</p>
+<ul>
+<li><p>执行&lt;语句块&gt;，如果一切正常，执行结束后控制转向 try-except 的下一条语句； </p>
+</li>
+<li><p>如果执行过程中发生了异常，则系统依次检查各个 except 子句试图找到与所发生的异常相匹 配的错误类型。</p>
+</li>
+<li><p>如果找到，就执行相应的异常处理语句块，</p>
+</li>
+<li><p>如果找不到则执行最后一个 except 子句下的缺省异常处理语句块。</p>
+</li>
+<li><p>异常处理结束后控制转到 try-except 的下一条语句。</p>
+</li>
+<li><p>注意: 最后一个不含错误类型的 except 子句是可选的，用于捕获所有未预料到的错误类型。如果未 </p>
+<p>使用最后这个 except 子句，那么当异常与所有错误类型都不匹配时，则由 Python 解释器捕获 异常并处理之</p>
+</li>
+</ul>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">异常类型：当python解释器抛出异常时，最后一行错误信息的第一个单词，就是错误类型</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 提示用户输入一个整数</span></span><br><span class="line">    num = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;请输入一个整数：&quot;</span>))</span><br><span class="line">    <span class="comment"># 使用10除以该数字并输出</span></span><br><span class="line">    result = <span class="number">10</span> / num</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;计算机不能除零&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">except</span> ValueError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;您输入的不是整数。。&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;程序正常结束：over。。&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、finally"><a href="#4、finally" class="headerlink" title="4、finally"></a>4、finally</h3><ol>
+<li><p>说明</p>
+<p>python总会执行finally子句，无论try子句执行时是否发一异常。</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 可能产生异常的代码</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> 异常类型 <span class="keyword">as</span> result:</span><br><span class="line">  	<span class="comment"># 产生异常，执行此处</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;产生错误了:%s&#x27;</span>% result)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">  	<span class="comment"># 无论是否产生异常，此处的代码一定会被执行</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;真高兴&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>解释</p>
+<ul>
+<li>如果没有发生异常，python运行try子句，然后是finally子句，然后继续。</li>
+<li>如果在try子句发生了异常，python就会回来执行finally子句，然后把异常递交给上层try，控制流不会通过整个try语句</li>
+</ul>
+</li>
+</ol>
+<h3 id="5、raise"><a href="#5、raise" class="headerlink" title="5、raise"></a>5、raise</h3><ol>
+<li><p>说明</p>
+<p>允许程序员强制抛出一个指定的异常</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">raise</span> &lt;name&gt;</span><br><span class="line"><span class="keyword">raise</span> &lt;name&gt;,&lt;data&gt;</span><br><span class="line"><span class="keyword">raise</span></span><br></pre></td></tr></table></figure></li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">raise</span> NameError(<span class="string">&#x27;手动抛出异常&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">thorw_err</span>():</span><br><span class="line">     <span class="keyword">raise</span> Exception(<span class="string">&quot;抛出一个异常&quot;</span>)</span><br><span class="line">        </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">throw_error</span>():</span><br><span class="line">  <span class="keyword">raise</span> Exception(<span class="string">&quot;抛出一个异常&quot;</span>) <span class="comment">#异常被抛出，print函数无法执行</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;大吉大利!今晚吃鸡!&quot;</span>)        </span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+<p>如果你需要明确一个异常是否抛出，但不想处理它，raise 语句可以让你很简单的重新抛出该异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> NameError(<span class="string">&#x27;手动抛出异常&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;不好了!不好了!出BUG了&#x27;</span>)</span><br><span class="line">    <span class="keyword">raise</span></span><br></pre></td></tr></table></figure></li>
+<li><p>注意事项</p>
+<p>要抛出的异常由 raise的唯一参数标识。它必需是一个异常实例或异常类（继承自 Exception的类）。</p>
+</li>
+</ol>
+<h3 id="6、完整的异常"><a href="#6、完整的异常" class="headerlink" title="6、完整的异常"></a>6、完整的异常</h3><ol>
+<li><p>说明</p>
+<p>在实际开发中，为了能够处理复杂的异常情况，要使用完整的异常语法。</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="comment"># 尝试执行的代码</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> 错误类型<span class="number">1</span>:</span><br><span class="line">	<span class="comment"># 针对于错误类型1，对应的的代码处理</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> (错误类型<span class="number">2</span>, 错误类型<span class="number">3</span>):</span><br><span class="line">	<span class="comment"># 针对于错误类型2 和 3，对应的的代码处理</span></span><br><span class="line">	<span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> result:</span><br><span class="line">  	<span class="comment"># 打印错误信息,未知类型异常</span></span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  	<span class="comment"># 没有异常才会执行的代码</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">  	<span class="comment"># 无论是否有异常，都会执行的代码</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;无论是否有异常，此处代码都会执行&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&quot;testfile&quot;</span>, <span class="string">&quot;w&quot;</span>)</span><br><span class="line">    f.write(<span class="string">&quot;用于测试异常!!&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Error: 没有找到文件或读取文件失败&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> (内容写入文件成功<span class="string">&quot;)</span></span><br><span class="line"><span class="string">finally:</span></span><br><span class="line"><span class="string">     f.close()</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、用户自定义异常"><a href="#三、用户自定义异常" class="headerlink" title="三、用户自定义异常"></a>三、用户自定义异常</h2><h3 id="1、概括"><a href="#1、概括" class="headerlink" title="1、概括"></a>1、概括</h3><blockquote>
+<p>有些时候我们需要创建自己的异常类，这个类就像其他类一样，只要是确保从Exception类继承<br>不管是间接继承还是直接继承，也就是是继承其他内建异常类也是可以的</p>
+</blockquote>
+<h3 id="2、自定义异常"><a href="#2、自定义异常" class="headerlink" title="2、自定义异常"></a>2、自定义异常</h3><ol>
+<li><p>写一个类继承Exception类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class NetworkError(Exception):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></li>
+<li><p>或者继承他的子类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class HostnameError(NetworkError):</span><br><span class="line">    pass</span><br><span class="line">class TimeoutError(NetworkError):</span><br><span class="line">    pass</span><br><span class="line">class ProtocolError(NetworkError):</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>自定义异常类应该总是继承自内置的 <code>Exception</code> 类， 或者是继承自那些本身就是从 <code>Exception</code> 继承而来的类。 尽管所有类同时也继承自 <code>BaseException</code> ，但你不应该使用这个基类来定义新的异常。<code>BaseException</code> 是为系统退出异常而保留的，比如 <code>KeyboardInterrupt</code> 或 <code>SystemExit</code> 以及其他那些会给应用发送信号而退出的异常。 因此，捕获这些异常本身没什么意义。 这样的话，假如你继承 <code>BaseException</code> 可能会导致你的自定义异常不会被捕获而直接发送信号退出程序运行。</p>
+</li>
+</ol>
+<h2 id="四、异常的传递"><a href="#四、异常的传递" class="headerlink" title="四、异常的传递"></a>四、异常的传递</h2><h3 id="1、异常的嵌套"><a href="#1、异常的嵌套" class="headerlink" title="1、异常的嵌套"></a>1、异常的嵌套</h3><blockquote>
+<p>如果try嵌套，那么如果里面的try没有捕获到这个异常，那么外面的try会接收到这个异常，然后进行处理，如果外边的try依然没有捕获到，那么再进行传递。。。</p>
+</blockquote>
+<h3 id="2、异常的传递"><a href="#2、异常的传递" class="headerlink" title="2、异常的传递"></a>2、异常的传递</h3><ol>
+<li>说明</li>
+</ol>
+<blockquote>
+<p>异常的传递，当函数执行出现异常，会将异常传递给函数的调用方</p>
+<p>如果传递到主程序，仍然没有异常处理，程序才会被终止</p>
+<p>详细描述：如果一个异常是在一个函数中产生的，例如函数A—-&gt;函数B—-&gt;函数C,而异常是在函数C中产生的，那么如果函数C中没有对这个异常进行处理，那么这个异常会传递到函数B中，如果函数B有异常处理那么就会按照函数B的处理方式进行执行；如果函数B也没有异常处理，那么这个异常会继续传递，以此类推。。。如果所有的函数都没有处理，那么此时就会进行异常的默认处理，即通常见到的那样</p>
+<p>提示：</p>
+<ul>
+<li>在开发中，可在主函数中增加异常捕获</li>
+<li>而在主函数中调用的其他函数，只要出现异常，都会传递到主函数的异常捕获中</li>
+<li>这样就不需要在代码中，增加大量的异常捕获，能够保证代码的整洁</li>
+</ul>
+</blockquote>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><h3 id="1、使用原则"><a href="#1、使用原则" class="headerlink" title="1、使用原则"></a>1、使用原则</h3><p>大致来说，Python的异常在使用上都很简单。异常背后真正的技巧在于确定except分句要具体或多通用，以及try语句中要包括多少代码。</p>
+<ol>
+<li><p>try语句中要包括多少代码。</p>
+<p>简要原则,经常会失败的运算一般都应该包装在try语句内。例如：和系统状态衔接的运算（文件开启，套接字调用等等）就是try的主要候选者。在简单的脚本中，你会希望这类运算失败时终止程序，而不是被捕捉或被忽略。如果是一个重大的错误，更应如此。Python的错误会产生有用的错误信息，而且这通常就是所期望的最好的结果。应该try/finally中实现终止动作，从而保证它们的执行。这个语句形式可执行代码，无论异常是否发生。偶尔，把对大型函数的调用包装在单个try语句内，而不是让函数本身零散着放入若干try的语句中。这样会更方便。这样的话，函数中的异常就会往上传递到调用周围的try，而你也可以减少函数中的代码量。</p>
+</li>
+<li><p>避免空except语句</p>
+<p>如果使用空except语句,可能拦截到异常嵌套结构中较高层的try处理器所期待的事件这类代码可能会捕捉无关的系统异常。如内存错误，程序错误，迭代停止以及系统推出等等，都会在Python中引发异常。这里异常通常是不应该拦截的。</p>
+</li>
+<li><p>捕捉太少：使用基于类的分类</p>
+</li>
+</ol>
+<h3 id="2、注意事项"><a href="#2、注意事项" class="headerlink" title="2、注意事项"></a>2、注意事项</h3><ol>
+<li><p>一个try就有一个except或多个except，不要只捕获不处理</p>
+</li>
+<li><p>慎用异常：</p>
+<ul>
+<li>找到python的内置异常 </li>
+<li>理解python的内置异常分别对应什么情况 </li>
+<li>阅读你的代码，找到你的代码里可能会抛出内置异常的地方 </li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>仅对这几行代码做异常处理</li>
+</ul>
+<ol start="3">
+<li>假设你无法知道你的代码会抛出什么异常，那么你的异常处理便是无效的</li>
+</ol>
+<h3 id="3、开发建议"><a href="#3、开发建议" class="headerlink" title="3、开发建议"></a>3、开发建议</h3><ol>
+<li>实现异常类，比较好的做法是：将所有自定义异常放在一个单独的文件中（例如：<code>exceptions.py</code>或 <code>errors.py</code>），许多标准模块也都是这样做的。</li>
+<li>既然自定义异常是类，那么它必然可以实现一个普通类能做的所有事情。但一般而言，应该尽量保持简单、简洁。大多数实现都是声明一个自定义基类，并从这个基类派生出其他的（由程序引发的）异常类。这是 Python 中实现自定义异常的标准方法，但并不仅限于这种方式。</li>
+</ol>
+<h2 id="六、附-内建异常体系"><a href="#六、附-内建异常体系" class="headerlink" title="六、附:内建异常体系"></a>六、附:内建异常体系</h2><ol>
+<li><p>继承结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">BaseException</span><br><span class="line">+-- SystemExit</span><br><span class="line">+-- KeyboardInterrupt</span><br><span class="line">+-- GeneratorExit</span><br><span class="line">+-- Exception</span><br><span class="line">+-- StopIteration</span><br><span class="line">+-- StandardError</span><br><span class="line">|    +-- BufferError</span><br><span class="line">|    +-- ArithmeticError</span><br><span class="line">|    |    +-- FloatingPointError</span><br><span class="line">|    |    +-- OverflowError</span><br><span class="line">|    |    +-- ZeroDivisionError</span><br><span class="line">|    +-- AssertionError</span><br><span class="line">|    +-- AttributeError</span><br><span class="line">|    +-- EnvironmentError</span><br><span class="line">|    |    +-- IOError</span><br><span class="line">|    |    +-- OSError</span><br><span class="line">|    |         +-- WindowsError (Windows)</span><br><span class="line">|    |         +-- VMSError (VMS)</span><br><span class="line">|    +-- EOFError</span><br><span class="line">|    +-- ImportError</span><br><span class="line">|    +-- LookupError</span><br><span class="line">|    |    +-- IndexError</span><br><span class="line">|    |    +-- KeyError</span><br><span class="line">|    +-- MemoryError</span><br><span class="line">|    +-- NameError</span><br><span class="line">|    |    +-- UnboundLocalError</span><br><span class="line">|    +-- ReferenceError</span><br><span class="line">|    +-- RuntimeError</span><br><span class="line">|    |    +-- NotImplementedError</span><br><span class="line">|    +-- SyntaxError</span><br><span class="line">|    |    +-- IndentationError</span><br><span class="line">|    |         +-- TabError</span><br><span class="line">|    +-- SystemError</span><br><span class="line">|    +-- TypeError</span><br><span class="line">|    +-- ValueError</span><br><span class="line">|         +-- UnicodeError</span><br><span class="line">|              +-- UnicodeDecodeError</span><br><span class="line">|              +-- UnicodeEncodeError</span><br><span class="line">|              +-- UnicodeTranslateError</span><br><span class="line">+-- Warning</span><br><span class="line">+-- DeprecationWarning</span><br><span class="line">+-- PendingDeprecationWarning</span><br><span class="line">+-- RuntimeWarning</span><br><span class="line">+-- SyntaxWarning</span><br><span class="line">+-- UserWarning</span><br><span class="line">+-- FutureWarning</span><br><span class="line">+-- ImportWarning</span><br><span class="line">+-- UnicodeWarning</span><br><span class="line">+-- BytesWarning</span><br></pre></td></tr></table></figure></li>
+<li><p>内置异常说明</p>
+<table>
+<thead>
+<tr>
+<th><strong>异常名称*</strong>***</th>
+<th><strong>描述*</strong>***</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BaseException</td>
+<td>所有异常的基类</td>
+</tr>
+<tr>
+<td>SystemExit</td>
+<td>解释器请求退出</td>
+</tr>
+<tr>
+<td>KeyboardInterrupt</td>
+<td>用户中断执行(通常是输入^C)</td>
+</tr>
+<tr>
+<td>Exception</td>
+<td>常规错误的基类</td>
+</tr>
+<tr>
+<td>StopIteration</td>
+<td>迭代器没有更多的值</td>
+</tr>
+<tr>
+<td>GeneratorExit</td>
+<td>生成器(generator)发生异常来通知退出</td>
+</tr>
+<tr>
+<td>StandardError</td>
+<td>所有的内建标准异常的基类</td>
+</tr>
+<tr>
+<td>ArithmeticError</td>
+<td>所有数值计算错误的基类</td>
+</tr>
+<tr>
+<td>FloatingPointError</td>
+<td>浮点计算错误</td>
+</tr>
+<tr>
+<td>OverflowError</td>
+<td>数值运算超出最大限制</td>
+</tr>
+<tr>
+<td>ZeroDivisionError</td>
+<td>除(或取模)零 (所有数据类型)</td>
+</tr>
+<tr>
+<td>AssertionError</td>
+<td>断言语句失败</td>
+</tr>
+<tr>
+<td>AttributeError</td>
+<td>对象没有这个属性</td>
+</tr>
+<tr>
+<td>EOFError</td>
+<td>没有内建输入,到达EOF 标记</td>
+</tr>
+<tr>
+<td>EnvironmentError</td>
+<td>操作系统错误的基类</td>
+</tr>
+<tr>
+<td>IOError</td>
+<td>输入/输出操作失败</td>
+</tr>
+<tr>
+<td>OSError</td>
+<td>操作系统错误</td>
+</tr>
+<tr>
+<td>WindowsError</td>
+<td>系统调用失败</td>
+</tr>
+<tr>
+<td>ImportError</td>
+<td>导入模块/对象失败</td>
+</tr>
+<tr>
+<td>LookupError</td>
+<td>无效数据查询的基类</td>
+</tr>
+<tr>
+<td>IndexError</td>
+<td>序列中没有此索引(index)</td>
+</tr>
+<tr>
+<td>KeyError</td>
+<td>映射中没有这个键</td>
+</tr>
+<tr>
+<td>MemoryError</td>
+<td>内存溢出错误(对于Python 解释器不是致命的)</td>
+</tr>
+<tr>
+<td>NameError</td>
+<td>未声明/初始化对象 (没有属性)</td>
+</tr>
+<tr>
+<td>UnboundLocalError</td>
+<td>访问未初始化的本地变量</td>
+</tr>
+<tr>
+<td>ReferenceError</td>
+<td>弱引用(Weak reference)试图访问已经垃圾回收了的对象</td>
+</tr>
+<tr>
+<td>RuntimeError</td>
+<td>一般的运行时错误</td>
+</tr>
+<tr>
+<td>NotImplementedError</td>
+<td>尚未实现的方法</td>
+</tr>
+<tr>
+<td>SyntaxError</td>
+<td>Python 语法错误</td>
+</tr>
+<tr>
+<td>IndentationError</td>
+<td>缩进错误</td>
+</tr>
+<tr>
+<td>TabError</td>
+<td>Tab 和空格混用</td>
+</tr>
+<tr>
+<td>SystemError</td>
+<td>一般的解释器系统错误</td>
+</tr>
+<tr>
+<td>TypeError</td>
+<td>对类型无效的操作</td>
+</tr>
+<tr>
+<td>ValueError</td>
+<td>传入无效的参数</td>
+</tr>
+<tr>
+<td>UnicodeError</td>
+<td>Unicode 相关的错误</td>
+</tr>
+<tr>
+<td>UnicodeDecodeError</td>
+<td>Unicode 解码时的错误</td>
+</tr>
+<tr>
+<td>UnicodeEncodeError</td>
+<td>Unicode 编码时错误</td>
+</tr>
+<tr>
+<td>UnicodeTranslateError</td>
+<td>Unicode 转换时错误</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>警告的基类</td>
+</tr>
+<tr>
+<td>DeprecationWarning</td>
+<td>关于被弃用的特征的警告</td>
+</tr>
+<tr>
+<td>FutureWarning</td>
+<td>关于构造将来语义会有改变的警告</td>
+</tr>
+<tr>
+<td>OverflowWarning</td>
+<td>旧的关于自动提升为长整型(long)的警告</td>
+</tr>
+<tr>
+<td>PendingDeprecationWarning</td>
+<td>关于特性将会被废弃的警告</td>
+</tr>
+<tr>
+<td>RuntimeWarning</td>
+<td>可疑的运行时行为(runtime behavior)的警告</td>
+</tr>
+<tr>
+<td>SyntaxWarning</td>
+<td>可疑的语法的警告</td>
+</tr>
+<tr>
+<td>UserWarning</td>
+<td>用户代码生成的警告</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/25%E3%80%81random/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/29%E3%80%81%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80/" rel="next" title="29、类与对象基础.md">
+      29、类与对象基础.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E4%B8%8E%E5%BC%82%E5%B8%B8"><span class="nav-number">1.</span> <span class="nav-text">错误与异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">二、异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%8D%95%E8%8E%B7%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、捕获异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%8D%95%E8%8E%B7%E5%A4%9A%E4%B8%AA%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、捕获多个异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81finally"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、finally</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81raise"><span class="nav-number">1.2.5.</span> <span class="nav-text">5、raise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E5%AE%8C%E6%95%B4%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.6.</span> <span class="nav-text">6、完整的异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.</span> <span class="nav-text">三、用户自定义异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E6%8B%AC"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、自定义异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E4%BC%A0%E9%80%92"><span class="nav-number">1.4.</span> <span class="nav-text">四、异常的传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E5%B5%8C%E5%A5%97"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、异常的嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BC%82%E5%B8%B8%E7%9A%84%E4%BC%A0%E9%80%92"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、异常的传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">五、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、使用原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%BC%80%E5%8F%91%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、开发建议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E9%99%84-%E5%86%85%E5%BB%BA%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB"><span class="nav-number">1.6.</span> <span class="nav-text">六、附:内建异常体系</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

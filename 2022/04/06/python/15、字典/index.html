@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 字典是Python语言中唯一的映射类型。在其他语言里例如在c语言里叫 联合内存 （ associative memories ）在JavaScript里 联合数组 （ associative arrays )，在java里就是通常所说的map。 序列是以连续的整数为索引，与此不同的是，字典以 key为索引，key可以是任意不可变类型，通常用字符串或数值。如果元组中只包含字符串和数字，它可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15、字典.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/15%E3%80%81%E5%AD%97%E5%85%B8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 字典是Python语言中唯一的映射类型。在其他语言里例如在c语言里叫 联合内存 （ associative memories ）在JavaScript里 联合数组 （ associative arrays )，在java里就是通常所说的map。 序列是以连续的整数为索引，与此不同的是，字典以 key为索引，key可以是任意不可变类型，通常用字符串或数值。如果元组中只包含字符串和数字，它可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/superbed/2019/03/05/5c7e5abe3a213b041747a562.jpg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.621Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.621Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/superbed/2019/03/05/5c7e5abe3a213b041747a562.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/15%E3%80%81%E5%AD%97%E5%85%B8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>15、字典.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/15%E3%80%81%E5%AD%97%E5%85%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          15、字典.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>字典是Python语言中唯一的映射类型。在其他语言里例如在c语言里叫 联合内存 （ associative memories ）在JavaScript里 联合数组 （ associative arrays )，在java里就是通常所说的map。</p>
+<p>序列是以连续的整数为索引，与此不同的是，字典以 key为索引，key可以是任意不可变类型，通常用字符串或数值。如果元组中只包含字符串和数字，它可以做为key，如果它直接或间接的包含了可变对象，就不能当做key。不能用列表做关键字，因为列表可以用索引、切割或者 <code>append()</code> 和 <code>extend()</code> 等方法改变</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>理解字典的最佳方式是把它看做无序的键： <em>值对</em> （key:value 对）集合，键必须是互不相同的（在同一个字典之内）。一对大括号创建一个空的字典： <code>&#123;&#125;</code> 。初始化列表时，在大括号内放置一组逗号分隔的键：值对，这也是字典输出的方式</p>
+</blockquote>
+<h2 id="二、定义字典"><a href="#二、定义字典" class="headerlink" title="二、定义字典"></a>二、定义字典</h2><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict1 = &#123;&#125;</span><br><span class="line">dict1 = &#123;key1：value1,key2：value2,...&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>构造方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict2 = <span class="built_in">dict</span>()  <span class="comment"># 用函数</span></span><br><span class="line">dict2 = <span class="built_in">dict</span>(seq)</span><br></pre></td></tr></table></figure></li>
+<li><p>结构图</p>
+<p><img src="https://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/superbed/2019/03/05/5c7e5abe3a213b041747a562.jpg"></p>
+</li>
+<li><p>说明</p>
+<ul>
+<li>用大括号声明</li>
+<li>键与值用冒号“：”分开；</li>
+<li>元素与元素用逗号“，”分开；</li>
+<li>字典键key可以是任意不可变类型，通常是数字、字符串甚至是元组，使用格式一创建的字典的时候key可以不唯一（不唯⼀，取最后⼀个值，不建议这样写），使用格式二创建的时候 key必须唯一</li>
+<li>值可以是任意类型</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#格式一初始化</span></span><br><span class="line">user = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;laowang&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>, <span class="string">&#x27;sex&#x27;</span>: <span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;email&#x27;</span>: <span class="string">&#x27;123@163.com&#x27;</span>&#125;</span><br><span class="line"><span class="comment">#格式二初始化</span></span><br><span class="line">user =<span class="built_in">dict</span>(&#123;name=<span class="string">&#x27;laowang&#x27;</span>, age=<span class="number">18</span>, sex=男, email=<span class="string">&#x27;123@163.com&#x27;</span>&#125;)       <span class="comment">#3.6不支持</span></span><br><span class="line"><span class="comment">#值其它复杂类型</span></span><br><span class="line">user =<span class="built_in">dict</span>(&#123;name=[<span class="string">&#x27;1&#x27;</span>,<span class="number">2</span>,<span class="string">&#x27;hehe&#x27;</span>], age=<span class="number">18</span>, sex=男, email=<span class="string">&#x27;123@163.com&#x27;</span>&#125;)  <span class="comment">#3.6不支持</span></span><br><span class="line"></span><br><span class="line">user =<span class="built_in">dict</span>(address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>), age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">  <span class="comment">#键不唯一 取最后一个</span></span><br><span class="line">user = &#123;ame=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),address=<span class="string">&#x27;上海&#x27;</span>&#125;</span><br><span class="line">user =<span class="built_in">dict</span>(&#123;name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>,address=<span class="string">&#x27;上海&#x27;</span>)&#125;)</span><br><span class="line"><span class="comment">#错误的写法</span></span><br><span class="line"><span class="built_in">print</span>(user.get(<span class="string">&#x27;address&#x27;</span>))</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、获取键值"><a href="#三、获取键值" class="headerlink" title="三、获取键值"></a>三、获取键值</h2><ol>
+<li><p>语法格式一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>[key]</span><br></pre></td></tr></table></figure></li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.get(key, default=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>通过字典的key取值或者get方法</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li><p>key</p>
+<p>字典中要查找的键。</p>
+</li>
+<li><p>default </p>
+<p>如果指定键的值不存在时，返回该默认值值。</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回指定键的值，如果值不在字典中返回默认值None</p>
+</li>
+<li><p>注意事项</p>
+<p>通过方式一如果获取不存在的键的值就会触发的一个KeyError异常,</p>
+<p>可以使用字典get方法更加安全的获取字典</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">user =<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(user[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line"><span class="built_in">print</span>(user[<span class="string">&#x27;aaa&#x27;</span>]) <span class="comment">#直接抛出异常</span></span><br><span class="line"><span class="built_in">print</span>(user.get(<span class="string">&#x27;address&#x27;</span>))<span class="comment">#输出元组</span></span><br><span class="line"><span class="built_in">print</span>(user.get(<span class="string">&#x27;aaa&#x27;</span>)) <span class="comment">#输出None</span></span><br><span class="line"><span class="built_in">print</span>(user.get(<span class="string">&#x27;aaa&#x27;</span>,<span class="string">&#x27;name&#x27;</span>))<span class="comment">#dict.get(key, default=None)则如果不存在则返回一个默认值，如果设置了则是设置的，否则就是None</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">22</span>]: user =<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;12 3@163.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: user[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">Out[<span class="number">23</span>]: <span class="string">&#x27;呵呵&#x27;</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: user[<span class="string">&#x27;aaa&#x27;</span>]</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">KeyError                                  Traceback (most recent call last)</span><br><span class="line">&lt;ipython-<span class="built_in">input</span>-<span class="number">24</span>-d3b16260a8cd&gt; <span class="keyword">in</span> &lt;module&gt;()</span><br><span class="line">----&gt; <span class="number">1</span> user[<span class="string">&#x27;aaa&#x27;</span>]</span><br><span class="line">KeyError: <span class="string">&#x27;aaa&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、添加"><a href="#四、添加" class="headerlink" title="四、添加"></a>四、添加</h2><ol>
+<li><p>说明</p>
+<p>向字典添加元素,添加元素的方式有两种一种是使用,通过<strong>dict[键]=值</strong>的方式,但当key存在的时候就是修改的操作</p>
+<p>另外一种调用内置方法</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>[key] = value</span><br></pre></td></tr></table></figure></li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.setdefault(key, value=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>注意</p>
+<p>通过setdefault方法只能设置在key不存在的时候才会往字典中添加元素,但如果key已经存在了就不会做任何操作</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: d = &#123;&#125;</span><br><span class="line">In [<span class="number">2</span>]: d[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&quot;python&quot;</span></span><br><span class="line">In [<span class="number">3</span>]: d</span><br><span class="line">Out[<span class="number">3</span>]: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;python&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: d.setdefault(<span class="string">&#x27;age&#x27;</span>,<span class="number">18</span>)</span><br><span class="line">Out[<span class="number">4</span>]: <span class="number">18</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: d</span><br><span class="line">Out[<span class="number">5</span>]: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;python&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: d.setdefault(<span class="string">&#x27;age&#x27;</span>,<span class="number">19</span>)</span><br><span class="line">Out[<span class="number">6</span>]: <span class="number">18</span></span><br><span class="line"><span class="comment"># age 不是19而是是18说明没有设置成功</span></span><br><span class="line">In [<span class="number">7</span>]: d</span><br><span class="line">Out[<span class="number">7</span>]: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;python&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、修改"><a href="#五、修改" class="headerlink" title="五、修改"></a>五、修改</h2><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>[key] = value</span><br></pre></td></tr></table></figure></li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.update(dict2)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>当key存在的时候可以通过<strong>dict[key] = value</strong>方式修改元素</p>
+</li>
+<li><p>参数说明</p>
+<ul>
+<li><p>dict2</p>
+<p>添加到指定字典dict或者可迭代对象到字典中</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user= <span class="built_in">dict</span>()</span><br><span class="line">user[<span class="string">&#x27;name&#x27;</span>] = <span class="string">&#x27;空空&#x27;</span></span><br><span class="line">user[<span class="string">&#x27;age&#x27;</span>] = <span class="number">18</span> </span><br><span class="line">user[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(user)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user= <span class="built_in">dict</span>()</span><br><span class="line">user1=<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">user.update(user1)</span><br><span class="line">user.update(phone=<span class="string">&#x27;110&#x27;</span>,state=<span class="number">1</span>)<span class="comment">#推荐写法</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">user.update(&#123;phone:<span class="string">&#x27;110&#x27;</span>,state:<span class="number">1</span>&#125;)</span><br><span class="line"><span class="built_in">print</span>(user)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="六、字典删除"><a href="#六、字典删除" class="headerlink" title="六、字典删除"></a>六、字典删除</h2><ol>
+<li><p>语法格式一(不推荐)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> <span class="built_in">dict</span>[key] </span><br><span class="line"><span class="comment">#无返回值</span></span><br></pre></td></tr></table></figure></li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.pop(key[,default])</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。如果key不存在直接报错</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li><p>key:</p>
+<p>要删除的键值</p>
+</li>
+<li><p>default: </p>
+<p>如果key不存在，返回 default 值</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回被删除的值</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user=<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line"><span class="keyword">del</span> user[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(user)</span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">&#123;<span class="string">&#x27;address&#x27;</span>: (<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>), <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>, <span class="string">&#x27;sex&#x27;</span>: <span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;email&#x27;</span>: <span class="string">&#x27;123@163.com&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user=<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">name = user.pop(<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(name) <span class="comment">#输出 &#x27;呵呵&#x27;</span></span><br><span class="line">key = user.pop(<span class="string">&#x27;sex&#x27;</span>,<span class="string">&#x27;test&#x27;</span>) <span class="comment">#字典存在,返回&#x27;男&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(key) <span class="comment"># &#x27;男&#x27;</span></span><br><span class="line">key = user.pop(<span class="string">&#x27;key&#x27;</span>,<span class="string">&#x27;111&#x27;</span>) <span class="comment">#字典不存在,返回&#x27;111&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(key)<span class="comment"># &#x27;111&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="七-、遍历所有的key"><a href="#七-、遍历所有的key" class="headerlink" title="七 、遍历所有的key"></a>七 、遍历所有的key</h2><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_keys = <span class="built_in">dict</span>.keys()</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>获取所有的key</p>
+</li>
+<li><p>返回值</p>
+<p>以列表返回一个字典所有的键</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user=<span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>,address=(<span class="string">&#x27;北京市&#x27;</span>,<span class="string">&#x27;深圳市&#x27;</span>,<span class="string">&#x27;武汉市&#x27;</span>,<span class="string">&#x27;长沙市&#x27;</span>),age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">user_keys = user.keys()</span><br><span class="line"><span class="keyword">for</span> user_key <span class="keyword">in</span> user_keys:</span><br><span class="line">    <span class="built_in">print</span>(user_key) </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="八、遍历所有的value"><a href="#八、遍历所有的value" class="headerlink" title="八、遍历所有的value"></a>八、遍历所有的value</h2><ol>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_values = <span class="built_in">dict</span>.values()</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>以列表返回字典中的所有值</p>
+</li>
+<li><p>返回值</p>
+<p>返回字典中的所有值</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>, address=(<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>), age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">dict_values = user.values()</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> dict_values:</span><br><span class="line">    <span class="built_in">print</span>(value)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="九、遍历所有的key和value"><a href="#九、遍历所有的key和value" class="headerlink" title="九、遍历所有的key和value"></a>九、遍历所有的key和value</h2><ol>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict_items = <span class="built_in">dict</span>.items()</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>以列表返回可遍历的(键, 值) 元组数组</p>
+</li>
+<li><p>返回值</p>
+<p>返回可遍历的(键, 值) 元组数组。</p>
+</li>
+<li><p>注意事项</p>
+<p>字典元素的顺序通常没有定义。换句话说，迭代的时候，字典中的键和值都能保证被处理，但是处理顺序不确定。如果顺序很重要的话，可以将键值保存在单独的列表中，例如迭代前进行排序</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>, address=(<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>), age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line">user_item = user.items()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(user_item)</span><br><span class="line"></span><br><span class="line"><span class="comment">#dict_items([(&#x27;name&#x27;, &#x27;呵呵&#x27;), (&#x27;address&#x27;, (&#x27;北京市&#x27;, &#x27;深圳市&#x27;, &#x27;武汉市&#x27;, &#x27;长沙市&#x27;)), (&#x27;age&#x27;, 18), (&#x27;sex&#x27;, &#x27;男&#x27;), (&#x27;email&#x27;, &#x27;123@163.com&#x27;)])</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>, address=(<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>), age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">user_items = user.items()</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_items:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;%s=&quot;</span> % key, value)</span><br><span class="line">    <span class="comment">#输出</span></span><br><span class="line">    name= 呵呵</span><br><span class="line">	address= (<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>)</span><br><span class="line">	age= <span class="number">18</span></span><br><span class="line">	sex= 男</span><br><span class="line">	email= <span class="number">123</span>@<span class="number">163.</span>com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user = <span class="built_in">dict</span>(name=<span class="string">&#x27;呵呵&#x27;</span>, address=(<span class="string">&#x27;北京市&#x27;</span>, <span class="string">&#x27;深圳市&#x27;</span>, <span class="string">&#x27;武汉市&#x27;</span>, <span class="string">&#x27;长沙市&#x27;</span>), age=<span class="number">18</span>, sex=<span class="string">&#x27;男&#x27;</span>, email=<span class="string">&#x27;123@163.com&#x27;</span>)</span><br><span class="line">user_items = user.items()</span><br><span class="line">keys=[]</span><br><span class="line">values=[]</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> user_items:</span><br><span class="line">   keys.append(key)</span><br><span class="line">   values.append(value)</span><br></pre></td></tr></table></figure></li>
+<li><p>练习</p>
+<p>编写字典程序:</p>
+<ul>
+<li>用户添加单词和定义</li>
+<li>查找这些单词</li>
+<li>如果查不到，请让用户知道</li>
+<li>循环</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">dictionary = &#123;&#125;</span><br><span class="line">flag = <span class="string">&#x27;a&#x27;</span></span><br><span class="line">pape = <span class="string">&#x27;a&#x27;</span></span><br><span class="line">off = <span class="string">&#x27;a&#x27;</span></span><br><span class="line"><span class="keyword">while</span> flag == <span class="string">&#x27;a&#x27;</span> <span class="keyword">or</span> <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">    flag = <span class="built_in">input</span>(<span class="string">&quot;添加或查找单词 ?(a/c)&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> flag == <span class="string">&quot;a&quot;</span>:  <span class="comment"># 开启</span></span><br><span class="line">        word = <span class="built_in">input</span>(<span class="string">&quot;输入单词(key):&quot;</span>)</span><br><span class="line">        defintion = <span class="built_in">input</span>(<span class="string">&quot;输入定义值(value):&quot;</span>)</span><br><span class="line">        dictionary[<span class="built_in">str</span>(word)] = <span class="built_in">str</span>(defintion)  <span class="comment"># 添加字典</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;添加成功!&quot;</span>)</span><br><span class="line">        pape = <span class="built_in">input</span>(<span class="string">&quot;您是否要查找字典?(a/0)&quot;</span>)  <span class="comment"># read</span></span><br><span class="line">        <span class="keyword">if</span> pape == <span class="string">&#x27;a&#x27;</span>:</span><br><span class="line">            <span class="built_in">print</span>(dictionary)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">elif</span> flag == <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">        check_word = <span class="built_in">input</span>(<span class="string">&quot;要查找的单词:&quot;</span>)  <span class="comment"># 检索</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> <span class="built_in">sorted</span>(dictionary.keys()):  <span class="comment"># yes</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">str</span>(check_word) == key:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;该单词存在! &quot;</span>, key, dictionary[key])</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># no</span></span><br><span class="line">                off = <span class="string">&#x27;b&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> off == <span class="string">&#x27;b&#x27;</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;抱歉，该值不存在！&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># 停止</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;error type&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="十、其它方法"><a href="#十、其它方法" class="headerlink" title="十、其它方法"></a>十、其它方法</h2><h3 id="1、fromkeys"><a href="#1、fromkeys" class="headerlink" title="1、fromkeys"></a>1、fromkeys</h3><ol>
+<li><p>说明</p>
+<p>用于创建一个新字典，以序列seq中元素做字典的键，value为字典所有键对应的初始值。</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.fromkeys(seq[, value])</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li>seq – 字典键值列表。</li>
+<li>value – 可选参数, 设置键序列（seq）的值</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>字典对象</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">li = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="built_in">dict</span> = <span class="built_in">dict</span>.fromkeys(li)</span><br><span class="line"><span class="comment"># 带默认值</span></span><br><span class="line"><span class="built_in">dict</span>=<span class="built_in">dict</span>.fromkeys(li,<span class="string">&#x27;默认值&#x27;</span>)    </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、popitem"><a href="#2、popitem" class="headerlink" title="2、popitem"></a>2、popitem</h3><ol>
+<li><p>说明</p>
+<p>方法随机返回并删除字典中的键值对</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popitem()</span><br></pre></td></tr></table></figure></li>
+<li><p>返回值</p>
+<p>键值对的元组形式</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: dict_num = &#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">1</span>,<span class="string">&#x27;b&#x27;</span>:<span class="number">2</span>,<span class="string">&#x27;c&#x27;</span>:<span class="number">3</span>&#125;</span><br><span class="line">In [<span class="number">2</span>]: dict_num.popitem()</span><br><span class="line">Out[<span class="number">2</span>]: (<span class="string">&#x27;c&#x27;</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、copy"><a href="#3、copy" class="headerlink" title="3、copy"></a>3、copy</h3><ol>
+<li><p>说明</p>
+<p>复制一个字典</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.copy()</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">3</span>]: dict_num = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: copy_dict= dict_num.copy()</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: copy_dict</span><br><span class="line">Out[<span class="number">5</span>]: &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: <span class="built_in">id</span>(dict_num)</span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">4537223856</span></span><br><span class="line">    </span><br><span class="line">In [<span class="number">7</span>]: <span class="built_in">id</span>(copy_dict)</span><br><span class="line">Out[<span class="number">7</span>]: <span class="number">4537295712</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、clear"><a href="#4、clear" class="headerlink" title="4、clear"></a>4、clear</h3><ol>
+<li><p>说明</p>
+<p>删除字典内所有元素</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict.clear()</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">3</span>]: dict_num = &#123;<span class="string">&#x27;a&#x27;</span>:<span class="number">1</span>,<span class="string">&#x27;b&#x27;</span>:<span class="number">2</span>,<span class="string">&#x27;c&#x27;</span>:<span class="number">3</span>&#125;</span><br><span class="line">In [<span class="number">9</span>]: dict_num.clear()</span><br><span class="line">In [<span class="number">10</span>]: dict_num</span><br><span class="line">Out[<span class="number">10</span>]: &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="十一、字典推导"><a href="#十一、字典推导" class="headerlink" title="十一、字典推导"></a>十一、字典推导</h2><ol>
+<li><p>说明</p>
+<p>用来快速简洁创建一个新的字典</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;key: value <span class="keyword">for</span> (key, value) <span class="keyword">in</span> iterable [<span class="keyword">if</span> 条件表达式&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 案例1</span></span><br><span class="line">num_dict= &#123;key: <span class="built_in">str</span>(key) <span class="keyword">for</span> key <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)&#125;</span><br><span class="line"><span class="built_in">print</span>(num_dict)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 案例2</span></span><br><span class="line">fruit = [<span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>]</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">enumerate在字典上是枚举、列举的意思</span></span><br><span class="line"><span class="string">对于一个可迭代的（iterable）/可遍历的对象（如列表、字符串），</span></span><br><span class="line"><span class="string">enumerate将其组成一个索引序列，</span></span><br><span class="line"><span class="string">利用它可以同时获得索引和值</span></span><br><span class="line"><span class="string">enumerate多用于在for循环中得到计数,也可指定开始索引</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">dict_result = &#123;key: value <span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="built_in">enumerate</span>(fruit) <span class="keyword">if</span> <span class="built_in">len</span>(value) &gt; <span class="number">5</span>&#125;</span><br><span class="line"><span class="built_in">print</span>(dict_result)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 案例3 合并key的大小写</span></span><br><span class="line">user = &#123;<span class="string">&#x27;Name&#x27;</span>: <span class="string">&#x27;赵丽颖&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">18</span>, <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;冯提莫&#x27;</span>, <span class="string">&#x27;Test&#x27;</span>: <span class="number">3</span>, <span class="string">&#x27;test&#x27;</span>: <span class="string">&#x27;呵呵&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> user.keys():</span><br><span class="line">    new_user = &#123;k.lower(): <span class="built_in">str</span>(user.get(k.lower(), <span class="number">0</span>)) + <span class="built_in">str</span>(user.get(k.upper(), <span class="number">0</span>)) <span class="keyword">for</span> k <span class="keyword">in</span> user.keys()&#125;</span><br><span class="line">    <span class="built_in">print</span>(new_user)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="十二、字典与序列区别"><a href="#十二、字典与序列区别" class="headerlink" title="十二、字典与序列区别"></a>十二、字典与序列区别</h2><ol>
+<li>存取和访问数据的方式不同。</li>
+<li>序列类型只用数字类型的键（从序列的开始按数值顺序索引）；</li>
+<li>字典类型可以用其他对象类型作键（如：数字、字符串、元祖，一般用字符串作键），和序列类型的键不同，字典类型的键直接或间接地和存储数据值相关联。</li>
+<li>字典类型中的数据是无序排列的。这和序列类型是不一样的，序列类型是以数值序排列的。</li>
+<li>字典类型用键直接“映射”到值。</li>
+</ol>
+<h2 id="十三、练习"><a href="#十三、练习" class="headerlink" title="十三、练习"></a>十三、练习</h2><h3 id="1、实现通讯录功能"><a href="#1、实现通讯录功能" class="headerlink" title="1、实现通讯录功能"></a>1、实现通讯录功能</h3><ol>
+<li>查询联系人</li>
+<li>添加联系人</li>
+<li>更新联系人</li>
+<li>删除联系人</li>
+<li>退出程序</li>
+</ol>
+<h3 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">contacts = &#123;&#125;  <span class="comment"># 定义通讯录</span></span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    temp = <span class="built_in">input</span>(<span class="string">&#x27;请输入指令代码：&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> temp.isdigit():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;输入的指令错误，请按照提示输入&quot;</span>)</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    item = <span class="built_in">int</span>(temp)  <span class="comment"># 转换为数字</span></span><br><span class="line">    <span class="keyword">if</span> item == <span class="number">4</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;|---感谢使用通讯录程序---|&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    name = <span class="built_in">input</span>(<span class="string">&quot;请输入联系人姓名:&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> item == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> contacts:</span><br><span class="line">            <span class="built_in">print</span>(name, <span class="string">&#x27;:&#x27;</span>, contacts[name])</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;该联系人不存在！&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> item == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> contacts:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;您输入的姓名在通讯录中已存在--&gt;&gt;&quot;</span>, name, <span class="string">&quot;:&quot;</span>, contacts[name])</span><br><span class="line">            is_edit = <span class="built_in">input</span>(<span class="string">&quot;是否修改联系人资料(Y/N）:&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> is_edit == <span class="string">&#x27;Y&#x27;</span>:</span><br><span class="line">                phone = <span class="built_in">input</span>(<span class="string">&quot;请输入电话号码：&quot;</span>)</span><br><span class="line">                contacts[name] = phone</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;修改成功&quot;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            phone = <span class="built_in">input</span>(<span class="string">&quot;请输入联系人电话：&quot;</span>)</span><br><span class="line">            contacts[name] = phone</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;添加成功！&quot;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">if</span> item == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">if</span> name <span class="keyword">in</span> contacts:</span><br><span class="line">            <span class="keyword">del</span> contacts[name]</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;删除成功！&quot;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;联系人不存在&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;&#125;  # 定义通讯录字典</span><br><span class="line">while 1:</span><br><span class="line">    print(&quot;1. 查询联系人 2.添加联系人 3.更新联系人 4.删除联系人 5.退出程序&quot;)</span><br><span class="line">    tmp = input(&quot;请输入你的选择: &quot;)</span><br><span class="line">    if not tmp.isdigit():</span><br><span class="line">        print(&quot;你输入的值有误，请重新输入：&quot;)</span><br><span class="line">    tmp = int(tmp)</span><br><span class="line">    if tmp == 5:</span><br><span class="line">        print(&quot;|---感谢使用通讯录程序---|&quot;)</span><br><span class="line">        break</span><br><span class="line">    if tmp == 4:</span><br><span class="line">        name = input(&quot;请输入名字: &quot;)</span><br><span class="line">        del dic[name]</span><br><span class="line">        print(&quot;已经删除&quot;)</span><br><span class="line">    if tmp == 1:</span><br><span class="line">        name = input(&quot;请输入名字: &quot;)</span><br><span class="line">        if name in dic.keys():</span><br><span class="line">            print(name, &quot;:&quot;, dic[name])</span><br><span class="line">            continue</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;联系人不存在&quot;)</span><br><span class="line">    if tmp == 2:</span><br><span class="line">        name = input(&quot;请输入名字: &quot;)</span><br><span class="line">        phone = input(&quot;请输入手机号: &quot;)</span><br><span class="line">        dic[name] = phone</span><br><span class="line">        print(dic[name])</span><br><span class="line">    if tmp == 3:</span><br><span class="line">        name = input(&quot;请输入名字: &quot;)</span><br><span class="line">        phone = input(&quot;请输入手机号: &quot;)</span><br><span class="line">        dic[name] = phone</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/13%E3%80%81%E5%85%83%E7%BB%84/" rel="prev" title="13、元组.md">
+      <i class="fa fa-chevron-left"></i> 13、元组.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/16%E3%80%81%E9%9B%86%E5%90%88/" rel="next" title="16、集合.md">
+      16、集合.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9A%E4%B9%89%E5%AD%97%E5%85%B8"><span class="nav-number">2.</span> <span class="nav-text">二、定义字典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%8E%B7%E5%8F%96%E9%94%AE%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">三、获取键值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.</span> <span class="nav-text">四、添加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BF%AE%E6%94%B9"><span class="nav-number">5.</span> <span class="nav-text">五、修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AD%97%E5%85%B8%E5%88%A0%E9%99%A4"><span class="nav-number">6.</span> <span class="nav-text">六、字典删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83-%E3%80%81%E9%81%8D%E5%8E%86%E6%89%80%E6%9C%89%E7%9A%84key"><span class="nav-number">7.</span> <span class="nav-text">七 、遍历所有的key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%81%8D%E5%8E%86%E6%89%80%E6%9C%89%E7%9A%84value"><span class="nav-number">8.</span> <span class="nav-text">八、遍历所有的value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E9%81%8D%E5%8E%86%E6%89%80%E6%9C%89%E7%9A%84key%E5%92%8Cvalue"><span class="nav-number">9.</span> <span class="nav-text">九、遍历所有的key和value</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E5%85%B6%E5%AE%83%E6%96%B9%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">十、其它方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81fromkeys"><span class="nav-number">10.1.</span> <span class="nav-text">1、fromkeys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81popitem"><span class="nav-number">10.2.</span> <span class="nav-text">2、popitem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81copy"><span class="nav-number">10.3.</span> <span class="nav-text">3、copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81clear"><span class="nav-number">10.4.</span> <span class="nav-text">4、clear</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC"><span class="nav-number">11.</span> <span class="nav-text">十一、字典推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E5%AD%97%E5%85%B8%E4%B8%8E%E5%BA%8F%E5%88%97%E5%8C%BA%E5%88%AB"><span class="nav-number">12.</span> <span class="nav-text">十二、字典与序列区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E7%BB%83%E4%B9%A0"><span class="nav-number">13.</span> <span class="nav-text">十三、练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%9E%E7%8E%B0%E9%80%9A%E8%AE%AF%E5%BD%95%E5%8A%9F%E8%83%BD"><span class="nav-number">13.1.</span> <span class="nav-text">1、实现通讯录功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">13.2.</span> <span class="nav-text">2、示例代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

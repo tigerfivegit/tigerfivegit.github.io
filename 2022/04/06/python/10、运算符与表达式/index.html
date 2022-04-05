@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="运算符与表达式简介 所谓运算符用于执行程序代码运算，会针对一个以上操作数来进行运算，可以执行某种运算或者是某项操作的符号，例如：4 + 5这个式子中的4和5就是操作数，它们中间的”+”就是加法运算符，加法运算符可以将左右两个操作数相加，并得到相加的结果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10、运算符与表达式.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/10%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="运算符与表达式简介 所谓运算符用于执行程序代码运算，会针对一个以上操作数来进行运算，可以执行某种运算或者是某项操作的符号，例如：4 + 5这个式子中的4和5就是操作数，它们中间的”+”就是加法运算符，加法运算符可以将左右两个操作数相加，并得到相加的结果">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.617Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.617Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/10%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>10、运算符与表达式.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/10%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          10、运算符与表达式.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="运算符与表达式"><a href="#运算符与表达式" class="headerlink" title="运算符与表达式"></a>运算符与表达式</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>所谓运算符用于执行程序代码运算，会针对一个以上操作数来进行运算，可以执行某种运算或者是某项操作的符号，例如：4 + 5这个式子中的4和5就是操作数，它们中间的”+”就是加法运算符，加法运算符可以将左右两个操作数相加，并得到相加的结果</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="一、表达式-Expressions"><a href="#一、表达式-Expressions" class="headerlink" title="一、表达式(Expressions)"></a>一、表达式(Expressions)</h2><h3 id="1-1、概念"><a href="#1-1、概念" class="headerlink" title="1.1、概念"></a>1.1、概念</h3><blockquote>
+<p>表达式是将不同类型的数据(常亮、变量、函数)用运算符按照一定得规则连接起来的式子</p>
+<p>表达式的组成由运算符(Operators)和操作数(Operands)</p>
+</blockquote>
+<h3 id="1-2-、示例代码"><a href="#1-2-、示例代码" class="headerlink" title="1.2 、示例代码"></a>1.2 、示例代码</h3><ol>
+<li><p>示例1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 + 3 * 4</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p><code>+、*</code> 就是运算符  </p>
+<p><code>2、3、4</code> 就是操作数</p>
+</li>
+<li><p>示例2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n1 = 1</span><br><span class="line">n2 = 3</span><br><span class="line">n3 = n1 + n2</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>实质就是操作数</p>
+</li>
+</ol>
+<h2 id="二、算术运算符"><a href="#二、算术运算符" class="headerlink" title="二、算术运算符"></a>二、算术运算符</h2><h3 id="2-1、概念"><a href="#2-1、概念" class="headerlink" title="2.1、概念"></a>2.1、概念</h3><blockquote>
+<p>算术运算符包括四则运算符、求模预算符和幂运算符</p>
+<table>
+<thead>
+<tr>
+<th>算术运算符</th>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>x + y</td>
+<td>加 - 两个对象相加</td>
+</tr>
+<tr>
+<td>-</td>
+<td>x -  y</td>
+<td>减 - 得到负数或是一个数减去另一个数</td>
+</tr>
+<tr>
+<td>*</td>
+<td>x * y</td>
+<td>乘 - 两个数相乘或是返回一个被重复若干次的字符串</td>
+</tr>
+<tr>
+<td>/</td>
+<td>x / y</td>
+<td>除 - x除以y</td>
+</tr>
+<tr>
+<td>%</td>
+<td>x%y</td>
+<td>取模 - 返回除法的余数</td>
+</tr>
+<tr>
+<td>**</td>
+<td>x**y</td>
+<td>幂 - 返回x的y次幂</td>
+</tr>
+<tr>
+<td>//</td>
+<td>x // y</td>
+<td>取整除 - 返回商的整数部分</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="2-2、加"><a href="#2-2、加" class="headerlink" title="2.2、加 +"></a>2.2、加 <code>+</code></h3><ol>
+<li><p>说明</p>
+<p>当 <code>+</code> 的两端都是数字时，则就是数学中的加法运算。</p>
+<p>当 <code>+</code> 两端都是字符串时，则就是把两端的字符串连接起来。</p>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>布尔值 <code>True</code> 可以作为数字 <code> 1</code> 来使用， <code>False</code> 可以作为数字 <code>0</code> ,所以他们可以和数字相加。(学完面向对象你就是清楚, 其实<code>bool</code>继承自<code>int</code>)</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>python 不允许字符串和数字相加</li>
+</ul>
+<ol start="3">
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">add1 = <span class="number">3</span> + <span class="number">4</span></span><br><span class="line"><span class="built_in">print</span>(add1)   <span class="comment"># 7</span></span><br><span class="line"></span><br><span class="line">add2 = <span class="number">3</span> + <span class="literal">True</span></span><br><span class="line"><span class="built_in">print</span>(add2)	<span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line">add3 = <span class="number">3</span> + <span class="literal">False</span></span><br><span class="line"><span class="built_in">print</span>(add3)	<span class="comment"># 3</span></span><br><span class="line"></span><br><span class="line">add4 = <span class="literal">True</span> * <span class="number">0</span></span><br><span class="line"><span class="built_in">print</span>(add4)	<span class="comment"># 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add5 = &quot;a&quot; + 3  # 错误！不允许字符串和数字相加</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-3、减"><a href="#2-3、减" class="headerlink" title="2.3、减  -"></a>2.3、减  <code>-</code></h3><ol>
+<li><p>说明</p>
+<p>两个数相减。</p>
+</li>
+<li><p>注意事项</p>
+<p>减法只能用于操作数字。</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = 100</span><br><span class="line">b = 50</span><br><span class="line">c = 10</span><br><span class="line">i = a - b</span><br><span class="line">i1 = c - true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-4、乘"><a href="#2-4、乘" class="headerlink" title="2.4、乘  *"></a>2.4、乘  <code>*</code></h3><ol>
+<li><p>说明</p>
+<p>两个数相乘。如果有一个是字符串一个是整数，则得到的重复整数次的字符串</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">result1 = <span class="number">3</span> * <span class="number">4.1</span></span><br><span class="line"><span class="built_in">print</span>(result1)</span><br><span class="line"></span><br><span class="line">result2 = <span class="number">2</span> * <span class="string">&quot;Hello &quot;</span></span><br><span class="line"><span class="built_in">print</span>(result2)</span><br><span class="line"></span><br><span class="line">result3 = <span class="string">&quot;world &quot;</span> * <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(result3)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-5、幂"><a href="#2-5、幂" class="headerlink" title="2.5、幂 **"></a>2.5、幂 <code>**</code></h3><ol>
+<li><p>说明</p>
+<p><code>x ** y</code> 返回 <code>x</code> 的 <code>y</code> 次方 <code>x^y</code></p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = 2</span><br><span class="line">b = 3</span><br><span class="line">c = a**b </span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-6、除"><a href="#2-6、除" class="headerlink" title="2.6、除 /"></a>2.6、除 <code>/</code></h3><ol>
+<li><p>说明</p>
+<p>取</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">result1 = 10 / 2</span><br><span class="line">print(result1)</span><br><span class="line"></span><br><span class="line">result2 = 10 / 3</span><br><span class="line">print(result2)</span><br><span class="line"></span><br><span class="line">result3 = -11.3 / 3</span><br><span class="line">print(result3)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、比较-关系-运算符"><a href="#三、比较-关系-运算符" class="headerlink" title="三、比较(关系)运算符"></a>三、比较(关系)运算符</h2><h3 id="2-1、概念-1"><a href="#2-1、概念-1" class="headerlink" title="2.1、概念"></a>2.1、概念</h3><blockquote>
+<p>关系运算符是对两个对象进行比较</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>==</td>
+<td>a==b</td>
+<td>等于，比较对象是否相等，返回bool</td>
+</tr>
+<tr>
+<td>!=或&lt;&gt;</td>
+<td>a !=ba &lt;&gt;b</td>
+<td>不等于，比较两个对象是否不相等，返回bool</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>a &gt; b</td>
+<td>大于，比较a是否大于b，返回bool</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>a &lt; b</td>
+<td>小于，比较a是否小于b，返回bool</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>a&gt;=b</td>
+<td>大于等于，比较a是否大于或者等于b，返回bool</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>a&lt;=b</td>
+<td>小于等于，比较a是否小于或者等于b，返回bool</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="2-2、说明"><a href="#2-2、说明" class="headerlink" title="2.2、说明"></a>2.2、说明</h3><ol>
+<li>如果是两个数字则比较他们数学上的大小。</li>
+<li>如果是两个字符串比较，则是比较的他们在码表中的顺序。先比较第一个字母，如果相等再比较第二个…</li>
+<li>如果有布尔值参与比较，则 <code>True</code> 做 <code>1</code> 来用，<code>False</code> 做 <code>0</code> 来用。</li>
+<li>数字和字符串不能进行比较！</li>
+<li>比较运算符计算的结果一定是布尔值。</li>
+</ol>
+<h3 id="2-3、示例代码"><a href="#2-3、示例代码" class="headerlink" title="2.3、示例代码"></a>2.3、示例代码</h3><ol>
+<li><p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">21</span></span><br><span class="line">b = <span class="number">10</span></span><br><span class="line">c = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span>  a == b :</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;1 - a 等于 b&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;1 - a 不等于 b&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> a != b :</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;2 - a 不等于 b&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;2 - a 等于 b&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>  a &lt; b :</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;3 - a 小于 b&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;3 - a 大于等于 b&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>  a &gt; b:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;4 - a 大于 b&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="built_in">print</span> (<span class="string">&quot;4 - a 小于等于 b&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python中的比较运算符可以组成链接。只有每个运算符计算的结果都是 True ，最终的结果才会为 True。否则就是 False</span></span><br><span class="line">r1 = <span class="number">5</span> &gt; <span class="number">4</span> &gt; <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(r1)	<span class="comment"># True   因为 5 大于 4是 True，并且 4 大于 3 是 True</span></span><br><span class="line"></span><br><span class="line">r2 = <span class="number">5</span> &gt; <span class="number">4</span> == (<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(r2)	<span class="comment"># False  因为 5 大于 4 是 True，但是 4 == 2 + 1 是 False</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、逻辑运算符"><a href="#四、逻辑运算符" class="headerlink" title="四、逻辑运算符"></a>四、逻辑运算符</h2><h3 id="1、概要"><a href="#1、概要" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>python 共支持 3 种逻辑运算符。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and</td>
+<td>a and b</td>
+<td>逻辑与，当a为True时才计算b</td>
+</tr>
+<tr>
+<td>or</td>
+<td>a or b</td>
+<td>逻辑或，当a为False时才计算b</td>
+</tr>
+<tr>
+<td>not</td>
+<td>not a</td>
+<td>逻辑非</td>
+</tr>
+<tr>
+<td>Python的逻辑运算(and，or，not)与C/C++、Java等语言不太一样。这些语言的逻辑运算返回的值都是bool值，而Python返回的则不同</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="2、非运算-not"><a href="#2、非运算-not" class="headerlink" title="2、非运算 not"></a>2、非运算 not</h3><ol>
+<li><p>说明</p>
+<p>取反,如果表达式为真则为假,反之假的则为真</p>
+</li>
+</ol>
+<h3 id="3、与运算-and"><a href="#3、与运算-and" class="headerlink" title="3、与运算 and"></a>3、与运算 and</h3><ol>
+<li><p>运算规则</p>
+<ul>
+<li>若左边的表达式为真，则返回右边表达式的值</li>
+<li>否则，返回左边表达式的值</li>
+</ul>
+</li>
+<li><p>示例代码(非运算)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">20</span></span><br><span class="line">b = <span class="number">10</span></span><br><span class="line">c = <span class="number">0</span></span><br><span class="line"><span class="built_in">print</span>(a&gt;b <span class="keyword">and</span> b&gt;c) <span class="comment">#a&gt;b为True继续计算b&gt;c，b&gt;c也为True则结果为True</span></span><br><span class="line"><span class="built_in">print</span>(a&gt;b <span class="keyword">and</span> b&lt;c)<span class="comment">#a&gt;b为True继续计算c&lt;b，b&gt;c结果为False则结果为False</span></span><br><span class="line"><span class="built_in">print</span>(a&gt;b <span class="keyword">or</span> c&lt;b) <span class="comment">#a&gt;b为True则不继续计算c&lt;b，结果为True</span></span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码(运算)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">30</span></span><br><span class="line">b = <span class="number">20</span></span><br><span class="line">c += a &gt; b <span class="keyword">and</span> b</span><br><span class="line"><span class="built_in">print</span>(c) <span class="comment">#输出 20</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、或运算-or"><a href="#4、或运算-or" class="headerlink" title="4、或运算 or"></a>4、或运算 or</h3><ol>
+<li><p>非运算</p>
+<p>有一个是 <code>True</code> 结果就是 <code>True</code></p>
+<p>由于任何类型都可以参与运算，所以更加准确的规则应该是：</p>
+<p><strong>如果第一个是 <code>True</code> 或者相当于 <code>True</code> ,则结果就是第一个数据，否则最终的结果就应该是第二个数据</strong>。</p>
+</li>
+<li><p>运算规则</p>
+<ul>
+<li><code>a or b</code></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>如果a为真，无需计算b，就可得知整个表达式的真值为真，所以结果为a的值</li>
+<li>如果a为假，继续计算b，b将决定整个表达式最终的值，所以结果为b的值</li>
+</ul>
+<ol start="3">
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">10</span></span><br><span class="line">b = <span class="number">20</span></span><br><span class="line">c = <span class="number">0</span></span><br><span class="line"><span class="built_in">print</span>(a&gt;b <span class="keyword">or</span> c&lt;b) <span class="comment"># 输出 true</span></span><br><span class="line"><span class="built_in">print</span>(a &gt; <span class="number">100</span> <span class="keyword">or</span> b &gt; <span class="number">100</span>) <span class="comment">#输出false</span></span><br><span class="line"><span class="built_in">print</span>(a &lt; <span class="number">0</span> <span class="keyword">or</span> b)  <span class="comment">#输出 b的值 20</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、附-真值表"><a href="#5、附-真值表" class="headerlink" title="5、附 真值表"></a>5、附 真值表</h3><blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Object</strong></th>
+<th>bool值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">“”</td>
+<td>False</td>
+</tr>
+<tr>
+<td align="left">“Str”</td>
+<td>True</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td>False</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td>True</td>
+</tr>
+<tr>
+<td align="left">()空元组</td>
+<td>False</td>
+</tr>
+<tr>
+<td align="left">[]空列表</td>
+<td>False</td>
+</tr>
+<tr>
+<td align="left">{}空字典</td>
+<td>False</td>
+</tr>
+<tr>
+<td align="left">None</td>
+<td>False</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h2 id="六、赋值运算符"><a href="#六、赋值运算符" class="headerlink" title="六、赋值运算符"></a>六、赋值运算符</h2><h3 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>赋值运算符就是给变量赋值或者赋值加运算</p>
+</blockquote>
+<h3 id="2、支持的赋值运算符"><a href="#2、支持的赋值运算符" class="headerlink" title="2、支持的赋值运算符"></a>2、支持的赋值运算符</h3><table>
+<thead>
+<tr>
+<th><strong>运 算 符</strong></th>
+<th><strong>说 明</strong></th>
+<th><strong>举 例</strong></th>
+<th><strong>展 开 形 式</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>=</strong></td>
+<td><strong>简单的赋值运算</strong></td>
+<td><strong>x=y</strong></td>
+<td><strong>x=y</strong></td>
+</tr>
+<tr>
+<td><strong>+=</strong></td>
+<td><strong>加赋值</strong></td>
+<td><strong>x+=y</strong></td>
+<td><strong>x=x+y</strong></td>
+</tr>
+<tr>
+<td><strong>-=</strong></td>
+<td><strong>减赋值</strong></td>
+<td><strong>x-=y</strong></td>
+<td><strong>x=x-y</strong></td>
+</tr>
+<tr>
+<td>***=**</td>
+<td><strong>乘赋值</strong></td>
+<td><strong>x*=y</strong></td>
+<td><strong>x=x*y</strong></td>
+</tr>
+<tr>
+<td><strong>/=</strong></td>
+<td><strong>除赋值</strong></td>
+<td><strong>x/=y</strong></td>
+<td><strong>x=x/y</strong></td>
+</tr>
+<tr>
+<td><strong>%=</strong></td>
+<td><strong>取余数赋值</strong></td>
+<td><strong>x%=y</strong></td>
+<td><strong>x=x%y</strong></td>
+</tr>
+<tr>
+<td>*<strong>*=</strong></td>
+<td><strong>幂赋值</strong></td>
+<td><strong>x**=y</strong></td>
+<td>*<em>x=x*<em>y</em></em></td>
+</tr>
+<tr>
+<td><strong>//=</strong></td>
+<td><strong>取整除赋值</strong></td>
+<td><strong>x//=y</strong></td>
+<td><strong>x=x//y</strong></td>
+</tr>
+</tbody></table>
+<h2 id="七、成员运算符"><a href="#七、成员运算符" class="headerlink" title="七、成员运算符"></a>七、成员运算符</h2><h3 id="1、说明-1"><a href="#1、说明-1" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>如果在指定的序列中找到了，那么结果是True，如果没有找到，那么结果是False.</p>
+</blockquote>
+<h3 id="2、成员运算符"><a href="#2、成员运算符" class="headerlink" title="2、成员运算符"></a>2、成员运算符</h3><table>
+<thead>
+<tr>
+<th>in</th>
+<th>如果在指定的序列中找到值返回 True，否则返回 False。</th>
+<th>x 在 y 序列中 , 如果 x 在 y 序列中返回 True。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>not in</td>
+<td>如果在指定的序列中没有找到值返回 True，否则返回 False。</td>
+<td>x 不在 y 序列中 , 如果 x 不在 y 序列中返回 True。</td>
+</tr>
+</tbody></table>
+<h2 id="八、身份运算符"><a href="#八、身份运算符" class="headerlink" title="八、身份运算符"></a>八、身份运算符</h2><h3 id="1、说明-2"><a href="#1、说明-2" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>所谓身份运算符就是比较两个变量内存地址是否相等,类似 id(变量) == id(变量)</p>
+</blockquote>
+<h3 id="2、运算符"><a href="#2、运算符" class="headerlink" title="2、运算符"></a>2、运算符</h3><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>is</td>
+<td>is 是判断两个标识符是不是引用同一个对象</td>
+<td>x is y，类似 id(x) == id(y)</td>
+</tr>
+<tr>
+<td>is not</td>
+<td>is not 是判断两个标识符是不是引用不同对象</td>
+<td>x is not y，类似 id(a) != id(b)</td>
+</tr>
+</tbody></table>
+<h3 id="3、与-的区别"><a href="#3、与-的区别" class="headerlink" title="3、与==的区别"></a>3、与==的区别</h3><ul>
+<li><code>is</code> 用于判断 <strong>两个变量 引用对象是否为同一个</strong></li>
+<li><code>==</code> 用于判断 <strong>引用变量的值</strong> 是否相等</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">100</span>,<span class="number">200</span>]</span><br><span class="line">b = [<span class="number">100</span>,<span class="number">200</span>]</span><br><span class="line"><span class="built_in">print</span>(b <span class="keyword">is</span> a)</span><br><span class="line"><span class="comment"># False</span></span><br><span class="line"><span class="built_in">print</span>(b == a)</span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="九、运算符优先级-由高到低"><a href="#九、运算符优先级-由高到低" class="headerlink" title="九、运算符优先级(由高到低)"></a>九、运算符优先级(由高到低)</h2><h3 id="1、说明-3"><a href="#1、说明-3" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>运算符的优先级我不推荐大家去死记硬背,只需要记住一条碰到需要优先计算的使用()括起来</p>
+</blockquote>
+<h3 id="2、优先级"><a href="#2、优先级" class="headerlink" title="2、优先级"></a>2、优先级</h3><ol>
+<li><code>**    指数 (最高优先级)</code></li>
+<li><code>~ + -    按位翻转, 一元加号和减号 (正负号)</code></li>
+<li><code>* / % //    乘，除，取模和取整除</code></li>
+<li><code>+ -    加法减法</code></li>
+<li><code>&gt;&gt; &lt;&lt;    右移，左移运算符</code></li>
+<li><code>&amp;    位 &#39;AND&#39;</code></li>
+<li><code>^ |    位运算符</code></li>
+<li><code>&lt;= &lt; &gt; &gt;=    比较运算符</code></li>
+<li><code>&lt;&gt; == !=    等于运算符</code></li>
+<li><code>= %= /= //= -= += *= **=    赋值运算符</code></li>
+<li><code>is is not    身份运算符</code></li>
+<li><code>in not in    成员运算符</code></li>
+<li><code>not or and    逻辑运算符</code></li>
+</ol>
+<h2 id="十、位运算符-了解"><a href="#十、位运算符-了解" class="headerlink" title="十、位运算符(了解)"></a>十、位运算符(了解)</h2><h3 id="1、说明-4"><a href="#1、说明-4" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>按位运算符是把数字看作二进制来进行计算的</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;</td>
+<td>a &amp; b</td>
+<td>按位与运算符：参与运算的两个值,如果两个相应位都为1,则该位的结果为1,否则为0</td>
+</tr>
+<tr>
+<td>|</td>
+<td>a | b</td>
+<td>按位或运算符：只要对应的二个二进位有一个为1时，结果位就为1</td>
+</tr>
+<tr>
+<td>^</td>
+<td>a ^ b</td>
+<td>按位异或运算符：当两对应的二进位相异时，结果为1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>~a</td>
+<td>按位取反运算符：对数据的每个二进制位取反,即把1变为0,把0变为1</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>a&lt;&lt;2</td>
+<td>左移动运算符：运算数的各二进位全部左移若干位，由”&lt;&lt;”右边的数指定移动的位数，高位丢弃，低位补0。</td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>a&gt;&gt;2</td>
+<td>右移动运算符：把”&gt;&gt;”左边的运算数的各二进位全部右移若干位，”&gt;&gt;”右边的数指定移动的位数</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">60</span>  <span class="comment"># 60 = 0011 1100</span></span><br><span class="line">b = <span class="number">13</span>  <span class="comment"># 13 = 0000 1101</span></span><br><span class="line"></span><br><span class="line">c = a &amp; b  <span class="comment"># 12 = 0000 1100</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;1 - c 的值为：&quot;</span>, c)</span><br><span class="line"></span><br><span class="line">c = a | b  <span class="comment"># 61 = 0011 1101</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;2 - c 的值为：&quot;</span>, c)</span><br><span class="line"></span><br><span class="line">c = a ^ b  <span class="comment"># 49 = 0011 0001</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;3 - c 的值为：&quot;</span>, c)</span><br><span class="line"></span><br><span class="line">c = ~a  <span class="comment"># -61 = 1100 0011</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;4 - c 的值为：&quot;</span>, c)</span><br><span class="line"></span><br><span class="line">c = a &lt;&lt; <span class="number">2</span>  <span class="comment"># 240 = 1111 0000</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;5 - c 的值为：&quot;</span>, c)</span><br><span class="line"></span><br><span class="line">c = a &gt;&gt; <span class="number">2</span>  <span class="comment"># 15 = 0000 1111</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;6 - c 的值为：&quot;</span>, c)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、转化函数"><a href="#3、转化函数" class="headerlink" title="3、转化函数"></a>3、转化函数</h3><ol>
+<li><p>二进制数字字符串 -&gt; 整形</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int(&#x27;00001111&#x27;,进制) 默认10进制</span><br></pre></td></tr></table></figure></li>
+<li><p>整形 -&gt; 二进制数字字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin(number)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/17/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80/" rel="prev" title="如何学习一门新的语言">
+      <i class="fa fa-chevron-left"></i> 如何学习一门新的语言
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/11%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="next" title="11、流程控制.md">
+      11、流程控制.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">运算符与表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%A1%A8%E8%BE%BE%E5%BC%8F-Expressions"><span class="nav-number">1.2.</span> <span class="nav-text">一、表达式(Expressions)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 、示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.3.</span> <span class="nav-text">二、算术运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E3%80%81%E5%8A%A0"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2、加 +</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3%E3%80%81%E5%87%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3、减  -</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4%E3%80%81%E4%B9%98"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4、乘  *</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5%E3%80%81%E5%B9%82"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5、幂 **</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6%E3%80%81%E9%99%A4"><span class="nav-number">1.3.6.</span> <span class="nav-text">2.6、除 &#x2F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%AF%94%E8%BE%83-%E5%85%B3%E7%B3%BB-%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.4.</span> <span class="nav-text">三、比较(关系)运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1%E3%80%81%E6%A6%82%E5%BF%B5-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.2、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.3、示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">四、逻辑运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%9D%9E%E8%BF%90%E7%AE%97-not"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、非运算 not</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%B8%8E%E8%BF%90%E7%AE%97-and"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、与运算 and</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%88%96%E8%BF%90%E7%AE%97-or"><span class="nav-number">1.5.4.</span> <span class="nav-text">4、或运算 or</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%99%84-%E7%9C%9F%E5%80%BC%E8%A1%A8"><span class="nav-number">1.5.5.</span> <span class="nav-text">5、附 真值表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.</span> <span class="nav-text">六、赋值运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.6.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%94%AF%E6%8C%81%E7%9A%84%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.2.</span> <span class="nav-text">2、支持的赋值运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%88%90%E5%91%98%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.7.</span> <span class="nav-text">七、成员运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%88%90%E5%91%98%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.7.2.</span> <span class="nav-text">2、成员运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E8%BA%AB%E4%BB%BD%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.</span> <span class="nav-text">八、身份运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-2"><span class="nav-number">1.8.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.2.</span> <span class="nav-text">2、运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%B8%8E-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.8.3.</span> <span class="nav-text">3、与&#x3D;&#x3D;的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7-%E7%94%B1%E9%AB%98%E5%88%B0%E4%BD%8E"><span class="nav-number">1.9.</span> <span class="nav-text">九、运算符优先级(由高到低)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-3"><span class="nav-number">1.9.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.9.2.</span> <span class="nav-text">2、优先级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-%E4%BA%86%E8%A7%A3"><span class="nav-number">1.10.</span> <span class="nav-text">十、位运算符(了解)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-4"><span class="nav-number">1.10.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.10.2.</span> <span class="nav-text">2、示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%BD%AC%E5%8C%96%E5%87%BD%E6%95%B0"><span class="nav-number">1.10.3.</span> <span class="nav-text">3、转化函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.11.</span> <span class="nav-text"></span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

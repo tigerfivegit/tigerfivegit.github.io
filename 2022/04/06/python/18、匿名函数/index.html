@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、lambda表达式(匿名函数)1、概念 lambda函数也叫匿名函数，即，函数没有具体的名称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="18、匿名函数.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/18%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、lambda表达式(匿名函数)1、概念 lambda函数也叫匿名函数，即，函数没有具体的名称">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.626Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.626Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/18%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>18、匿名函数.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/18%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          18、匿名函数.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、lambda表达式-匿名函数"><a href="#一、lambda表达式-匿名函数" class="headerlink" title="一、lambda表达式(匿名函数)"></a>一、lambda表达式(匿名函数)</h2><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><blockquote>
+<p>lambda函数也叫匿名函数，即，函数没有具体的名称    </p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">multip</span>(<span class="params">x</span>):  </span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">2</span>  </span><br><span class="line"></span><br><span class="line">lam = <span class="keyword">lambda</span> x : x * <span class="number">2</span>  </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(multip(<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(lam(<span class="number">2</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行完成之后的结果都是4,通过结果我们可以知道，lambda在Python这种动态的语言中确实没有起到什么特别大的作用，因为有很多别的方法能够代替lambda，所以python对 ambda有比较简单有限的支持</p>
+<p>简单来说好比电影里面的群众演员，往往他们的戏份很少，最多是衬托主演，跑跑龙套(出来就死的那种)，他们需要名字吗？不需要，因为他们仅仅只是临时出镜，下次可能就用不着了，所以犯不着费心思给他们每个人编个号取个名字，毕竟取个优雅的名字是很费劲的事情</p>
+</blockquote>
+<h3 id="2、为什么要使用lambda"><a href="#2、为什么要使用lambda" class="headerlink" title="2、为什么要使用lambda"></a>2、为什么要使用lambda</h3><blockquote>
+<p>通过上面的代码，我们会发现</p>
+<ol>
+<li><p>lambda简化了函数定义的书写形式。是代码更为简洁，但是使用函数的定义方式更为直观，易理解。</p>
+</li>
+<li><p>对于一些抽象的，不会别的地方再复用的函数，有时候给函数起个名字也是个难题，使用lambda不需要考虑命名的问题</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="3、语法格式"><a href="#3、语法格式" class="headerlink" title="3、语法格式"></a>3、语法格式</h3><ol>
+<li><p>语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">lambda</span> 形参列表 : 表达式</span><br></pre></td></tr></table></figure></li>
+<li><p>语法说明</p>
+<ol>
+<li>关键字<code>lambda</code>后面紧跟着形参列表. 注意形参列表不能用圆括号括起来</li>
+<li>形参列表后面紧跟着一个冒号(<code>:</code>)</li>
+<li>冒号后面是唯一的表达式. 注意:此表达式必须是合法的表达式.</li>
+<li><code>lambda</code>会自动返回表达式的运算结果</li>
+</ol>
+</li>
+<li><p>注意事项</p>
+<ol>
+<li>lambda 表达式只是对简单到只有一行代码的函数的语法糖(简写), 如果有多行代码, 则无法使用 lambda 表达式</li>
+<li>lambda 函数可以接收任意多个参数 (包括可选参数) 并且返回单个表达式的值</li>
+<li>lambda用来编写简单的函数，而def用来处理更强大的任务</li>
+</ol>
+</li>
+</ol>
+<h3 id="4、示例代码"><a href="#4、示例代码" class="headerlink" title="4、示例代码"></a>4、示例代码</h3><ol>
+<li><p>无参</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#函数名为fun</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>():</span><br><span class="line">  <span class="keyword">return</span> Ture  </span><br><span class="line"><span class="comment">#无参数 无函数名</span></span><br><span class="line"><span class="keyword">lambda</span> : Ture      </span><br></pre></td></tr></table></figure></li>
+<li><p>位置参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m = <span class="keyword">lambda</span> x,y,z: x*y*z</span><br><span class="line"><span class="built_in">print</span>(m(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>关键字参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">x,y=<span class="number">2</span></span>)</span><br><span class="line">	<span class="keyword">return</span> x + y</span><br><span class="line"><span class="comment">#lambda表达式</span></span><br><span class="line">add = <span class="keyword">lambda</span> x,y=<span class="number">2</span>: x+y</span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">10</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>不定长参数,返回元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#函数定义</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line"><span class="comment">#表达式</span></span><br><span class="line">a = <span class="keyword">lambda</span> *z: z * <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(a(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="string">&#x27;姓名&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>不定长参数,返回字典</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun_kwargs</span>(<span class="params">**kwargs</span>):</span><br><span class="line">    <span class="keyword">return</span> kwargs</span><br><span class="line"><span class="comment"># 表达式</span></span><br><span class="line">c = <span class="keyword">lambda</span> **kwargs: kwargs</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(c(arg1=<span class="number">1</span>, arg2=<span class="number">1</span>, arg3=<span class="string">&#x27;姓名&#x27;</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>直接后面传递实参</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>((<span class="keyword">lambda</span> x, y: x <span class="keyword">if</span> x &gt; y <span class="keyword">else</span> y)(<span class="number">100</span>, <span class="number">200</span>))</span><br><span class="line">    <span class="built_in">print</span>((<span class="keyword">lambda</span> x: x ** <span class="number">10</span>)(<span class="number">2</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>配合函数使用</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">say</span>(<span class="params">name, content</span>):</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">lambda</span> name, content: name + <span class="string">&#x27;say: &#x27;</span> + content)(name, content)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(say(<span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;Hello World&#x27;</span>))</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">action</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> y: x+y</span><br><span class="line">    </span><br><span class="line">fun = action(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(f(<span class="number">3</span>))</span><br></pre></td></tr></table></figure></li>
+<li><p>使用在不能定义函数的</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">info = [(lambda a: a**3)(1), (lambda b: b**3)(2)]</span><br><span class="line">print(info)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、小结"><a href="#5、小结" class="headerlink" title="5、小结"></a>5、小结</h3><ol>
+<li> 对于单行函数，使用lambda可以省去定义函数的过程，让代码更加精简。</li>
+</ol>
+<ol start="2">
+<li>在非多次调用的函数的情况下，lambda表达式即用既得，提高性能 </li>
+<li>如果可以使用for…in…if来完成的，坚决不用lambda。</li>
+<li>如果使用lambda，lambda内不要包含循环，如果有，我宁愿定义函数来完成，使代码获得可重用性和更好的可读性。lambda 是为了减少单行函数的定义而存在的。</li>
+</ol>
+<ol start="5">
+<li>lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。</li>
+<li>lambda表达式是起到一个函数速写的作用。允许在代码内嵌入一个函数的定义。</li>
+</ol>
+<h2 id="二、内置函数"><a href="#二、内置函数" class="headerlink" title="二、内置函数"></a>二、内置函数</h2><h3 id="1、map"><a href="#1、map" class="headerlink" title="1、map"></a>1、map</h3><h4 id="1-1、说明"><a href="#1-1、说明" class="headerlink" title="1.1、说明"></a>1.1、说明</h4><blockquote>
+<p>对一个及多个可迭代对象执行同一个操作，返回一个map对象(可迭代对象)</p>
+</blockquote>
+<h4 id="1-2、语法格式"><a href="#1-2、语法格式" class="headerlink" title="1.2、语法格式"></a>1.2、语法格式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>(func, *iterables)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3、参数说明"><a href="#1-3、参数说明" class="headerlink" title="1.3、参数说明"></a>1.3、参数说明</h4><ul>
+<li><p>func: </p>
+<p>函数名,不能为None 也可以是匿名函数</p>
+</li>
+<li><p>iterables: </p>
+<p>一个或者多个可迭代的对象,例如:list 字典</p>
+</li>
+</ul>
+<h4 id="1-4、原理图"><a href="#1-4、原理图" class="headerlink" title="1.4、原理图"></a>1.4、原理图</h4><h4 id="1-5、返回值"><a href="#1-5、返回值" class="headerlink" title="1.5、返回值"></a>1.5、返回值</h4><blockquote>
+<p>Python 3.x 返回map对象(迭代器)</p>
+<p>Python 2.x 返回列表</p>
+</blockquote>
+<h4 id="1-6、注意"><a href="#1-6、注意" class="headerlink" title="1.6、注意"></a>1.6、注意</h4><blockquote>
+<p>返回一个新的迭代对象,不会对原来的序列有影响,输出的时候注意因为是一个迭代对象,所有想查看结果<strong>可以通过for循环或者list()来显示</strong></p>
+</blockquote>
+<h4 id="1-7、举个栗子"><a href="#1-7、举个栗子" class="headerlink" title="1.7、举个栗子"></a>1.7、举个栗子</h4><ul>
+<li><p>基本使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">li = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">iter1 = <span class="built_in">map</span>(<span class="keyword">lambda</span> x: x * <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure></li>
+<li><p>元组和列表配合使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#注意 传入两个可迭代对象，所以传入的函数必须能接收2个参数</span></span><br><span class="line">iter2 = <span class="built_in">map</span>(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], (<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">tuple</span>(iter2))</span><br></pre></td></tr></table></figure></li>
+<li><p>当传入多个可迭代对象时，且它们元素长度不一致时，生成的迭代器只到最短长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">iter3 = <span class="built_in">map</span>(<span class="keyword">lambda</span> x, y: x + y <span class="keyword">if</span> y <span class="keyword">else</span> x + <span class="number">10</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">tuple</span>(iter3))</span><br><span class="line"><span class="comment"># 输出(2, 4, 6, 8) </span></span><br></pre></td></tr></table></figure></li>
+<li><p>结合函数使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> x * x</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(<span class="built_in">map</span>(fun, nums)))    </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2、filter"><a href="#2、filter" class="headerlink" title="2、filter"></a>2、filter</h3><h4 id="2-1、说明"><a href="#2-1、说明" class="headerlink" title="2.1、说明"></a>2.1、说明</h4><blockquote>
+<p>对于序列中的元素进行筛选，最终获取符合条件的序列，相当于一个迭代器，调用一个布尔函数func来迭代seq中的每个元素，返回一个是bool_seq返回为True的序列</p>
+</blockquote>
+<h4 id="2-2、语法格式"><a href="#2-2、语法格式" class="headerlink" title="2.2、语法格式"></a>2.2、语法格式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">filter</span>(function, iterable)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3、参数说明"><a href="#2-3、参数说明" class="headerlink" title="2.3、参数说明"></a>2.3、参数说明</h4><ul>
+<li><p>function: </p>
+<p>函数或None</p>
+</li>
+<li><p>iterable:</p>
+<p>可迭代对象,例如: 列表 字典,集合 字符串等</p>
+</li>
+</ul>
+<h4 id="2-4、返回值"><a href="#2-4、返回值" class="headerlink" title="2.4、返回值"></a>2.4、返回值</h4><ul>
+<li>如果参数为function,那么返回条件为真的返回迭代器对象</li>
+<li>如果参数为None的话,那么返回序列中所有为True的元素</li>
+</ul>
+<h4 id="2-5、原理图"><a href="#2-5、原理图" class="headerlink" title="2.5、原理图"></a>2.5、原理图</h4><h4 id="2-6、举个栗子"><a href="#2-6、举个栗子" class="headerlink" title="2.6、举个栗子"></a>2.6、举个栗子</h4><ul>
+<li><p>要过滤掉所有值为False的列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">li = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0.0</span>, <span class="literal">None</span>, &#123;&#125;]</span><br><span class="line"><span class="built_in">filter</span>(<span class="literal">None</span>, [-<span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="string">&#x27;&#x27;</span>, &#123;&#125;, ()])</span><br></pre></td></tr></table></figure></li>
+<li><p>过滤字母(字符串)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x !=<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;abcd&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>过滤元素(列表)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">names = [<span class="string">&#x27;老宋&#x27;</span>, <span class="string">&#x27;老王&#x27;</span>, <span class="string">&#x27;小张&#x27;</span>, <span class="string">&#x27;小花&#x27;</span>, <span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line"><span class="built_in">filter</span>(<span class="literal">None</span>, names)</span><br></pre></td></tr></table></figure></li>
+<li><p>过滤列表中的奇数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">0</span>,<span class="number">101</span>,<span class="number">10</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">131</span>,<span class="number">88</span>] </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  <span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x%<span class="number">2</span>, nums)</span><br></pre></td></tr></table></figure></li>
+<li><p>将2-10间所有质数列出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="keyword">not</span> [x <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,x) <span class="keyword">if</span> x%i == <span class="number">0</span>],<span class="built_in">range</span>(<span class="number">2</span>,<span class="number">10</span>)) </span><br></pre></td></tr></table></figure></li>
+<li><p>过滤所有子列表中，元素是’Iphone’     [示例代码有问题]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">filter_shop</span>(<span class="params">shop</span>):  </span><br><span class="line">	<span class="keyword">if</span> shop:</span><br><span class="line">		<span class="keyword">return</span> shop != <span class="string">&#x27;Iphone&#x27;</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">shops = [[<span class="string">&#x27;huawei&#x27;</span>, <span class="string">&#x27;Iphone&#x27;</span>, <span class="string">&#x27;xiaomi&#x27;</span>], [<span class="string">&#x27;Iphone&#x27;</span>, <span class="string">&#x27;meizu&#x27;</span>,<span class="string">&#x27;vivo&#x27;</span>]]</span><br><span class="line"><span class="built_in">filter</span>(fitler_shop(shop)) <span class="keyword">for</span> shop <span class="keyword">in</span> shops</span><br></pre></td></tr></table></figure></li>
+<li><p>过滤文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#需要的模块  </span></span><br><span class="line"><span class="keyword">import</span> os                         </span><br><span class="line"><span class="comment">#列出需要查找的目录的所有文件</span></span><br><span class="line"></span><br><span class="line">files = os.listdir(<span class="string">&#x27;D:\googleDownload&#x27;</span>)</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">filter</span>(<span class="keyword">lambda</span> file: file.endswith(<span class="string">&#x27;gz&#x27;</span>), files)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    </span><br><span class="line">------ 改正后代码</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">filter_shop</span>(<span class="params">shop</span>):</span><br><span class="line">    <span class="keyword">if</span> shop != <span class="string">&#x27;Iphone&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> shop</span><br><span class="line"></span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">shops = [[<span class="string">&#x27;huawei&#x27;</span>, <span class="string">&#x27;Iphone&#x27;</span>, <span class="string">&#x27;xiaomi&#x27;</span>], [<span class="string">&#x27;Iphone&#x27;</span>, <span class="string">&#x27;meizu&#x27;</span>, <span class="string">&#x27;vivo&#x27;</span>], [<span class="string">&#x27;meizu&#x27;</span>]]</span><br><span class="line"><span class="keyword">for</span> items <span class="keyword">in</span> shops:</span><br><span class="line">    <span class="keyword">for</span> item2 <span class="keyword">in</span> items:</span><br><span class="line">        a = filter_shop(item2)</span><br><span class="line">        <span class="comment"># a = (a != &quot;False&quot; and a )</span></span><br><span class="line">        <span class="built_in">print</span>(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>底层实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">filter1</span>(<span class="params">func,seq</span>):</span><br><span class="line">	<span class="comment"># 建一个空序列，用于存储过滤后的元素</span></span><br><span class="line">    f_seq = []</span><br><span class="line">    <span class="comment">#对序列中的每个元素进行迭代</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> seq:    </span><br><span class="line">    	<span class="comment">#如果为真的话</span></span><br><span class="line">        <span class="keyword">if</span> func(item): </span><br><span class="line">        	  <span class="comment">#满足条件者，则加入</span></span><br><span class="line">            f_seq.append(item)  </span><br><span class="line">    <span class="comment"># 返回过滤后的元素          </span></span><br><span class="line">    <span class="keyword">return</span> f_seq                        </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">代码测试</span><br><span class="line"></span><br><span class="line">li = [&#x27;tiger&#x27;, &#x27;five&#x27;, &#x27;qf&#x27;, &#x27;f803&#x27;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def fi(test):</span><br><span class="line">    if test != &#x27;tiger&#x27;:</span><br><span class="line">        return test</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = filter1(fi, li)</span><br><span class="line">for i in a:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3、reduce"><a href="#3、reduce" class="headerlink" title="3、reduce"></a>3、reduce</h3><h4 id="3-1、说明"><a href="#3-1、说明" class="headerlink" title="3.1、说明"></a>3.1、说明</h4><blockquote>
+<p>reduce函数会对参数序列中元素进行累积。</p>
+<p>在Python 3里,reduce()函数已经被从全局名字空间里移除了,它现在被放置在fucntools模块里 用的话要先引入。</p>
+</blockquote>
+<h4 id="3-2、语法"><a href="#3-2、语法" class="headerlink" title="3.2、语法"></a>3.2、语法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce(function, sequence, initial=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3、参数说明"><a href="#3-3、参数说明" class="headerlink" title="3.3、参数说明"></a>3.3、参数说明</h4><ul>
+<li><p>function</p>
+<p>处理序列的函数</p>
+</li>
+<li><p>sequence  </p>
+<p>序列对象</p>
+</li>
+<li><p>initial</p>
+<p> 可选参数第一次调用的参数</p>
+</li>
+</ul>
+<h4 id="3-4、返回值"><a href="#3-4、返回值" class="headerlink" title="3.4、返回值"></a>3.4、返回值</h4><blockquote>
+<p>函数处理过的对象</p>
+</blockquote>
+<h4 id="3-5、备注"><a href="#3-5、备注" class="headerlink" title="3.5、备注"></a>3.5、备注</h4><blockquote>
+<p>function有三个参数，</p>
+<p>reduce依次从sequence中取一个元素，和上一次调用function的结果做参数再次调用function。 </p>
+<p>第一次调用function时，如果提供initial参数，会以sequence中的第一个元素和initial作为参数调用function，</p>
+<p>否则会以序列sequence中的前两个元素做参数调用function</p>
+</blockquote>
+<h4 id="3-6、举个栗子"><a href="#3-6、举个栗子" class="headerlink" title="3.6、举个栗子"></a>3.6、举个栗子</h4><ul>
+<li><p>对字符串的处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">value1 = reduce(<span class="keyword">lambda</span> x, y: x + y,[<span class="string">&#x27;hello&#x27;</span>, <span class="string">&#x27;word&#x27;</span>])</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(value1)</span><br></pre></td></tr></table></figure></li>
+<li><p>两个参数的数字类型处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">value2 = reduce(<span class="keyword">lambda</span> x, y: x * y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(value2)</span><br></pre></td></tr></table></figure></li>
+<li><p>func()函数不能为None,否则报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(reduce(<span class="literal">None</span>,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]))</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"> Traceback (most recent call last):</span></span><br><span class="line"><span class="string">   File &quot;/Users/zhangwei/work/PycharmProjects/Demo/day05/src/lambda_reduce.py&quot;, line 12, in &lt;module&gt;</span></span><br><span class="line"><span class="string">     print(reduce(None,[1,2,3,4])  )</span></span><br><span class="line"><span class="string"> TypeError: &#x27;NoneType&#x27; object is not callable</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>func(x,y)只能有两个参数，否则报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(reduce(<span class="keyword">lambda</span> x: x * <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File &quot;/Users/zhangwei/work/PycharmProjects/Demo/day05/src/lambda_reduce.py&quot;, line 12, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    print(reduce(lambda x: x * 2, [1, 2, 3, 4], 10))</span></span><br><span class="line"><span class="string">TypeError: &lt;lambda&gt;() takes 1 positional argument but 2 were given</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>底层实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">reduce</span>(<span class="params">function, iterable, initializer=<span class="literal">None</span></span>):</span><br><span class="line">it = <span class="built_in">iter</span>(iterable)</span><br><span class="line">    <span class="keyword">if</span> initializer <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        value = <span class="built_in">next</span>(it)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        value = initializer</span><br><span class="line">    <span class="keyword">for</span> element <span class="keyword">in</span> it:</span><br><span class="line">        value = function(value, element)</span><br><span class="line"><span class="keyword">return</span> value</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/17%E3%80%81%E5%87%BD%E6%95%B0/" rel="prev" title="17、函数.md">
+      <i class="fa fa-chevron-left"></i> 17、函数.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/20%E3%80%81%E5%87%BD%E6%95%B0%E9%AB%98%E7%BA%A7/" rel="next" title="20、函数高级.md">
+      20、函数高级.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">一、lambda表达式(匿名函数)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8lambda"><span class="nav-number">1.2.</span> <span class="nav-text">2、为什么要使用lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">3、语法格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">4、示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%B0%8F%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">5、小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">二、内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81map"><span class="nav-number">2.1.</span> <span class="nav-text">1、map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2、语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3%E3%80%81%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3、参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4%E3%80%81%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4、原理图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5%E3%80%81%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.5、返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6%E3%80%81%E6%B3%A8%E6%84%8F"><span class="nav-number">2.1.6.</span> <span class="nav-text">1.6、注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">2.1.7.</span> <span class="nav-text">1.7、举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81filter"><span class="nav-number">2.2.</span> <span class="nav-text">2、filter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2、语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3%E3%80%81%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3、参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4%E3%80%81%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.4、返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5%E3%80%81%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.5、原理图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">2.2.6.</span> <span class="nav-text">2.6、举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81reduce"><span class="nav-number">2.3.</span> <span class="nav-text">3、reduce</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2%E3%80%81%E8%AF%AD%E6%B3%95"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2、语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3%E3%80%81%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3、参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4%E3%80%81%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">2.3.4.</span> <span class="nav-text">3.4、返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5%E3%80%81%E5%A4%87%E6%B3%A8"><span class="nav-number">2.3.5.</span> <span class="nav-text">3.5、备注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">2.3.6.</span> <span class="nav-text">3.6、举个栗子</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

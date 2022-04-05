@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Python 基本数据类型一、简介 Python3中有六个标准的数据类型：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7、基本数据类型.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/7%E3%80%81%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Python 基本数据类型一、简介 Python3中有六个标准的数据类型：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172433.jpeg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172446.jpeg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172450.jpeg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172457.jpeg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.650Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.650Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172433.jpeg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/7%E3%80%81%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>7、基本数据类型.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/7%E3%80%81%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7、基本数据类型.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Python-基本数据类型"><a href="#Python-基本数据类型" class="headerlink" title="Python 基本数据类型"></a>Python 基本数据类型</h1><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><blockquote>
+<p>Python3中有六个标准的数据类型：</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<ol>
+<li>字符串（String）</li>
+<li>数字（Digit）</li>
+<li>列表（List）</li>
+<li>元组（Tuple）</li>
+<li>集合（Sets）</li>
+<li>字典（Dictionary）</li>
+</ol>
+</blockquote>
+<h2 id="二、Numbers（数字）"><a href="#二、Numbers（数字）" class="headerlink" title="二、Numbers（数字）"></a>二、Numbers（数字）</h2><h3 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>Python 3支持int、float、bool、complex（复数）。</p>
+<p>数值类型的赋值和计算都是很直观的，就像大多数语言一样。内置的type()函数可以用来查询变量所指的对象类型。</p>
+</blockquote>
+<h3 id="2、整型-int"><a href="#2、整型-int" class="headerlink" title="2、整型(int)"></a>2、整型(int)</h3><h4 id="2-1、说明"><a href="#2-1、说明" class="headerlink" title="2.1、说明"></a>2.1、说明</h4><blockquote>
+<p>通常被称为是整型或整数，是正或负整数，不带小数点。Python3 整型是没有限制大小的，可以当作 Long 类型使用，所以 Python3 没有 Python2 的 Long 类型。</p>
+</blockquote>
+<h4 id="2-1、示例代码"><a href="#2-1、示例代码" class="headerlink" title="2.1、示例代码"></a>2.1、示例代码</h4><ol>
+<li><p>正整数,负整数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">1212121212</span></span><br><span class="line">i=-<span class="number">1000000</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>2进制</code>、<code>8进制</code>、<code>10进制</code>、<code>16进制</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">100</span>     <span class="comment"># 十进制的100.</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line">b = <span class="number">0b100</span>   <span class="comment"># 用 0b 开头表示二进制数据</span></span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line">c = <span class="number">0o100</span>   <span class="comment"># 用 0o 开头表示八进制数据</span></span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line">d = <span class="number">0x100</span>   <span class="comment"># 用 0x 开头表示十六进制的数据</span></span><br><span class="line"><span class="built_in">print</span>(d)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172433.jpeg"></p>
+</li>
+</ol>
+<h3 id="3、浮点型"><a href="#3、浮点型" class="headerlink" title="3、浮点型"></a>3、浮点型</h3><h4 id="3-1、说明"><a href="#3-1、说明" class="headerlink" title="3.1、说明"></a>3.1、说明</h4><blockquote>
+<p>浮点型由整数部分与小数部分组成，  <strong>提供大约17位的精度</strong>和范围从-308到308的指数</p>
+<p>浮点数可以用数学写法，如<code>1.23</code>，<code>3.14</code>，<code>-9.01</code>，等等。但是对于很大或很小的浮点数，就必须用科学计数法表示，把10用e替代，<code>1.23x109</code>就是<code>1.23e9</code>，或者<code>12.3e8</code>，<code>0.000012</code>可以写成<code>1.2e-5</code>等等。</p>
+</blockquote>
+<h4 id="3-2、示例代码"><a href="#3-2、示例代码" class="headerlink" title="3.2、示例代码"></a>3.2、示例代码</h4><ol>
+<li><p>基础使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f=1000.0</span><br><span class="line">f1=-1000.1233333333333</span><br><span class="line">c= 3.1415</span><br></pre></td></tr></table></figure></li>
+<li><p>科学计算e</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 3141.5</span><br><span class="line">e1 =3.1415e3</span><br><span class="line"># -0.0031415</span><br><span class="line">e2 = -3.1415e-3</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172446.jpeg"></p>
+</li>
+</ol>
+<h4 id="3-3、注意"><a href="#3-3、注意" class="headerlink" title="3.3、注意"></a>3.3、注意</h4><blockquote>
+<p>整数和浮点数在计算机中的存储方式是不一样的。整数永远可以精确的表示，而大部分的浮点数是近似表示。</p>
+</blockquote>
+<h3 id="4、复数-了解"><a href="#4、复数-了解" class="headerlink" title="4、复数(了解)"></a>4、复数(了解)</h3><h4 id="4-1、说明"><a href="#4-1、说明" class="headerlink" title="4.1、说明"></a>4.1、说明</h4><blockquote>
+<p>复数由实数部分和虚数部分构成，可以用a + bj,或者complex(a,b)表示， 复数的实部a和虚部b都是浮点型</p>
+</blockquote>
+<h4 id="4-2、示例代码"><a href="#4-2、示例代码" class="headerlink" title="4.2、示例代码"></a>4.2、示例代码</h4><ol>
+<li><p>基础使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var1 = <span class="number">123j</span> <span class="comment">#复数</span></span><br><span class="line">var2 = <span class="number">123</span>+<span class="number">45j</span> <span class="comment">#复数</span></span><br><span class="line">var3 = <span class="number">123j</span>+<span class="number">45j</span> <span class="comment">#复数</span></span><br><span class="line"><span class="built_in">print</span>(var1.real)  </span><br><span class="line"><span class="built_in">print</span>(var2.real) </span><br><span class="line"><span class="built_in">print</span>(var3.real) </span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(var1.imag)  </span><br><span class="line"><span class="built_in">print</span>(var2.imag) </span><br><span class="line"><span class="built_in">print</span>(var3.imag) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172450.jpeg"></p>
+</li>
+<li><p>complex(a) </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="built_in">complex</span>(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(a.real)</span><br><span class="line"><span class="comment">#output实数部分 10</span></span><br><span class="line"><span class="built_in">print</span>(a.imag)</span><br><span class="line"><span class="comment">#output虚数部分 0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>complex(a,b)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = complex(10,1)</span><br><span class="line">print(a.real)</span><br><span class="line">#output实数部分 10.0</span><br><span class="line">print(a.imag)</span><br><span class="line">#output虚数部分 1.0</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172457.jpeg"></p>
+</li>
+</ol>
+<h2 id="三、String（字符串）"><a href="#三、String（字符串）" class="headerlink" title="三、String（字符串）"></a>三、String（字符串）</h2><h3 id="1、说明-1"><a href="#1、说明-1" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>Python中的字符串str用单引号(‘ ‘)或双引号(“ “)括起来，同时使用反斜杠()转义特殊字符。</p>
+<p>如果你不想让反斜杠发生转义，可以在字符串前面添加一个r，表示原始字符串(具体的操作参考字符串详解)</p>
+</blockquote>
+<h3 id="2、其它转义字符"><a href="#2、其它转义字符" class="headerlink" title="2、其它转义字符"></a>2、其它转义字符</h3><blockquote>
+<p>有些字符没有办法直接写在 单引号或者双引号中，比如回车、换行、制表符等。这时候需要借助转义字符来。<code>\</code> 是转义字符。(几乎在所有的编程语言中都是它)</p>
+<table>
+<thead>
+<tr>
+<th>转义字符串</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>\n</code></td>
+<td>换行</td>
+</tr>
+<tr>
+<td><code>\&#39;</code></td>
+<td>单引号</td>
+</tr>
+<tr>
+<td><code>\&quot;</code></td>
+<td>双引号</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>\\</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>制表符</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>退格(back)</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="3、示例代码"><a href="#3、示例代码" class="headerlink" title="3、示例代码"></a>3、示例代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;空空&#x27;</span></span><br><span class="line">phone = <span class="string">&quot;110&quot;</span></span><br><span class="line">s = <span class="string">&#x27;123\n456&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、总结"><a href="#4、总结" class="headerlink" title="4、总结"></a>4、总结</h3><ol>
+<li>反斜杠可以用来转义，使用r可以让反斜杠不发生转义。</li>
+<li>字符串可以用+运算符连接在一起，用*运算符重复。</li>
+<li>Python中的字符串有两种索引方式，从左往右以0开始，从右往左以-1开始。</li>
+<li>Python中的字符串不能改变。</li>
+</ol>
+<h2 id="四、布尔值-bool"><a href="#四、布尔值-bool" class="headerlink" title="四、布尔值(bool)"></a>四、布尔值(bool)</h2><h3 id="1、说明-2"><a href="#1、说明-2" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p> 布尔值表示一种逻辑值。在 <code>python</code> 中只有 2 个字面量布尔值 <code>True</code> 和 <code>False</code> 。</p>
+<p> 注意：bool 是int的子类，继承自int</p>
+</blockquote>
+<h3 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="literal">True</span></span><br><span class="line">b = <span class="literal">False</span></span><br><span class="line">c = <span class="number">3</span> &gt; <span class="number">4</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"><span class="built_in">print</span>(c)</span><br></pre></td></tr></table></figure>
+
+<h2 id="五、空值None类型"><a href="#五、空值None类型" class="headerlink" title="五、空值None类型"></a>五、空值None类型</h2><h3 id="1、说明-3"><a href="#1、说明-3" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>空值是Python里一个特殊的值，用None表示。None不能理解为0，因为0是有意义的，而None是一个特殊的空值。可以将None赋值给任何变量，也可以将任何变量赋值给一个None值得对象</p>
+</blockquote>
+<h3 id="2、示例代码-1"><a href="#2、示例代码-1" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><p>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="literal">None</span></span><br><span class="line">b = <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、总结"><a href="#3、总结" class="headerlink" title="3、总结"></a>3、总结</h3><ol>
+<li>None是一个特殊的常量。</li>
+<li>None和False不同。</li>
+<li>None不是0。</li>
+<li>None不是空字符串。</li>
+<li>None和任何其他的数据类型比较永远返回False。</li>
+<li>None有自己的数据类型NoneType。</li>
+</ol>
+<h2 id="七、类型判断"><a href="#七、类型判断" class="headerlink" title="七、类型判断"></a>七、类型判断</h2><h3 id="1、说明-4"><a href="#1、说明-4" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>在Python中可以使用type()来对简单的数据库类型进行判断</p>
+<p>为什么要进行数据判断,主要增加健壮性,因为有些时候客服端传过来的数据是不可靠的</p>
+</blockquote>
+<h3 id="2、type"><a href="#2、type" class="headerlink" title="2、type"></a>2、type</h3><ol>
+<li><p>说明</p>
+<p><strong>type()函数</strong>在python中是即简单又实用的一种对象数据类型查询方法</p>
+</li>
+<li><p>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj = type(对象)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<p>接收一个对象当做参考</p>
+</li>
+<li><p>返回类型</p>
+<p>返回对象对应的类型</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># int</span></span><br><span class="line">x = <span class="number">123</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(x))</span><br><span class="line"><span class="comment"># float</span></span><br><span class="line">y = <span class="number">123.1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(y))</span><br><span class="line"><span class="comment"># str</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="string">&#x27;111&#x27;</span>))</span><br><span class="line"><span class="comment"># bool</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">True</span>))</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="8、基本类型转化"><a href="#8、基本类型转化" class="headerlink" title="8、基本类型转化"></a>8、基本类型转化</h2><h3 id="1、其它类型转化成Int类型"><a href="#1、其它类型转化成Int类型" class="headerlink" title="1、其它类型转化成Int类型"></a>1、其它类型转化成Int类型</h3><ol>
+<li><p>说明</p>
+<p>把符合数学格式的数字型字符串转换成整数<br>把浮点数转换成整数，但是只是简单的取整，而非四舍五入</p>
+</li>
+<li><p>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int(x, base=10)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x </p>
+<p>要转化成int的类型(数字字符串,float)</p>
+</li>
+<li><p>base </p>
+<p>进制  默认转化成10进制</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">aa = <span class="built_in">int</span>(<span class="string">&quot;124&quot;</span>)   </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;aa = &quot;</span>, aa)</span><br><span class="line"></span><br><span class="line">bb = <span class="built_in">int</span>(<span class="number">123.45</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;bb = &quot;</span>, bb)</span><br><span class="line"></span><br><span class="line">ee = <span class="built_in">int</span>(<span class="string">&quot;12.3&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(ee)</span><br><span class="line"></span><br><span class="line">cc = <span class="built_in">int</span>(<span class="string">&quot;-123.45&quot;</span>)  <span class="comment">#注意不能转化负数的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;cc = &quot;</span>,cc)</span><br><span class="line"></span><br><span class="line">dd = <span class="built_in">int</span>(<span class="string">&quot;34a&quot;</span>) <span class="comment">#注意不能转化非数字的字符串</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;dd = &quot;</span>,dd)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、其它类型转化成float"><a href="#2、其它类型转化成float" class="headerlink" title="2、其它类型转化成float"></a>2、其它类型转化成float</h3><ol>
+<li><p>说明</p>
+<p>把符合数学格式的数字型字符串转换成浮点数<br>把整数转换成浮点型</p>
+</li>
+<li><p>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">float(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<ul>
+<li><p>x</p>
+<p>要转化的其它类型数据</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">aa = <span class="built_in">float</span>(<span class="string">&quot;124&quot;</span>)     </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;aa = &quot;</span>, aa)    <span class="comment">#result = 124.0 </span></span><br><span class="line">bb = <span class="built_in">float</span>(<span class="string">&quot;123.45&quot;</span>)  </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;bb = &quot;</span>, bb)   <span class="comment">#result = 123.45</span></span><br><span class="line">cc = <span class="built_in">float</span>(-<span class="number">123.6</span>)  </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;cc = &quot;</span>,cc)    <span class="comment">#result = -123.6</span></span><br><span class="line">dd = <span class="built_in">float</span>(<span class="string">&quot;-123.34&quot;</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;dd = &quot;</span>,dd )    <span class="comment">#result = -123.34</span></span><br><span class="line">ee = <span class="built_in">float</span>(<span class="string">&#x27;123v&#x27;</span>)    <span class="comment">#非数字类型不能转化</span></span><br><span class="line"><span class="built_in">print</span>(ee)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、将其它类型转化成字符串类型"><a href="#3、将其它类型转化成字符串类型" class="headerlink" title="3、将其它类型转化成字符串类型"></a>3、将其它类型转化成字符串类型</h3><ol>
+<li><p>说明</p>
+<p>将对象 x 转换为字符串</p>
+</li>
+<li><p>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<ul>
+<li><p>x</p>
+<p>要转化成字符串的其它类型</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">aa = <span class="built_in">str</span>(<span class="number">110</span>)     </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;aa = &quot;</span>, aa)   </span><br><span class="line">bb = <span class="built_in">str</span>(<span class="number">123.45</span>)  </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;bb = &quot;</span>, bb)  </span><br><span class="line">cc = <span class="built_in">str</span>(-<span class="number">3.131415</span>)  </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;cc = &quot;</span>,cc)   </span><br><span class="line">dd = <span class="built_in">str</span>(-<span class="number">123.34</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;dd = &quot;</span>,dd )    </span><br><span class="line">ee = <span class="built_in">float</span>(<span class="string">&#x27;123&#x27;</span>)   </span><br><span class="line"><span class="built_in">print</span>(ee)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、将其它类型转化成bool类型"><a href="#4、将其它类型转化成bool类型" class="headerlink" title="4、将其它类型转化成bool类型"></a>4、将其它类型转化成bool类型</h3><ol>
+<li><p>说明</p>
+<p>在python中，除了’’、””、0、()、[]、{}、None为False， 其他转换都为True。 也就是说字符串如果不为空，则永远转换为True。</p>
+</li>
+<li><p>函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>要转化的字符串</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bool</span>(<span class="number">0</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="built_in">bool</span>(<span class="string">&#x27;abc&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="built_in">bool</span>(<span class="string">&#x27; &#x27;</span>)   <span class="comment">#参数是一个空格，非空。</span></span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="built_in">bool</span>(<span class="string">&#x27;&#x27;</span>)    <span class="comment">#参数为空。</span></span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="built_in">bool</span>([])</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="built_in">bool</span>()</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="built_in">bool</span>(<span class="literal">None</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="built_in">issubclass</span>(<span class="built_in">bool</span>,<span class="built_in">int</span>) <span class="comment">#判断是否是子类</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/6%E3%80%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="prev" title="6、输入输出.md">
+      <i class="fa fa-chevron-left"></i> 6、输入输出.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/8%E3%80%81%E5%BA%8F%E5%88%97/" rel="next" title="8、序列.md">
+      8、序列.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">Python 基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Numbers%EF%BC%88%E6%95%B0%E5%AD%97%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">二、Numbers（数字）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%95%B4%E5%9E%8B-int"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、整型(int)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.1、示例代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、浮点型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">3.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">3.2、示例代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3%E3%80%81%E6%B3%A8%E6%84%8F"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">3.3、注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%A4%8D%E6%95%B0-%E4%BA%86%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、复数(了解)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">4.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">4.2、示例代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81String%EF%BC%88%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、String（字符串）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%85%B6%E5%AE%83%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、其它转义字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.4.</span> <span class="nav-text">4、总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%83%E5%B0%94%E5%80%BC-bool"><span class="nav-number">1.4.</span> <span class="nav-text">四、布尔值(bool)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%A9%BA%E5%80%BCNone%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">五、空值None类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="nav-number">1.6.</span> <span class="nav-text">七、类型判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-4"><span class="nav-number">1.6.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81type"><span class="nav-number">1.6.2.</span> <span class="nav-text">2、type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96"><span class="nav-number">1.7.</span> <span class="nav-text">8、基本类型转化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E6%88%90Int%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.1.</span> <span class="nav-text">1、其它类型转化成Int类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E6%88%90float"><span class="nav-number">1.7.2.</span> <span class="nav-text">2、其它类型转化成float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%B0%86%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.3.</span> <span class="nav-text">3、将其它类型转化成字符串类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%B0%86%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E6%88%90bool%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.4.</span> <span class="nav-text">4、将其它类型转化成bool类型</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

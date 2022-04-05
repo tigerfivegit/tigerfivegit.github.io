@@ -23,27 +23,28 @@
   <meta name="description" content="一、net-http1 介绍1234567.├── ClientGet│   └── main.go  &#x2F;&#x2F; 发送get请求├── ClientPost│   └── main.go  &#x2F;&#x2F; 发送post请求├── Server│   └── main.go  &#x2F;&#x2F; web服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gin Web框架-上篇.md">
-<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/index.html">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="一、net-http1 介绍1234567.├── ClientGet│   └── main.go  &#x2F;&#x2F; 发送get请求├── ClientPost│   └── main.go  &#x2F;&#x2F; 发送post请求├── Server│   └── main.go  &#x2F;&#x2F; web服务">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img2.jpg">
-<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img4.jpg">
-<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img5.jpg">
-<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img10.jpg">
-<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img11.jpg">
+<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img2.jpg">
+<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img4.jpg">
+<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img5.jpg">
+<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img10.jpg">
+<meta property="og:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img11.jpg">
 <meta property="og:image" content="https://tigerfivegit.github.io/images/image-20210607144454242.b7c72fb2.png">
 <meta property="og:image" content="data:image/png;base64,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">
 <meta property="og:image" content="https://tigerfivegit.github.io/images/image-20210607090028175.6ef53416.png">
 <meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeQAAAB/CAYAAAA+eLHNAAAWBElEQVR4nO3dbUwcZ2IH8P/ixbDrF8XAorxgeq7tOFkwxiFyEriT7DQnr9VrLH/IyQ4Bq2mrnpOqp0AciFq7KlYUiAORKuXc6qpcvYTYuvvQ2Mopi+Ic7qWQixUSG8zWr5cEO86JXYjkl10MC9MPM7Ovs2+zs+wD/H+SJTPzzMwzCPP387qmP35zQ4IJkCQJJphARJmRAOTBBAlSrqtCZBjT998Ds7PJC65YCRQWADOzwJ3bwN27wVMR/zZMeYDFAlgtAEyA7w5gzgcKlgLT08DNm8mfl5cHadWqjN5LJCZJkvhbg+bcxOr1ua4CUU4VXbuc6yqkRRofh5RKIJtMwLJlctgCwNSUHLCBACBJQF4eYDYDBQXAkiVymdu3Ab9fPrdyJZCfn1Iom/LyYCouNuDtxGDOdQWIiGgBkSQ5YKenAasVWLpU/qNVbmZGDuWlS+WW9OysHMJqKC9bBty6NffvkCMMZCIiMt7du3LrOD9f/pOXFzo3MxPqyl6xQg7klStDLeKbN4FVq+TjeXmpdZUvAAxkyrn51nVHpNeiG6qRJDmUp6bilwlvEa9cKbeIw8N7EY2qMpCJiCh3orup77lHHoc2mQCfj4FMlI7AzAwCgRnMzMxAkiT5TxrX37x9J2t1IxLVvPu5v31HDk9TFlbjSIB0+w5My5YBSwvkA5OTciDHvUaZIFZQaHx9coSBTLpIkoTJqSlMTwdyXRUimu9MgGlWAm7dBvLuQILytXJusWAgU1oYxESUFWrwzkryXxdREKsYyJSyWUnCHZ8fuVy6LmFR/jslyr25mu2czj/w8MlfC8DCehvKmtnZ2ZyHMcAwJsqZ/HyxJlhJklynBYSBTEnNzM7itgBhTEQ5VFgot0hF+D2gTugqXDgTugAGMqXA75/MdRWIKNfMZsC6TA7DXIay+nzrMrlOC8jCehsynM8/iVkR/kdMRLlntcjjRneyuAQqEbVlvGy58qEUCwsDmeKamg4gMDOT62oQkUgsFnnsdnJS3q96rra1zMuTn1tYuOBaxqqsv5XXOw6fz4fy8tXZfpRuN2/dQr7ZDItFrP9xeb3j8I5PBL8uKS5CSYn2J5v4fD5YrVZDn3936m7yQim4fv1bXL16FZN+HwotVqxduxb3GnJnIsoJsxlYvjzXtVhwshrIo6PX0H74Lfj8fvzXfx7J5qMy8tmZz2E2m1HzSDVWrliR6+rgwsVLeP/kb3Hh4qWYc+Wry/Ds7mfw0IYHg8d++c5R/KjuiYhjmZqcmsp4mOjMZ2fQ29uLiYmJmHOHM7t1fN6T2PfkQax59yxeqYo9PdRRjYae8CO1aPvdL7CzRC1wGJue64m9MFy9E+daNG4eVYeB0AXoHtqPBFfErV/toVM4EqxcCpK8v5aRo63odoe+tje2o7FCq6ATrc6wgjYHml7eitLocmOn0dnpgidZOYzh9JtdcHlCR+I+O1QJOFu64bY3oH1vwoKxVx5tRbfbBkdzM7bGVoYo57IWyOFhXFf7eLYeY4j77rsX3333Jwx+cTbnofzLd46if+APAIDi4iI8snkTrBYrfH4fvvjyHEavXUf74bfww9on8LfPNwbL/6juCUPrkcnGHz6fD8ePHcfw8DAAoKhoFSo3boSl0AL/pB/nlePh5TNu3UeF4BqtIideQMPXbfh46GkE87ejGg1PVsOlBl/Vfpwb2q/9iBMv4C8OAG1/kyDplECvPXQK53aWAPDixL6n0FCFJKEslzvYHxbeQ4ex6bmnsA8phHIK7x9LDUQ7GjoaUQEooduKTkcTmreFUmusrxNdLk9YYMrB2PUmIsNWCW2bownt20qDz+hqGQ09A6Hr3TYHmjrk68f6OtHlbIUzQSiP9bngBmB/NL0wJpoPsjLLOjqM/+75vdl4jGEq7Q/jvvvuRSAQwOAXZ3EzR5+/qYarxVKI1v0vobPjNdTv/il27fwJ6nf/FJ0dr+EfX/x7FBcX4X8HPsXLLf8cDG8jzczOZrTE6dh7xzA8PAyLxYI9e/bgwMGD2LVrFxw7HNi1axcOHDwYUf74seMZ1XeooxqbDgCHhs7i40O18QvWteHckVAYA0BVyym01QEDB36FocRPwTsHBlB7qA3xs9GLE0d6gLo2HAoWKsHOQ22oRQ+OnPAmuP2vcLAfqH83LLSr9qO7PnndUn7/aCMuuDyAvTEsKCsa0WAHPC4XRkIF4XJ5AHtDWFBWoLHRDnhccAULjuH0h27A5kBDMMxLsbXRARvccPWNBe8oB6sNjsZQmJdua4DDBrg/PI1QyXBjcA96AJsDDh15XLG3He0dbB2TuAwP5PkWxqpch/In/Z+if+APKC4uQmfHa3G7nx/ZXI1D//JPsFgK4R0fz0pdpgP6W8dnPjuD8+fPw2Kx4IUXX8SWx7YAAC5fuYJelwuXr1yJuWZ4eBhnPjuj+5lVLWdjglZLSYlWiRKs+UHyZwx1NKIH9diXqKXqHYCrH6h11EbWpaQWjjpgwDWAeJE89GEPgHo4oprQVTvqAfTAlSCRU33/aGNjHs3jtnIbAA88aiqODGq3SitqYAfg/lxNZA9GtW5ZaoMNgCd4Ug3WGtgjwrEU9hob4BmEWyuRlf9A2GrsGt3fRPOfoV3W8zWMVZX2hwEgJ93X75/8AADw8xd/lrT7tuf4b7K6Nnh2Rv+syd5eFwBgz7O7UVb2QPD41ctX0Nvbi+3bgfXr1mlc1xsMb+F4T+JID1B76K8TjgN7+10YQC3a6qKjUQn9Hhf6vU9rtLCH4OoBUL899v73b0AtgJ4Ph/BKVYqDwpqULmKEuqdLS9XgHQMqQhEnB6cdNuXQyOduAHbUxLRKbSi3AW73IEZQgQr1a88oPEAoNMc88EANegBjbsgN3dhglevkxuDIGLaWRp5V6+EItr7Dur1ftsHV0o3QCHfsWHHMGLI61m1vQPujg5Hj45pj1LFj3jZHA2oGuyO7/Yl0MqyFPN/DWJWLlvIXX57F+PgENldXJZ2NHj7GnC161x1fv/4tJia+R1HRKmzcGBkea9evw/bt27F2fWwYFxWtwsTEBK5f/1bXczOjhGHdBtwfp4QatI6YoI1048JA3HP3P5SgK9n7Nb6Kd67kBymOB+sQ7J7uxulga9iJbnd4N/YYPNoNaQClsNkiv1a7p7uPqq3mMZx2uuAJ78ZWAluTrRw2reNjp+FyA7DXxIaex4WuFhfKm9vR3tGO9o4mOGweuDo7Q++ViLsbrR+Wo6lDub7RLh87OhJWaATOFnW8PfQcOYxTeAZRCgxpIXu948EwtlossJWU4P2Tv035+kdSCKJM3Lx1Cx5PgvG7KJbCQpjN5mAoP77l0awuifpm9DoAuTs6kdHRaygpLsbOv/rLmHMlxdrLofTQO358VemOrty4UfN8vD0EKjduxO//5/e4euVKRKs6+7w4sa8RPQDq98Xr8pXHjlHvTDB2HG4N1qTbd6yofSjefwmMUIHGjvbYo3vb0XC0Fd2drXApxzRnOscLymilW9HcDHR2dqO1Rb1We5a1rTT1juexkUF4EH8yl70xvDVciq0vN2C0pRsu52nYNWd4R1yNhvAyFQ44bG64gi1/YORotzzm3RzeCg49x611W6I0GRLIn/R/Cp/fDwDw+f3B7tdUSZKU1UD2eLz441df67o2EAjgxnd/wto/z1o7JcgWZ42xqrx89Zys59YbyH7lZ8BSGPufl0Rd1mp59fq5MYQ3quQwRr0z7hIh74l/lwN7RybdxYJSu2zDZjrLx1rRGnepUmLqEip7YzuaK0LHulpcKSxpilvRxJO5NI9XoMYOuN1R3edaYlrdSsvfo4yjl45g0A2NMW8g2G3PVjIZwJBA3v7jJ3Hh4iVcvHQZAPDjp7bBakltGYvVajF8yU608tVlyDebU56sFAgEMHpNbrWuWnUPyleXZbN6wjGZTLpCWe1F8E+mF6xq+TnbmCVsrXHidb5e9LsGgLo2PJ9yHn+Fr7xAlY5W8sCFG0ixGW4ApSs5unVYuhXNjaNodbrQ3WdH8zblePS4sBalu9vmaIoI3oq9TXC82QWX04mRsHHW6LHr+PdVJnNpjDknp4Zq2heGKGPgsNk4mYyyypBAtlqt+Pk//Ayvv9GFa9e/xcWLl9G6/yXDd47SKz8/P+WW5fT0NAa/OAsAWLFiOTZtrER+lj/iy6rsyTr45dm0NvfweuVZ1vF279JLbyCvVVq+54fPY9euXSlfp65LXqsx2cto8lriAcRsCKJZWJk1fag2pRnMicaJ5fHleu3ubGWcWHMEWhlfNrw7W5lYpTkmW1EDO9xwD7oxtm2r0lrUvIk8vqx0Z8uTrmyoiQlZefa0y+XG4AhQYSuHLV4nrxL89rDu7NjJXEQLk2GTuqxWK159pQmryx4Ibl7h8/mMuv2cUMP41u3bWLFiOWo2V2c9jAGgRhk7/vLLxCthw/l8PrQffgsH//U1w+uTp3PD+LKyB4ITtIaHU38XdSJY1sePhw4rYVyP7qEkYYzUJ3OpStbIsXrxRsyd8NXXSDBx7H5sqAPw9dexy6JuXMQAgDV6B6YNELMMKkhZ5pRuyzFmGVSIvBRL7gaWDySYzJWQOhnNFpwtrptSX3g8cdZHExnD0HXI8zmUcxXGgNzCrat9HN7xcfQc/3VK1/z3yQ/gHR/H5s2bDK9P3hL9PxbbtzsAAMfeOx4xazrRLOvw67JH2bQj5W0sle7qdCZpVW1HPeQlSpG3irM+OagEdY5aoN+F/qhEjrc+OWOldtTYALgHMRJ9Tll3rK73La2ogQ0eDI6MaZZTJ1pVPGoHtMqpY8DBpVPy+G7ss2PXJ8uTuWxw7EgQx1rrlhP1AKRNqW+i5xAZwPCNQeZjKOcyjFW7nv4JLJZCfHSqL+kM9Z7jv8ZHp/pgsRSifvczhtclP4NPUtny2BZUVlbC7/fjF2+/jTNn5A0/1q9bB8cOh+Ya5MrKyjlYg3wDF/uhvdZXZ3nviRewqaoa+4I7cFXhlXfrgZ7GsGNenDhwEAMRu3cN4Y2qamyqOhzcgatkZxva6gZw8MnQMQwdRkNP5O5dsc9M1QicLa1obXEqIai1REkp54zqIi7digaHDR5XF5wjUeXCd+/SWkYFYKyvWxkDdgTDsWJvA+xwo/vN0K5ccrnw3bvibSASzQNXpzNiZzFnpzI+nuZ+1/FU7HDABg9czvBdxNTnEBkjK3tZq6H8+htdGL12Hf/29n+gdf9L2XiUIc4Nn89pGANyK/nV/U14/XAX3j/5AS5cvIQf1j2BR6qrYLVaMTp6DaPXv8X7J+SWscVSiFf3N2VlnH5JXp7ucWQA2PPsHhx77xjOnz+PY+8dQ6+rFxs3VsJiscDv92N4+DxejSqfdepa355GbIrz2RERE7z0jt1W7ce5d4FNzz2FTQeUY8k+jAIAUIKdR04B+55CQ5VawVq0/e5s9uZ5lW5Fc4cNzpawJUqA5qYYpdua0QR5r+lW5Vhov+qQir3taOrrRFfYMip5k472qC0rK9DY0SDvh90SXHAVublGqpO5bA407RhFV0tr5DEds8TjCi7ncoXV1wZHcxPKnV1ci0yGMEmZbFqchM/nC070EvnTnj76uC+nYRxudPQaeo7/JjhjXcuGB9ejfvczWV0CNXn3LqYy+IAJQP20JxcmJr6POXe4ty/4d/P/nc3oObQwyUuoEu2AFb5Tl4HhmxZl9y6kVofAw6G9BvhzT9Gy+vGLaktZnQ0sqse2PApLYWHOwxiQ1xq/+koTLly8hE/6P4343pWXl6Fmc7WhH7MYT2FBQcaBvOWxLdjy2Bb585CvXIHf74fFYpFnU4cFMlEM3ZO55liCbUCJ0pXVQAbkUC4vF2P5UzwifAZytIc2PDgnwZtIwdKluDs1lfF9ysoeiJlBnVnU04JXuhXNHVtzXYugsb5OdI06IrvywzdW4ZIsMkDWA5nmr4Kl+QgEApiZ1f9hE0QLQem2ZrSPONHa0h1xXGscnUivrI4h0/wnSRLu+Py6P3AiHo6l0WLEn3tKxPBlT7SwmEym4E5iRESUPQxkSirPZMKKZVbk5enbwYuIiJJjIFNKTCYTllutMJuX5LoqREQLEid1UVqshYWYDgQweXdK98YhGTGZYIIESTIB4GQzms84fYciMZApbflmM/LNZkzencLU9HTG9wuf6EK0eHAIiCIxkEm3woKlKCxYisDMDAKBGczMzECSJPlPritHRDTPMJApY+YlS2Bekt7Y8kSW6kI0X6xcvizXVSDBcB0yERGRADjLmoiISAAMZCIiIgEwkImIiARgvnz1m1zXgYiIaNEzjZet46QuWpDGT5/KdRWIiFLGZU+0YK1f+2e5rgIRUco4hkxERCSAYAu56NrlXNaDyBATq9fnugpERLqwhUxERCQABjIREZEAGMhEREQCYCATEREJgIFMREQkAAYyERGRABjIREREAmAgExERCYCBTEREJAAGMhERkQAYyERERAJgIBMREQmAgUxERCQABjIREZEAGMhEREQC0B3IJpMJJpMp5pjW3xeLTN9f9O+fVv20fg6IiCh9Zj0XmUwmSJIU95jW+YUu0/cX/fsXr34i15mIaD5hlzUREZEADAlk0Vt32bZYW8dERGQcQwI5/Bf0Yvxlnen7i/79E71+REQLAbus5xAnQBERUTy6JnWlI1EAhbe2ostpTRpL5/pE57Vaeenef65aiupzJUmK+Hu8cqrwLubo67Xukez9iYgou9IO5HTHENUg0BqDVP+uZ9Z29BKcdM5n+nW8Y8no7c5WW9bxvh+J6qd1ffQ1qdwv1XoyxImI9Em7yzq6pZUryX7xxxv3FKHuekS/T7rvke2gZBgTEWUm613WqUrWtZ2oyzjZ+fD7xyurp0t7oUjl/YmIKLuECeR0WrxAbIssk41KUmndLeSQYuuWiCj3hJ1lnc42kum0XuNNXlLHWVOdCa13a0y9Le1kY+aZ0PP+RERkrDmbZZ3KxK5wyWYBp3M+eoZysklS0cdSqV+2JZplnah+8b7/4ceMmrRGRET66QrkZEtwosvG+zrVDSeM6E42cvMOvTK9h57vkdZxI4M21Z8DIiJKTHcLeSH9AhahBRyPVgvXaJm8vyjfJyKi+U6YSV25JmqwzFW9RH1/IqLFQthJXURERIsJA5mIiEgADGQiIiIBMJCJiIgEwEAmIiISAAOZiIhIAAxkIiIiATCQiYiIBMBAJiIiEgADmYiISAAMZCIiIgEwkImIiATAQCYiIhIAA5mIiEgADGQiIiIBMJCJiIgEwEAmIiISAAOZiIhIAAxkIiIiATCQiYiIBMBAJiIiEgADmYiISAAMZCIiIgEwkImIiATAQCYiIhIAA5mIiEgADGQiIiIBMJCJiIgEwEAmIiISAAOZiIhIAAxkIiIiATCQiYiIBMBAJiIiEgADmYiISAAMZCIiIgEwkImIiATAQCYiIhIAA5mIiEgADGQiIiIBMJCJiIgEwEAmIiISAAOZiIhIAGb1LxOr1+eyHkRERIsaW8hEREQCYCATEREJ4P8B8diR/Isu46kAAAAASUVORK5CYII=">
 <meta property="og:image" content="https://tigerfivegit.github.io/images/addroute.4633a4e3.gif">
-<meta property="article:published_time" content="2022-04-05T17:30:32.202Z">
-<meta property="article:modified_time" content="2022-04-05T17:30:32.202Z">
+<meta property="article:published_time" content="2022-04-05T18:39:39.217Z">
+<meta property="article:modified_time" content="2022-04-05T18:39:04.398Z">
 <meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img2.jpg">
+<meta name="twitter:image" content="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/img2.jpg">
 
-<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/">
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/">
 
 
 <script id="page-configurations">
@@ -128,6 +129,21 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -161,7 +177,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8A%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,8 +199,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2022-04-06 01:30:32" itemprop="dateCreated datePublished" datetime="2022-04-06T01:30:32+08:00">2022-04-06</time>
+              <time title="Created: 2022-04-06 02:39:39 / Modified: 02:39:04" itemprop="dateCreated datePublished" datetime="2022-04-06T02:39:39+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
             </span>
 
           
@@ -526,6 +552,9 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+          </div>
 
         
 
@@ -533,11 +562,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/01/17/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80/" rel="prev" title="如何学习一门新的语言">
-      <i class="fa fa-chevron-left"></i> 如何学习一门新的语言
+    <a href="/2022/04/06/go/Go%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E8%AF%A6%E7%BB%86%E8%AE%B2%E4%B9%89-%E4%B8%8B%E7%AF%87/" rel="prev" title="Go快速入门详细讲义-下篇.md">
+      <i class="fa fa-chevron-left"></i> Go快速入门详细讲义-下篇.md
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/04/06/go/Gin%20Web%E6%A1%86%E6%9E%B6-%E4%B8%8B%E7%AF%87/" rel="next" title="Gin Web框架-下篇.md">
+    <a href="/2022/04/06/go/GinWeb%E6%A1%86%E6%9E%B6-%E4%B8%8B%E7%AF%87/" rel="next" title="Gin Web框架-下篇.md">
       Gin Web框架-下篇.md <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -612,17 +641,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">22</span>
-        <span class="site-state-item-name">categories</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>

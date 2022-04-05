@@ -28,7 +28,7 @@
 <meta property="og:description" content="Log4j日志配置详解1.Log4j组件123Loggers(记录器)Appenders(输出源)Layouts(布局) ####1.1. Loggers(记录器)Loggers组件在此系统中被分为五个级别： 123456789- DEBUG- INFO- WARN- ERROR- FATAL 五个级别的顺序,分别用来指定这条日志信息的重要程度： DEBUG &lt; INFO &lt; WARN">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-01-02T09:08:10.000Z">
-<meta property="article:modified_time" content="2022-04-05T16:10:19.722Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:52.315Z">
 <meta property="article:author" content="tigerfive">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="java">
@@ -119,6 +119,21 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -182,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
+                <time title="Modified: 2022-04-06 02:36:52" itemprop="dateModified" datetime="2022-04-06T02:36:52+08:00">2022-04-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -349,9 +364,9 @@
 </tr>
 </tbody></table>
 <p>另外，还可以在%与格式字符之间加上修饰符来控制其最小长度、最大长度、和文本的对齐方式，如:</p>
-<p>1)%20c：指定输出类的名称，最小的宽度是20，如果category的名称小于20的话，默认的情况下右对齐。</p>
-<p>2)%-20c:指定输出类的名称，最小的宽度是20，如果category的名称小于20的话，”-“号指定左对齐。</p>
-<p>3)%.30c:指定输出类的名称，最大的宽度是30，如果category的名称大于30的话，就会将左边多出的字符截掉，但小于30的话也不会有空格。</p>
+<p>1)%20c：指定输出类的名称，最小的宽度是20，如果categories的名称小于20的话，默认的情况下右对齐。</p>
+<p>2)%-20c:指定输出类的名称，最小的宽度是20，如果categories的名称小于20的话，”-“号指定左对齐。</p>
+<p>3)%.30c:指定输出类的名称，最大的宽度是30，如果categories的名称大于30的话，就会将左边多出的字符截掉，但小于30的话也不会有空格。</p>
 <p>4)%20.30c:如果类的名称小于20就补空格，并且右对齐，如果其名称长于30字符，就从左边较远输出的字符截掉;</p>
 <h3 id="3-经典Log4j配置大全"><a href="#3-经典Log4j配置大全" class="headerlink" title="3.经典Log4j配置大全"></a>3.经典Log4j配置大全</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">####################Logger###########################</span><br><span class="line">log4j.rootLogger = DEBUG,console,logFile,rollingFile,dailyFile,socket,mail,jdbc,im</span><br><span class="line">log4j.additivity.org.apache = true</span><br><span class="line"></span><br><span class="line">####################控制台Console##########################</span><br><span class="line">log4j.appender.console = org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.console.Threshold = DEBUG</span><br><span class="line">log4j.appender.console.ImmediateFlush = true</span><br><span class="line">log4j.appender.console.Target = System.out</span><br><span class="line">log4j.appender.console.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.console.layout.ConversionPatter =[%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">####################日志文件LogFile##########################</span><br><span class="line">log4j.appender.logFile = org.apache.log4j.FileAppender</span><br><span class="line">log4j.appender.logFile.Threshold = DEBUG</span><br><span class="line">log4j.appender.logFile.ImmediateFlush = true</span><br><span class="line">log4j.appender.logFile.Append = true</span><br><span class="line">log4j.appender.logFile.File = ./log/logfile.log</span><br><span class="line">log4j.appender.logFile.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.logFile.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">####################回滚文件RollingFile#####################</span><br><span class="line">log4j.appender.rollingFile = org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.rollingFile.Threshold = DEBUG</span><br><span class="line">log4j.appender.rollingFile.ImmediateFlush = true</span><br><span class="line">log4j.appender.rollingFile.Append = true</span><br><span class="line">log4j.appender.rollingFile.File = ./log/rollfile.log</span><br><span class="line">log4j.appender.rollingFile.MaxFileSize = 200KB</span><br><span class="line">log4j.appender.rollingFile.MaxBackupIndex = 50</span><br><span class="line">log4j.appender.rollingFile.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.rollingFile.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">#####################定期日志回滚dailyFile###############</span><br><span class="line">log4j.appender.dailyFile = org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.dailyFile.Threshold = DEBUG</span><br><span class="line">log4j.appender.dailyFile.ImmediateFlush = true</span><br><span class="line">log4j.appender.dailyFile.Append = true</span><br><span class="line">log4j.appender.dailyFile.File = ./log/dailfile.log</span><br><span class="line">log4j.appender.dailyFile.DatePattern = &#x27;.&#x27;yyyy-MM-dd</span><br><span class="line">log4j.appender.dailyFile.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.dailyFile.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">######################应用于Socket######################</span><br><span class="line">#client</span><br><span class="line">log4j.appender.socket = org.apache.log4j.net.SocketAppender</span><br><span class="line">log4j.appender.socket.RemoteHost = localhost</span><br><span class="line">log4j.appender.socket.Port = 5001</span><br><span class="line">log4j.appender.socket.LocationInfo = true</span><br><span class="line">log4j.appender.socket.ReconnectionDelay = 10000</span><br><span class="line"></span><br><span class="line">#server</span><br><span class="line">log4j.rootLogger = DEBUG, socketFile</span><br><span class="line">log4j.appender.socketFile = org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.socketFile.File = ./log/servercollected.log</span><br><span class="line">log4j.appender.socketFile.MaxFileSize = 200KB</span><br><span class="line">log4j.appender.socketFile.MaxBackupIndex = 50</span><br><span class="line">log4j.appender.socketFile.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.socketFile.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">#########################mail##########################</span><br><span class="line">log4j.appender.mail = org.apache.log4j.net.SMTPAppender</span><br><span class="line">log4j.appender.mail.Threshold = FATAL</span><br><span class="line">log4j.appender.mail.BufferSize = 10</span><br><span class="line">log4j.appender.mail.From = xxxx@mail.com</span><br><span class="line">log4j.appender.mail.SMTPHost = mail.com</span><br><span class="line">log4j.appender.mail.Subject = Log4j Message</span><br><span class="line">log4j.appender.mail.To = david.tian@live.com</span><br><span class="line">log4j.appender.mail.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.mail.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">###########################JDBC############################</span><br><span class="line">log4j.appender.jdbc = org.apache.log4j.jdbc.JDBCAppender</span><br><span class="line">log4j.appender.jdbc.URL = jdbc:mysql://localhost:3306/logdb</span><br><span class="line">log4j.appender.jdbc.driver = com.mysql.jdbc.Driver</span><br><span class="line">log4j.appender.jdbc.user = root</span><br><span class="line">log4j.appender.jdbc.password = root</span><br><span class="line">log4j.appender.jdbc.sql = INSERT INTO log4j(Message) VALUES (&#x27;[%-5p] %d(%r) --&gt;[%t] %l: %m %x %n&#x27;)</span><br><span class="line">log4j.appender.jdbc.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.jdbc.layout.ConversionPattern = [%-5p] %d(%r) --&gt;[%t] %l: %m %x %n</span><br><span class="line"></span><br><span class="line">#######################自定义Appender###############</span><br><span class="line">log4j.appender.im = com.dvtn.www.util.logger.appender.IMAppender</span><br><span class="line">log4j.appender.im.host = mail.cybercorlin.net</span><br><span class="line">log4j.appender.im.username = username</span><br><span class="line">log4j.appender.im.password = password</span><br><span class="line">log4j.appender.im.recipient = corlin@cybercorlin.net</span><br><span class="line">log4j.appender.im.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.im.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -452,17 +467,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">22</span>
-        <span class="site-state-item-name">categories</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 到目前为止，我们如果想保存一些数据，只能通过变量。但是如果遇到较多的数据要保存，这个时候时候用变量就变的不太现实。我们需要能够保存大量数据的类似变量的东东，这种东东就是数据结构(Data Structures)。 数据结构，它们只是一种结构，能够将一些数据聚合在一起的结构。换句话说，它们是用来存储一系列相关数据的容器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12、列表.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/12%E3%80%81%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 到目前为止，我们如果想保存一些数据，只能通过变量。但是如果遇到较多的数据要保存，这个时候时候用变量就变的不太现实。我们需要能够保存大量数据的类似变量的东东，这种东东就是数据结构(Data Structures)。 数据结构，它们只是一种结构，能够将一些数据聚合在一起的结构。换句话说，它们是用来存储一系列相关数据的容器。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172835.png">
+<meta property="article:published_time" content="2022-04-05T18:36:32.619Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.619Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172835.png">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/12%E3%80%81%E5%88%97%E8%A1%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>12、列表.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/12%E3%80%81%E5%88%97%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          12、列表.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>到目前为止，我们如果想保存一些数据，只能通过变量。但是如果遇到较多的数据要保存，这个时候时候用变量就变的不太现实。我们需要能够保存大量数据的类似变量的东东，这种东东就是数据结构(Data Structures)。</p>
+<p>数据结构，它们只是一种结构，能够将一些数据聚合在一起的结构。换句话说，它们是用来存储一系列相关数据的容器。</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p><strong>python 提供了 4 种内置数据结构：</strong><code>List</code><strong>(列表)、</strong><code>Tuple(元组)</code><strong>、</strong><code>Dictionary</code><strong>(字典)、</strong><code>Set</code><strong>(集合)</strong></p>
+<p>严格来说，字符串也是一种数据结构，因为他把字符组织在了一起。</p>
+</blockquote>
+<h2 id="二、列表简介"><a href="#二、列表简介" class="headerlink" title="二、列表简介"></a>二、列表简介</h2><blockquote>
+<p><code> list</code>python 中一般把它翻译为列表.</p>
+<p><code>list</code> 是处理一组有序数据的数据结构，即你可以在一个列表中存储一个序列的数据,</p>
+<p><code>list</code> 是 python 中用途最广的一种数据结构。</p>
+<p><code>list</code> 可以存储多个数据，这些数据用 <code>[ ]</code> 包裹，各个数据之间用 <code>,</code> 分割。</p>
+<p><code>list</code>中的元素可以是任意类型的，但是实际使用的时，一个<code>list</code> 中一般只存储一种数据类型的数据。</p>
+<p><code>list</code> 中可以存储的元素是有顺序的，且允许重复。 </p>
+<p><code>list</code> 中的元素也可以更改。</p>
+</blockquote>
+<h2 id="三、如何定义"><a href="#三、如何定义" class="headerlink" title="三、如何定义"></a>三、如何定义</h2><h3 id="1、语法结构"><a href="#1、语法结构" class="headerlink" title="1、语法结构"></a>1、语法结构</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[元素<span class="number">1</span>, 元素<span class="number">2</span>, 元素<span class="number">3</span>, ...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、结构图"><a href="#2、结构图" class="headerlink" title="2、结构图"></a>2、结构图</h3><p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172835.png"></p>
+<h3 id="3、说明"><a href="#3、说明" class="headerlink" title="3、说明"></a>3、说明</h3><ul>
+<li>列表是写在⽅括号**[]** 之间</li>
+<li>⽤**逗号 **  ,  分隔开的元素列表</li>
+<li>列表中元素的类型可以是不相同</li>
+</ul>
+<ol>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = [&quot;小花&quot;,&quot;小明&quot;,18,5000.00,&quot;武汉市高新区&quot;]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、获取元素"><a href="#四、获取元素" class="headerlink" title="四、获取元素"></a>四、获取元素</h2><h3 id="1、通过索引"><a href="#1、通过索引" class="headerlink" title="1、通过索引"></a>1、通过索引</h3><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list[index]</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<ul>
+<li><p>index</p>
+<p>表示列表中元素的下标(或者理解为位置，从0开始。到长度-1。不能越界)</p>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">info_list = [<span class="string">&quot;小花&quot;</span>, <span class="string">&quot;小明&quot;</span>, <span class="number">18</span>, <span class="number">5000.00</span>, <span class="string">&quot;武汉市高新区&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(info_list[<span class="number">0</span>]) <span class="comment">#输出 &#x27;小花&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(info_list[<span class="number">1</span>]) <span class="comment">#输出 &#x27;小明&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(info_list[-<span class="number">1</span>]) <span class="comment">#输出 &quot;武汉市高新区&quot;  倒数第一个 </span></span><br><span class="line"><span class="built_in">print</span>(info_list[<span class="number">6</span>]) <span class="comment"># 输出错误 </span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">  File &quot;list.py&quot;, line 6, in &lt;module&gt;</span></span><br><span class="line"><span class="string">    print(info_list[6])</span></span><br><span class="line"><span class="string">IndexError: list index out of range</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、通过for循环"><a href="#2、通过for循环" class="headerlink" title="2、通过for循环"></a>2、通过for循环</h3><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 变量名 <span class="keyword">in</span> 列表:</span><br><span class="line">	<span class="built_in">print</span>(变量名)  <span class="comment"># 就是打印输出列表中的每一个元素</span></span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">info_list = [<span class="string">&quot;小花&quot;</span>, <span class="number">18</span>, <span class="number">5000.00</span>, <span class="string">&quot;武汉市高新区&quot;</span>]</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> info_list:</span><br><span class="line">	<span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line">小花</span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">5000.0</span></span><br><span class="line">武汉市高新区	</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、通过whille"><a href="#3、通过whille" class="headerlink" title="3、通过whille"></a>3、通过whille</h3><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> index &lt; <span class="built_in">len</span>(列表) :</span><br><span class="line">    <span class="comment">#通过索引获取列表的中的元素</span></span><br><span class="line">    <span class="built_in">print</span>(列表[index])</span><br><span class="line">  	index +=<span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">info_list = [<span class="string">&quot;小花&quot;</span>,<span class="number">18</span>,<span class="number">5000.00</span>,<span class="string">&quot;武汉市高新区&quot;</span>]</span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> index &lt; <span class="built_in">len</span>(列表):</span><br><span class="line">	<span class="built_in">print</span>(info_list[index])</span><br><span class="line">	index += <span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、通过切片"><a href="#4、通过切片" class="headerlink" title="4、通过切片"></a>4、通过切片</h3><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>(eg，end，delta)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>截取部分元素</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>eg（起始下标）</li>
+<li>end（终止下标）</li>
+<li>delta（变化量）</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回一个所有截取的值,生成一个新的列表,不影响原来的列表</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">num_list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"><span class="built_in">print</span>(num_list[<span class="number">0</span>:<span class="number">3</span>]) <span class="comment">#截取第一位到第三位的元素 输出结果 [1, 2, 3]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[:]) <span class="comment">#截取列表的全部  输出结果[1,2,3,4,5,6,7,8,9]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[<span class="number">0</span>:<span class="number">3</span>]) <span class="comment">#截取列表的全部 输出结果[1, 2, 3]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[<span class="number">6</span>:]) <span class="comment">#截取第七个元素到结尾  输出结果[7, 8, 9]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[:-<span class="number">3</span>]) <span class="comment">#截取从头开始到倒数第三个元素之前 输出结果[1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[<span class="number">2</span>]) <span class="comment">#截取第三个元素 输出结果[3]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[-<span class="number">1</span>]) <span class="comment">#截取倒数第一个元素 输出结果[9]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[-<span class="number">3</span>:-<span class="number">1</span>]) <span class="comment">#截取倒数第三位与倒数第一位之前的元素 输出结果[7, 8]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[-<span class="number">3</span>:]) <span class="comment">#截取倒数第三位到结尾 输出结果[7, 8, 9]</span></span><br><span class="line"><span class="built_in">print</span> (num_list[:-<span class="number">5</span>:-<span class="number">3</span>])<span class="comment">#逆序截取 输出结果[9, 6]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:</strong></p>
+<p>​    所有的切片操作都是返回一个新的 <code>list</code> ,所以我们可以通过切片非常轻松的 copy 一个<code>list</code></p>
+</li>
+</ol>
+<h2 id="五、添加元素"><a href="#五、添加元素" class="headerlink" title="五、添加元素"></a>五、添加元素</h2><h4 id="1、append"><a href="#1、append" class="headerlink" title="1、append"></a>1、append</h4><ol>
+<li><p>语法格式</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.append(obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p> 向 <code>list</code> 的末尾添加元素,参数obj</p>
+</li>
+<li><p>参数</p>
+<p>要添加的对象</p>
+</li>
+<li><p>返回值</p>
+<p>无返回值，修改原来的列表</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>]</span><br><span class="line">nums.append(<span class="number">1000</span>)</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2、insert"><a href="#2、insert" class="headerlink" title="2、insert"></a>2、insert</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>.insert(index, obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>把元素 <code>ele</code> 插入到指定的 <code>index</code> 位置。原来的元素会自动右移动</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>index – 对象 obj 需要插入的索引位置。</li>
+<li>obj – 要插入列表中的对象</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>没有返回值，修改原来的列表</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>]</span><br><span class="line">nums.insert(<span class="number">2</span>, <span class="number">2000</span>)</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3、extend"><a href="#3、extend" class="headerlink" title="3、extend"></a>3、extend</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.extend(seq)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>用于在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）</p>
+</li>
+<li><p>参数</p>
+<p>元素列表</p>
+</li>
+<li><p>返回值</p>
+<pre><code>没有返回值，但会在已存在的列表中添加新的列表内容。
+</code></pre>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it = [<span class="string">&#x27;Python&#x27;</span>, <span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;JavaScript&#x27;</span>]</span><br><span class="line">it2 = [<span class="string">&#x27;H5&#x27;</span>,<span class="string">&#x27;Androi&#x27;</span>,<span class="string">&#x27;IOS&#x27;</span>]</span><br><span class="line">it.extend(it2)</span><br><span class="line"><span class="built_in">print</span>(it)</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;Python&#x27;</span>, <span class="string">&#x27;Java&#x27;</span>, <span class="string">&#x27;JavaScript&#x27;</span>, <span class="string">&#x27;H5&#x27;</span>, <span class="string">&#x27;Androi&#x27;</span>, <span class="string">&#x27;IOS&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="六、删除元素"><a href="#六、删除元素" class="headerlink" title="六、删除元素"></a>六、删除元素</h2><h4 id="5-1、del"><a href="#5-1、del" class="headerlink" title="5.1、del"></a>5.1、del</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> 列表[索引]</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>可以删除指定下标的值,<code>del</code>关键字本质上是用来将一个变量从内存中删除的。</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>]</span><br><span class="line"><span class="keyword">del</span> nums[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br><span class="line"><span class="keyword">del</span> nums[<span class="number">0</span>:<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="5-2、pop"><a href="#5-2、pop" class="headerlink" title="5.2、pop"></a>5.2、pop</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列表.pop([index])</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>移除列表中的一个元素（默认最后一个元素），并且返回该删除元素的值</p>
+</li>
+<li><p>返回值</p>
+<p>该方法返回从列表中移除的元素对象。</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>]</span><br><span class="line"><span class="comment">#pop 指定位置删除</span></span><br><span class="line">del_value =  nums.pop(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 删除最后⼀个</span></span><br><span class="line">last_value =  nums.pop()</span><br><span class="line"><span class="built_in">print</span>(lastvalue)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="5-3、remove"><a href="#5-3、remove" class="headerlink" title="5.3、remove"></a>5.3、remove</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.remove(obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>移除列表中某个值的第一个匹配项 没有会抛异常</p>
+</li>
+<li><p>返回值</p>
+<p>无返回值</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>,<span class="number">10</span>]</span><br><span class="line">nums.remove(<span class="number">10</span>)<span class="comment">#移除指定位置</span></span><br><span class="line"><span class="built_in">print</span>(nums)</span><br><span class="line">nums.remove(<span class="number">100</span>) <span class="comment">#移除不存在的 抛出异常</span></span><br><span class="line"></span><br><span class="line">[<span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>, <span class="number">10</span>]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="5-4、clear"><a href="#5-4、clear" class="headerlink" title="5.4、clear"></a>5.4、clear</h4><ol>
+<li><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.clear()</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>清空列表中所有的元素</p>
+</li>
+<li><p>参数</p>
+<p>无</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>,<span class="number">10</span>]</span><br><span class="line">nums.clear()</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br><span class="line"></span><br><span class="line">[]</span><br><span class="line"></span><br><span class="line">nums2 = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">30</span>, <span class="number">25</span>,<span class="number">10</span>,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]]</span><br><span class="line">nums2.clear()</span><br><span class="line"><span class="built_in">print</span>(nums2)</span><br><span class="line"></span><br><span class="line">[]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>6、修改元素</p>
+<p>6.1、通过定位到下标直接修改</p>
+<ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>[索引] = 值</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cities =[<span class="string">&#x27;上海&#x27;</span>,<span class="string">&#x27;北京&#x27;</span>,<span class="string">&#x27;广州&#x27;</span>]</span><br><span class="line">cities[<span class="number">0</span>] = <span class="string">&#x27;深圳&#x27;</span></span><br><span class="line">cities[<span class="number">1</span>] = <span class="string">&#x27;武汉&#x27;</span></span><br><span class="line">cities[-<span class="number">1</span>] = <span class="string">&#x27;长沙&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(cities)</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;深圳&#x27;</span>, <span class="string">&#x27;武汉&#x27;</span>, <span class="string">&#x27;长沙&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="七、其它函数"><a href="#七、其它函数" class="headerlink" title="七、其它函数"></a>七、其它函数</h2><h4 id="1、list"><a href="#1、list" class="headerlink" title="1、list"></a>1、list</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list(seq)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>将序列转换为列表</p>
+</li>
+<li><p>参数</p>
+<p>要转换为列表的元组</p>
+</li>
+<li><p>返回值</p>
+<p>返回列表</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&#x27;abcdefjg&#x27;</span></span><br><span class="line">strs = <span class="built_in">list</span>(<span class="built_in">str</span>)</span><br><span class="line"><span class="built_in">print</span>(strs)</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;g&#x27;</span>]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2、sort"><a href="#2、sort" class="headerlink" title="2、sort"></a>2、sort</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.sort([func])</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>对原列表进行排序，如果指定参数，则使用比较函数指定的比较函数</p>
+</li>
+<li><p>参数</p>
+<p>如果指定了该参数会使用该参数的方法进行排序</p>
+</li>
+<li><p>返回值</p>
+<p>该方法没有返回值，但是会对列表的对象进行排序</p>
+</li>
+<li><p>注意事项</p>
+<p> python3.0不允许不同数据类型进行排序 </p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nums = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">6</span>];</span><br><span class="line">nums.sort()<span class="comment">#默认按照ASCII表先后顺序排序</span></span><br><span class="line"><span class="comment">#[1, 1, 1, 2, 3, 5, 6, 6]</span></span><br><span class="line"><span class="built_in">print</span>(nums)</span><br><span class="line"></span><br><span class="line">cars = [<span class="string">&#x27;Lamborghini&#x27;</span>,<span class="string">&#x27;maybach&#x27;</span>, <span class="string">&#x27;Ferrari&#x27;</span>,  <span class="string">&#x27;Bentley&#x27;</span>]</span><br><span class="line">cars.sort(key=<span class="built_in">len</span>)    <span class="comment"># 默认第一原则 字符串从短到长排序，第二原则ASCII表先后顺序</span></span><br><span class="line"><span class="built_in">print</span>(cars) <span class="comment"># [&#x27;maybach&#x27;, &#x27;Ferrari&#x27;, &#x27;Bentley&#x27;, &#x27;Lamborghini&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3.0不允许不同数据类型进行排序</span></span><br><span class="line">a = [<span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">a.sort()</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">TypeError: &#x27;&lt;&#x27; not supported between instances of &#x27;int&#x27; and &#x27;str&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3、count"><a href="#3、count" class="headerlink" title="3、count"></a>3、count</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.count(obj)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>统计某个元素在列表中出现的次数</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li><p>obj</p>
+<p>列表中统计的对象</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回元素在列表中出现的次数</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aList = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">6</span>];</span><br><span class="line">count = aList.count(<span class="number">1</span>)</span><br><span class="line">count = aList.count(<span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span>(count)</span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="八、嵌套列表"><a href="#八、嵌套列表" class="headerlink" title="八、嵌套列表"></a>八、嵌套列表</h2><h3 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>嵌套的意思是，列表中的元素也可以是列表。因为列表中的元素可以是任意类型，所以嵌套也是很容易理解的</p>
+</blockquote>
+<h3 id="2、示例代码"><a href="#2、示例代码" class="headerlink" title="2、示例代码"></a>2、示例代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">20</span>, <span class="number">10</span>]]</span><br><span class="line">shops = [[<span class="string">&#x27;mate&#x27;</span>,<span class="string">&#x27;牛逼&#x27;</span>,<span class="number">5000.00</span>],[<span class="string">&#x27;IPhone&#x27;</span>,<span class="string">&#x27;装逼&#x27;</span>,<span class="number">8000.00</span>],[<span class="string">&#x27;三星&#x27;</span>,<span class="string">&#x27;傻逼&#x27;</span>,<span class="number">1000.00</span>]]</span><br></pre></td></tr></table></figure>
+
+<h2 id="九、列表推导"><a href="#九、列表推导" class="headerlink" title="九、列表推导"></a>九、列表推导</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><blockquote>
+<p>列表推导，有人也叫列表包含。他提供了一种更加简洁的方式去创建列表。</p>
+</blockquote>
+<h3 id="2、语法格式"><a href="#2、语法格式" class="headerlink" title="2、语法格式"></a>2、语法格式</h3><blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span> = [表达式 <span class="keyword">for</span> 变量 <span class="keyword">in</span> 列表]</span><br><span class="line"><span class="built_in">list</span> = [表达式 <span class="keyword">for</span> 变量 <span class="keyword">in</span> 列表 <span class="keyword">if</span> 条件]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="3、说明-1"><a href="#3、说明-1" class="headerlink" title="3、说明"></a>3、说明</h3><blockquote>
+<p>会对序列中的每个 item 执行表达式, 然后把满足条件的值存入到一个新的列表中</p>
+</blockquote>
+<h3 id="4、示例代码"><a href="#4、示例代码" class="headerlink" title="4、示例代码"></a>4、示例代码</h3><ol>
+<li><p>生成list [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]可以用list(range(1, 11))</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>))</span><br><span class="line"><span class="built_in">print</span>(nums)  <span class="comment"># [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span></span><br></pre></td></tr></table></figure></li>
+<li><p>求一个数的3次方</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [n**<span class="number">3</span> <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line"><span class="built_in">print</span>(nums)</span><br></pre></td></tr></table></figure></li>
+<li><p>求30以内能被3整除的数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">multiples = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>) <span class="keyword">if</span> i % <span class="number">3</span> <span class="keyword">is</span> <span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(multiples)</span><br><span class="line">[<span class="number">0</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">24</span>, <span class="number">27</span>]</span><br></pre></td></tr></table></figure></li>
+<li><p>遍历文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#常规代码</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">files = []</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> os.listdir(<span class="string">&#x27;/Users/zhangwei/work/ipython/demo1&#x27;</span>):</span><br><span class="line">    <span class="keyword">if</span> file.endswith(<span class="string">&#x27;.py&#x27;</span>):</span><br><span class="line">        files.append(file)</span><br><span class="line"><span class="built_in">print</span>(files)</span><br><span class="line"> </span><br><span class="line">简化</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">files = [file <span class="keyword">for</span> file <span class="keyword">in</span> os.listdir(<span class="string">&#x27;/Users/zhangwei/work/ipython/demo1&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.py&quot;</span>)  ]</span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">files = [file.endswith(<span class="string">&quot;.py&quot;</span>) <span class="keyword">for</span> file <span class="keyword">in</span> os.listdir(<span class="string">&quot;/Users/zhangwei/work/ipython/demo1&quot;</span>)]	</span><br></pre></td></tr></table></figure></li>
+<li><p>推导也支持<code>for 的嵌套</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s1 = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>]</span><br><span class="line">s2 = [<span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line"></span><br><span class="line">s3 = [x + <span class="built_in">str</span>(y) <span class="keyword">for</span> x <span class="keyword">in</span> s1 <span class="keyword">for</span> y <span class="keyword">in</span> s2]</span><br><span class="line"><span class="built_in">print</span>(s3)</span><br><span class="line"></span><br><span class="line">(x, y) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>) <span class="keyword">if</span> x % <span class="number">2</span> <span class="keyword">if</span> x &gt; <span class="number">3</span> <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>) <span class="keyword">if</span> y &gt; <span class="number">7</span> <span class="keyword">if</span> y != <span class="number">8</span>	</span><br></pre></td></tr></table></figure></li>
+<li><p>模拟多个掷硬币事件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> random</span><br><span class="line">results = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    results.append(<span class="built_in">int</span>(<span class="built_in">round</span>(random())))</span><br><span class="line">    <span class="comment">#简化</span></span><br><span class="line">    results = [<span class="built_in">int</span>(<span class="built_in">round</span>(random())) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/11%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="prev" title="11、流程控制.md">
+      <i class="fa fa-chevron-left"></i> 11、流程控制.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/13%E3%80%81%E5%85%83%E7%BB%84/" rel="next" title="13、元组.md">
+      13、元组.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%97%E8%A1%A8%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">二、列表简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89"><span class="nav-number">3.</span> <span class="nav-text">三、如何定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">1、语法结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">3.2.</span> <span class="nav-text">2、结构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">3.3.</span> <span class="nav-text">3、说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0"><span class="nav-number">4.</span> <span class="nav-text">四、获取元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E9%80%9A%E8%BF%87%E7%B4%A2%E5%BC%95"><span class="nav-number">4.1.</span> <span class="nav-text">1、通过索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%80%9A%E8%BF%87for%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.2.</span> <span class="nav-text">2、通过for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87whille"><span class="nav-number">4.3.</span> <span class="nav-text">3、通过whille</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%80%9A%E8%BF%87%E5%88%87%E7%89%87"><span class="nav-number">4.4.</span> <span class="nav-text">4、通过切片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-number">5.</span> <span class="nav-text">五、添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81append"><span class="nav-number">5.0.1.</span> <span class="nav-text">1、append</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81insert"><span class="nav-number">5.0.2.</span> <span class="nav-text">2、insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81extend"><span class="nav-number">5.0.3.</span> <span class="nav-text">3、extend</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-number">6.</span> <span class="nav-text">六、删除元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1%E3%80%81del"><span class="nav-number">6.0.1.</span> <span class="nav-text">5.1、del</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2%E3%80%81pop"><span class="nav-number">6.0.2.</span> <span class="nav-text">5.2、pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3%E3%80%81remove"><span class="nav-number">6.0.3.</span> <span class="nav-text">5.3、remove</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4%E3%80%81clear"><span class="nav-number">6.0.4.</span> <span class="nav-text">5.4、clear</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%85%B6%E5%AE%83%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">七、其它函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81list"><span class="nav-number">7.0.1.</span> <span class="nav-text">1、list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81sort"><span class="nav-number">7.0.2.</span> <span class="nav-text">2、sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81count"><span class="nav-number">7.0.3.</span> <span class="nav-text">3、count</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E5%B5%8C%E5%A5%97%E5%88%97%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">八、嵌套列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">8.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">8.2.</span> <span class="nav-text">2、示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC"><span class="nav-number">9.</span> <span class="nav-text">九、列表推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">9.1.</span> <span class="nav-text">1、简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">9.2.</span> <span class="nav-text">2、语法格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">9.3.</span> <span class="nav-text">3、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">9.4.</span> <span class="nav-text">4、示例代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

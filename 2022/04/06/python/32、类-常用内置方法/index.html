@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 在 Python 中，我们可以经常看到以双下划线 __ 包裹起来的方法，比如最常见的 __init__，这些方法被称为魔法方法（magic method）或特殊方法（special method）。简单地说，这些方法可以给 Python 的类提供特殊功能，方便我们定制一个类， 需要注意的是，这些成员里面有些是方法，调用时要加括号，有些是属性，调用时不需要加括号（废话！）。下面将一些常用的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="32、类-常用内置方法.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 在 Python 中，我们可以经常看到以双下划线 __ 包裹起来的方法，比如最常见的 __init__，这些方法被称为魔法方法（magic method）或特殊方法（special method）。简单地说，这些方法可以给 Python 的类提供特殊功能，方便我们定制一个类， 需要注意的是，这些成员里面有些是方法，调用时要加括号，有些是属性，调用时不需要加括号（废话！）。下面将一些常用的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.640Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.640Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>32、类-常用内置方法.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          32、类-常用内置方法.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>在 Python 中，我们可以经常看到以双下划线 <code>__</code> 包裹起来的方法，比如最常见的 <code>__init__</code>，这些方法被称为<strong>魔法方法（magic method）或特殊方法（special method）</strong>。简单地说，这些方法可以给 Python 的类提供特殊功能，方便我们定制一个类，</p>
+<p>需要注意的是，这些成员里面有些是方法，调用时要加括号，有些是属性，调用时不需要加括号（废话！）。下面将一些常用的介绍一下</p>
+</blockquote>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>重载</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>__init__</code></td>
+<td>构造函数</td>
+<td>对象创建: X = Class(args)</td>
+</tr>
+<tr>
+<td><code>__del__</code></td>
+<td>析构函数</td>
+<td>X对象收回</td>
+</tr>
+<tr>
+<td><code>__add__</code></td>
+<td>云算法+</td>
+<td>如果没有_iadd_， X+Y， X+=Y</td>
+</tr>
+<tr>
+<td><code>__or__</code></td>
+<td>运算符|</td>
+<td>如果没有_ior_，X|Y, X|=Y</td>
+</tr>
+<tr>
+<td><code>_repr__</code>, <code>__str__</code></td>
+<td>打印，转换</td>
+<td>print(X)，repr(X)，str(X)</td>
+</tr>
+<tr>
+<td><code>__call__</code></td>
+<td>函数调用</td>
+<td>X(*args, **kwargs)</td>
+</tr>
+<tr>
+<td><code>__getattr__</code></td>
+<td>点号运算</td>
+<td>X.undefined</td>
+</tr>
+<tr>
+<td><code>__setattr__</code></td>
+<td>属性赋值语句</td>
+<td>X.any=value</td>
+</tr>
+<tr>
+<td><code>__delattr__</code></td>
+<td>属性删除</td>
+<td>del X.any</td>
+</tr>
+<tr>
+<td><code>__getattribute__</code></td>
+<td>属性获取</td>
+<td>X.any</td>
+</tr>
+<tr>
+<td><code>__getitem__</code></td>
+<td>索引运算</td>
+<td>X[key]，X[i:j]</td>
+</tr>
+<tr>
+<td><code>__setitem__</code></td>
+<td>索引赋值语句</td>
+<td>X[key]，X[i:j]=sequence</td>
+</tr>
+<tr>
+<td><code>__delitem__</code></td>
+<td>索引和分片删除</td>
+<td>del X[key]，del X[i:j]</td>
+</tr>
+<tr>
+<td><code>__len__</code></td>
+<td>长度</td>
+<td>len(X)，如果没有__bool__，真值测试</td>
+</tr>
+<tr>
+<td><code>__bool__</code></td>
+<td>布尔测试</td>
+<td>bool(X)</td>
+</tr>
+<tr>
+<td><code>__lt__</code>, <code>__gt__</code>,<code> __le__</code>, <code>__ge__</code>, <code>__eq__</code>, <code>__ne__</code></td>
+<td>特定的比较</td>
+<td>X&lt;Y，X&gt;Y，X&lt;=Y，X&gt;=Y， X==Y，X!=Y 注释：（lt: less than, gt: greater than,   le: less equal, ge: greater equal,   eq: equal, ne: not equal ）</td>
+</tr>
+<tr>
+<td><code>__radd__</code></td>
+<td>右侧加法</td>
+<td>other+X</td>
+</tr>
+<tr>
+<td><code>__iadd__</code></td>
+<td>实地（增强的）加法</td>
+<td>X+=Y(or else <strong>add</strong>)</td>
+</tr>
+<tr>
+<td><code>__iter__</code>, <code>__next__</code></td>
+<td>迭代环境</td>
+<td>I=iter(X), next()</td>
+</tr>
+<tr>
+<td><code>__contains__</code></td>
+<td>成员关系测试</td>
+<td>item in X(任何可迭代)</td>
+</tr>
+<tr>
+<td><code>__index__</code></td>
+<td>整数值</td>
+<td>hex(X), bin(X),  oct(X)</td>
+</tr>
+<tr>
+<td><code>__enter__</code>, <code>__exit__</code></td>
+<td>环境管理器</td>
+<td>with obj as var:</td>
+</tr>
+<tr>
+<td><code>__get__</code>, <code>__set__</code>, <code>__delete__</code></td>
+<td>描述符属性</td>
+<td>X.attr, X.attr=value, del X.attr</td>
+</tr>
+<tr>
+<td><code>__new__</code></td>
+<td>创建</td>
+<td>在__init__之前创建对象</td>
+</tr>
+</tbody></table>
+<h2 id="二、常用的特殊成员"><a href="#二、常用的特殊成员" class="headerlink" title="二、常用的特殊成员"></a>二、常用的特殊成员</h2><h3 id="1、-doc"><a href="#1、-doc" class="headerlink" title="1、__doc__"></a>1、<code>__doc__</code></h3><ol>
+<li><p>说明</p>
+<p>说明性文档和信息。Python自建，无需自定义。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot; 描述类信息，可被自动收集 &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="comment"># 打印类的说明文档 </span></span><br><span class="line"><span class="built_in">print</span>(Foo.__doc__)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、-init"><a href="#2、-init" class="headerlink" title="2、 __init__()"></a>2、 <code>__init__()</code></h3><ol>
+<li><p>说明</p>
+<p>实例化方法，通过类创建实例时，自动触发执行。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = <span class="number">18</span></span><br><span class="line"></span><br><span class="line">obj = Foo(<span class="string">&#x27;jack&#x27;</span>) <span class="comment"># 自动执行类中的 __init__ 方法</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、-module-和-class"><a href="#3、-module-和-class" class="headerlink" title="3、 __module__ 和 __class__"></a>3、 <code>__module__</code> 和 <code>__class__</code></h3><ol>
+<li><p>说明</p>
+<p><code>__module__</code> 表示当前操作的对象在属于哪个模块。</p>
+<p><code>__class__</code> 表示当前操作的对象属于哪个类。</p>
+<p>这两者也是Python内建，无需自定义。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="built_in">print</span>(obj.__module__)</span><br><span class="line"><span class="built_in">print</span>(obj.__class__)</span><br><span class="line">------------</span><br><span class="line">运行结果：</span><br><span class="line">__main__</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;__main__.Foo&#x27;</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4、-del"><a href="#4、-del" class="headerlink" title="4、__del__()"></a>4、<code>__del__()</code></h3></li>
+<li><p>说明</p>
+<p>析构方法，当对象在内存中被释放时，自动触发此方法。</p>
+<p>注：此方法一般无须自定义，因为Python自带内存分配和释放机制，除非你需要在释放的时候指定做一些动作。析构函数的调用是由解释器在进行垃圾回收时自动触发执行的。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__del__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;我被回收了！&quot;</span>)</span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="keyword">del</span> obj</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、-call"><a href="#5、-call" class="headerlink" title="5、__call__()"></a>5、<code>__call__()</code></h3><ol>
+<li><p>如果为一个类编写了该方法，那么在该类的实例后面加括号，可会调用这个方法。</p>
+<p>注：构造方法的执行是由类加括号执行的，即：<code>对象 = 类名()</code>，而对于<code>__call__()</code> 方法，是由对象后加括号触发的，即：<code>对象()</code>或者 <code>类()()</code></p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;__call__&#x27;</span>)</span><br><span class="line"></span><br><span class="line">obj = Foo()     <span class="comment"># 执行 __init__</span></span><br><span class="line">obj()       <span class="comment"># 执行 __call__</span></span><br></pre></td></tr></table></figure>
+
+<p>那么，怎么判断一个对象是否可以被执行呢？能被执行的对象就是一个Callable对象，可以用Python内建的callable()函数进行测试，我们在前面的章节已经介绍过这个函数了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; callable(Student())</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; callable(max)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; callable([1, 2, 3])</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; callable(None)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; callable(&#x27;str&#x27;)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; callable(int)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; callable(str)</span><br><span class="line">True</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="6、-dict"><a href="#6、-dict" class="headerlink" title="6、 __dict__"></a>6、 <code>__dict__</code></h3><ol>
+<li><p>说明</p>
+<p>列出类或对象中的所有成员！非常重要和有用的一个属性，Python自建，无需用户自己定义。</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Province</span>:</span><br><span class="line">    country = <span class="string">&#x27;China&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, count</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.count = count</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;func&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取类的成员</span></span><br><span class="line"><span class="built_in">print</span>(Province.__dict__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 对象obj1 的成员 </span></span><br><span class="line">obj1 = Province(<span class="string">&#x27;HeBei&#x27;</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="built_in">print</span>(obj1.__dict__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取 对象obj2 的成员 </span></span><br><span class="line">obj2 = Province(<span class="string">&#x27;HeNan&#x27;</span>, <span class="number">3888</span>)</span><br><span class="line"><span class="built_in">print</span>(obj2.__dict__)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="7、-str"><a href="#7、-str" class="headerlink" title="7、__str__()"></a>7、<code>__str__()</code></h3><ol>
+<li><p>说明</p>
+<p>如果一个类中定义了<code>__str__()</code>方法，那么在打印对象时，默认输出该方法的返回值。这也是一个非常重要的方法，需要用户自己定义。　</p>
+<p>下面的类，没有定义<code>__str__()</code>方法，打印结果是：<code>&lt;__main__.Foo object at 0x000000000210A358&gt;</code></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="built_in">print</span>(obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>定义了<code>__str__()</code>方法后，打印结果是：’jack’。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;jack&#x27;</span></span><br><span class="line">      </span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="built_in">print</span>(obj)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="8、-getitem-、-setitem-、-delitem"><a href="#8、-getitem-、-setitem-、-delitem" class="headerlink" title="8、__getitem__()、__setitem__()、__delitem__()"></a>8、<code>__getitem__()</code>、<code>__setitem__()</code>、<code>__delitem__()</code></h3><ol>
+<li><p>说明</p>
+<p>取值、赋值、删除这“三剑客”的套路，在Python中，我们已经见过很多次了，比如前面的<code>@property</code>装饰器。</p>
+<p>Python中，标识符后面加圆括号，通常代表执行或调用方法的意思。而在标识符后面加中括号[]，通常代表取值的意思。Python设计了<code>__getitem__()</code>、<code>__setitem__()</code>、<code>__delitem__()</code>这三个特殊成员，用于执行与中括号有关的动作。它们分别表示取值、赋值、删除数据。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = 标识符[]　： 　　执行__getitem__方法</span><br><span class="line">标识符[] = a  ： 　　执行__setitem__方法</span><br><span class="line">del 标识符[]　： 　　执行__delitem__方法</span><br></pre></td></tr></table></figure></li>
+<li><p>如果有一个类同时定义了这三个魔法方法，那么这个类的实例的行为看起来就像一个字典一样，如下例所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;__getitem__&#x27;</span>,key)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__setitem__</span>(<span class="params">self, key, value</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;__setitem__&#x27;</span>,key,value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__delitem__</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;__delitem__&#x27;</span>,key)</span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"></span><br><span class="line">result = obj[<span class="string">&#x27;k1&#x27;</span>]      <span class="comment"># 自动触发执行 __getitem__</span></span><br><span class="line">obj[<span class="string">&#x27;k2&#x27;</span>] = <span class="string">&#x27;jack&#x27;</span>      <span class="comment"># 自动触发执行 __setitem__</span></span><br><span class="line"><span class="keyword">del</span> obj[<span class="string">&#x27;k1&#x27;</span>]           <span class="comment"># 自动触发执行 __delitem__</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="9、-iter"><a href="#9、-iter" class="headerlink" title="9、 __iter__()"></a>9、 <code>__iter__()</code></h3><ol>
+<li><p>说明</p>
+<p>这是迭代器方法！列表、字典、元组之所以可以进行for循环，是因为其内部定义了 <code>__iter__()</code>这个方法。如果用户想让自定义的类的对象可以被迭代，那么就需要在类中定义这个方法，并且让该方法的返回值是一个可迭代的对象。当在代码中利用for循环遍历对象时，就会调用类的这个<code>__iter__()</code>方法。</p>
+</li>
+<li><p>栗子1(普通的类)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name == <span class="string">&#x27;__main__&#x27;</span></span><br><span class="line">    obj = Foo()    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> obj:</span><br><span class="line">      <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>   报错：TypeError: ‘Foo’ object is not iterable # 原因是Foo对象不可迭代 </p>
+<ol start="3">
+<li><p>添加一个<code>__iter__()</code>，但什么都不返回：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> obj:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="comment"># 报错：TypeError: iter() returned non-iterator of type &#x27;NoneType&#x27;</span></span><br><span class="line"><span class="comment">#原因是 __iter__方法没有返回一个可迭代的对象</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ol start="4">
+<li><p>返回一个个迭代对象：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, sq</span>):</span><br><span class="line">        self.sq = sq</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">iter</span>(self.sq)</span><br><span class="line"></span><br><span class="line">obj = Foo([<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> obj:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这下没问题了！</span></span><br></pre></td></tr></table></figure></li>
+<li><p>最好的方法是使用生成器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">yield</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">        <span class="keyword">yield</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line">obj = Foo()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> obj:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>10、<code>__len__()</code></p>
+<ol>
+<li><p>说明</p>
+<p>在Python中，如果你调用内置的len()函数试图获取一个对象的长度，在后台，其实是去调用该对象的<code>__len__()</code>方法，所以，下面的代码是等价的：</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">len</span>(<span class="string">&#x27;ABC&#x27;</span>)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">&#x27;ABC&#x27;</span>.__len__()</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>Python的list、dict、str等内置数据类型都实现了该方法，但是你自定义的类要实现len方法需要好好设计。</p>
+</li>
+</ol>
+<h3 id="11、-repr"><a href="#11、-repr" class="headerlink" title="11、 __repr__()"></a>11、 <code>__repr__()</code></h3><ol>
+<li><p>说明</p>
+<p>这个方法的作用和<code>__str__()</code>很像，两者的区别是<code>__str__()</code>返回用户看到的字符串，而<code>__repr__()</code>返回程序开发者看到的字符串，也就是说，<code>__repr__()</code>是为调试服务的。通常两者代码一样。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;this is %s&quot;</span> % self.name</span><br><span class="line">   </span><br><span class="line">    __repr__ = __str__</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="12、运算符的重载"><a href="#12、运算符的重载" class="headerlink" title="12、运算符的重载"></a>12、运算符的重载</h3><ol>
+<li><p>说明</p>
+<p>这些都是算术运算方法，需要你自己为类设计具体运算代码。有些Python内置数据类型，比如int就带有这些方法。Python支持运算符的重载，也就是重写。</p>
+<p><code>__add__</code>: 加运算 <code>__sub__</code>: 减运算 <code>__mul__</code>: 乘运算 <code>__div__</code>: 除运算 <code>__mod__</code>: 求余运算 <code>__pow__</code>: 幂运算</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vector</span>:</span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, a, b</span>):</span><br><span class="line">      self.a = a</span><br><span class="line">      self.b = b</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;Vector (%d, %d)&#x27;</span> % (self.a, self.b)</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">__add__</span>(<span class="params">self,other</span>):</span><br><span class="line">      <span class="keyword">return</span> Vector(self.a + other.a, self.b + other.b)</span><br><span class="line">   </span><br><span class="line">v1 = Vector(<span class="number">2</span>,<span class="number">10</span>)</span><br><span class="line">v2 = Vector(<span class="number">5</span>,-<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> (v1 + v2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="13、-author"><a href="#13、-author" class="headerlink" title="13、 __author__"></a>13、 <code>__author__</code></h3><ol>
+<li><p>说明</p>
+<p><code>__author__</code>代表作者信息！类似的特殊成员还有很多，就不罗列了。</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">a test module</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">__author__ = <span class="string">&quot;Jack&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">    <span class="built_in">print</span>(__author__)</span><br><span class="line"></span><br><span class="line">show()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="14、-slots"><a href="#14、-slots" class="headerlink" title="14、__slots__"></a>14、<code>__slots__</code></h3><ol>
+<li><p>说明</p>
+<p>Python作为一种动态语言，可以在类定义完成和实例化后，给类或者对象继续添加随意个数或者任意类型的变量或方法，这是动态语言的特性。例如：</p>
+</li>
+<li><p>栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_doc</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;haha&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span></span><br><span class="line">  obj1 = Foo()</span><br><span class="line">  obj2 = Foo()</span><br><span class="line">  <span class="comment"># 动态添加实例变量</span></span><br><span class="line">  obj1.name = <span class="string">&quot;jack&quot;</span></span><br><span class="line">  obj2.age = <span class="number">18</span></span><br><span class="line">  <span class="comment"># 动态的给类添加实例方法</span></span><br><span class="line">  Foo.show = print_doc</span><br><span class="line">  obj1.show()</span><br><span class="line">  obj2.show()</span><br></pre></td></tr></table></figure>
+
+<p>但是！如果我想限制实例可以添加的变量怎么办？可以使<code>__slots__</code>限制实例的变量，比如，只允许Foo的实例添加name和age属性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">print_doc</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;haha&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span>:</span><br><span class="line">    __slots__ = (<span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>)</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">obj1 = Foo()</span><br><span class="line">obj2 = Foo()</span><br><span class="line"><span class="comment"># 动态添加实例变量</span></span><br><span class="line">obj1.name = <span class="string">&quot;jack&quot;</span></span><br><span class="line">obj2.age = <span class="number">18</span></span><br><span class="line">obj1.sex = <span class="string">&quot;male&quot;</span>       <span class="comment"># 这一句会弹出错误</span></span><br><span class="line"><span class="comment"># 但是无法限制给类添加方法</span></span><br><span class="line">Foo.show = print_doc</span><br><span class="line">obj1.show()</span><br><span class="line">obj2.show()</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/31%E3%80%81%E7%B1%BB-%E4%BF%AE%E9%A5%B0%E7%AC%A6/" rel="prev" title="31、类-修饰符.md">
+      <i class="fa fa-chevron-left"></i> 31、类-修饰符.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/33%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E7%BB%A7%E6%89%BF/" rel="next" title="33、面向对象-继承.md">
+      33、面向对象-继承.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98"><span class="nav-number">2.</span> <span class="nav-text">二、常用的特殊成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81-doc"><span class="nav-number">2.1.</span> <span class="nav-text">1、__doc__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81-init"><span class="nav-number">2.2.</span> <span class="nav-text">2、 __init__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81-module-%E5%92%8C-class"><span class="nav-number">2.3.</span> <span class="nav-text">3、 __module__ 和 __class__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81-del"><span class="nav-number">2.4.</span> <span class="nav-text">4、__del__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81-call"><span class="nav-number">2.5.</span> <span class="nav-text">5、__call__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81-dict"><span class="nav-number">2.6.</span> <span class="nav-text">6、 __dict__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81-str"><span class="nav-number">2.7.</span> <span class="nav-text">7、__str__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81-getitem-%E3%80%81-setitem-%E3%80%81-delitem"><span class="nav-number">2.8.</span> <span class="nav-text">8、__getitem__()、__setitem__()、__delitem__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81-iter"><span class="nav-number">2.9.</span> <span class="nav-text">9、 __iter__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11%E3%80%81-repr"><span class="nav-number">2.10.</span> <span class="nav-text">11、 __repr__()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="nav-number">2.11.</span> <span class="nav-text">12、运算符的重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13%E3%80%81-author"><span class="nav-number">2.12.</span> <span class="nav-text">13、 __author__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14%E3%80%81-slots"><span class="nav-number">2.13.</span> <span class="nav-text">14、__slots__</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

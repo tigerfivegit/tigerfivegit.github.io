@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="模块与包一、概念 提起python文件，经常会听到3个名词，python脚本，python模块，python包。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="21、模块.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/21%E3%80%81%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="模块与包一、概念 提起python文件，经常会听到3个名词，python脚本，python模块，python包。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-11/84149567.jpg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.628Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.628Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-11/84149567.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/21%E3%80%81%E6%A8%A1%E5%9D%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>21、模块.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/21%E3%80%81%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          21、模块.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="模块与包"><a href="#模块与包" class="headerlink" title="模块与包"></a>模块与包</h1><h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><blockquote>
+<p>提起python文件，经常会听到3个名词，python脚本，python模块，python包。</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>如果你从 Python 解释器退出后再重新进入, 那么你之前定义的所有 (函式和变量) 都将丢失。因此如果你想写一个更长的程序, 你最好离线地使用文本编辑器保存成文件, 替代解释器的输入来运行。 这称作创建一个脚本。所以脚本的概念是从python交互式命令行引用过来的，把在命令行内运行的代码段复制到一个文件里再运行，这个文件就可以称为一个脚本；</p>
+<p>脚本之间可能存在相同的函数等，当你的程序变得更长, 你可能想把它分割成几个文件以能够更简单地维护. 你也许还想在几个相同的程序里使用写过的程序, 而不用把一坨代码拷来拷去, 那这个脚本我们可以称为模块，为了一个脚本能使用另一个脚本里的函数等，也就是说一个模块里的定义是可以被导入到别的模块或者主模块中使用的；</p>
+<p>python包是python管理模块命名空间的一种方式，类似python模块解决了不同模块之间的全局变量的重名，python包解决了多个模块组成的包时模块名的重名</p>
+</blockquote>
+<h2 id="二-、什么是模块"><a href="#二-、什么是模块" class="headerlink" title="二 、什么是模块"></a>二 、什么是模块</h2><blockquote>
+<p>模块在Python可理解为对应于一个文件。在创建了一个脚本文件后，定义了某些函数，变量和类。你在其他需要这些功能的文件中，导入这模块，就可重用这些函数和变量。一般用<strong>module_name.fun_name</strong>，和<strong>module_name.变量名</strong>进行使用。这样的语义用法使模块看起来很像类或者名字空间，可将<strong>module_name</strong> 理解为名字限定符。模块名就是文件名去掉.py后缀</p>
+<p>在一个模块中, 模块的名字 (一个字符串) 可以通过全局变量 <code>__name__</code> 得到</p>
+</blockquote>
+<h2 id="三、如何定义"><a href="#三、如何定义" class="headerlink" title="三、如何定义"></a>三、如何定义</h2><h3 id="1、概要"><a href="#1、概要" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>定义模块其实就是创建一个<code>.py</code>文件</p>
+<p>python之父建议的的模块命名:</p>
+<ol>
+<li>公共模块: 所有的字母小写, 不同的单词之间用下划线<code>_</code>连接</li>
+<li>内部模块: 用下划线<code>_</code>开头, 其余与公共模块一样.</li>
+</ol>
+</blockquote>
+<h4 id="2、举个栗子"><a href="#2、举个栗子" class="headerlink" title="2、举个栗子"></a>2、举个栗子</h4><ol>
+<li><p>创建一个文件<code>fibo.py</code>, 相当于创建了一个模块<code>fibo</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">n</span>):</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="built_in">print</span>(b, end=<span class="string">&quot; &quot;</span>)</span><br><span class="line">        a, b = b, a + b</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure></li>
+<li><p>再创建一个模块<code>demo</code>, 作为我们程序的入口, 这样的模块其实就是<code>main moudle</code>. 在主模块内部使用我们第 1 步创建的模块.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fibo  <span class="comment"># 导入需要的模块</span></span><br><span class="line"><span class="built_in">print</span>(__name__) <span class="comment"># 当前模块直接执行, 所以当前模块就是主模块 输出__main__</span></span><br><span class="line"><span class="comment"># 模块名就成为了在 fibo 这个模块中定义的全局变量, 函数, 类的命名空间</span></span><br><span class="line"><span class="built_in">print</span>(fibo.__name__)    <span class="comment"># 输出模块名</span></span><br><span class="line"><span class="comment"># 调用模块内定义的函数</span></span><br><span class="line">fibo.fib(<span class="number">20</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、模块的导入"><a href="#四、模块的导入" class="headerlink" title="四、模块的导入"></a>四、模块的导入</h2><h3 id="1、概要-1"><a href="#1、概要-1" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>导入模块非常简单，使用Python关键字来导入Python即可，模块的导入语句一般常规性的会放在一个模块的最开始部分</p>
+</blockquote>
+<h3 id="2、导入方式"><a href="#2、导入方式" class="headerlink" title="2、导入方式"></a>2、导入方式</h3><h4 id="2-1、-import"><a href="#2-1、-import" class="headerlink" title="2.1、 import"></a>2.1、 import</h4><ol>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> module_name1 [<span class="keyword">as</span> name1], module_name2 [<span class="keyword">as</span> name2]</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p>先说明一下Python的默认引用方式，在Python2.4及之前，Python只有相对引用这一种方式，</p>
+<p>在Python2.5中实现了绝对引用，但默认没有打开，需要用户自己指定使用该引用方式。</p>
+<p>在之后的版本和Python3版本，绝对引用已经成为默认的引用方式</p>
+</li>
+<li><p>注意事项</p>
+<p>执行应用程序的模块，不能使用相对导入</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment"># 一次性导入多个包</span></span><br><span class="line"><span class="keyword">import</span> os, sys, time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给模块起别名</span></span><br><span class="line"><span class="comment"># sys模块重命名为system</span></span><br><span class="line"><span class="keyword">import</span> sys <span class="keyword">as</span> system</span><br><span class="line"><span class="built_in">print</span>(system.platform)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>执行流程</p>
+<ul>
+<li>为源代码文件中定义的对象创建一个名字空间，通过这个名字空间可以访问到模块中定义的函数及变量。</li>
+<li>在新创建的名字空间里执行源代码文件。</li>
+<li>创建一个名为源代码文件的对象，该对象引用模块的名字空间，这样就可以通过这个对象访问模块中的函数及变量。</li>
+</ul>
+</li>
+<li><p>附:</p>
+<ul>
+<li>绝对导入的格式为 <code>import A.B</code> 或 <code>from A import B</code>，</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>相对导入格式为 <code>from . import B</code>或 <code>from ..A import B</code>，<code>.</code>代表当前模块，<code>..</code>代表上层模块，<code>...</code>代表上上层模块，依次类</p>
+</li>
+<li><p>相对导入可以避免硬编码带来的维护问题，例如我们改了某一顶层包的名，那么其子包所有的导入就都不能用了。但是 <strong>存在相对导入语句的模块，不能直接运行</strong>，否则会有异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ValueError: Attempted relative import in non-package</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2、from-…-import"><a href="#2-2、from-…-import" class="headerlink" title="2.2、from … import"></a>2.2、from … import</h4><ol>
+<li><p>概要</p>
+<p>单独使用<code>import</code>是导入整个模块, 默认的所有定义都会导入, 而且会创建新的命名空间. 并且没有使用的模块的代码也会执行.</p>
+<p>如果我们仅仅是用到模块中某个函数或者类, 这个时候, 我们可以只导入我们想要的某个定义, 而不需要导入整个模块.</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> item1 [<span class="keyword">as</span> name1], item2 [<span class="keyword">as</span> name2]</span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ol start="3">
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># a.py</span></span><br><span class="line">num = <span class="number">10</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">n1, n2</span>):</span><br><span class="line">    <span class="keyword">return</span> n1 + n2</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">     <span class="keyword">def</span> <span class="title function_">show_name</span>(<span class="params">self</span>):</span><br><span class="line">         <span class="built_in">print</span>(self.name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># b.py</span></span><br><span class="line"><span class="keyword">from</span> a <span class="keyword">import</span> add, num, User</span><br><span class="line"></span><br><span class="line">sum1 = add(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(sum1)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&#x27;小明&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(user.show_name())</span><br></pre></td></tr></table></figure>
+
+<p>根据你实际的使用场景，上面的做法可能是更好的。在复杂的代码库中，能够看出某个函数是从哪里导入的这点很有用的。不过，如果你的代码维护的很好，模块化程度高，那么只从某个模块中导入一部分内容也是非常方便和简洁的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># b.py</span></span><br><span class="line"><span class="comment"># 我们也可以导入模块下的全部</span></span><br><span class="line"><span class="keyword">from</span> a <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sum1 = add(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(sum1)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&#x27;小明&#x27;</span>)</span><br><span class="line"></span><br><span class="line">user.show_name()</span><br></pre></td></tr></table></figure>
+
+<p>这种做法在少数情况下是挺方便的，但是这样也会打乱你的命名空间。问题在于，你可能定义了一个与导入模块中名称相同的变量或函数，这时如果你试图使用模块中的同名变量或函数，实际使用的将是你自己定义的内容。因此，你最后可能会碰到一个相当让人困惑的逻辑错误。<strong>标准库中我唯一推荐全盘导入的模块只有Tkinter</strong>。   </p>
+</li>
+</ol>
+<h4 id="2-3-、其它导入方式"><a href="#2-3-、其它导入方式" class="headerlink" title="2.3 、其它导入方式"></a>2.3 、其它导入方式</h4><ol>
+<li><p>概要</p>
+<ul>
+<li>可选导入</li>
+<li>局部导入</li>
+</ul>
+</li>
+<li><p>可选导入</p>
+<p>如果你希望优先使用某个模块或包，但是同时也想在没有这个模块或包的情况下有备选，你就可以使用可选导入这种方式，这样做可以导入支持某个软件的多种版本或者实现性能提升</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">   <span class="keyword">from</span> httplib <span class="keyword">import</span> responses</span><br><span class="line"><span class="keyword">except</span> ImportError:  </span><br><span class="line">        </span><br></pre></td></tr></table></figure></li>
+<li><p>局部导入(了解)</p>
+<p>当你在局部作用域中导入模块时，你执行的就是局部导入。如果你在Python脚本文件的顶部导入一个模块，那么你就是在将该模块导入至全局作用域，这意味着之后的任何函数或方法都可能访问该模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">square_root</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">import</span> math</span><br><span class="line">    <span class="keyword">return</span> math.sqrt(a)</span><br><span class="line">   </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_pow</span>(<span class="params">base_num, power</span>):</span><br><span class="line">    <span class="keyword">return</span> math.<span class="built_in">pow</span>(base_num, power)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-4、导入其它类型"><a href="#2-4、导入其它类型" class="headerlink" title="2.4、导入其它类型"></a>2.4、导入其它类型</h4><p>不过导入模块不限于此可以被 import 语句导入的模块共有以下四类: </p>
+<ol>
+<li>使用Python写的程序( .py文件) </li>
+<li>C或C++扩展(已编译为共享库或DLL文件)</li>
+<li>包(包含多个模块)</li>
+<li>内建模块(使用C编写并已链接到Python解释器内)</li>
+</ol>
+<h2 id="3、注意事项"><a href="#3、注意事项" class="headerlink" title="3、注意事项"></a>3、注意事项</h2><h4 id="3-1、说明"><a href="#3-1、说明" class="headerlink" title="3.1、说明"></a>3.1、说明</h4><ul>
+<li>循环导入（circular imports）</li>
+<li>覆盖导入（Shadowed imports，覆盖导入）</li>
+</ul>
+<h4 id="3-2、循环导入"><a href="#3-2、循环导入" class="headerlink" title="3.2、循环导入"></a>3.2、循环导入</h4><ol>
+<li><p>说明</p>
+<p>如果你创建两个模块，二者相互导入对方，那么就会出现循环导入</p>
+</li>
+<li><p>举个栗子(moudle_a.py)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moudle_b</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a_test</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;in a_test&quot;</span>)</span><br><span class="line">    moudle_b.b_test()</span><br><span class="line">a_test()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moudle_a</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b_test</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;In test_b&quot;&#x27;</span>)</span><br><span class="line">    moudle_a.a_test()</span><br><span class="line">b_test()</span><br></pre></td></tr></table></figure></li>
+<li><p>问题说明</p>
+<p>如果你运行任意一个模块，都会引发<code>AttributeError</code>。这是因为这两个模块都在试图导入对方。简单来说，模块moudle_a想要导入模块moudle_b，但是因为模块moudle_b也在试图导入模块moudle_a（这时正在执行），模块moudle_a将无法完成模块moudle_b的导入。<strong>一般通用的解决方案是，你应该做的是重构代码，避免发生这种情况</strong></p>
+</li>
+</ol>
+<h4 id="3-3、循环导入"><a href="#3-3、循环导入" class="headerlink" title="3.3、循环导入"></a>3.3、循环导入</h4><ol>
+<li><p>说明</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br><span class="line"></span><br><span class="line">def square_root(number):</span><br><span class="line">    return math.sqrt(number)</span><br><span class="line"></span><br><span class="line">square_root(72)</span><br></pre></td></tr></table></figure></li>
+<li><p>问题说明</p>
+<p>Python解释器首先在当前运行脚本所处的的文件夹中查找名叫<code>math</code>的模块。在这个例子中，解释器找到了我们正在执行的模块，试图导入它。但是我们的模块中并没有叫<code>sqrt</code>的函数或属性，所以就抛出了<code>AttributeError</code></p>
+</li>
+</ol>
+<h2 id="五、模块运行方式"><a href="#五、模块运行方式" class="headerlink" title="五、模块运行方式"></a>五、模块运行方式</h2><h3 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h3><blockquote>
+<p>我们有两种方式去运行模块:</p>
+<ol>
+<li>直接使用<code>python 模块名.py</code>. 这种模块为主模块,  这样运行方式叫做以程序的方式运行.</li>
+<li>使用 <code>import</code>语句的方式来运行模块.</li>
+</ol>
+</blockquote>
+<h3 id="2、判断运行方式"><a href="#2、判断运行方式" class="headerlink" title="2、判断运行方式"></a>2、判断运行方式</h3><ol>
+<li><p>我们可以通过<code>__name__</code>属性的值来判断这个模块的运行方式.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 是 程序的方式运行</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 否 以导入的方式运行</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="六、包-package"><a href="#六、包-package" class="headerlink" title="六、包(package)"></a>六、包(package)</h2><h3 id="1、概要-2"><a href="#1、概要-2" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>一个<code>.py</code>文件就是一个模块, 但是模块一多, 管理起来也是比较麻烦.</p>
+<p>python 提供包是为了更好的对模块进行管理.</p>
+<p>包可以看做是一组模块的集合, 把这组模块放在一个包的名称下.包这项技术可以解决不同的应用程序之间模块的命名冲突问题.</p>
+</blockquote>
+<h3 id="2、必要条件"><a href="#2、必要条件" class="headerlink" title="2、必要条件"></a>2、必要条件</h3><ol>
+<li><p>**一个文件夹. **<br>这个文件夹的名字其实就是包的名字.包的命名规则和公共文件的命名一致:全部字符小写, 不同的单词之间用空格隔开.</p>
+</li>
+<li><p><strong>在前面的文件夹下的一个<code>__init__.py</code>的初始化文件.</strong><br>这个文件可以为空, 也可以定义一些导入模块时候的初始化代码.</p>
+</li>
+<li><p><strong>注意:</strong></p>
+<p>一个包中可以有自己的子包, 子包也可以再有子包…  每一个包都会有一个自己的<code>__init__.py</code>文件.</p>
+</li>
+</ol>
+<h3 id="3、从包中导入模块"><a href="#3、从包中导入模块" class="headerlink" title="3、从包中导入模块"></a>3、从包中导入模块</h3><ol>
+<li><p>包结构图</p>
+<p><img src="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-11/84149567.jpg"></p>
+</li>
+<li><p>使用<code>import</code>导入模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a.moudle_1</span><br><span class="line"><span class="keyword">import</span> b.moudle_1</span><br><span class="line"><span class="keyword">import</span> c.moudle_1</span><br><span class="line"><span class="keyword">import</span> a.d.moudle_a</span><br></pre></td></tr></table></figure></li>
+<li><p>使用<code>from</code>导入模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> a <span class="keyword">import</span> moudle_1</span><br><span class="line"><span class="keyword">from</span> a.d <span class="keyword">import</span> moudle_a</span><br></pre></td></tr></table></figure></li>
+<li><p>使用<code>from</code>直接导入模块中的定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> a <span class="keyword">import</span> moudle_1</span><br><span class="line"><span class="keyword">from</span> a.d.moudle_a <span class="keyword">import</span> add</span><br><span class="line"></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、注意"><a href="#4、注意" class="headerlink" title="4、注意:"></a>4、注意:</h3><blockquote>
+<p>当我们多个模块中都导入同一个模块的时候, 只有第一次导入的时候才会执行包的<code>__init__()</code>和模块中的代码.可以这样理解: 当导入某个模块的时候, 会先查找某个模块是否已经导入过, 如果已经导入过, 就直接使用不再重新导入.</p>
+<p>使用<code>*</code>通配符导入</p>
+<p>使用<code>from 包 import *</code>, 可以导入整个包下所有的模块. </p>
+<p>但是由于各个操作系统的在对文件名的命名上的差异, 默认情况下这个语句一个包都导入不了.</p>
+<p>我们可以在这个包的<code>__init__.py</code>定义一个列表, 这个列表中定义使用<code>*</code>的时候可以导入哪些包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__all__ = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>]  <span class="comment"># 使用 * 的时候导入a 和 b 两个包</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/19%E3%80%81%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F/" rel="prev" title="19、函数作用域.md">
+      <i class="fa fa-chevron-left"></i> 19、函数作用域.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/22%E3%80%81math/" rel="next" title="22、math.md">
+      22、math.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">模块与包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C-%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97"><span class="nav-number">1.2.</span> <span class="nav-text">二 、什么是模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.</span> <span class="nav-text">三、如何定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、概要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">2、举个栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AF%BC%E5%85%A5"><span class="nav-number">1.4.</span> <span class="nav-text">四、模块的导入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、导入方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81-import"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">2.1、 import</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81from-%E2%80%A6-import"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2.2、from … import</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E3%80%81%E5%85%B6%E5%AE%83%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">2.3 、其它导入方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4%E3%80%81%E5%AF%BC%E5%85%A5%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">2.4、导入其它类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.5.</span> <span class="nav-text">3、注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">3.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2%E3%80%81%E5%BE%AA%E7%8E%AF%E5%AF%BC%E5%85%A5"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">3.2、循环导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3%E3%80%81%E5%BE%AA%E7%8E%AF%E5%AF%BC%E5%85%A5"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">3.3、循环导入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A8%A1%E5%9D%97%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">五、模块运行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">1、概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%88%A4%E6%96%AD%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-number">1.6.2.</span> <span class="nav-text">2、判断运行方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%8C%85-package"><span class="nav-number">1.7.</span> <span class="nav-text">六、包(package)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81-2"><span class="nav-number">1.7.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.7.2.</span> <span class="nav-text">2、必要条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BB%8E%E5%8C%85%E4%B8%AD%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">1.7.3.</span> <span class="nav-text">3、从包中导入模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%B3%A8%E6%84%8F"><span class="nav-number">1.7.4.</span> <span class="nav-text">4、注意:</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

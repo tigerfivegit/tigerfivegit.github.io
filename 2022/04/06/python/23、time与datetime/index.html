@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 python中的time，datetime提供了简单和复杂的方式操作日期和时间的类。虽然支持日期和时间算法，但我们的学习的重点是获取日期和时间，用于输出格式和操作。 datetime模块定义了以下几个类：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="23、time与datetime.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/23%E3%80%81time%E4%B8%8Edatetime/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 python中的time，datetime提供了简单和复杂的方式操作日期和时间的类。虽然支持日期和时间算法，但我们的学习的重点是获取日期和时间，用于输出格式和操作。 datetime模块定义了以下几个类：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201116233440.png">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/img/20200227002853794.png">
+<meta property="article:published_time" content="2022-04-05T18:36:32.630Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.630Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201116233440.png">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/23%E3%80%81time%E4%B8%8Edatetime/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>23、time与datetime.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/23%E3%80%81time%E4%B8%8Edatetime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          23、time与datetime.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>python中的time，datetime提供了简单和复杂的方式操作日期和时间的类。虽然支持日期和时间算法，但我们的学习的重点是<strong>获取日期和时间，用于输出格式和操作</strong>。</p>
+<p>datetime模块定义了以下几个类：</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>类名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>datetime.datetime</td>
+<td>表示日期时间</td>
+</tr>
+<tr>
+<td>datetime.date</td>
+<td>表示日期，常用的属性有：year, month和day</td>
+</tr>
+<tr>
+<td>datetime.time</td>
+<td>表示时间，常用属性有：hour, minute, second, microsecond</td>
+</tr>
+<tr>
+<td>datetime.timedelta</td>
+<td>表示两个date、time、datetime实例之间的时间间隔，</td>
+</tr>
+<tr>
+<td>datetime.tzinfo</td>
+<td>时区相关信息对象的抽象基类。它们由datetime和time类使用，</td>
+</tr>
+<tr>
+<td>datetime.timezone</td>
+<td>Python 3.2中新增的功能，实现tzinfo抽象基类的类，表示与UTC的固定偏移量</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/datetime.html?highlight=datetime#time-objects">time官方文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/datetime.html">datetime官方文档</a></p>
+</blockquote>
+<h2 id="二、time"><a href="#二、time" class="headerlink" title="二、time"></a>二、time</h2><h3 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>time类表示时间，由时、分、秒以及微秒组成，</p>
+<p>在Python中，通常有这几种方式来表示时间：</p>
+<ul>
+<li>时间戳(相对于1970.1.1 00:00:00以秒计算的偏移量，时间戳是惟一的，如：1382678303.098)</li>
+<li>时间元组（struct_time）共九个元素。例如time.struct_time(tm_year=2019, tm_mon=3, tm_mday=11, tm_hour=17, tm_min=3, tm_sec=20, tm_wday=0, tm_yday=70, tm_isdst=0)</li>
+<li>格式化的时间字符串(重点)</li>
+</ul>
+<p>注意:由于Python的time模块实现主要调用C库，所以各个平台可能有所不同</p>
+</blockquote>
+<h3 id="2、时间戳"><a href="#2、时间戳" class="headerlink" title="2、时间戳"></a>2、时间戳</h3><ol>
+<li><p>说明</p>
+</li>
+<li><p>获取时间戳</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment"># #时间戳单位最适于做日期运算。但是1970年之前的日期就无法以此表示了。太遥远的日期也不行，UNIX和Windows只支持到2038年</span></span><br><span class="line">time.time()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、时间元组"><a href="#3、时间元组" class="headerlink" title="3、时间元组"></a>3、时间元组</h3><ol>
+<li><p>说明</p>
+<p>用一个元组装起来的9组数字处理时间</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4位年数</td>
+<td>tm_year</td>
+<td>2017</td>
+</tr>
+<tr>
+<td>月</td>
+<td>tm_mon</td>
+<td>1到12</td>
+</tr>
+<tr>
+<td>日</td>
+<td>tm_mday</td>
+<td>1到31</td>
+</tr>
+<tr>
+<td>小时</td>
+<td>tm_hour</td>
+<td>0到23</td>
+</tr>
+<tr>
+<td>分钟</td>
+<td>tm_min</td>
+<td>0到59</td>
+</tr>
+<tr>
+<td>秒</td>
+<td>tm_sec</td>
+<td>0到61（60或61是润秒）</td>
+</tr>
+<tr>
+<td>一周的第几日</td>
+<td>tm_wday</td>
+<td>0到6(0是周一)</td>
+</tr>
+<tr>
+<td>一年的第几日</td>
+<td>tm_yday</td>
+<td>1到366,一年中的第几天</td>
+</tr>
+<tr>
+<td>夏令时</td>
+<td>tm_isdst</td>
+<td>是否为夏令时，值为1时是夏令时，值为0时不是夏令时，默认为-1</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>获取时间元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(time.localtime())</span><br><span class="line"><span class="comment"># time.struct_time(tm_year=2019, tm_mon=3, tm_mday=17, tm_hour=21, tm_min=42, tm_sec=33, tm_wday=6, tm_yday=76, tm_isdst=0)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>时间戳转化成时间元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># localtime的函数</span></span><br><span class="line">struct = time.localtime(time.time())</span><br><span class="line"><span class="built_in">print</span>(struct)</span><br><span class="line"><span class="comment"># time.struct_time(tm_year=2019, tm_mon=3, tm_mday=17, tm_hour=20, tm_min=14, tm_sec=47, tm_wday=6, tm_yday=76, tm_isdst=0)</span></span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+</li>
+<li><p>将时间元组转化成时间戳 mktime()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">tup_time = time.localtime()</span><br><span class="line">time2 = time.mktime(tup_time)</span><br><span class="line"><span class="built_in">print</span>(time2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、格式化的时间-重点"><a href="#4、格式化的时间-重点" class="headerlink" title="4、格式化的时间(重点)"></a>4、格式化的时间(重点)</h3><ol>
+<li><p>说明</p>
+<p>获取可读的时间格式</p>
+</li>
+<li><p>将时间戳转化成可读性的时间asctime()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="built_in">print</span>(time.asctime(time.localtime(time.time())))</span><br><span class="line"><span class="comment"># 星期，月， 日， 时间，   年</span></span><br><span class="line"><span class="comment"># Mon Nov 16 23:17:57 2020</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将时间戳转化成指定格式的字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">time.strftime(<span class="built_in">format</span>[, t])</span><br><span class="line"><span class="comment"># format 格式</span></span><br><span class="line"><span class="comment"># t 时间</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>格式化符号</strong></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%y</td>
+<td>两位数的年份表示（00-99）</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>四位数的年份表示（000-9999）</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月份（01-12）</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>月内中的一天（0-31）</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>24小时制小时数（0-23）</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>12小时制小时数（01-12）</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>分钟数（00-59）</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>秒（00-59）</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment"># 获取完整的年月日时分秒</span></span><br><span class="line">time.strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>, time.localtime(time.time()))</span><br><span class="line"><span class="comment"># 获取年-月-日</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>,time.localtime()))  </span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%Y&#x27;</span>,time.localtime()))  <span class="comment">#获取完整年份</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%y&#x27;</span>,time.localtime()))  <span class="comment">#获取简写年份</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%m&#x27;</span>,time.localtime()))  <span class="comment">#获取月</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%d&#x27;</span>,time.localtime()))  <span class="comment">#获取日</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%H&#x27;</span>,time.localtime()))  <span class="comment">#获取时，24小时制</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%I&#x27;</span>,time.localtime()))  <span class="comment">#获取时，12小时制</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%M&#x27;</span>,time.localtime()))  <span class="comment">#获取分</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%S&#x27;</span>,time.localtime()))  <span class="comment">#获取秒</span></span><br><span class="line"><span class="built_in">print</span>(time.strftime(<span class="string">&#x27;%H:%M:%S&#x27;</span>,time.localtime()))  <span class="comment">#获取时:分:秒</span></span><br></pre></td></tr></table></figure></li>
+<li><p>将指定字符串转化成时间戳</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">t = <span class="string">&quot;2019-3-15 18:30:00&quot;</span></span><br><span class="line"><span class="comment">#将其转换为时间元组 </span></span><br><span class="line">time_struct = time.strptime(t, <span class="string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>) </span><br><span class="line"><span class="comment"># 转换为时间戳: </span></span><br><span class="line">stamp = <span class="built_in">int</span>(time.mktime(time_struct)) </span><br><span class="line"><span class="built_in">print</span>(stamp)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、延迟执行"><a href="#5、延迟执行" class="headerlink" title="5、延迟执行"></a>5、延迟执行</h3><ol>
+<li><p>说明</p>
+<p>数推迟调用线程的运行，可通过参数secs指秒数，表示进程挂起的时间</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 延迟5秒执行</span><br><span class="line">time.sleep(5)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201116233440.png" alt="img"></p>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/img/20200227002853794.png"></p>
+<h2 id="三、date"><a href="#三、date" class="headerlink" title="三、date"></a>三、date</h2><h3 id="1、说明-1"><a href="#1、说明-1" class="headerlink" title="1、说明"></a>1、说明</h3><p>表示年、月、日的日期对象,需要导入datetime模块</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>取值范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>year</td>
+<td>datetime.MINYEAR &lt;= year &lt;= datetime.MAXYEAR</td>
+<td>超出范围报错</td>
+</tr>
+<tr>
+<td>month</td>
+<td>1 &lt;= month &lt;= 12</td>
+<td>超出范围报错</td>
+</tr>
+<tr>
+<td>day</td>
+<td>1 &lt;= day &lt;= 给定年月的天数</td>
+<td>超出范围报错</td>
+</tr>
+</tbody></table>
+<h3 id="2、常用的方法"><a href="#2、常用的方法" class="headerlink" title="2、常用的方法"></a>2、常用的方法</h3><h4 id="2-1、today"><a href="#2-1、today" class="headerlink" title="2.1、today"></a>2.1、today</h4><ol>
+<li><p>说明</p>
+<p>静态方法、返回当前的日期</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date.today()</span><br></pre></td></tr></table></figure></li>
+<li><p>返回值</p>
+<p>返回一个date类型</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">today = datetime.date.today()</span><br><span class="line"><span class="built_in">print</span>(today)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(today))</span><br><span class="line"><span class="comment"># 等价于  datetime.date.fromtimestamp(time.time())</span></span><br><span class="line">today = datetime.date.fromtimestamp(time.time())</span><br><span class="line"><span class="built_in">print</span>(today)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-2、其它"><a href="#2-2、其它" class="headerlink" title="2.2、其它"></a>2.2、其它</h4><ol>
+<li><p>说明</p>
+<p>获取年,获取月,获取日</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">today = datetime.date.today()</span><br><span class="line">print(today.year)</span><br><span class="line">print(today.month)</span><br><span class="line">print(today.day)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="四、datetime"><a href="#四、datetime" class="headerlink" title="四、datetime"></a>四、datetime</h3><ol>
+<li><p>说明</p>
+<p>datetime<code>从字面意思上看是</code>date<code>和</code>time</p>
+</li>
+<li><p>创建日期操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法</span></span><br><span class="line"><span class="comment"># datetime.datetime(year,month,day,hour,minute,second,microsecond,)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>常见操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前系统的年与日时分秒微秒</span></span><br><span class="line"><span class="built_in">print</span>(datetime.datetime.today())</span><br><span class="line"><span class="comment"># 获取当前系统的年与日时分秒微秒</span></span><br><span class="line"><span class="built_in">print</span>(datetime.datetime.now())</span><br><span class="line"><span class="comment"># 通过时间戳转化成日期对象</span></span><br><span class="line"><span class="built_in">print</span>(datetime.datetime.fromtimestamp(time.time()))</span><br><span class="line"><span class="comment"># 获取 当前的时间</span></span><br><span class="line"><span class="built_in">print</span>(datetime.datetime.now().time())</span><br><span class="line"><span class="comment"># 获取当前的日期</span></span><br><span class="line"><span class="built_in">print</span>(datetime.datetime.now().date())</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(datetime.datetime.strptime(<span class="string">&#x27;2019-03-21&#x27;</span>, <span class="string">&#x27;%Y-%m-%d&#x27;</span>)))</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/22%E3%80%81math/" rel="prev" title="22、math.md">
+      <i class="fa fa-chevron-left"></i> 22、math.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/24%E3%80%81sys%E4%B8%8Eos-2/" rel="next" title="24、sys与os-2.md">
+      24、sys与os-2.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81time"><span class="nav-number">2.</span> <span class="nav-text">二、time</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">2.2.</span> <span class="nav-text">2、时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%97%B6%E9%97%B4%E5%85%83%E7%BB%84"><span class="nav-number">2.3.</span> <span class="nav-text">3、时间元组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%97%B6%E9%97%B4-%E9%87%8D%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">4、格式化的时间(重点)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%BB%B6%E8%BF%9F%E6%89%A7%E8%A1%8C"><span class="nav-number">2.5.</span> <span class="nav-text">5、延迟执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81date"><span class="nav-number">3.</span> <span class="nav-text">三、date</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">3.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">2、常用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81today"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1、today</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81%E5%85%B6%E5%AE%83"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2、其它</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81datetime"><span class="nav-number">3.3.</span> <span class="nav-text">四、datetime</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

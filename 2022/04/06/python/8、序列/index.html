@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 在Python中，最基本的数据结构是序列（sequence）。序列中的每个元素被分配一个序号——即元素的位置，也称为索引。第一个索引是 0，第二个则是 1，以此类推。序列中的最后一个元素标记为 -1，倒数第二个元素为 -2，以此类推。 Python包含 6 种内建的序列，包括列表、元组、字符串、Unicode字符串、buffer对象和xrange对象。  索引 分片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8、序列.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/8%E3%80%81%E5%BA%8F%E5%88%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 在Python中，最基本的数据结构是序列（sequence）。序列中的每个元素被分配一个序号——即元素的位置，也称为索引。第一个索引是 0，第二个则是 1，以此类推。序列中的最后一个元素标记为 -1，倒数第二个元素为 -2，以此类推。 Python包含 6 种内建的序列，包括列表、元组、字符串、Unicode字符串、buffer对象和xrange对象。  索引 分片">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172614.jpeg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.651Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.651Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172614.jpeg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/8%E3%80%81%E5%BA%8F%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>8、序列.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/8%E3%80%81%E5%BA%8F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          8、序列.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>在Python中，最基本的数据结构是序列（sequence）。序列中的每个元素被分配一个序号——即元素的位置，也称为索引。第一个索引是 0，第二个则是 1，以此类推。序列中的最后一个元素标记为 -1，倒数第二个元素为 -2，以此类推。 Python包含 6 种内建的序列，包括列表、元组、字符串、Unicode字符串、buffer对象和xrange对象。</p>
+<ol>
+<li>索引</li>
+<li>分片</li>
+</ol>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<ol start="3">
+<li>加</li>
+<li>乘</li>
+<li>检查某个元素是否属于序列</li>
+<li>计算序列长度</li>
+<li>计算最大元素及最小元素</li>
+</ol>
+</blockquote>
+<h2 id="二、索引"><a href="#二、索引" class="headerlink" title="二、索引"></a>二、索引</h2><ol>
+<li><p>概念</p>
+<p>元素在序列中的编号。这些编号从0开始递增，0表示第一个元素,最后一个元素为序列的长度-1</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seq[索引]</span><br></pre></td></tr></table></figure></li>
+<li><p>结构图</p>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201111172614.jpeg"></p>
+</li>
+<li><p>示例代码</p>
+<p>字符串中使用索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">demo = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(demo[<span class="number">0</span>]) <span class="comment">#输出 H</span></span><br><span class="line"><span class="built_in">print</span>(demo[<span class="number">5</span>]) <span class="comment">#输出空格字符串</span></span><br><span class="line"><span class="built_in">print</span>(demo[-<span class="number">1</span>]) <span class="comment">#输出 d</span></span><br><span class="line"><span class="comment">#思考可不可以索引是-0</span></span><br></pre></td></tr></table></figure>
+
+<p>函数中使用索引，有一些函数的返回值为字符串，有的返回其他的序列，我们可以在函数调用之后使用[]来对返回序列的元素值进行索引</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [6]: input(&quot;请输入:&quot;)[1]</span><br><span class="line">请输入:123</span><br><span class="line">Out[6]: &#x27;2&#x27;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、切片"><a href="#三、切片" class="headerlink" title="三、切片"></a>三、切片</h2><ol>
+<li><p>定义</p>
+<p>切片也叫分片，即提取一个范围内的序列</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">序列名（或字符串字面值）[beg_index：end_index，step] </span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<ul>
+<li><p>beg_index </p>
+<p>起始下标，默认0</p>
+</li>
+<li><p>end_index</p>
+<p>终止下标，默认取到末尾</p>
+</li>
+<li><p>step：</p>
+<p>表示取值的步长，默认为1，步长值不能为0，默认为1，步长可以为负数，表示从右向左提取元素</p>
+</li>
+</ul>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>范围采用左闭右开(顾头不顾尾)，即第一个索引元素包含在分片内，第二个则不包含在分片内。</li>
+<li>终止索引超出范围时，分片直接取到序列最后一个元素</li>
+<li>索引和步长都具有正负两个值，分别表示左右两个方向取值。索引的正方向从左往右取值，起始位置为0；</li>
+<li>负方向从右往左取值，起始位置为-1。因此任意一个序列结构数据的索引范围为 -len到 len-1范围内的连续整数。</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<p>1、同时忽略两个索引，整个序列都成为分片了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cele = <span class="string">&quot;you can you up ,no can no bb ^_^&quot;</span></span><br><span class="line"><span class="built_in">print</span>(cele[:]) <span class="comment">#输出 全部</span></span><br></pre></td></tr></table></figure>
+
+<p>2、开始索引,结束索引默认,步长默认，从包含的开始索引截取至末尾</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[<span class="number">1</span>:]) </span><br></pre></td></tr></table></figure>
+
+<p>3、开始索引为负数,结束索引默认,步长默认，从右边开始截取至末尾</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[-<span class="number">1</span>:]) </span><br></pre></td></tr></table></figure>
+
+<p>4、结束索引，开始索引忽略，步长默认，截取0至结束索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[:<span class="number">5</span>]) </span><br></pre></td></tr></table></figure>
+
+<p>5、结束索引为负数，开始索引忽略，步长默认，截取0至右边结束索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[:-<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<p>6、开始索引比结束索引的元素在序列中出现得晚时，切片为空序列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[-<span class="number">3</span>:<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>7、步长为2,截取开始索引到结束索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[<span class="number">0</span>:<span class="number">10</span>:<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<p>8、左索引比右索引的元素在序列中出现得晚时</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(cele[::-<span class="number">1</span>]) <span class="comment">#反置</span></span><br></pre></td></tr></table></figure></li>
+<li><p>总结</p>
+<ul>
+<li><p>seq[start_index]</p>
+<p>返回索引值为start_index的对象。start_index为 -len(seq)到len(seq)-1之间任意整数。</p>
+</li>
+<li><p>seq[start_index: end_index]</p>
+<p>返回索引值为start_index到end_index－1之间的连续对象。</p>
+</li>
+<li><p>seq[start_index: end_index : step]</p>
+<p>返回索引值为start_index到end_index-1之间，并且索引值与start_index之差可以被step整除的连续对象。</p>
+</li>
+<li><p>seq[start_index: ]</p>
+<p>缺省end_index，表示从start_index开始到序列中最后一个对象。</p>
+</li>
+<li><p>seq[:end_index］</p>
+<p>缺省start_index，表示从序列中第一个对象到end_index-1之间的片段。</p>
+</li>
+<li><p>seq[:]</p>
+<p>缺省start_index和end_index，表示从第一个对象到最后一个对象的完整片段。</p>
+</li>
+<li><p>seq[::step]</p>
+<p>缺省start_index和end_index，表示对整个序列按照索引可以被step整除的规则取值</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、序列相乘"><a href="#四、序列相乘" class="headerlink" title="四、序列相乘"></a>四、序列相乘</h2><ol>
+<li><p>说明</p>
+<p>用数字x乘以一个序列会产生新的序列，在新的序列中，原来的序列将被重复x次</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="string">&#x27;1&#x27;</span> * <span class="number">5</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(i))</span><br><span class="line"><span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、序列相加"><a href="#五、序列相加" class="headerlink" title="五、序列相加"></a>五、序列相加</h2><ol>
+<li><p>说明</p>
+<p>两个序列相加返回一个新的序列</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">seq1 = <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">seq2 = <span class="string">&#x27;World&#x27;</span></span><br><span class="line">seq3 = seq1 + seq2</span><br><span class="line"><span class="built_in">print</span>(seq3)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="六、使用None创建空序列"><a href="#六、使用None创建空序列" class="headerlink" title="六、使用None创建空序列"></a>六、使用None创建空序列</h2><ol>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sequence = 10 * [None]</span><br><span class="line">sequence</span><br><span class="line">[None, None, None, None, None, None, None, None, None, None]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="七、是否包含"><a href="#七、是否包含" class="headerlink" title="七、是否包含"></a>七、是否包含</h2><ol>
+<li><p>说明</p>
+<p>指某值是否在序列中，使用in<strong>运算符</strong>，运算符结果为<strong>布尔值</strong>True 或者 False</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;某值&#x27; in 序列</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cele = <span class="string">&quot;you can you up ,no can no bb ^_^&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;y&#x27;</span> <span class="keyword">in</span> cele) <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;^_^&#x27;</span> <span class="keyword">in</span> cele) <span class="comment"># True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;you1&#x27;</span> <span class="keyword">in</span> cele) <span class="comment"># false</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="八、序列长度"><a href="#八、序列长度" class="headerlink" title="八、序列长度"></a>八、序列长度</h2><ol>
+<li><p>内置函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len(序列)</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cele = <span class="string">&quot;you can you up ,no can no bb ^_^&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(cele)) <span class="comment">#32</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="九、最小值"><a href="#九、最小值" class="headerlink" title="九、最小值"></a>九、最小值</h2><ol>
+<li><p>内置函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">min(序列)</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#纯数字</span></span><br><span class="line">numbers = <span class="string">&quot;123456789&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(numbers)) <span class="comment">#1</span></span><br><span class="line"><span class="comment">#纯字母</span></span><br><span class="line">letter = <span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="comment">#字母加数字</span></span><br><span class="line">letter = <span class="string">&quot;abcdef123&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(letter)) <span class="comment">#1</span></span><br><span class="line"><span class="comment">#中文 底层比较是Unicode编码 </span></span><br><span class="line">letter = <span class="string">&quot;时间在哪里,成就就在哪里&quot;</span>   </span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(letter)) <span class="comment">#输出  ,(\u002c)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="十、最大值"><a href="#十、最大值" class="headerlink" title="十、最大值"></a>十、最大值</h2><ol>
+<li><p>内置函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(序列)</span><br></pre></td></tr></table></figure></li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#纯数字</span></span><br><span class="line">numbers = <span class="string">&quot;123456789&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(numbers)) <span class="comment">#9</span></span><br><span class="line"><span class="comment">#纯字母</span></span><br><span class="line">letter = <span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="comment">#字母加数字</span></span><br><span class="line">letter = <span class="string">&quot;abcdef123&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(letter)) <span class="comment">#f</span></span><br><span class="line"><span class="comment">#中文 底层比较是Unicode编码 </span></span><br><span class="line">letter = <span class="string">&quot;时间在哪里,成就就在哪里&quot;</span>   </span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(letter)) <span class="comment">#输出  间(\u95f4)</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/7%E3%80%81%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="7、基本数据类型.md">
+      <i class="fa fa-chevron-left"></i> 7、基本数据类型.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/9%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="next" title="9、字符串.md">
+      9、字符串.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B4%A2%E5%BC%95"><span class="nav-number">2.</span> <span class="nav-text">二、索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%88%87%E7%89%87"><span class="nav-number">3.</span> <span class="nav-text">三、切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BA%8F%E5%88%97%E7%9B%B8%E4%B9%98"><span class="nav-number">4.</span> <span class="nav-text">四、序列相乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BA%8F%E5%88%97%E7%9B%B8%E5%8A%A0"><span class="nav-number">5.</span> <span class="nav-text">五、序列相加</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%BD%BF%E7%94%A8None%E5%88%9B%E5%BB%BA%E7%A9%BA%E5%BA%8F%E5%88%97"><span class="nav-number">6.</span> <span class="nav-text">六、使用None创建空序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB"><span class="nav-number">7.</span> <span class="nav-text">七、是否包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E5%BA%8F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="nav-number">8.</span> <span class="nav-text">八、序列长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">九、最小值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">10.</span> <span class="nav-text">十、最大值</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Python基础知识一、编码规范PEP-8 编码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4、基础知识.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Python基础知识一、编码规范PEP-8 编码规范">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.647Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.647Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>4、基础知识.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4、基础知识.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Python基础知识"><a href="#Python基础知识" class="headerlink" title="Python基础知识"></a>Python基础知识</h1><h2 id="一、编码规范"><a href="#一、编码规范" class="headerlink" title="一、编码规范"></a>一、编码规范</h2><p>PEP-8 编码规范 </p>
+<span id="more"></span>
+<p>Python Enhancement Proposals ：python改进方案</p>
+<p>Guido的关键点之一是：代码更多是用来读而不是写。编码规范旨在改善Python代码的可读性。</p>
+<p>风格指南强调一致性。项目、模块或函数保持一致都很重要。</p>
+<h2 id="二、语法规范"><a href="#二、语法规范" class="headerlink" title="二、语法规范"></a>二、语法规范</h2><h3 id="1-1、注释"><a href="#1-1、注释" class="headerlink" title="1.1、注释"></a>1.1、注释</h3><p>所谓注释，就是在程序中添加解释说明，能够大大增强程序的可读性。注释中的内容，不是真正要执行的程序，起辅助说明作用</p>
+<p><strong>单行注释</strong></p>
+<p>以#开头，#右边的所有东西当做说明</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我是注释，可以在里写一些功能说明之类的哦</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello world&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>多行注释</strong></p>
+<p>使用3引号，3个单引号或者3个双引号</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">我是多行注释，可以写很多很多行的功能说明</span></span><br><span class="line"><span class="string">        这就是我牛X的地方</span></span><br><span class="line"><span class="string">        哈哈哈。。。</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">我也是多行注释啊，巴拉巴拉。。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2、缩进"><a href="#1-2、缩进" class="headerlink" title="1.2、缩进"></a>1.2、缩进</h3><p><strong>每级缩进用4个空格</strong></p>
+<p>python 不使用 <code>&#123;&#125;</code> 来组织代码，完全依靠缩进，所以缩进的格式非常重要。</p>
+<p>使用4个空格来缩进。  使用空格的时候永远使用4个空格，不能使用其他数量的空格，否则语法错误。</p>
+<p>建议把开发工具的<code>tab</code>改成4个空格。</p>
+<p>sublime 用如下方式设置：另外<code>pycharm</code>默认已经用4个空格替换<code>tab</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对准左括号</span></span><br><span class="line">foo = long_function_name(var_one, var_two,</span><br><span class="line">                         var_three, var_four)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不对准左括号，但加多一层缩进，以和后面内容区别。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">long_function_name</span>(<span class="params"></span></span><br><span class="line"><span class="params">        var_one, var_two, var_three,</span></span><br><span class="line"><span class="params">        var_four</span>):</span><br><span class="line">    <span class="built_in">print</span>(var_one)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 悬挂缩进必须加多一层缩进.</span></span><br><span class="line">foo = long_function_name(</span><br><span class="line">    var_one, var_two,</span><br><span class="line">    var_three, var_four)</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>括号中使用垂直隐式缩进或使用悬挂缩进。后者应该注意第一行要没有参数，后续行要有缩进。</p>
+<h3 id="1-3、分号"><a href="#1-3、分号" class="headerlink" title="1.3、分号"></a>1.3、分号</h3><p><code>python</code>不严格要求使用分号( <code>;</code>)。</p>
+<p>理论上应该每行放一句代码。每行代码之后可以添加分号<code>;</code> 也可以不添加 分号<code>;</code></p>
+<p>尽量不要多句代码放在一行，如果放在一行，则需要添加分号把他们隔开。</p>
+<h3 id="1-4、行长度"><a href="#1-4、行长度" class="headerlink" title="1.4、行长度"></a>1.4、行长度</h3><p>每行不超过80个字符(最大行宽为79字符，文本长块，比如文档字符串或注释，行长度应限制为72个字符。)</p>
+<p>以下情况除外：</p>
+<ol>
+<li>长的导入模块语句</li>
+<li>注释里的URL</li>
+</ol>
+<p>不要使用反斜杠连接行。<br>如果一个文本字符串在一行放不下, 可以使用圆括号来实现隐式行连接:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = (&#x27;这是一个非常长非常长非常长非常长 &#x27;</span><br><span class="line">     &#x27;非常长非常长非常长非常长非常长非常长的字符串&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5、空行"><a href="#1-5、空行" class="headerlink" title="1.5、空行"></a>1.5、空行</h3><p>两行空行分割顶层函数和类的定义。<br>类的方法定义用单个空行分割。<br>额外的空行可以必要的时候用于分割不同的函数组，但是要尽量节约使用。<br>额外的空行可以必要的时候在函数中用于分割不同的逻辑块，但是要尽量节约使用。</p>
+<h3 id="1-6、源文件编码"><a href="#1-6、源文件编码" class="headerlink" title="1.6、源文件编码"></a>1.6、源文件编码</h3><p>在核心Python发布的代码应该总是使用UTF-8(ASCII在Python 2)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python推荐使用</span></span><br><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># 简化写法</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br></pre></td></tr></table></figure>
+
+<p>Python 3(默认UTF-8)不应有编码声明。</p>
+<h3 id="1-7、导入在单行"><a href="#1-7、导入在单行" class="headerlink" title="1.7、导入在单行"></a>1.7、导入在单行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> Popen, PIPE</span><br></pre></td></tr></table></figure>
+
+<p>导入始终在文件的顶部，在模块注释和文档字符串之后，在模块全局变量和常量之前。</p>
+<p>导入顺序如下：标准库进口,相关的第三方库，本地库。各组的导入之间要有空行。</p>
+<blockquote>
+<p>禁止使用通配符导入。</p>
+<p>通配符导入(from import *)应该避免，因为它不清楚命名空间有哪些名称存，混淆读者和许多自动化的工具。</p>
+</blockquote>
+<h3 id="1-8、括号"><a href="#1-8、括号" class="headerlink" title="1.8、括号"></a>1.8、括号</h3><p>宁缺毋滥的使用括号，除非是用于实现行连接, 否则不要在返回语句或条件语句中使用括号. 不过在元组两边使用括号是可以的.</p>
+<p>括号里边避免空格</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 括号里边避免空格</span></span><br><span class="line"><span class="comment"># Yes</span></span><br><span class="line">spam(ham[<span class="number">1</span>], &#123;eggs: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="comment"># No</span></span><br><span class="line">spam( ham[ <span class="number">1</span> ], &#123; eggs: <span class="number">2</span> &#125; )</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9、空格"><a href="#1-9、空格" class="headerlink" title="1.9、空格"></a>1.9、空格</h3><p>按照标准的排版规范来使用标点两边的空格</p>
+<p><strong>1.9.1、括号内不要有空格.</strong></p>
+<pre><code>Yes: spam(ham[1], &#123;eggs: 2&#125;, [])
+
+No:  spam( ham[ 1 ], &#123; eggs: 2 &#125;, [ ] )
+</code></pre>
+<p><strong>1.9.2、不要在逗号, 分号, 冒号前面加空格, 但应该在它们后面加(除了在行尾).</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Yes: <span class="keyword">if</span> x == <span class="number">4</span>:</span><br><span class="line">         <span class="built_in">print</span> x, y</span><br><span class="line">     x, y = y, x</span><br><span class="line"></span><br><span class="line">No:  <span class="keyword">if</span> x == <span class="number">4</span> :</span><br><span class="line">         <span class="built_in">print</span> x , y</span><br><span class="line">     x , y = y , x</span><br></pre></td></tr></table></figure>
+
+<p><strong>1.9.3、参数列表, 索引或切片的左括号前不应加空格.</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Yes: spam(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">no: spam (<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">Yes: <span class="built_in">dict</span>[<span class="string">&#x27;key&#x27;</span>] = <span class="built_in">list</span>[index]</span><br><span class="line"></span><br><span class="line">No:  <span class="built_in">dict</span> [<span class="string">&#x27;key&#x27;</span>] = <span class="built_in">list</span> [index]</span><br></pre></td></tr></table></figure>
+<p><strong>1.9.4、在二元操作符两边都加上一个空格,</strong></p>
+<p>比如赋值(=), 比较(==, &lt;, &gt;, !=, &lt;&gt;, &lt;=, &gt;=, in, not in, is, is not), 布尔(and, or, not). 至于算术操作符两边的空格该如何使用, 需要你自己好好判断. 不过两侧务必要保持一致.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yes: x == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">No:  x&lt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>但是注意：当’=’用于指示关键字参数或默认参数值时, 不要在其两侧使用空格.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Yes: <span class="keyword">def</span> <span class="title function_">complex</span>(<span class="params">real, imag=<span class="number">0.0</span></span>): <span class="keyword">return</span> magic(r=real, i=imag)</span><br><span class="line"></span><br><span class="line">No:  <span class="keyword">def</span> <span class="title function_">complex</span>(<span class="params">real, imag = <span class="number">0.0</span></span>): <span class="keyword">return</span> magic(r = real, i = imag)</span><br></pre></td></tr></table></figure>
+
+<p>不要用空格来垂直对齐多行间的标记, 因为这会成为维护的负担(适用于:, #, =等):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Yes:</span><br><span class="line">     foo = <span class="number">1000</span>  <span class="comment"># 注释</span></span><br><span class="line">     long_name = <span class="number">2</span>  <span class="comment"># 注释不需要对齐</span></span><br><span class="line"></span><br><span class="line">     dictionary = &#123;</span><br><span class="line">         <span class="string">&quot;foo&quot;</span>: <span class="number">1</span>,</span><br><span class="line">         <span class="string">&quot;long_name&quot;</span>: <span class="number">2</span>,</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">No:</span><br><span class="line">     foo       = <span class="number">1000</span>  <span class="comment"># 注释</span></span><br><span class="line">     long_name = <span class="number">2</span>     <span class="comment"># 注释不需要对齐</span></span><br><span class="line"></span><br><span class="line">     dictionary = &#123;</span><br><span class="line">         <span class="string">&quot;foo&quot;</span>      : <span class="number">1</span>,</span><br><span class="line">         <span class="string">&quot;long_name&quot;</span>: <span class="number">2</span>,</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>强烈不建议使用复合语句(Compound statements: 多条语句写在同一行)。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> foo == <span class="string">&#x27;blah&#x27;</span>: <span class="built_in">print</span>(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10、标识符和关键字"><a href="#1-10、标识符和关键字" class="headerlink" title="1.10、标识符和关键字"></a>1.10、标识符和关键字</h3><p>标识符就是对程序中变量，常量，类，方法，参数等命名时使用的 字符序列。</p>
+<p>关键字就是python中预先保留下来，具有特殊含义的词。</p>
+<p>Python所有关键字查看</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> keysword  </span><br><span class="line">keyword.kwlist</span><br></pre></td></tr></table></figure>
+
+<p>Python的关键字：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">and</span>	<span class="keyword">as</span>	<span class="keyword">assert</span>	<span class="keyword">break</span>	<span class="keyword">class</span>	<span class="title class_">continue</span>	<span class="keyword">def</span>	<span class="title function_">del</span>	<span class="keyword">elif</span>	<span class="keyword">else</span>	<span class="keyword">except</span>	</span><br><span class="line"><span class="built_in">exec</span>	<span class="keyword">finally</span>	<span class="keyword">for</span>	<span class="keyword">from</span>	<span class="keyword">global</span>	<span class="keyword">if</span>	<span class="keyword">in</span>	<span class="keyword">import</span>	<span class="keyword">is</span>	<span class="keyword">lambda</span>	<span class="keyword">not</span>	<span class="keyword">or</span>	<span class="keyword">pass</span></span><br><span class="line"><span class="built_in">print</span>	<span class="keyword">raise</span>	<span class="keyword">return</span>	<span class="keyword">try</span>	<span class="keyword">while</span>	<span class="keyword">with</span>	<span class="keyword">yield</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命名规则如下"><a href="#命名规则如下" class="headerlink" title="命名规则如下"></a>命名规则如下</h3><ol>
+<li><p>标识符由字母，下划线，和数字组成，且数字不能开头</p>
+</li>
+<li><p>python 大小写敏感。  a 和 A 是完全不同的。</p>
+</li>
+<li><p>不能是python关键字。</p>
+</li>
+</ol>
+<h3 id="编码习惯："><a href="#编码习惯：" class="headerlink" title="编码习惯："></a>编码习惯：</h3><ol>
+<li><p>见名知意，使用有意义的，英文单词或词组，绝对不要使用汉语拼音。</p>
+</li>
+<li><p>下划线命名和驼峰式命名</p>
+<p> 下划线：student_name(python推荐使用该种方式)</p>
+<p> 小驼峰：studentName</p>
+<p> 大驼峰：StudentNameTable    </p>
+</li>
+<li><p>避免采用的名字</p>
+<p>决不要用字符’l’(小写字母el)，’O’(大写字母oh)，或 ‘I’(大写字母eye) 作为单个字符的变量名。一些字体中，这些字符不能与数字1和0区别。用’L’ 代替’l’时。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="prev" title="38、文件操作.md">
+      <i class="fa fa-chevron-left"></i> 38、文件操作.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/3%E3%80%81Python%E8%A7%A3%E9%87%8A%E5%99%A8/" rel="next" title="3、Python 解释器.md">
+      3、Python 解释器.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">Python基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-number">1.1.</span> <span class="nav-text">一、编码规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83"><span class="nav-number">1.2.</span> <span class="nav-text">二、语法规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1%E3%80%81%E6%B3%A8%E9%87%8A"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1、注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2%E3%80%81%E7%BC%A9%E8%BF%9B"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2、缩进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3%E3%80%81%E5%88%86%E5%8F%B7"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3、分号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4%E3%80%81%E8%A1%8C%E9%95%BF%E5%BA%A6"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.4、行长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5%E3%80%81%E7%A9%BA%E8%A1%8C"><span class="nav-number">1.2.5.</span> <span class="nav-text">1.5、空行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6%E3%80%81%E6%BA%90%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81"><span class="nav-number">1.2.6.</span> <span class="nav-text">1.6、源文件编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7%E3%80%81%E5%AF%BC%E5%85%A5%E5%9C%A8%E5%8D%95%E8%A1%8C"><span class="nav-number">1.2.7.</span> <span class="nav-text">1.7、导入在单行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8%E3%80%81%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.2.8.</span> <span class="nav-text">1.8、括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9%E3%80%81%E7%A9%BA%E6%A0%BC"><span class="nav-number">1.2.9.</span> <span class="nav-text">1.9、空格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10%E3%80%81%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.10.</span> <span class="nav-text">1.10、标识符和关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%E5%A6%82%E4%B8%8B"><span class="nav-number">1.2.11.</span> <span class="nav-text">命名规则如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E4%B9%A0%E6%83%AF%EF%BC%9A"><span class="nav-number">1.2.12.</span> <span class="nav-text">编码习惯：</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

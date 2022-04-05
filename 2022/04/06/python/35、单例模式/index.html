@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="面向对象其它一、单例模式1、什么是设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="35、单例模式.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象其它一、单例模式1、什么是设计模式">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.643Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.643Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>35、单例模式.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          35、单例模式.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="面向对象其它"><a href="#面向对象其它" class="headerlink" title="面向对象其它"></a>面向对象其它</h1><h2 id="一、单例模式"><a href="#一、单例模式" class="headerlink" title="一、单例模式"></a>一、单例模式</h2><h3 id="1、什么是设计模式"><a href="#1、什么是设计模式" class="headerlink" title="1、什么是设计模式"></a>1、什么是设计模式</h3><span id="more"></span>
+<ol>
+<li><p><strong>设计模式</strong> 是 <strong>前人工作的总结和提炼</strong>，通常，被人们广泛流传的设计模式都是针对 <strong>某一特定问题</strong>的成熟的解决方案</p>
+</li>
+<li><p>使用 <strong>设计模式</strong> 是为了可重用代码、让代码更容易被他人理解、保证代码可靠性</p>
+</li>
+</ol>
+<h3 id="2、单例设计模式"><a href="#2、单例设计模式" class="headerlink" title="2、单例设计模式"></a>2、单例设计模式</h3><ol>
+<li><strong>目的</strong> —— 让 <strong>类</strong> 创建的对象，在系统中 <strong>只有</strong> <strong>唯一的一个实例</strong></li>
+<li>每一次执行 <code>类名()</code> 返回的对象，<strong>内存地址是相同的</strong></li>
+</ol>
+<h3 id="3、应用场景"><a href="#3、应用场景" class="headerlink" title="3、应用场景"></a>3、应用场景</h3><h3 id="4、如何创建单例模式"><a href="#4、如何创建单例模式" class="headerlink" title="4、如何创建单例模式"></a>4、如何创建单例模式</h3><ol>
+<li>使用模块</li>
+<li>使用装饰器</li>
+<li>使用类 </li>
+<li>基于__new__方法实现（推荐使用，方便）</li>
+<li>基于metaclass方式实现</li>
+</ol>
+<h3 id="1、使用模块"><a href="#1、使用模块" class="headerlink" title="1、使用模块"></a>1、使用模块</h3><ol>
+<li><p>说明</p>
+<p>Python 的模块就是天然的单例模式 系统规定</p>
+<p>因为模块在第一次导入时，会生成 <code>.pyc</code> 文件，当第二次导入时，就会直接加载 <code>.pyc</code> 文件，而不会再次执行模块代码</p>
+</li>
+</ol>
+<h3 id="2、-new-方法"><a href="#2、-new-方法" class="headerlink" title="2、__new__ 方法"></a>2、<code>__new__</code> 方法</h3><ol>
+<li><p>说明</p>
+<p>使用 <strong>类名()</strong> 创建对象时，<code>Python</code> 的解释器 <strong>首先</strong> 会 调用 <code>__new__</code> 方法为对象 <strong>分配空间</strong></p>
+<p><code> __new__</code>是一个 由 object 基类提供的内置的静态方法，主要作用有两个：</p>
+<ul>
+<li>在内存中为对象 <strong>分配空间</strong></li>
+<li>返回 对象的引用</li>
+<li><code>Python</code> 的解释器获得对象的 <strong>引用</strong> 后，将引用作为 <strong>第一个参数</strong>，传递给 <code>__init__</code> 方法重写 <code>__new__</code> 方法 的代码非常固定！</li>
+<li>重写 <code>__new__</code> 方法 <strong>一定要</strong> <code>return super().__new__(cls)</code></li>
+<li>否则 Python 的解释器 <strong>得不到</strong> 分配了空间的 <strong>对象引用</strong>，<strong>就不会调用对象的初始化方法</strong></li>
+</ul>
+<p>注意：<code>__new__</code> 是一个静态方法，在调用时需要 <strong>主动传递</strong> <code>cls</code> 参数</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">	__instance = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> cls.__instance <span class="keyword">is</span> <span class="literal">None</span></span><br><span class="line">            Singleton._instance = <span class="built_in">object</span>.__new__(cls)  </span><br><span class="line">        <span class="keyword">return</span> Singleton._instance</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">obj1 = Singleton()</span><br><span class="line">obj2 = Singleton()</span><br><span class="line"><span class="built_in">print</span>(obj1,obj2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、使用装饰器"><a href="#3、使用装饰器" class="headerlink" title="3、使用装饰器"></a>3、使用装饰器</h3><ol>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">singleton</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">    instance = &#123;&#125;</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_singleton</span>():</span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> instance:</span><br><span class="line">            instance[cls] = cls(*args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> instance[cls]</span><br><span class="line">    <span class="keyword">return</span> _singleton</span><br><span class="line"></span><br><span class="line"><span class="meta">@singleton</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.num_sum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self</span>):</span><br><span class="line">        self.num_sum = <span class="number">100</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    obj1 = Singleton()</span><br><span class="line">    obj2 = Singleton()</span><br><span class="line">    <span class="built_in">print</span>(obj1, obj2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、使用类"><a href="#4、使用类" class="headerlink" title="4、使用类"></a>4、使用类</h3><ol>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    __instance = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">instance</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">hasattr</span>(Singleton, <span class="string">&quot;_instance&quot;</span>):</span><br><span class="line">            Singleton.__instance = Singleton(*args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> Singleton.__instance</span><br><span class="line">    </span><br><span class="line">   obj1 = Singleton.instance()</span><br><span class="line"></span><br><span class="line">   obj2 = Singleton.instance()</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、使用元类"><a href="#5、使用元类" class="headerlink" title="5、使用元类"></a>5、使用元类</h3><ol>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SingletonType</span>(<span class="title class_ inherited__">type</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,*args,**kwargs</span>):</span><br><span class="line">        <span class="built_in">super</span>(SingletonType,self).__init__(*args,**kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">cls, *args, **kwargs</span>): <span class="comment"># 这里的cls，即Singleton类</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;cls&#x27;</span>,cls)</span><br><span class="line">        obj = cls.__new__(cls,*args, **kwargs)</span><br><span class="line">        cls.__init__(obj,*args, **kwargs) <span class="comment"># Singleton.__init__(obj)</span></span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span>(metaclass=SingletonType): <span class="comment"># 指定创建Singleton的type为SingletonType</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self，name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">object</span>.__new__(cls)</span><br><span class="line"></span><br><span class="line">obj = Singleton(<span class="string">&#x27;xx&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="二、type和isinstance"><a href="#二、type和isinstance" class="headerlink" title="二、type和isinstance"></a>二、type和isinstance</h2><h3 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h3><blockquote>
+<p>Python为每一个object在创建的时候就指定了一个内部类型,当我们不知道一个变量是什么类型时，就需要通过一些方法来输出变量的类型，Python的type函数提供了这样的功能。type()返回任意Python对象的类型，而不局限于标准类型。</p>
+<p>那么在程序中如何判断类型并根据判断结果进行相应的处理呢？首先可以通过type和is来进行</p>
+</blockquote>
+<h3 id="2、举个栗子"><a href="#2、举个栗子" class="headerlink" title="2、举个栗子"></a>2、举个栗子</h3><ol>
+<li><p>type来获取类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test2</span>(<span class="title class_ inherited__">Test</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    x = <span class="number">123</span>  <span class="comment"># int</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(x))</span><br><span class="line">    y = <span class="number">3.1415</span>  <span class="comment"># float</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(y))</span><br><span class="line">    t1 = Test()  <span class="comment"># Test1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(t1))</span><br><span class="line">    t2 = Test2()  <span class="comment"># Test2</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(t2))</span><br><span class="line">    s = <span class="string">&#x27;sdf&#x27;</span>  <span class="comment"># str</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(s))</span><br><span class="line">    b = <span class="literal">True</span>  <span class="comment"># bool</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(b))</span><br><span class="line">    li = [<span class="string">&#x27;s&#x27;</span>]  <span class="comment"># list</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(li))</span><br><span class="line">    tup = (<span class="string">&#x27;sdf&#x27;</span>,)  <span class="comment"># tuple</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(tup))</span><br><span class="line">    dic = &#123;<span class="string">&#x27;sdf&#x27;</span>: <span class="number">132</span>&#125;  <span class="comment"># dict</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(dic))</span><br></pre></td></tr></table></figure></li>
+<li><p>type来获取类型判断类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Test:</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">class Test2(Test):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    x = 123  # int</span><br><span class="line">    print(type(x) is int)</span><br><span class="line">    y = 3.1415  # float</span><br><span class="line">    print(type(y) is float)</span><br><span class="line">    t1 = Test()  # Test1</span><br><span class="line">    print(type(t1) is Test)</span><br><span class="line">    t2 = Test2()  # Test2</span><br><span class="line">    print(type(t2) is Test2)</span><br><span class="line">    s = &#x27;sdf&#x27;  # str</span><br><span class="line">    print(type(s) is str)</span><br><span class="line">    b = True  # bool</span><br><span class="line">    print(type(b) is bool)</span><br><span class="line">    li = [&#x27;s&#x27;]  # list</span><br><span class="line">    print(type(li) is list)</span><br><span class="line">    tup = (&#x27;sdf&#x27;,)  # tuple</span><br><span class="line">    print(type(tup) is tuple)</span><br><span class="line">    dic = &#123;&#x27;sdf&#x27;: 132&#125;  # dict</span><br><span class="line">    print(type(dic) is dict)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>通过instance方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Test:</span><br><span class="line">    pass</span><br><span class="line">class Test2(Test):</span><br><span class="line">    pass</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    x = 123  # True</span><br><span class="line">    print(isinstance(x, int))</span><br><span class="line">    y = 3.1415  # True</span><br><span class="line">    print(isinstance(y, float))</span><br><span class="line">    t1 = Test()  # True</span><br><span class="line">    print(isinstance(t1, Test))</span><br><span class="line">    t2 = Test2()  # True</span><br><span class="line">    print(isinstance(t2, Test))</span><br><span class="line">    # False</span><br><span class="line">    print(type(t2) is Test)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、不同点"><a href="#3、不同点" class="headerlink" title="3、不同点"></a>3、不同点</h3><ol>
+<li>type可以只接收一个参数，打印其未知的所属的类型；而isinstance只能判断是否属于某个已知类型</li>
+<li>isinstance可以判断子类对象是否继承于父类；而type不可以</li>
+<li>应用场景不同；type主要用于获取未知变量的类型；isinstance主要用于判断A类是否继承于B类</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/33%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E7%BB%A7%E6%89%BF/" rel="prev" title="33、面向对象-继承.md">
+      <i class="fa fa-chevron-left"></i> 33、面向对象-继承.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/34%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/" rel="next" title="34、面向对象-多态.md">
+      34、面向对象-多态.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%B6%E5%AE%83"><span class="nav-number">1.</span> <span class="nav-text">面向对象其它</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">一、单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、什么是设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、单例设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、如何创建单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="nav-number">1.1.5.</span> <span class="nav-text">1、使用模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81-new-%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.6.</span> <span class="nav-text">2、__new__ 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">1.1.7.</span> <span class="nav-text">3、使用装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8%E7%B1%BB"><span class="nav-number">1.1.8.</span> <span class="nav-text">4、使用类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E4%BD%BF%E7%94%A8%E5%85%83%E7%B1%BB"><span class="nav-number">1.1.9.</span> <span class="nav-text">5、使用元类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81type%E5%92%8Cisinstance"><span class="nav-number">1.2.</span> <span class="nav-text">二、type和isinstance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、举个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、不同点</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

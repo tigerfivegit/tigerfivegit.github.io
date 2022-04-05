@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、基础概要1、文件的概念和作用 我们以前操作的数据都是在程序中提前写死的, 但是在实际开发中这是远远不够的.很多时候我们都需要对存储在计算中文件内的数据进行处理, python 提供了一系列的对文件操作的 api">
+<meta property="og:type" content="article">
+<meta property="og:title" content="38、文件操作.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、基础概要1、文件的概念和作用 我们以前操作的数据都是在程序中提前写死的, 但是在实际开发中这是远远不够的.很多时候我们都需要对存储在计算中文件内的数据进行处理, python 提供了一系列的对文件操作的 api">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-18/36202566.jpg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.646Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.646Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-18/36202566.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>38、文件操作.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          38、文件操作.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、基础概要"><a href="#一、基础概要" class="headerlink" title="一、基础概要"></a>一、基础概要</h2><h3 id="1、文件的概念和作用"><a href="#1、文件的概念和作用" class="headerlink" title="1、文件的概念和作用"></a>1、文件的概念和作用</h3><blockquote>
+<p>我们以前操作的数据都是在程序中提前写死的, 但是在实际开发中这是远远不够的.很多时候我们都需要对存储在计算中文件内的数据进行处理, python 提供了一系列的对文件操作的 api</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="2、什么是文件"><a href="#2、什么是文件" class="headerlink" title="2、什么是文件"></a>2、什么是文件</h3><blockquote>
+<p>计算机的文件，就是存在在某种长期存储设备上的一段数据</p>
+<p>长期存储设备包括：硬盘，U盘，移动硬盘，光盘。。。</p>
+</blockquote>
+<p><img src="http://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/18-3-18/36202566.jpg"></p>
+<h3 id="3、文件的作用："><a href="#3、文件的作用：" class="headerlink" title="3、文件的作用："></a>3、文件的作用：</h3><blockquote>
+<p>将数据长期保存下来，在需要的时候使用</p>
+<p>大家应该听说过一句话：“好记性不如烂笔头”。</p>
+<p>不仅人的大脑会遗忘事情，计算机也会如此，比如一个程序在运行过程中用了九牛二虎之力终于计算出了结果，试想一下如果不把这些数据存放起来，相比重启电脑之后，“哭都没地方哭了”</p>
+<p>可见，在把数据存储起来有做么大的价值</p>
+<p>使用文件的目的：</p>
+<p>就是把一些存储存放起来，可以让程序下一次执行的时候直接使用，而不必重新制作一份，省时省力</p>
+</blockquote>
+<h3 id="4、文件的存储方式"><a href="#4、文件的存储方式" class="headerlink" title="4、文件的存储方式"></a>4、文件的存储方式</h3><blockquote>
+<p>在计算机中，文件是以二进制的方式保存在磁盘上的</p>
+<p>文本文件和二进制文件</p>
+<p>文本文件</p>
+<p>​    可以使用文件编辑软件查看</p>
+<p>​    本质上还是一个二进制文件</p>
+<p>​    例如：python的源程序</p>
+<p>二进制文件</p>
+<p>​    保存的内容不是给人直接阅读的，而是提供给其他软件使用的</p>
+<p>​    例如：图片文件，音频文件，视频文件等等</p>
+<p>​    二进制文件不能使用文本编辑软件查看</p>
+</blockquote>
+<h2 id="二、文件的基本操作"><a href="#二、文件的基本操作" class="headerlink" title="二、文件的基本操作"></a>二、文件的基本操作</h2><h3 id="1、概要"><a href="#1、概要" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>读写文件是最常见的 IO 操作。通常，我们使用 <code>input</code> 从控制台读取输入，使用 <code>print</code> 将内容输出到控制台。实际上，我们也经常从文件读取输入，将内容写到文件。</p>
+</blockquote>
+<h3 id="2、打开文件-open"><a href="#2、打开文件-open" class="headerlink" title="2、打开文件(open)"></a>2、打开文件(open)</h3><h4 id="1、读文件主要分为三个步骤"><a href="#1、读文件主要分为三个步骤" class="headerlink" title="1、读文件主要分为三个步骤"></a>1、读文件主要分为三个步骤</h4><ol>
+<li>打开文件</li>
+<li>读取内容</li>
+<li>关闭文件</li>
+</ol>
+<h4 id="2、语法格式"><a href="#2、语法格式" class="headerlink" title="2、语法格式"></a>2、语法格式</h4><ol>
+<li><p>格式一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;xxx/xxx.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)      <span class="comment"># 打开文件</span></span><br><span class="line">    data = f.read()                   <span class="comment"># 读取文件内容</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        f.close()                     <span class="comment"># 确保文件被关闭</span></span><br></pre></td></tr></table></figure></li>
+<li><p>格式二(推荐)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;xxx/xxx.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.read()</span><br><span class="line"><span class="comment"># 这种方式很简洁，而且还能在出现异常的情况下自动关闭文件</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3、参数说明"><a href="#3、参数说明" class="headerlink" title="3、参数说明"></a>3、参数说明</h4><ol>
+<li><p>open函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">open</span>(file, mode=<span class="string">&#x27;r&#x27;</span>, buffering=<span class="literal">None</span>, encoding=<span class="literal">None</span>, errors=<span class="literal">None</span>, newline=<span class="literal">None</span>, closefd=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>file</p>
+<p>操作的文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#相对路径</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#绝对路径</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/Users/zhangwei/work/test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
+<li><p>mode</p>
+<p>打开文件的模式</p>
+<ul>
+<li>r ，只读模式【默认 】文件的指针将会放在文件的开头</li>
+<li>w，只写模式【不可读；不存在则创建；存在则清空内容；】如果该文件已存在则打开文件，并从开头开始编                   辑，即原有内容会被删除。如果该文件不存在，创建新文件。</li>
+<li>+， 只写模式</li>
+<li>a， 追加模式【可读；   不存在则创建；存在则只追加内容；】文件指针将会放在文件的结尾</li>
+</ul>
+<p>“+” 表示可以同时读写某个文件</p>
+<ul>
+<li>r+， 读写【可读，可写】</li>
+<li>w+，写读【可读，可写】</li>
+<li>x+ ，写读【可读，可写】</li>
+<li>a+， 写读【可读，可写】</li>
+</ul>
+<p> “b”表示以字节的方式操作</p>
+<ul>
+<li>rb  或 r+b</li>
+<li>wb 或 w+b</li>
+<li>xb 或 w+b</li>
+<li>ab 或 a+b</li>
+</ul>
+<p>注：以b方式打开时，读取到的内容是字节类型，写入时也需要提供字节类型</p>
+</li>
+<li><p>buffering</p>
+<p>表示文件在读取操作时使用的缓冲策略。</p>
+<ul>
+<li>0：代表buffer关闭（只适用于二进制模式）</li>
+<li>1：代表line buffer（只适用于文本模式）</li>
+<li><code>&gt;1：</code>表示初始化的buffer大小</li>
+</ul>
+</li>
+<li><p>encoding</p>
+<p>表示读写文件时所使用的的文件编码格式,如果未正确指定编码，有可能报错</p>
+</li>
+<li><p>errors</p>
+<p>参数表示读写文件时碰到错误的报错级别。常见的报错基本有：</p>
+<ul>
+<li><code>&#39;strict&#39;</code> 严格级别，字符编码有报错即抛出异常，也是默认的级别，errors参数值传入None按此级别处理.</li>
+<li><code>&#39;ignore&#39;</code> 忽略级别，字符编码有错，忽略掉.</li>
+<li><code>&#39;replace&#39;</code> 替换级别，字符编码有错的，替换成？</li>
+</ul>
+</li>
+<li><p>newline</p>
+<p>表示用于区分换行符(只对文本模式有效，可以取的值有None,’\n’,’\r’,’’,’\r\n’)</p>
+</li>
+</ol>
+<h3 id="3、file对象"><a href="#3、file对象" class="headerlink" title="3、file对象"></a>3、file对象</h3><ol>
+<li><p>说明</p>
+<p>file 对象使用 open 函数来创建</p>
+</li>
+</ol>
+<h3 id="4、读取文件有以下几种方式："><a href="#4、读取文件有以下几种方式：" class="headerlink" title="4、读取文件有以下几种方式："></a>4、读取文件有以下几种方式：</h3><h5 id="4-1、read"><a href="#4-1、read" class="headerlink" title="4.1、read"></a>4.1、read</h5><ol>
+<li><p>说明</p>
+<p>　读取指定长度的文件　　　　　</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.read([size]) </span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<p>size:    读取的长度，以byte为单位，未给定或为负则读取所有</p>
+</li>
+<li><p>返回值</p>
+<p>返回从字符串中读取的字节。</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 相对路径</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.read()</span><br><span class="line">    <span class="built_in">print</span>(data)</span><br><span class="line"><span class="comment"># 绝对路径   </span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;/Users/zhangwei/work/test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">     data = f.read()</span><br><span class="line">     <span class="built_in">print</span>(data)   </span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="4-2、readline"><a href="#4-2、readline" class="headerlink" title="4.2、readline"></a>4.2、readline</h5><ol>
+<li><p>说明</p>
+<p>从文本中读取一行文本，该函数返回一行的文本字符串，包括换行符“\n”。第一次使用返回文件的第一行文本，第二次返回第二行文本，依此类推。 使用循环可遍历文件中的每一行文本　</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">line = f.readline([size])</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<p>size:    读取的长度，以byte为单位，默认读取一行</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.readline()</span><br><span class="line">    <span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="4-3、把文件每一行作为一个list的一个成员"><a href="#4-3、把文件每一行作为一个list的一个成员" class="headerlink" title="4.3、把文件每一行作为一个list的一个成员"></a>4.3、把文件每一行作为一个list的一个成员</h5><ol>
+<li><p>说明</p>
+<p>它的内部是通过循环调用readline()来实现的。如果提供size参数，size是表示读取内容的总长，也就是说可能只读到文件的一部分。</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = f.readlines([sizeint])</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<p>size的限制读取大小, 就是说读出来的东西的大小不能超过那个值</p>
+</li>
+<li><p>返回值</p>
+<p>返回列表，包含所有的行</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">with open(&#x27;test.txt&#x27;, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span><br><span class="line">    data = f.readlines(2)</span><br><span class="line">    print(data)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="4-4、总结"><a href="#4-4、总结" class="headerlink" title="4.4、总结"></a>4.4、总结</h4><ol>
+<li>按字节读取，使用 <code>read(size)</code>；</li>
+<li>按行读取，使用 <code>readline()</code>；</li>
+<li>按行读取返回列表，使用 <code>readlines()</code>；</li>
+</ol>
+<h3 id="5、写文件-write"><a href="#5、写文件-write" class="headerlink" title="5、写文件(write)"></a>5、写文件(write)</h3><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><blockquote>
+<p>写文件和读文件是一样的，唯一区别是调用<code>open()</code>函数时，传入标识符<code>&#39;w&#39;</code>或者<code>&#39;wb&#39;</code>表示写文本文件或写二进制文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f = open(&#x27;test.txt&#x27;, &#x27;w&#x27;) # 若是&#x27;wb&#x27;就表示写二进制文件</span><br><span class="line">f.write(&#x27;Hello, world!&#x27;)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h4 id="2、写文件有两种方式"><a href="#2、写文件有两种方式" class="headerlink" title="2、写文件有两种方式"></a>2、写文件有两种方式</h4><h5 id="2-1、write"><a href="#2-1、write" class="headerlink" title="2.1、write"></a>2.1、write</h5><ol>
+<li><p>说明</p>
+<p>把str写到文件中，不会换行</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">write(str)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<ul>
+<li>要写入的字符串</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>写入的字符的个数.</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    count = f.write(<span class="string">&#x27;ab&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br></pre></td></tr></table></figure>
+
+<p>注意</p>
+<ul>
+<li><code>w+</code>, 文件不存在会自动创建文件, 并写入</li>
+<li><code>a+</code>, 追加的方式写入文件</li>
+</ul>
+</li>
+</ol>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果是写入的其他类型的数据, 则写之前需要手动转换 根据你打开文件的模式, 来决定到底是转成字符串还是转成字节对象</span></span><br><span class="line">   <span class="keyword">with</span>  <span class="built_in">open</span>(<span class="string">&quot;new.txt&quot;</span>, <span class="string">&quot;w+t&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">   text = (<span class="string">&quot;python&quot;</span>, <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>, <span class="number">30</span>)</span><br><span class="line">   file.write(<span class="built_in">str</span>(text))</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2、-writelines"><a href="#2-2、-writelines" class="headerlink" title="2.2、 writelines"></a>2.2、 writelines</h5><ol>
+<li><p>说明</p>
+<p>把多个字符串写到文件中，写入的时候不会自动帮你格式化, 会把每个字符串元素挨个写在一起, 你应该在写入之前自行处理好格式</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.writelines(<span class="built_in">str</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<p>字符串</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;new.txt&quot;</span>, <span class="string">&quot;a+&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    li = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;你好&quot;</span>]</span><br><span class="line">    file.writelines(<span class="built_in">str</span>(li))</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="三、file对象其它方法"><a href="#三、file对象其它方法" class="headerlink" title="三、file对象其它方法"></a>三、file对象其它方法</h2><h3 id="1、close"><a href="#1、close" class="headerlink" title="1、close"></a>1、close</h3><ol>
+<li><p>说明</p>
+<p>关闭文件 python2.6 以后有一个with语句. 可以自动关闭文件.不用手动关闭</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.close()</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<p>无</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+</ol>
+<h3 id="2、flush"><a href="#2、flush" class="headerlink" title="2、flush"></a>2、flush</h3><ol>
+<li><p>说明</p>
+<p> write到file的内部,在进程没有结束之前, 都是保存在内存中, 通过flush方法可以将文件刷到硬盘上</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.flush()</span><br></pre></td></tr></table></figure></li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;new.txt&quot;</span>, <span class="string">&quot;a+&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    li = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;你好&quot;</span>]</span><br><span class="line">    file.writelines(<span class="built_in">str</span>(li))</span><br><span class="line">    file.flush()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、文件指针-了解"><a href="#2、文件指针-了解" class="headerlink" title="2、文件指针(了解)"></a>2、文件指针(了解)</h3><ol>
+<li><p>说明</p>
+<p>文件指针 标记从哪个位置开始读取数据 第一次打开文件时，通常文件指针会指向文件的开始位置,当执行了read方法后，文件指针会移动到读取内容的末尾</p>
+</li>
+</ol>
+<h3 id="3、tell"><a href="#3、tell" class="headerlink" title="3、tell"></a>3、tell</h3><ol>
+<li><p>说明</p>
+<p>返回文件操作标记的当前位置，以文件的开头为原点</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int = f.tell()</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<p>无</p>
+</li>
+<li><p>返回值</p>
+<p>文件操作的位置</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取指针位置</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">	data = f.read(<span class="number">8</span>)     <span class="comment">#先读取8个字符</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;当前指针位置：%s&quot;</span>%f.tell())     <span class="comment">#查看当前指针位置</span></span><br><span class="line">	<span class="built_in">print</span>(data)</span><br><span class="line">	f.seek(<span class="number">0</span>)           <span class="comment">#重置指定到启始位</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;当前指针位置：%s&quot;</span>%f.tell())     <span class="comment">#在查看指针位置</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、seek"><a href="#4、seek" class="headerlink" title="4、seek"></a>4、seek</h3><ol>
+<li><p>说明</p>
+<p>将文件打操作标记移到offset的位置</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.seek(offset[,whence]) </span><br></pre></td></tr></table></figure></li>
+<li><p>参数说明</p>
+<p>这个offset一般是相对于文件的开头来计算的，一般为正数。但如果提供了whence参数就不一定了，</p>
+<p>whence可以为0表示从头开始计算，</p>
+<p>1 表示以当前位置为原点计算。</p>
+<p>2 表示以文件末尾为原点进行计算。</p>
+<p>需要注意，如果文件以a或a+的模式打开，每次进行写操作时，文件操作标记会自动返回到文件末尾。</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取指针位置</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">	data = f.read(<span class="number">8</span>)     <span class="comment">#先读取8个字符</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;当前指针位置：%s&quot;</span>%f.tell())     <span class="comment">#查看当前指针位置</span></span><br><span class="line">	<span class="built_in">print</span>(data)</span><br><span class="line">	f.seek(<span class="number">0</span>)           <span class="comment">#重置指定到启始位</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;当前指针位置：%s&quot;</span>%f.tell())     <span class="comment">#在查看指针位置</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、truncate"><a href="#5、truncate" class="headerlink" title="5、truncate"></a>5、truncate</h3><ol>
+<li><p>说明</p>
+<p>截断文件数据，仅保留指定之前数据（指定字节数）</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f.truncate(size) </span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<p>字节数</p>
+</li>
+<li><p>返回值</p>
+<p>无</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> f = <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.truncate(<span class="number">8</span>)   <span class="comment">#文件只保留前8个字节数据，文件后面数据的全部删除</span></span><br><span class="line">    re = f.read()</span><br><span class="line">    <span class="built_in">print</span>(re)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、file对象字段"><a href="#四、file对象字段" class="headerlink" title="四、file对象字段"></a>四、file对象字段</h2><h3 id="1、概要-1"><a href="#1、概要-1" class="headerlink" title="1、概要"></a>1、概要</h3><blockquote>
+<p>文件对象除了方法之外，还有一些数据属性，这些属性保存了文件对象相关的附加数据。</p>
+<table>
+<thead>
+<tr>
+<th>文件对象属性</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>file.close</td>
+<td>表示文件已经被关闭，否则为False</td>
+</tr>
+<tr>
+<td>file.encoding</td>
+<td>表示文件所使用的编码</td>
+</tr>
+<tr>
+<td>file.mode</td>
+<td>表示文件打开时的访问模式</td>
+</tr>
+<tr>
+<td>file.name</td>
+<td>表示文件已经被关闭，否则为False</td>
+</tr>
+<tr>
+<td>file.newlines</td>
+<td>表示文件所采用的分隔符</td>
+</tr>
+<tr>
+<td>file.softspace</td>
+<td>为0表示在输出一数据后，要再加上一个空格符，为1表示不加，这个属性一般用不到</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h3 id="2、fileno"><a href="#2、fileno" class="headerlink" title="2、fileno"></a>2、fileno</h3><ol>
+<li><p>说明</p>
+<p>方法返回一个整型的文件描述符</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fno = file.fileno()</span><br><span class="line">print(&quot;文件描述符为: &quot;, fno)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、mode"><a href="#3、mode" class="headerlink" title="3、mode"></a>3、mode</h3><ol>
+<li><p>说明</p>
+<p>获取文件打开时的访问模式</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f_mode = f.mode</span><br><span class="line"><span class="built_in">print</span>(f_mode)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、encoding"><a href="#4、encoding" class="headerlink" title="4、encoding"></a>4、encoding</h3><ol>
+<li><p>说明</p>
+<p>获取文件所使用的编码</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(f.encoding)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、closed"><a href="#5、closed" class="headerlink" title="5、closed"></a>5、closed</h3><ol>
+<li><p>说明</p>
+<p>文件是否关闭 True 表示关闭</p>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(f.closed)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、其它"><a href="#五、其它" class="headerlink" title="五、其它"></a>五、其它</h2><h3 id="1、操作模式总结"><a href="#1、操作模式总结" class="headerlink" title="1、操作模式总结"></a>1、操作模式总结</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>可做操作</th>
+<th>若文件不存在</th>
+<th>是否覆盖</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r</td>
+<td>只能读</td>
+<td>报错</td>
+<td>-</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>可读可写</td>
+<td>报错</td>
+<td>是</td>
+</tr>
+<tr>
+<td>w</td>
+<td>只能写</td>
+<td>创建</td>
+<td>是</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>可读可写</td>
+<td>创建</td>
+<td>是</td>
+</tr>
+<tr>
+<td>a</td>
+<td>只能写</td>
+<td>创建</td>
+<td>否，追加写</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>可读可写</td>
+<td>创建</td>
+<td>否，追加写</td>
+</tr>
+</tbody></table>
+<h3 id="2、文件打开模式-w-r-a-区别"><a href="#2、文件打开模式-w-r-a-区别" class="headerlink" title="2、文件打开模式 w+ r+ a+ 区别"></a>2、文件打开模式 w+ r+ a+ 区别</h3><ol>
+<li><p>w+ 打开文件并读写：</p>
+<ol>
+<li><p>文件存在，则清空(也即写入空);</p>
+</li>
+<li><p>文件不存在，则创建文件 ;</p>
+</li>
+<li><p>文件流定位到开始位置， 所以read() 会得到空。</p>
+</li>
+</ol>
+</li>
+<li><p>r+ 打开文件并读写：</p>
+<ol>
+<li><p>文件存在，打开文件，文件指针定位到文件开始位置；</p>
+</li>
+<li><p>文件不存在， 则报错文件不存在。</p>
+</li>
+</ol>
+</li>
+<li><p>a+ 打开文件并读写：</p>
+<ol>
+<li><p>文件存在，打开文件，文件指针定位到文件开始位置，但不清空；</p>
+</li>
+<li><p>文件不存在，创建文件；</p>
+</li>
+<li><p>打开后读取时，在文件开头位置，</p>
+</li>
+<li><p>写入时，添加到文章末尾，并且指针位于添加后的末尾，所以再次读取会乱码。</p>
+</li>
+<li><p>w 打开文件写入，也会清空文件，如果使用read()，则报错；a 打开文件添加，数据流添加到文件末尾，而不是w模式的清空后，添加到文件末尾。</p>
+</li>
+<li><p>b可以附加到上述的字母后，形成rb, rb+, wb等等模式，针对二进制文件，比如exe, elf, jpeg格式的文件，进行文件操作； 在unix 类型的系统上，text格式与二进制的处理相同，但是非unix类型的系统上，换行格式不同，所以需要用加b模式来在指定是否是二进制</p>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/36%E3%80%81%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="prev" title="36、工厂模式.md">
+      <i class="fa fa-chevron-left"></i> 36、工厂模式.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="4、基础知识.md">
+      4、基础知识.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、基础概要</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1、文件的概念和作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">2、什么是文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">3、文件的作用：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">4、文件的存储方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">二、文件的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">2.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6-open"><span class="nav-number">2.2.</span> <span class="nav-text">2、打开文件(open)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%AF%BB%E6%96%87%E4%BB%B6%E4%B8%BB%E8%A6%81%E5%88%86%E4%B8%BA%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、读文件主要分为三个步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">2、语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.2.3.</span> <span class="nav-text">3、参数说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81file%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.3.</span> <span class="nav-text">3、file对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">4、读取文件有以下几种方式：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1%E3%80%81read"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">4.1、read</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2%E3%80%81readline"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">4.2、readline</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3%E3%80%81%E6%8A%8A%E6%96%87%E4%BB%B6%E6%AF%8F%E4%B8%80%E8%A1%8C%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AAlist%E7%9A%84%E4%B8%80%E4%B8%AA%E6%88%90%E5%91%98"><span class="nav-number">2.4.0.3.</span> <span class="nav-text">4.3、把文件每一行作为一个list的一个成员</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">2.4.1.</span> <span class="nav-text">4.4、总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%86%99%E6%96%87%E4%BB%B6-write"><span class="nav-number">2.5.</span> <span class="nav-text">5、写文件(write)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">2.5.1.</span> <span class="nav-text">1、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%86%99%E6%96%87%E4%BB%B6%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">2.5.2.</span> <span class="nav-text">2、写文件有两种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1%E3%80%81write"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">2.1、write</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2%E3%80%81-writelines"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">2.2、 writelines</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81file%E5%AF%B9%E8%B1%A1%E5%85%B6%E5%AE%83%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">三、file对象其它方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81close"><span class="nav-number">3.1.</span> <span class="nav-text">1、close</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81flush"><span class="nav-number">3.2.</span> <span class="nav-text">2、flush</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%96%87%E4%BB%B6%E6%8C%87%E9%92%88-%E4%BA%86%E8%A7%A3"><span class="nav-number">3.3.</span> <span class="nav-text">2、文件指针(了解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81tell"><span class="nav-number">3.4.</span> <span class="nav-text">3、tell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81seek"><span class="nav-number">3.5.</span> <span class="nav-text">4、seek</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81truncate"><span class="nav-number">3.6.</span> <span class="nav-text">5、truncate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81file%E5%AF%B9%E8%B1%A1%E5%AD%97%E6%AE%B5"><span class="nav-number">4.</span> <span class="nav-text">四、file对象字段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E8%A6%81-1"><span class="nav-number">4.1.</span> <span class="nav-text">1、概要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81fileno"><span class="nav-number">4.2.</span> <span class="nav-text">2、fileno</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81mode"><span class="nav-number">4.3.</span> <span class="nav-text">3、mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81encoding"><span class="nav-number">4.4.</span> <span class="nav-text">4、encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81closed"><span class="nav-number">4.5.</span> <span class="nav-text">5、closed</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%85%B6%E5%AE%83"><span class="nav-number">5.</span> <span class="nav-text">五、其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%93%8D%E4%BD%9C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">5.1.</span> <span class="nav-text">1、操作模式总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%A8%A1%E5%BC%8F-w-r-a-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.2.</span> <span class="nav-text">2、文件打开模式 w+ r+ a+ 区别</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

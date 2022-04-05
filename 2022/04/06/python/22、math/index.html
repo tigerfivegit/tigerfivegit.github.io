@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。 Python math 模块提供了许多对浮点数的数学运算函数。 Python cmath 模块包含了一些用于复数运算的函数(这块用的比较少)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="22、math.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/22%E3%80%81math/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。 Python math 模块提供了许多对浮点数的数学运算函数。 Python cmath 模块包含了一些用于复数运算的函数(这块用的比较少)。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.629Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.629Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/22%E3%80%81math/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>22、math.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/22%E3%80%81math/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          22、math.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。</p>
+<p>Python math 模块提供了许多对浮点数的数学运算函数。</p>
+<p>Python cmath 模块包含了一些用于复数运算的函数(这块用的比较少)。</p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>cmath 模块的函数跟 math 模块函数基本一致，区别是 cmath 模块运算的是复数，math 模块运算的是数学运算</p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/math.html">官方文档</a></p>
+<p>要使用 math 或 cmath 函数必须先导入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="二、详解"><a href="#二、详解" class="headerlink" title="二、详解"></a>二、详解</h2><p>​    </p>
+<h3 id="1、ceil"><a href="#1、ceil" class="headerlink" title="1、ceil"></a>1、ceil</h3><ol>
+<li><p>说明</p>
+<p>对大于等于x的最小整数</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.ceil(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数字类型</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li>返回x的上限整数，如果是浮动型则返回上限,如果是整形则直接返回整形</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">math.ceil(-<span class="number">3.1</span>) <span class="comment"># 3</span></span><br><span class="line">math.ceil(-<span class="number">1</span>)   <span class="comment"># -1</span></span><br><span class="line">math.ceil(<span class="number">2.0</span>)  <span class="comment"># 2</span></span><br><span class="line">math.ceil(<span class="number">3.1314</span>) <span class="comment"># 4</span></span><br><span class="line">math.ceil(-<span class="number">5.0</span>) <span class="comment"># 5</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2、floor"><a href="#2、floor" class="headerlink" title="2、floor"></a>2、floor</h3><ol>
+<li><p>说明</p>
+<p> 得到最接近原数但是小于原数的部分,舍弃小数部分,取整数部分</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.floor(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数字类型</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>整数部分</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">math.floor(<span class="number">1.9</span>) <span class="comment"># 1</span></span><br><span class="line">math.floor(-<span class="number">1.9</span>) <span class="comment"># -2</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3、fabs-abs"><a href="#3、fabs-abs" class="headerlink" title="3、fabs, abs"></a>3、fabs, abs</h3><ol>
+<li><p>说明</p>
+<p>获取绝对值fabs 返回float类型,abs是int类型</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">math.fabs(x)</span><br><span class="line"></span><br><span class="line"><span class="built_in">abs</span>(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>要处理的值,例如 float,int类型</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回x的float类型绝对值</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">math.fabs(-<span class="number">1000</span>)</span><br><span class="line">math.fabs(-<span class="number">1.2</span>)</span><br><span class="line">math.<span class="built_in">abs</span>(-<span class="number">1</span>)</span><br><span class="line">math.<span class="built_in">abs</span>(-<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">abs</span>()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>注意</p>
+<ul>
+<li>fabs需要import math后才能调用，abs可以直接使用</li>
+<li>abs可以用于复数而fabs不可以</li>
+<li>fabs 返回的是float类型,不管是int或者float</li>
+<li>abs 如果是float类型,则返回float类型,如果是int类型就返回int类型</li>
+</ul>
+</li>
+</ol>
+<h3 id="4、modf"><a href="#4、modf" class="headerlink" title="4、modf"></a>4、modf</h3><ol>
+<li><p>说明</p>
+<p>x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.modf( x )</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数值类型</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回x的整数部分与小数部分</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">math.modf(100.12)</span><br><span class="line">math.modf(-10)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、fmod"><a href="#5、fmod" class="headerlink" title="5、fmod"></a>5、fmod</h3><ol>
+<li><p>说明</p>
+<p>取模运算</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.fmod(x,y)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>除数</p>
+</li>
+<li><p>y</p>
+<p>被余数</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">math.fmod(<span class="number">10</span>, <span class="number">3</span>)   <span class="comment"># 1.0</span></span><br><span class="line">math.fmod(<span class="number">104</span>, -<span class="number">3</span>) <span class="comment"># 2.0</span></span><br><span class="line">math.fmod(<span class="number">103</span>, <span class="number">12</span>) <span class="comment"># 7.0</span></span><br><span class="line"><span class="number">10</span> % <span class="number">3</span>             <span class="comment"># 1</span></span><br><span class="line"><span class="number">103</span> % <span class="number">12</span>		   <span class="comment"># 7</span></span><br><span class="line"><span class="number">103.12</span> % -<span class="number">1.2</span>      <span class="comment"># -0.07999999999999163</span></span><br><span class="line">math.fmod(<span class="number">103.12</span>, -<span class="number">1.2</span>) <span class="comment"># 1.12</span></span><br></pre></td></tr></table></figure></li>
+<li><p>注意</p>
+<ul>
+<li> y%x运算总是将y/x的值向下取整</li>
+<li>math.fmod(y,x)是将y/x的值向0取整</li>
+</ul>
+</li>
+</ol>
+<h3 id="6、fsum-sum"><a href="#6、fsum-sum" class="headerlink" title="6、fsum  sum"></a>6、fsum  sum</h3><ol>
+<li><p>说明</p>
+<p>对迭代器里的每个元素进行求和操作</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">math.fsum(iterable)</span><br><span class="line">sum()</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>iterable</p>
+<p>可迭代对象,例如列表,元组</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>求和,必须是数字类型</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">math.fsum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line">math.fsum([-<span class="number">1</span>, -<span class="number">2</span>, -<span class="number">3</span>, -<span class="number">4</span>])</span><br><span class="line">math.fsum((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="comment"># 如果是字典类型注意根据key进行求和</span></span><br><span class="line">math.fsum(&#123;<span class="number">123</span>: <span class="string">&#x27;123&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;12345&#x27;</span>&#125;)</span><br><span class="line"><span class="built_in">sum</span>((<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="7、sqrt"><a href="#7、sqrt" class="headerlink" title="7、sqrt"></a>7、sqrt</h3><ol>
+<li><p>说明</p>
+<p>平方根运算</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.sqrt(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数字或者表达式</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>返回数字x的平方根</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.sqrt(<span class="number">5</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="8、trunc"><a href="#8、trunc" class="headerlink" title="8、trunc"></a>8、trunc</h3><ol>
+<li><p>说明</p>
+<p>截断x的小数部分</p>
+</li>
+<li><p>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.trunc(x)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数字部分</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li>在Python2.7版本返回值是浮点数；</li>
+<li>在python3.5版本是整数</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">math.trunc(1.20000)</span><br><span class="line">math.trunc(-8.01231231)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="9、pow"><a href="#9、pow" class="headerlink" title="9、pow"></a>9、pow</h3><ol>
+<li><p>说明</p>
+<p>xy（x的y次方） 的值</p>
+</li>
+<li><p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">math.pow(x,y)</span><br></pre></td></tr></table></figure></li>
+<li><p>参数</p>
+<ul>
+<li><p>x</p>
+<p>数值表达式。</p>
+</li>
+<li><p>y</p>
+<p>数值表达式。</p>
+</li>
+</ul>
+</li>
+<li><p>返回值</p>
+<p>（x的y次方） float类型的值</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">math.<span class="built_in">pow</span>(<span class="number">100</span>, <span class="number">2</span>)  <span class="comment"># 10000.0</span></span><br><span class="line"><span class="built_in">pow</span>(<span class="number">100</span>, <span class="number">2</span>) 	  <span class="comment"># 10000</span></span><br><span class="line">math.<span class="built_in">pow</span>(<span class="number">100</span>, -<span class="number">2</span>) <span class="comment"># 0.0001</span></span><br><span class="line">math.<span class="built_in">pow</span>(<span class="number">4</span>, <span class="number">2</span>) :  <span class="comment"># 16.0</span></span><br><span class="line">math.<span class="built_in">pow</span>(<span class="number">3</span>, <span class="number">0</span>) :  <span class="comment"># 1.0</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/21%E3%80%81%E6%A8%A1%E5%9D%97/" rel="prev" title="21、模块.md">
+      <i class="fa fa-chevron-left"></i> 21、模块.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/23%E3%80%81time%E4%B8%8Edatetime/" rel="next" title="23、time与datetime.md">
+      23、time与datetime.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二、详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81ceil"><span class="nav-number">2.1.</span> <span class="nav-text">1、ceil</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81floor"><span class="nav-number">2.2.</span> <span class="nav-text">2、floor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81fabs-abs"><span class="nav-number">2.3.</span> <span class="nav-text">3、fabs, abs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81modf"><span class="nav-number">2.4.</span> <span class="nav-text">4、modf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81fmod"><span class="nav-number">2.5.</span> <span class="nav-text">5、fmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81fsum-sum"><span class="nav-number">2.6.</span> <span class="nav-text">6、fsum  sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81sqrt"><span class="nav-number">2.7.</span> <span class="nav-text">7、sqrt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81trunc"><span class="nav-number">2.8.</span> <span class="nav-text">8、trunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81pow"><span class="nav-number">2.9.</span> <span class="nav-text">9、pow</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

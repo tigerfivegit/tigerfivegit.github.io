@@ -113,6 +113,21 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -145,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/19/hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/39%E3%80%81%E9%80%92%E5%BD%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -159,7 +174,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/19/hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">hexo-配置文件</a>
+            <a href="/2022/04/06/python/39%E3%80%81%E9%80%92%E5%BD%92/" class="post-title-link" itemprop="url">39、递归.md</a>
         </h2>
 
         <div class="post-meta">
@@ -169,22 +184,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-19 16:33:28" itemprop="dateCreated datePublished" datetime="2018-12-19T16:33:28+08:00">2018-12-19</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
                 </span>
             </span>
 
@@ -199,10 +207,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>可以在 _config.yml 中修改：</p>
+          <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>在调用一个函数的过程中，直接或间接地调用了函数本身这个就叫递归</p>
+<p>注：Python在递归中没有像别的语言对递归进行优化，所以他的每一次调用都会基于上一次的调用进行，并且他设置了最大的递归数量防止递归外溢,python默认的递归深度是很有限的，不能超过1000，当递归深度超过这个值的时候，就会引发这样的一个异常。<br>解决的方式是手工设置递归调用深度，方式为</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/19/hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/39%E3%80%81%E9%80%92%E5%BD%92/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -226,7 +237,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/14/zsh-on-my-zsh%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E6%8C%87%E5%8D%97/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/3%E3%80%81Python%E8%A7%A3%E9%87%8A%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -240,7 +251,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/14/zsh-on-my-zsh%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">zsh+on-my-zsh配置教程指南</a>
+            <a href="/2022/04/06/python/3%E3%80%81Python%E8%A7%A3%E9%87%8A%E5%99%A8/" class="post-title-link" itemprop="url">3、Python 解释器.md</a>
         </h2>
 
         <div class="post-meta">
@@ -250,22 +261,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-14 20:27:10" itemprop="dateCreated datePublished" datetime="2018-12-14T20:27:10+08:00">2018-12-14</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%AA%9A%E6%93%8D%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">骚操作</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
                 </span>
             </span>
 
@@ -280,18 +284,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本文以CentOS 7为例，介绍zsh的配置使用教程。</p>
-<p>准备<br>查看当前环境shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
-
-<p>查看系统自带那些shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
-
-<p>安装zsh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install zsh # CentOS</span><br><span class="line">brew install zsh # mac安装</span><br></pre></td></tr></table></figure>
+          <h1 id="Python-解释器"><a href="#Python-解释器" class="headerlink" title="Python 解释器"></a>Python 解释器</h1><h2 id="一、什么是解释"><a href="#一、什么是解释" class="headerlink" title="一、什么是解释"></a>一、什么是解释</h2><blockquote>
+<p>当我们编写Python代码时，我们得到的是一个包含Python代码的以<code>.py</code>为扩展名的文本文件。要运行代码，就需要Python解释器去执行<code>.py</code>文件。由于整个Python语言从规范到解释器都是开源的，所以理论上，只要水平够高，任何人都可以编写Python解释器来执行Python代码。所以存在多种Python解释器。</p>
+<p><img src="https://zhangwei-imgs.oss-cn-beijing.aliyuncs.com/superbed/2019/03/01/5c7943253a213b0417f05600.jpg"></p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/14/zsh-on-my-zsh%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E6%8C%87%E5%8D%97/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/3%E3%80%81Python%E8%A7%A3%E9%87%8A%E5%99%A8/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -315,7 +314,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -329,7 +328,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/" class="post-title-link" itemprop="url">监控体系</a>
+            <a href="/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">4、基础知识.md</a>
         </h2>
 
         <div class="post-meta">
@@ -339,170 +338,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-14 19:13:41" itemprop="dateCreated datePublished" datetime="2018-12-14T19:13:41+08:00">2018-12-14</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>监控对象：<br>　　　　1. 监控对象的理解：CPU是怎么工作的，原理<br>　　　　2. 监控对象的指标：CPU使用率 CPU负载 CPU个数 上下文切换<br>　　　　3. 确定性能基准线：怎么样才算故障？CPU负载多上才算高<br>监控范围：<br>　　　　1.硬件监控服务器的硬件故障<br>　　　　2.操作系统监控 CPU、内存、硬盘、IO、进程<br>　　　　3.应用服务监控 nginx、MySQL、等服务<br>　　　　4.业务监控</p>
-<hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="tigerfive">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/" class="post-title-link" itemprop="url">Linux性能监控工具-gtop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-14 10:05:26" itemprop="dateCreated datePublished" datetime="2018-12-14T10:05:26+08:00">2018-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在讲gtop之前可以先说一下htop,功能类似于top,但是画面比top更出色，更加清晰明了，但是htop已经集成在epel源里边，只需要yum安装即可</p>
-<p>比htop更好看的是gtop，一个比htop更加漂亮美观的命令，但是并没有集成到epel源里面，需要使用npm 命令进行安装</p>
-<p>先来一波效果的展示</p>
-<p><img src="http://static.zybuluo.com/abcdocker/qgqz2x6jgmabjo370fpv4f7b/node.gif" alt="效果图"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/13/vscode%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%96%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="tigerfive">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/12/13/vscode%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%96%87/" class="post-title-link" itemprop="url">vscode设置中文</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-13 13:45:44" itemprop="dateCreated datePublished" datetime="2018-12-13T13:45:44+08:00">2018-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ide/" itemprop="url" rel="index"><span itemprop="name">ide</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
                 </span>
             </span>
 
@@ -517,21 +361,230 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
-<li>方便的git管理</li>
-</ul>
-<p>支持基本所有的常用操作,图形化操作<br>git代码冲突合并<br>修改对比<br>图形化的git log历史，多分支显示<br>便捷的最新修改记录，git lens<br>多种多样的git插件</p>
+          <h1 id="Python基础知识"><a href="#Python基础知识" class="headerlink" title="Python基础知识"></a>Python基础知识</h1><h2 id="一、编码规范"><a href="#一、编码规范" class="headerlink" title="一、编码规范"></a>一、编码规范</h2><p>PEP-8 编码规范 </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/06/python/4%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">38、文件操作.md</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、基础概要"><a href="#一、基础概要" class="headerlink" title="一、基础概要"></a>一、基础概要</h2><h3 id="1、文件的概念和作用"><a href="#1、文件的概念和作用" class="headerlink" title="1、文件的概念和作用"></a>1、文件的概念和作用</h3><blockquote>
+<p>我们以前操作的数据都是在程序中提前写死的, 但是在实际开发中这是远远不够的.很多时候我们都需要对存储在计算中文件内的数据进行处理, python 提供了一系列的对文件操作的 api</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/06/python/38%E3%80%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/36%E3%80%81%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/python/36%E3%80%81%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">36、工厂模式.md</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/37%E3%80%81%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/06/python/37%E3%80%81%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">37、观察者模式.md</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>观察者模式</p>
+<p>1.发布者类应该包涵如下方法：</p>
 <ul>
-<li>markdown</li>
-</ul>
-<p>多样化的markdown展示<br>能够上传网络图片</p>
-<ul>
-<li>代码编写</li>
-</ul>
-<p> 多点编辑</p>
+<li>注册能够接收通知的对象</li>
+<li>从主对象到注册对象，通知任何变化
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/13/vscode%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%96%87/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/37%E3%80%81%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -555,7 +608,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/12/Docker%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/34%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -569,7 +622,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/12/Docker%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Docker网络命令的使用</a>
+            <a href="/2022/04/06/python/34%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/" class="post-title-link" itemprop="url">34、面向对象-多态.md</a>
         </h2>
 
         <div class="post-meta">
@@ -579,22 +632,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-12 13:11:51" itemprop="dateCreated datePublished" datetime="2018-12-12T13:11:51+08:00">2018-12-12</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
                 </span>
             </span>
 
@@ -609,16 +655,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="常用的docker命令"><a href="#常用的docker命令" class="headerlink" title="常用的docker命令"></a>常用的docker命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker network connect     Connect a container to a network</span><br><span class="line">docker network create      Create a network</span><br><span class="line">docker network disconnect  Disconnect a container from a network</span><br><span class="line">docker network inspect     Display detailed information on one or more networks</span><br><span class="line">docker network ls          List networks</span><br><span class="line">docker network prune       Remove all unused networks</span><br><span class="line">docker network rm          Remove one or more networks</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建网络"><a href="#创建网络" class="headerlink" title="创建网络"></a>创建网络</h3><p>docker的默认网络是名名为<code>docker0</code>的bridge网络，还可以创建自己的bridge网路或者overlay网路。</p>
-<ul>
-<li><code>bridge</code>网络用于在统一宿主机上的容器之间的相互通信</li>
-<li><code>overlay</code>网络用于不同主机之间的互通<br>首先以bridge网络进行测试</li>
-</ul>
+          <h2 id="一、前提概要"><a href="#一、前提概要" class="headerlink" title="一、前提概要"></a>一、前提概要</h2><blockquote>
+<p>Python是否支持多态的问题争论已久，在面向对象语言中，有三大特性（封装 继承 多态）Python作为典型的面向对象语言，怎么可能会不支持多态呢?</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/12/Docker%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/34%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E5%A4%9A%E6%80%81/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -642,7 +684,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/11/InfluxDB%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%93%8D%E4%BD%9C/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -656,7 +698,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/11/InfluxDB%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">InfluxDB基本概念和操作</a>
+            <a href="/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">35、单例模式.md</a>
         </h2>
 
         <div class="post-meta">
@@ -666,15 +708,17 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-11 09:42:12" itemprop="dateCreated datePublished" datetime="2018-12-11T09:42:12+08:00">2018-12-11</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
 
           
 
@@ -687,10 +731,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="InfluxDB基本概念"><a href="#InfluxDB基本概念" class="headerlink" title="InfluxDB基本概念"></a>InfluxDB基本概念</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1、数据格式</span><br><span class="line"></span><br><span class="line">在 InfluxDB 中，我们可以粗略的将要存入的一条数据看作一个虚拟的 key 和其对应的 value(field value)。格式如下：</span><br><span class="line"></span><br><span class="line">?</span><br><span class="line">1</span><br><span class="line">cpu_usage,host=server01,region=us-west value=0.64 1434055562000000000</span><br><span class="line">虚拟的 key 包括以下几个部分： database, retention policy, measurement, tag sets, field name, timestamp。</span><br><span class="line"></span><br><span class="line">database: 数据库名，在 InfluxDB 中可以创建多个数据库，不同数据库中的数据文件是隔离存放的，存放在磁盘上的不同目录。</span><br><span class="line">retention policy: 存储策略，用于设置数据保留的时间，每个数据库刚开始会自动创建一个默认的存储策略 autogen，数据保留时间为永久，之后用户可以自己设置，例如保留最近2小时的数据。插入和查询数据时如果不指定存储策略，则使用默认存储策略，且默认存储策略可以修改。InfluxDB 会定期清除过期的数据。</span><br><span class="line">measurement: 测量指标名，例如 cpu_usage 表示 cpu 的使用率。</span><br><span class="line">tag sets: tags 在 InfluxDB 中会按照字典序排序，不管是 tagk 还是 tagv，只要不一致就分别属于两个 key，例如 host=server01,region=us-west 和 host=server02,region=us-west 就是两个不同的 tag set。</span><br><span class="line">tag--标签，在InfluxDB中，tag是一个非常重要的部分，表名+tag一起作为数据库的索引，是“key-value”的形式。</span><br><span class="line">field name: 例如上面数据中的 value 就是 fieldName，InfluxDB 中支持一条数据中插入多个 fieldName，这其实是一个语法上的优化，在实际的底层存储中，是当作多条数据来存储。</span><br><span class="line">timestamp: 每一条数据都需要指定一个时间戳，在 TSM 存储引擎中会特殊对待，以为了优化后续的查询操作。</span><br><span class="line">2、与传统数据库中的名词做比较</span><br><span class="line"></span><br><span class="line">influxDB中的名词	传统数据库中的概念</span><br><span class="line">database	数据库</span><br><span class="line">measurement	数据库中的表</span><br><span class="line">points	表里面的一行数据</span><br></pre></td></tr></table></figure>
+          <h1 id="面向对象其它"><a href="#面向对象其它" class="headerlink" title="面向对象其它"></a>面向对象其它</h1><h2 id="一、单例模式"><a href="#一、单例模式" class="headerlink" title="一、单例模式"></a>一、单例模式</h2><h3 id="1、什么是设计模式"><a href="#1、什么是设计模式" class="headerlink" title="1、什么是设计模式"></a>1、什么是设计模式</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/11/InfluxDB%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E6%93%8D%E4%BD%9C/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/35%E3%80%81%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -714,7 +758,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/10/%E6%89%93%E9%80%A0%E9%AB%98%E9%80%BC%E6%A0%BC%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/33%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E7%BB%A7%E6%89%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -728,7 +772,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/10/%E6%89%93%E9%80%A0%E9%AB%98%E9%80%BC%E6%A0%BC%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">打造高逼格、可视化的Docker容器监控系统平台</a>
+            <a href="/2022/04/06/python/33%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">33、面向对象-继承.md</a>
         </h2>
 
         <div class="post-meta">
@@ -738,15 +782,17 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-10 19:58:59" itemprop="dateCreated datePublished" datetime="2018-12-10T19:58:59+08:00">2018-12-10</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
 
           
 
@@ -759,10 +805,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="为什么需要监控？？"><a href="#为什么需要监控？？" class="headerlink" title="为什么需要监控？？"></a>为什么需要监控？？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">对于一个物理机上运行多个容器应用时，容器的运行情况如：CPU使用率、内存使用率、网络状态、磁盘空间等信息，都是需要去了解的，因此监控是必须的。对于容器的监控方案可谓多种多样，本身自带命令docker stats</span><br><span class="line"></span><br><span class="line">root at tiger-ali in ~ </span><br><span class="line">$ docker stats</span><br><span class="line"></span><br><span class="line">CONTAINER           CPU %               MEM USAGE / LIMIT       MEM %               NET I/O             BLOCK I/O           PIDS</span><br><span class="line">5219998e1a62        0.00%               26.06 MiB / 1.953 GiB   1.30%               41.7 kB / 866 kB    6.36 MB / 201 kB    14</span><br><span class="line">fad0feb2c56a        0.00%               23.62 MiB / 1.953 GiB   1.18%               243 kB / 8.23 MB    3.99 MB / 8.79 MB   9</span><br><span class="line">3b484bc89bca        0.00%               18.37 MiB / 1.953 GiB   0.92%               2.24 MB / 94.8 MB   65.5 kB / 0 B       9</span><br><span class="line">7f27b87e7ddd        0.00%               928 KiB / 1.953 GiB     0.05%               1.12 kB / 0 B       1.49 MB / 0 B       1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">一款开源方案cAdvisor+InfluxDB+Grafana</span><br></pre></td></tr></table></figure>
+          <h3 id="一、基础概要"><a href="#一、基础概要" class="headerlink" title="一、基础概要"></a>一、基础概要</h3><blockquote>
+<p>继承是一种创建类的方法，在python中，一个类可以继承来自一个或多个父类。那这个类我们通常叫子类（Sub class），原始类称为基类或超类（Base class、Super class）。</p>
+<p><img src="http://qiniudns.funtl.com/18-2-6/62696232.jpg"></p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/10/%E6%89%93%E9%80%A0%E9%AB%98%E9%80%BC%E6%A0%BC%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/33%E3%80%81%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E7%BB%A7%E6%89%BF/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -786,7 +835,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -800,7 +849,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">tmux-初探</a>
+            <a href="/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">32、类-常用内置方法.md</a>
         </h2>
 
         <div class="post-meta">
@@ -810,15 +859,17 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-07 13:59:25" itemprop="dateCreated datePublished" datetime="2018-12-07T13:59:25+08:00">2018-12-07</time>
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
               </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
 
           
 
@@ -831,86 +882,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
-<p>废话不多说来个效果图<br><img src="https://i.loli.net/2018/12/14/5c139f4ab6ad2.jpg" alt="tmux"></p>
-<h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure>
+          <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>在 Python 中，我们可以经常看到以双下划线 <code>__</code> 包裹起来的方法，比如最常见的 <code>__init__</code>，这些方法被称为<strong>魔法方法（magic method）或特殊方法（special method）</strong>。简单地说，这些方法可以给 Python 的类提供特殊功能，方便我们定制一个类，</p>
+<p>需要注意的是，这些成员里面有些是方法，调用时要加括号，有些是属性，调用时不需要加括号（废话！）。下面将一些常用的介绍一下</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/11/29/hexo-githubpage%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="tigerfive">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/29/hexo-githubpage%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">hexo+githubpage构建自己的博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-29 12:59:47" itemprop="dateCreated datePublished" datetime="2018-11-29T12:59:47+08:00">2018-11-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-06 00:10:19" itemprop="dateModified" datetime="2022-04-06T00:10:19+08:00">2022-04-06</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="hexo环境搭建"><a href="#hexo环境搭建" class="headerlink" title="hexo环境搭建"></a>hexo环境搭建</h3><h5 id="什么是Hexo？"><a href="#什么是Hexo？" class="headerlink" title="什么是Hexo？"></a>什么是Hexo？</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</span><br></pre></td></tr></table></figure>
-
-<h5 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：</span><br><span class="line"></span><br><span class="line">- Node.js</span><br><span class="line">- Git</span><br><span class="line"></span><br><span class="line">这两个应用程序的mac、windows的安装就不讲了，官网就有这部分“ https://hexo.io/zh-cn/docs/ ”</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/29/hexo-githubpage%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/#more" rel="contents">
+              <a class="btn" href="/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -933,7 +911,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -999,17 +977,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">22</span>
-        <span class="site-state-item-name">categories</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span>
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>

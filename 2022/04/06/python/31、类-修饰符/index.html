@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概要 在class内部，可以有属性和方法，而外部代码可以通过直接调用实例变量的方法来操作数据，这样，就隐藏了内部的复杂逻辑，对于每一个类的成员(属性,字段,方法)的修饰符有两种  公开成员，在任何地方都能访问，即可在类外面和对象调用方法进行访问； 私有成员，只有在类的内部才能访问；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="31、类-修饰符.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/31%E3%80%81%E7%B1%BB-%E4%BF%AE%E9%A5%B0%E7%AC%A6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概要 在class内部，可以有属性和方法，而外部代码可以通过直接调用实例变量的方法来操作数据，这样，就隐藏了内部的复杂逻辑，对于每一个类的成员(属性,字段,方法)的修饰符有两种  公开成员，在任何地方都能访问，即可在类外面和对象调用方法进行访问； 私有成员，只有在类的内部才能访问；">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-05T18:36:32.639Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.639Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/31%E3%80%81%E7%B1%BB-%E4%BF%AE%E9%A5%B0%E7%AC%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>31、类-修饰符.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/31%E3%80%81%E7%B1%BB-%E4%BF%AE%E9%A5%B0%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          31、类-修饰符.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概要"><a href="#一、概要" class="headerlink" title="一、概要"></a>一、概要</h2><blockquote>
+<p>在class内部，可以有属性和方法，而外部代码可以通过直接调用实例变量的方法来操作数据，这样，就隐藏了内部的复杂逻辑，对于每一个类的成员(属性,字段,方法)的修饰符有两种</p>
+<ul>
+<li>公开成员，在任何地方都能访问，即可在类外面和对象调用方法进行访问；</li>
+<li>私有成员，只有在类的内部才能访问；</li>
+</ul>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="二、为什么要有修饰符"><a href="#二、为什么要有修饰符" class="headerlink" title="二、为什么要有修饰符"></a>二、为什么要有修饰符</h2><ol>
+<li>我们在一个类当中会产生很多的变量、属性、方法。其中有些是只能这个类自己用的，某些是可以允许其他程序使用的。如果在别的程序在调用当中对类的对象当中某些关键属性进行了改动，可能会导致这个对象无法正常工作。这是相当危险的。</li>
+<li>而且把应该提供出去的方法属性和不能提供出去的方法属性相区别出，也体现了这个类的封装性。一个类模块只向外提供应该提供的功能而把其他无关紧要的内容屏蔽掉。因为一个工程可能不只有一个人在做，有的时候有多个人在做，这个时候就要求各个模块要有一定的封装性，其他程序员在做的时候不至于误操作，而且一看就明白了这个模块可以提供哪些功能。</li>
+</ol>
+<h2 id="三、语法格式"><a href="#三、语法格式" class="headerlink" title="三、语法格式"></a>三、语法格式</h2><ol>
+<li><p><code>object</code>(公开成员)</p>
+<p>上面所讲的都是公开的成员</p>
+</li>
+<li><p><code>_object</code>(私有成员)</p>
+<p>Python中没有真正的私有字段或方法, 为了实现类似于c++中私有方法，</p>
+<p>可以在你想声明为私有的方法和属性前加上单下划线,以提示该属性和方法不应在外部调用。</p>
+<p>如果真的调用了也不会出错,但不符合规范</p>
+</li>
+<li><p><code>__object</code>(私有成员)</p>
+<ul>
+<li>私有成员命名时，前两个字符是下划线，只有自己的类内部能访问,继承的父类,子类均不能访问</li>
+<li>真正作用是用来避免子类覆盖其内容(后面继承具体举例)</li>
+</ul>
+</li>
+<li><p><code>__object__</code></p>
+<p>私有成员，系统专用。特殊成员除外，例如：<code>__init__</code>、<code>__call__</code>、<code>__dict__</code>等</p>
+</li>
+</ol>
+<h2 id="四、举个栗子"><a href="#四、举个栗子" class="headerlink" title="四、举个栗子"></a>四、举个栗子</h2><h4 id="4-1-、修饰普通字段"><a href="#4-1-、修饰普通字段" class="headerlink" title="4.1 、修饰普通字段"></a>4.1 、修饰普通字段</h4><ol>
+<li><p>公有字段</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    person = Person(<span class="string">&#x27;小明&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(person.name)</span><br></pre></td></tr></table></figure></li>
+<li><p>私有字段单下划线 “_”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self._name = name</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	<span class="string">&#x27;&#x27;&#x27;测试代码&#x27;&#x27;&#x27;</span></span><br><span class="line">    person = Person(<span class="string">&#x27;小明&#x27;</span>)</span><br><span class="line">    <span class="comment"># ====能正常访问,但会出现语法警告 </span></span><br><span class="line">    <span class="built_in">print</span>(person._name)</span><br></pre></td></tr></table></figure></li>
+<li><p>私有字段 双下划线 “__”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        self.__name = name</span><br><span class="line">     <span class="comment"># 通过方法内部调用 self.__name</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.__name</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;测试代码&#x27;&#x27;&#x27;</span></span><br><span class="line">    person = Person(<span class="string">&#x27;小明&#x27;</span>)</span><br><span class="line">    <span class="comment"># ====能正常访问,但会出现语法警告 ====</span></span><br><span class="line">    <span class="comment"># print(person.__name)</span></span><br><span class="line">    <span class="built_in">print</span>(person.get_name())</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 外部无法访问</span></span><br><span class="line">    <span class="built_in">print</span>(person.__name)  <span class="comment">#程序出错</span></span><br><span class="line">    <span class="comment"># 强制调用私有变量,通过 对象._类名__私有变量名(注意:请不要在开发中这么去使用)</span></span><br><span class="line">    <span class="built_in">print</span>(person._Person__name)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="4-2-、修饰静态字段"><a href="#4-2-、修饰静态字段" class="headerlink" title="4.2 、修饰静态字段"></a>4.2 、修饰静态字段</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    __static_var = <span class="string">&#x27;私有的静态变量&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(Test.__static_var)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;测试代码&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="comment">#Test.__name  # 类访问            ==&gt; 错误</span></span><br><span class="line">    obj = Test()</span><br><span class="line">    <span class="comment"># 通过对象强制调用(注意:请不要在开发中这么去使用)</span></span><br><span class="line">    <span class="built_in">print</span>(obj._Test__static_var)</span><br><span class="line">    obj.show()  <span class="comment"># 类内部可以访问     ==&gt; 正确</span></span><br><span class="line">	</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="4-3、修饰方法"><a href="#4-3、修饰方法" class="headerlink" title="4.3、修饰方法"></a>4.3、修饰方法</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__method</span>(<span class="params">self</span>): </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;私有普通方法&quot;</span>) </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 报错</span></span><br><span class="line">    obj.__method() </span><br><span class="line">    <span class="comment"># 强制调用(注意:请不要在开发中这么去使用)</span></span><br><span class="line">    obj._Test__method()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="4-4、其它成员类似"><a href="#4-4、其它成员类似" class="headerlink" title="4.4、其它成员类似"></a>4.4、其它成员类似</h4><h4 id="4-5、-xx"><a href="#4-5、-xx" class="headerlink" title="4.5、__xx__"></a>4.5、<code>__xx__</code></h4><blockquote>
+<p>此种写法为Python内建属性方法，不要去使用这种方式命名</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/30%E3%80%81%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%BB%84%E6%88%90/" rel="prev" title="30、类与对象组成.md">
+      <i class="fa fa-chevron-left"></i> 30、类与对象组成.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/32%E3%80%81%E7%B1%BB-%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95/" rel="next" title="32、类-常用内置方法.md">
+      32、类-常用内置方法.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">一、概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">二、为什么要有修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">三、语法格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">四、举个栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E3%80%81%E4%BF%AE%E9%A5%B0%E6%99%AE%E9%80%9A%E5%AD%97%E6%AE%B5"><span class="nav-number">4.0.1.</span> <span class="nav-text">4.1 、修饰普通字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E3%80%81%E4%BF%AE%E9%A5%B0%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5"><span class="nav-number">4.0.2.</span> <span class="nav-text">4.2 、修饰静态字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3%E3%80%81%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95"><span class="nav-number">4.0.3.</span> <span class="nav-text">4.3、修饰方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4%E3%80%81%E5%85%B6%E5%AE%83%E6%88%90%E5%91%98%E7%B1%BB%E4%BC%BC"><span class="nav-number">4.0.4.</span> <span class="nav-text">4.4、其它成员类似</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5%E3%80%81-xx"><span class="nav-number">4.0.5.</span> <span class="nav-text">4.5、__xx__</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

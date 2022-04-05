@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、字段1、概念 字段包括：普通字段和静态字段，他们在定义和使用中有所区别，而最本质的区别是内存中保存的位置不同。字段名一般是名词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30、类与对象组成.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/30%E3%80%81%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%BB%84%E6%88%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、字段1、概念 字段包括：普通字段和静态字段，他们在定义和使用中有所区别，而最本质的区别是内存中保存的位置不同。字段名一般是名词">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201120095753.jpeg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201120095756.jpeg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.639Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.639Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201120095753.jpeg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/30%E3%80%81%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%BB%84%E6%88%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>30、类与对象组成.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/30%E3%80%81%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%BB%84%E6%88%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          30、类与对象组成.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、字段"><a href="#一、字段" class="headerlink" title="一、字段"></a>一、字段</h2><h3 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h3><blockquote>
+<p>字段包括：普通字段和静态字段，他们在定义和使用中有所区别，而最本质的区别是内存中保存的位置不同。字段名一般是名词</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="2、分类"><a href="#2、分类" class="headerlink" title="2、分类"></a>2、分类</h3><h4 id="1、静态字段-静态变量-类变量-。"><a href="#1、静态字段-静态变量-类变量-。" class="headerlink" title="1、静态字段(静态变量,类变量)。"></a>1、静态字段(静态变量,类变量)。</h4><ol>
+<li><p>定义</p>
+<p>它随着这个程序的执行产生，随着程序的结束而消失，这样和程序‘共存亡’的字段，我们就叫它静态字段</p>
+<p>在方法外面定义的字段统统称为静态字段</p>
+</li>
+<li><p>特点</p>
+<p>1、这个类所有对象共享一个内存地址</p>
+<p>2、直接可以通过 <strong>类名.字段名</strong>调用</p>
+</li>
+<li><p>调用方式</p>
+<p>类名.类变量</p>
+<p>对象.类变量</p>
+</li>
+</ol>
+<h4 id="2、普通字段-实例变量-。"><a href="#2、普通字段-实例变量-。" class="headerlink" title="2、普通字段(实例变量)。"></a>2、普通字段(实例变量)。</h4><ol>
+<li><p>定义</p>
+<p>类定义内部<code>__init__</code>函数内以self开头定义的变量</p>
+</li>
+<li><p>特点</p>
+<p>1、属于对象</p>
+</li>
+<li><p>调用方式</p>
+<p>对象.普通字段</p>
+</li>
+</ol>
+<h3 id="3、局部字段-局部变量"><a href="#3、局部字段-局部变量" class="headerlink" title="3、局部字段(局部变量)"></a>3、局部字段(局部变量)</h3><ol>
+<li><p>定义</p>
+<p>在方法中定义的字段(字段前面不使用self.)</p>
+</li>
+<li><p>特点</p>
+<p>只能在方法中使用,方法执行完,内存就会被回收</p>
+</li>
+<li><p>调用方式</p>
+<p>直接在方法中使用变量名</p>
+</li>
+</ol>
+<h4 id="4、举个栗子-类变量"><a href="#4、举个栗子-类变量" class="headerlink" title="4、举个栗子(类变量)"></a>4、举个栗子(类变量)</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">      money = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, gender</span>):</span><br><span class="line">          self.name = name</span><br><span class="line">          self.age = age</span><br><span class="line">          self.gender = gender</span><br><span class="line"></span><br><span class="line">      <span class="keyword">def</span> <span class="title function_">say</span>(<span class="params">self</span>):</span><br><span class="line">          <span class="built_in">print</span>(self.name + <span class="string">&#x27;:在说话!!!&#x27;</span>)</span><br><span class="line">           </span><br><span class="line">  <span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    	<span class="string">&#x27;&#x27;&#x27;测试开始&#x27;&#x27;&#x27;</span></span><br><span class="line">      <span class="comment">#打印类的属性</span></span><br><span class="line">      <span class="built_in">print</span>(Person.__dict__.keys())</span><br><span class="line">      <span class="comment">#通过类调用</span></span><br><span class="line">      <span class="built_in">print</span>(Person.money)</span><br><span class="line">      <span class="comment">#通过类操作类变量</span></span><br><span class="line">      Person.money += <span class="number">1</span></span><br><span class="line">      <span class="built_in">print</span>(Person.money)</span><br><span class="line">  	</span><br><span class="line">      xm = Person(<span class="string">&#x27;小明&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">      <span class="comment">#通过对象操作类变量</span></span><br><span class="line">      xm.money += <span class="number">1</span></span><br><span class="line">      <span class="comment">#通过对象调用</span></span><br><span class="line">      <span class="built_in">print</span>(xm.money)</span><br></pre></td></tr></table></figure>
+
+<p>说明:</p>
+<p>1、将类加载进内存 </p>
+<p>2、将类变量加载进类的内存 </p>
+<p>3、将<code>__init__()</code>方法的地址加载进类的内存</p>
+<p>4、将普通方法方法的地址加载进类的内存</p>
+<p>5、实例化对象分配对象内存地址</p>
+<p>6、将实例变量初始化加载进对象内存</p>
+</li>
+<li><p>案例2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 通过类修改类变量</span></span><br><span class="line">    person = Person(<span class="string">&#x27;小明&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">    Person.money += <span class="number">10000</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;通过类修改后的值:&#x27;</span> + <span class="built_in">str</span>(Person.money))</span><br><span class="line">    <span class="comment"># 通过对象修改变量</span></span><br><span class="line">    person.money += <span class="number">10000</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;通过对象修改后类变量:&#x27;</span> + <span class="built_in">str</span>(Person.money))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;通过对象调用修改后的类变量:&#x27;</span> + <span class="built_in">str</span>(person.money))</span><br></pre></td></tr></table></figure>
+
+<p>打印结果</p>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201120095753.jpeg"></p>
+<p>内存结构图</p>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201120095756.jpeg"></p>
+<p>说明</p>
+<ul>
+<li>当我们类的内存中有一个类变量的时候，我们使用类去调用这个字段，自然找到的是类变量，当我们使用对象去调用的时候，这个对象指针先在自己的内存里找了找，发现没找到，于是就用对象中维护的类指针到类的内存中去找，果然找到了money,然后打印出来</li>
+<li>当我们使用对象去第一次调用并改变一个类的类变量的时候，它们自己的内存中并没有money字段，所以还是通过类指针到类内存中去找，但是当它们找到之后，就会在自己的内存空间开辟一块空间来存储对这个类变量修改后的结果。所以，这个时候类中的类变量就不会被改变，而两个对象中的money字段也就不会互相影响</li>
+</ul>
+<p><strong>注意事项:我们只需要记住，在使用类的静态变量的时候，</strong></p>
+<p><strong>必须要用类名来调用和修改。它才会永远被类和对象共享</strong></p>
+</li>
+</ol>
+<h4 id="4、self"><a href="#4、self" class="headerlink" title="4、self"></a>4、self</h4><blockquote>
+<p>self不是一个关键字，而是约定的写法</p>
+<p>学过其他语言的人都知道, python 的 self 其实就是在其他语言的<code>this</code>.</p>
+<p>那么<code>self</code>到底指代哪个对象?</p>
+<p>通过哪个对象调用的这个实例方法, 那么这个实例方法中的<code>self</code>就指代谁</p>
+<p>**而且 python 的<code>self</code>一朝绑定, 终身不变. **(不像 javascript 中的那个 <code>this</code> 小婊砸随着调用方式的不同而而更改绑定对象, 让你眼花缭乱到怀疑人生)</p>
+</blockquote>
+<h2 id="二、方法"><a href="#二、方法" class="headerlink" title="二、方法"></a>二、方法</h2><h3 id="1、概念-1"><a href="#1、概念-1" class="headerlink" title="1、概念"></a>1、概念</h3><blockquote>
+<p>方法包括：普通方法、静态方法和类方法，三种方法在<strong>内存中都归属于类</strong>，区别在于调用方式不同,方法名称一般以动词开头</p>
+</blockquote>
+<h3 id="2、分类-1"><a href="#2、分类-1" class="headerlink" title="2、分类"></a>2、分类</h3><h4 id="2-1、按作用分"><a href="#2-1、按作用分" class="headerlink" title="2.1、按作用分"></a>2.1、按作用分</h4><ol>
+<li>构造方法(<code>__init__(self)</code>)</li>
+<li>析构函数(<code>__del__(self)</code>)</li>
+</ol>
+<h4 id="2-2、按类型"><a href="#2-2、按类型" class="headerlink" title="2.2、按类型"></a>2.2、按类型</h4><ol>
+<li><strong>普通方法(实例方法)</strong></li>
+<li>私有方法（方法前面加两个下划线）</li>
+<li>静态方法</li>
+<li>类方法</li>
+<li>属性方法</li>
+</ol>
+<h3 id="3、普通方法-实例方法"><a href="#3、普通方法-实例方法" class="headerlink" title="3、普通方法(实例方法)"></a>3、普通方法(实例方法)</h3><ol>
+<li><p>说明</p>
+<p>由<strong>对象</strong>调用；至少一个<code>self</code>参数；执行普通方法时，自动将调用该方法的<strong>对象</strong>赋值给<code>self</code></p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">类名</span>:</span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">普通方法名</span>(<span class="params">self,参数列表</span>):</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;普通方法名&#x27;</span>)</span><br><span class="line">      </span><br><span class="line">   <span class="keyword">def</span> <span class="title function_">普通方法名</span>(<span class="params">self,参数列表</span>)</span><br><span class="line">  		<span class="keyword">return</span> <span class="string">&#x27;返回值&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>调用方式</p>
+<p>obj.普通方法()</p>
+</li>
+<li><p>注意事项</p>
+<ol>
+<li>通过类的实例去调用</li>
+<li>可以使用类变量,和实例变量</li>
+</ol>
+</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>不带参数的普通方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, gender</span>):</span><br><span class="line">    self.name = name</span><br><span class="line">    self.age = age</span><br><span class="line">    self.gender = gender</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">def</span> <span class="title function_">say</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="built_in">print</span>(self.name + <span class="string">&#x27;:今天天气挺好的!!!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  	<span class="string">&#x27;&#x27;&#x27;测试开始&#x27;&#x27;&#x27;</span></span><br><span class="line">    xm = Person(<span class="string">&#x27;小明&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">    xm.say()</span><br><span class="line"> </span><br></pre></td></tr></table></figure></li>
+<li><p>带参数的普通方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:                                     </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, gender</span>):        </span><br><span class="line">        self.name = name                          </span><br><span class="line">        self.age = age                            </span><br><span class="line">        self.gender = gender                      </span><br><span class="line">                                                  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">say</span>(<span class="params">self</span>):                                </span><br><span class="line">        <span class="built_in">print</span>(self.name + <span class="string">&#x27;:今天天气挺好的!!!&#x27;</span>)          </span><br><span class="line">                                                  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">say1</span>(<span class="params">self, content</span>):                      </span><br><span class="line">        <span class="built_in">print</span>(self.name + content)                </span><br><span class="line">                                                  </span><br><span class="line">                                                  </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:                        </span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;测试开始&#x27;&#x27;&#x27;</span>                                    </span><br><span class="line">    xm = Person(<span class="string">&#x27;小明&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">    <span class="comment">#带参数的</span></span><br><span class="line">    xm.say1(<span class="string">&#x27;:阿红我想你!!!&#x27;</span>)                          </span><br></pre></td></tr></table></figure></li>
+<li><p>带返回值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:                                     </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, age, gender</span>):        </span><br><span class="line">        self.name = name                          </span><br><span class="line">        self.age = age                            </span><br><span class="line">        self.gender = gender                      </span><br><span class="line">                                                  </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">say</span>(<span class="params">self</span>):                                </span><br><span class="line">        <span class="built_in">print</span>(self.name + <span class="string">&#x27;:今天天气挺好的!!!&#x27;</span>)          </span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.name</span><br><span class="line">                                                                                         </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:                        </span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;测试开始&#x27;&#x27;&#x27;</span>                                    </span><br><span class="line">    xm = Person(<span class="string">&#x27;小明&#x27;</span>, <span class="number">18</span>, <span class="string">&#x27;男&#x27;</span>)</span><br><span class="line">  	<span class="built_in">print</span>(xm.get_name())</span><br><span class="line">   </span><br></pre></td></tr></table></figure></li>
+<li><p>不要在实例方法里绑定实例变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span>  <span class="title class_">Person</span>:</span><br><span class="line">  <span class="comment">#推荐放在init方法中</span></span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">set_name</span>(<span class="params">self, name</span>):</span><br><span class="line">      self.name = name</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="4、静态方法"><a href="#4、静态方法" class="headerlink" title="4、静态方法"></a>4、静态方法</h3><ol>
+<li><p>说明</p>
+<p>由类对象调用</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">类名</span>:</span><br><span class="line"><span class="meta">	@staticmethod</span></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">静态方法名</span>():</span><br><span class="line">		<span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
+<li><p>调用方式</p>
+<p>类名.静态方法名()</p>
+<p>对象.静态方法名()</p>
+</li>
+<li><p>优点</p>
+<p>第一点当某个类里的方法不需要<code>self</code> 或者<code>cls</code>等实例或类参考时,使用静态方法就可以比较简明且有效率的完成工作。</p>
+<ul>
+<li>简明指的是不需要多接受一个无关的参数</li>
+<li>效率在与一般的实例方法,需要生成对象才能去使用,会分配内存空间,而静态方法就不需要</li>
+</ul>
+<p>第二点与实例无关但又属于类的,客观的来讲有能为类提供一下服务,这点有点难理解</p>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>要在类中使用静态方法，需在类成员函数前面加<code>上@staticmethod</code>标记符，以表示下面的成员方法是静态。</li>
+<li>静态方法不能使用实例变量</li>
+<li>使用静态方法的好处是，不需要定义实例即可使用这个方法。</li>
+<li>另外，多个实例共享此静态方法，一般在工具类中使用的比较多</li>
+</ul>
+</li>
+<li><p>特点</p>
+<p>静态方法单独属于一个类,不能重写,不能被继承</p>
+</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="5、类方法"><a href="#5、类方法" class="headerlink" title="5、类方法"></a>5、类方法</h3><ol>
+<li><p>说明</p>
+<p>类方法是将类本身作为对象进行操作的方法。类方法使用@classmethod装饰器定义，其第一个参数是类，约定写为cls。类对象和实例都可以调用类方法，且只能操作类变量</p>
+</li>
+<li><p>语法格式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">类名</span>:</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">类方法</span>(<span class="params">cls</span>):</span><br><span class="line">		<span class="keyword">pass</span></span><br></pre></td></tr></table></figure></li>
+<li><p>调用方式</p>
+<p>类.类方法()</p>
+<p>对象.类方法()</p>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>一个类方法就可以通过类或它的实例来调用的方法, 不管你是用类来调用这个方法还是类实例调用这个方法,该方法的第一个参数总是定义该方法的类对象。 类方法的第一个参数都是类对象而不是实例对象</li>
+<li>类方法能实现的功能都可以通过定义一个普通函数来实现,只要这个函数接受一个类对象做为参数就可以了</li>
+</ul>
+</li>
+</ol>
+<h3 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h3><ol>
+<li><p>定义不同</p>
+<p>python中实现静态方法和类方法都是依赖于python的修饰器来实现的。而普通方法不需要</p>
+</li>
+<li><p>传递的必要参数不同</p>
+<p>实例方法有self参数，类方法有cls参数，静态方法是不需要这些附加参数的</p>
+</li>
+<li><p>调用方式不同</p>
+<p>静态方法和类可以被类和对象调用,实例方法只能被通过对象调用</p>
+</li>
+<li><p>使用变量</p>
+<p>实例方法能使用类变量,实例变量,类方法能使用类变量,不能使用实例变量,静态方法两者都不能使用</p>
+</li>
+<li><p>相互调用不同</p>
+<p>实例方法可以调用静态方法,类方法,而类方法跟静态方法不能调用实例方法</p>
+</li>
+<li><p>其它</p>
+<p>类方法是可以替代静态方法的。静态方法不能在继承中修改</p>
+</li>
+</ol>
+<h2 id="三、属性-属性函数"><a href="#三、属性-属性函数" class="headerlink" title="三、属性(属性函数)"></a>三、属性(属性函数)</h2><h3 id="1、概念-2"><a href="#1、概念-2" class="headerlink" title="1、概念"></a>1、概念</h3><blockquote>
+<p>Python中的属性其实是<strong>普通方法</strong>的变种,就是通过@property把一个方法变成一个静态变量,实质就是<strong>函数</strong>转变成<strong>变量</strong></p>
+</blockquote>
+<h3 id="2、作用"><a href="#2、作用" class="headerlink" title="2、作用"></a>2、作用</h3><ol>
+<li>内部进行一系列的逻辑计算，最终将计算结果返回,例如计算年纪,计算商品的价格,计算当前的时间等等</li>
+<li>对数据进行验证</li>
+</ol>
+<h3 id="3、定义方式"><a href="#3、定义方式" class="headerlink" title="3、定义方式"></a>3、定义方式</h3><ol>
+<li><strong>装饰器方式在：类的普通方法上应用@property装饰器</strong></li>
+<li><strong>静态方法：在类中定义值为property对象的静态字段</strong></li>
+</ol>
+<h3 id="4、注意事项"><a href="#4、注意事项" class="headerlink" title="4、注意事项"></a>4、注意事项</h3><ol>
+<li><strong>经典类：</strong>只有一种<ol>
+<li><code>@property</code></li>
+<li>定义时，在普通方法的基础上添加 <code>@property</code> 装饰器；</li>
+<li>定义时，属性<strong>仅有一个</strong><code>self</code>参数</li>
+</ol>
+</li>
+<li><strong>新式类：</strong>具有三种``装饰器<ol>
+<li><code>@property</code>(获取)</li>
+<li><code>@方法名.setter</code>(修改)</li>
+<li>@方法名.getter(获取)</li>
+<li><code>@方法名.deleter</code>(删除)</li>
+</ol>
+</li>
+</ol>
+<h3 id="5、调用方式"><a href="#5、调用方式" class="headerlink" title="5、调用方式"></a>5、调用方式</h3><ol>
+<li>调用时，无需括号<ul>
+<li>方法：<code>obj.fun()</code></li>
+<li>属性：<code>obj.prop</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="6、提供getter-setter方法"><a href="#6、提供getter-setter方法" class="headerlink" title="6、提供getter,setter方法"></a>6、提供getter,setter方法</h3><ol>
+<li>这两个方法可以方便增加额外功能（比如验证）。</li>
+<li>内部存储和外部表现不同。可以保持外部接口不变的情况下，修改内部存储方式和逻辑</li>
+<li>动态地计算值，getter/setter提供了一些属性读取的封装，可以让代码更便捷，例如存储first_name和last_name字段，但是提供full_name属性的getter</li>
+</ol>
+<h3 id="7、举个栗子"><a href="#7、举个栗子" class="headerlink" title="7、举个栗子"></a>7、举个栗子</h3><ol>
+<li><p>输出用户全名(经典类)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, first_name,last_name,age</span>):</span><br><span class="line">      	self.first_name = first_name</span><br><span class="line">        self.last_name  = last_name</span><br><span class="line">        self.age = age</span><br><span class="line">  </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">full_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;%s %s&quot;</span> % (self.first_name, self.last_name)</span><br><span class="line">      </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  	person = Person(<span class="string">&#x27;丽颖&#x27;</span>, <span class="string">&#x27;赵&#x27;</span>, <span class="number">18</span>)</span><br><span class="line">   	<span class="built_in">print</span>(person.full_name)</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    思考 带了一系列的问题</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    person = Person(<span class="string">&#x27;丽颖&#x27;</span>, <span class="string">&#x27;赵&#x27;</span>, -<span class="number">15</span>)</span><br><span class="line">    person = Person(<span class="string">&#x27;丽颖&#x27;</span>, <span class="string">&#x27;赵&#x27;</span>, <span class="number">1000</span>)</span><br><span class="line">    <span class="comment"># 年龄-15岁 或者 1000岁,显然不符合我们日常的习惯</span></span><br><span class="line">   	<span class="built_in">print</span>(person.age)</span><br></pre></td></tr></table></figure></li>
+<li><p>计算商品打折后的价格(经典类)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Goods</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, current_price, dis_price</span>):</span><br><span class="line">        self.current_price = current_price</span><br><span class="line">        self.discount_price = dis_price</span><br><span class="line">	</span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">price</span>(<span class="params">self</span>):</span><br><span class="line">      <span class="string">&#x27;&#x27;&#x27;计算折扣后的商品价格&#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> self.current_price - self.dis_price</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    goods = Goods(<span class="number">1000.00</span>, <span class="number">100</span>)</span><br><span class="line">    <span class="built_in">print</span>(goods.price)</span><br></pre></td></tr></table></figure></li>
+<li><p>分页功能(新式类)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pager</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, page, page_size</span>):</span><br><span class="line">        <span class="comment"># 用户当前请求的页码（第一页、第二页...）</span></span><br><span class="line">        self.page = page</span><br><span class="line">        <span class="comment"># 每页默认显示10条数据</span></span><br><span class="line">        self.page_size = page_size <span class="keyword">if</span> page_size &lt; <span class="number">0</span> <span class="keyword">else</span> <span class="number">10</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">start</span>(<span class="params">self</span>):</span><br><span class="line">        val = (self.page - <span class="number">1</span>) * self.page_size</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">end</span>(<span class="params">self</span>):</span><br><span class="line">        val = self.page * self.page_size</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27; ############### 调用 ############### &#x27;&#x27;&#x27;</span></span><br><span class="line">    pager = Pager(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="built_in">print</span>(pager.start)</span><br><span class="line">    <span class="built_in">print</span>(pager.end)</span><br></pre></td></tr></table></figure></li>
+<li><p>提供getter,setter方法(新式类)</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Goods</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;  构造方法 &quot;&quot;&quot;</span></span><br><span class="line">        self._price = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">price</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;提供getter方法&#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="built_in">print</span>(self._price)</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @price.setter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">price</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;提供setter方法&#x27;&#x27;&#x27;</span></span><br><span class="line">         <span class="comment"># 三元运算  为真的值 if 条件 else 条件为假的值</span></span><br><span class="line">        self._price = <span class="built_in">float</span>(value) <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">str</span>) <span class="keyword">else</span> value</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 删除(了解)</span></span><br><span class="line"><span class="meta">    @price.deleter</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">price</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">del</span> self._price</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    goods = Goods()</span><br><span class="line">    goods.price = <span class="number">1.00</span></span><br><span class="line">    <span class="built_in">print</span>(goods.price)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>   注：</p>
+<ul>
+<li>经典类中的属性只有一种访问方式，其对应被 <code>@property</code> 修饰的方法。</li>
+<li>新式类中的属性有三种访问方式，并分别对应了三个被<code>@property</code>、<code>@方法名.setter</code>、<code>@方法名.deleter</code>修饰的方法；</li>
+</ul>
+<h3 id="8、举个栗子2-静态方法"><a href="#8、举个栗子2-静态方法" class="headerlink" title="8、举个栗子2(静态方法)"></a>8、举个栗子2(静态方法)</h3><ol>
+<li><p>静态字段方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self._name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_name</span>(<span class="params">self, name</span>):</span><br><span class="line">        self._name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">del_name</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">del</span> self._name</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        property的构造方法中有个四个参数。</span></span><br><span class="line"><span class="string">        第一个参数是方法名，调用 对象.属性时自动触发执行方法；</span></span><br><span class="line"><span class="string">        第二个参数是方法名，调用 对象.属性 ＝ XXX时自动触发执行方法；</span></span><br><span class="line"><span class="string">        第三个参数是方法名，调用 del 对象.属性时自动触发执行方法；</span></span><br><span class="line"><span class="string">        第四个参数是字符串，调用 对象.属性.__doc__，此参数是该属性的描述信息。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">    UNAME = <span class="built_in">property</span>(get_name, set_name, del_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    user = User()</span><br><span class="line">    <span class="comment"># 调用set_name()方法</span></span><br><span class="line">    user.UNAME = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line">    <span class="comment"># 调用get_name()方法</span></span><br><span class="line">    <span class="built_in">print</span>(user.UNAME)</span><br><span class="line">    <span class="comment"># 删除属性</span></span><br><span class="line">    <span class="keyword">del</span> user.UNAME</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>django框架源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BaseForm</span>(<span class="title class_ inherited__">StrAndUnicode</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_get_errors</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;Returns an ErrorDict for the data provided for the form&quot;</span></span><br><span class="line">        <span class="keyword">if</span> self._errors <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.full_clean()</span><br><span class="line">        <span class="keyword">return</span> self._errors</span><br><span class="line">    </span><br><span class="line">    errors = <span class="built_in">property</span>(_get_errors)</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<p>​    当使用静态字段的方式创建属性时，经典类和新式类无区别</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/2%E3%80%81Python%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" rel="prev" title="2、Python安装配置.md">
+      <i class="fa fa-chevron-left"></i> 2、Python安装配置.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/31%E3%80%81%E7%B1%BB-%E4%BF%AE%E9%A5%B0%E7%AC%A6/" rel="next" title="31、类-修饰符.md">
+      31、类-修饰符.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AD%97%E6%AE%B5"><span class="nav-number">1.</span> <span class="nav-text">一、字段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">2、分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E9%9D%99%E6%80%81%E5%AD%97%E6%AE%B5-%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F-%E7%B1%BB%E5%8F%98%E9%87%8F-%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、静态字段(静态变量,类变量)。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%99%AE%E9%80%9A%E5%AD%97%E6%AE%B5-%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F-%E3%80%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、普通字段(实例变量)。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%B1%80%E9%83%A8%E5%AD%97%E6%AE%B5-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.</span> <span class="nav-text">3、局部字段(局部变量)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90-%E7%B1%BB%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">4、举个栗子(类变量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81self"><span class="nav-number">1.3.2.</span> <span class="nav-text">4、self</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5-1"><span class="nav-number">2.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%88%86%E7%B1%BB-1"><span class="nav-number">2.2.</span> <span class="nav-text">2、分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E6%8C%89%E4%BD%9C%E7%94%A8%E5%88%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1、按作用分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81%E6%8C%89%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2、按类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95-%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">3、普通方法(实例方法)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">4、静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">5、类方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">2.6.</span> <span class="nav-text">6、总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%B1%9E%E6%80%A7-%E5%B1%9E%E6%80%A7%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">三、属性(属性函数)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5-2"><span class="nav-number">3.1.</span> <span class="nav-text">1、概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BD%9C%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">2、作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%9A%E4%B9%89%E6%96%B9%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">3、定义方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.4.</span> <span class="nav-text">4、注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">5、调用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E6%8F%90%E4%BE%9Bgetter-setter%E6%96%B9%E6%B3%95"><span class="nav-number">3.6.</span> <span class="nav-text">6、提供getter,setter方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">3.7.</span> <span class="nav-text">7、举个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%902-%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.8.</span> <span class="nav-text">8、举个栗子2(静态方法)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

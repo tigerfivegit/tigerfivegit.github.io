@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、概念 有了函数之后，我们必须要面对一个作用域的问题。比如：你现在访问一个变量，那么 python 解析器是怎么查找到这个变量，并读取到这个变量的值的呢？ 依靠的就是作用域规则！  二、命名空间（namespace）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19、函数作用域.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/19%E3%80%81%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、概念 有了函数之后，我们必须要面对一个作用域的问题。比如：你现在访问一个变量，那么 python 解析器是怎么查找到这个变量，并读取到这个变量的值的呢？ 依靠的就是作用域规则！  二、命名空间（namespace）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201115190557.jpeg">
+<meta property="og:image" content="http://qiniudns.funtl.com/18-1-13/27861516.jpg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201115193932.jpeg">
+<meta property="og:image" content="http://qiniudns.funtl.com/18-1-13/27861516.jpg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.627Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.627Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201115190557.jpeg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/19%E3%80%81%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>19、函数作用域.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/19%E3%80%81%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          19、函数作用域.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h2><blockquote>
+<p>有了函数之后，我们必须要面对一个作用域的问题。比如：你现在访问一个变量，那么 python 解析器是怎么查找到这个变量，并读取到这个变量的值的呢？ 依靠的就是作用域规则！</p>
+</blockquote>
+<h2 id="二、命名空间（namespace）"><a href="#二、命名空间（namespace）" class="headerlink" title="二、命名空间（namespace）"></a>二、命名空间（namespace）</h2><span id="more"></span>
+<h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><blockquote>
+<p>A <em>namespace</em> is a mapping from names to objects</p>
+<p>命名空间是名字和对象的映射。也就是可以把一个namespace理解为一个字典，实际上很多当前的Python实现namespace就是用的字典。各个命名空间是独立的，没有任何关系的，所以一个命名空间中不能有重名，但不同的命名空间是可以重名而没有任何影响。</p>
+<p>命名空间表示变量的可见范围，一个变量名可以定义在多个不同的命名空间，相互之间并不冲突，但同一个命名空间中不能有两个相同的变量名。比如：两个叫“张三”的学生可以同时存在于班级A和班级B中，如果两个张三都是一个班级，那么带来的麻烦复杂很多了，在Python中你不能这么干。</p>
+</blockquote>
+<h3 id="2、命名空间的种类-2-2以前三种-2-2以后四种"><a href="#2、命名空间的种类-2-2以前三种-2-2以后四种" class="headerlink" title="2、命名空间的种类(2.2以前三种,2.2以后四种)"></a>2、命名空间的种类(2.2以前三种,2.2以后四种)</h3><ol>
+<li><p>局部(local)</p>
+<p>函数内的命名空间就是局部的(函数内部声明但没有使用global的变量)</p>
+</li>
+<li><p>全局(global)</p>
+<p>模块内(.py文件内)的命名空间就是全局的</p>
+</li>
+<li><p>内置(built-in)</p>
+<p>包括异常类型、内建函数和特殊方法，可以代码中任意地方调用</p>
+</li>
+<li><p>闭包(enclosing)</p>
+<p>嵌套的父级函数的局部作用域，即包含此函数的上级函数的局部作用域，但不是全局的(闭包函数外的函数中 )</p>
+</li>
+</ol>
+<h3 id="3、作用范围结构图"><a href="#3、作用范围结构图" class="headerlink" title="3、作用范围结构图"></a>3、作用范围结构图</h3><p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201115190557.jpeg"></p>
+<h3 id="4、举个栗子"><a href="#4、举个栗子" class="headerlink" title="4、举个栗子"></a>4、举个栗子</h3><ul>
+<li><p>局部</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#test.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    局部作用域</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    name = <span class="string">&#x27;吃鸡&#x27;</span></span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun()</span><br><span class="line">    <span class="built_in">print</span>(name)<span class="comment">#程序出错</span></span><br></pre></td></tr></table></figure></li>
+<li><p>全局</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#demo1.py</span></span><br><span class="line">txt = <span class="string">&#x27;大吉大利,今晚吃鸡&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(txt)</span><br><span class="line"><span class="comment">#demo2.py</span></span><br><span class="line"><span class="built_in">print</span>(txt)<span class="comment">#程序出错</span></span><br></pre></td></tr></table></figure></li>
+<li><p>系统内置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#vars()查看内置全局变量</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">全局作用域2</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">vars</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(__doc__)</span><br><span class="line">    <span class="built_in">print</span>(__file__)</span><br><span class="line">   	<span class="built_in">print</span>(__package__)</span><br></pre></td></tr></table></figure></li>
+<li><p>闭包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    num = <span class="number">200</span>  <span class="comment"># 闭包作用域</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        num = <span class="number">300</span> <span class="comment"># 本地作用域</span></span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"><span class="built_in">print</span> outer()() <span class="comment"># 输出300</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5、举个栗子2"><a href="#5、举个栗子2" class="headerlink" title="5、举个栗子2"></a>5、举个栗子2</h3><ul>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>():</span><br><span class="line">    num += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(num)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">     fun()</span><br></pre></td></tr></table></figure>
+
+<p> 代码分析</p>
+<p> 运行结果</p>
+<p> <img src="http://qiniudns.funtl.com/18-1-13/27861516.jpg"></p>
+<p> 1、通过控制台的错误提示,本地变量“num”在使用之前未被赋值</p>
+<p> 2、num + 1中的num是个本地变量, 本地变量,本地变量。python解释器在函数运行时,num = 相当于声明了一个本地变量num ，而num+1解释器先会从本地作用域中查找，所以虽然你在全局中定义了,通过上面的知识不能理解</p>
+<p> 3、所以在使用变量前一定要赋值</p>
+</li>
+<li><p>栗子2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ex_global</span>():</span><br><span class="line">    <span class="comment"># 这里是新创建了一个局部变量name .并不是修改的全局作用域的变量name</span></span><br><span class="line">    name = <span class="string">&#x27;小花&#x27;</span></span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    ex_global()</span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">    <span class="comment">#输出结果  小花 小明    </span></span><br></pre></td></tr></table></figure>
+
+<p> 代码分析</p>
+<p> 1、运行程序在全局作用域中声明了一个name内存中的值是’小明’</p>
+<p> 2、执行函数ex_global()在本地作用域声明又声明了一个name的变量值是’小花’</p>
+<p> 3、调用函数print(),根据上面说的作用域的查找顺序可以知道先从本地作用域查找,所以第一次输出结果是小花</p>
+<p> 4、此时方法执行完毕,执行第二个print(name)由于前面学过的作用域可以知道第二个name变量只会在全局作用域中查找,所以输出小明</p>
+</li>
+</ul>
+<ol>
+<li>总结<ul>
+<li>在局部命名空间处，全局命名空间的同名变量是不可见的（只有变量不同名的情况下，可使用 global关键字让其可见）</li>
+<li>闭包函数外的函数中</li>
+<li>全局命名空间和局部命名空间中， 如果有同名变量，在全局命名空间处，局部命名空间内的同名变量是不可见的</li>
+<li>内置命名空间在代码所有位置都是可见的，所以可以随时被调用</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、作用域（scope）"><a href="#三、作用域（scope）" class="headerlink" title="三、作用域（scope）"></a>三、作用域（scope）</h2><h3 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>A <em>scope</em> is a textual region of a Python program where a namespace is directly accessible.</p>
+<p>作用域是Python程序（文本）的某一段或某些段，在这些地方，某个命名空间中的名字可以被直接引用。</p>
+<p>简单说就是一个变量的命名空间。代码中变量被赋值的位置，就决定了哪些范围的对象可以访问这个变量，这个范围就是命名空间。python赋值时生成了变量名，当然作用域也包括在内。 </p>
+<p>简单的来说就是命名空间的可见性                                  </p>
+</blockquote>
+<h3 id="2、查找顺序"><a href="#2、查找顺序" class="headerlink" title="2、查找顺序"></a>2、查找顺序</h3><ol>
+<li><p>查找顺序结构图</p>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201115193932.jpeg"></p>
+</li>
+<li><p>说明</p>
+<ul>
+<li>如果在函数内调用一个变量，先在函数内（局部命名空间）查找，如果找到则停止查找。否则在函数外部（全局命名空间）查找，如果还是没找到，则查找内置命名空间。如果以上三个命名都未找到，则抛出NameError 的异常错误。</li>
+<li>如果在函数外调用一个变量，则在函数外查找（全局命名空间，局部命名空间此时不可见），如果找到则停止查找，否则到内置命名空间中查找。如果两者都找不到，则抛出异常。只有当局部命名空间内，使用global 关键字声明了一个变量时，查找顺序则是上面的查找顺序</li>
+</ul>
+</li>
+</ol>
+<h3 id="3、其它"><a href="#3、其它" class="headerlink" title="3、其它"></a>3、其它</h3><h5 id="1、块级作用域-语法块"><a href="#1、块级作用域-语法块" class="headerlink" title="1、块级作用域(语法块)"></a>1、块级作用域(语法块)</h5><ul>
+<li><p>想想此时运行下面的程序会有输出吗？执行会成功吗？</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#块级作用域 </span></span><br><span class="line"><span class="keyword">if</span> <span class="number">1</span> == <span class="number">1</span>:    </span><br><span class="line">  name = <span class="string">&quot;hehe&quot;</span>   </span><br><span class="line"><span class="built_in">print</span>(name)  </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):   </span><br><span class="line">    age = i  </span><br><span class="line"><span class="built_in">print</span>(age)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+<p> 代码执行成功，没有问题；在Java/C#中，执行上面的代码会提示name，age没有定义，而在Python中可以执行成功，这是因为在Python中是没有块级作用域的，代码块里的变量，外部可以调用，所以可运行成功；</p>
+</li>
+</ul>
+<h5 id="2、局部作用域"><a href="#2、局部作用域" class="headerlink" title="2、局部作用域"></a>2、局部作用域</h5><ul>
+<li><p>数是个单独的作用域，Python中没有块级作用域，但是有局部作用域</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span>  <span class="title function_">fun</span>():</span><br><span class="line">    name = <span class="string">&quot;hehe&quot;</span></span><br><span class="line"><span class="built_in">print</span>(name)</span><br></pre></td></tr></table></figure></li>
+<li><p>说明</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码运行出错</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;xxx/xxx/xx.py&quot;</span>, line <span class="number">3</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="built_in">print</span>(name)</span><br><span class="line">NameError: name <span class="string">&#x27;name&#x27;</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="四、global"><a href="#四、global" class="headerlink" title="四、global"></a>四、global</h2><h3 id="1、说明-1"><a href="#1、说明-1" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>global语句用来声明一系列变量，这些变量会引用到当前模块的全局命名空间的变量,在函数体外声明的默认就是global</p>
+</blockquote>
+<h3 id="2、举个栗子"><a href="#2、举个栗子" class="headerlink" title="2、举个栗子"></a>2、举个栗子</h3><ul>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">num = <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>():</span><br><span class="line">     <span class="keyword">global</span> num</span><br><span class="line">     num = num + <span class="number">1</span></span><br><span class="line">     <span class="built_in">print</span>(num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">     fun()</span><br><span class="line">     <span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure>
+
+<p> 代码分析</p>
+<p> 运行结果</p>
+<p><img src="http://qiniudns.funtl.com/18-1-13/27861516.jpg"></p>
+<p> 1、通过控制台的错误提示,本地变量“num”在使用之前未被赋值</p>
+<p> 2、num + 1中的num是个本地变量, 本地变量,本地变量。python解释器在函数运行时,num = 相当于声明了一个本地变量num ，而num+1解释器先会从本地作用域中查找，所以虽然你在全局中定义了,通过上面的知识不能理解</p>
+<p> 3、所以在使用变量前一定要赋值</p>
+</li>
+<li><p>栗子2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;小明&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ex_global</span>():</span><br><span class="line">     <span class="comment"># 这里是新创建了一个局部变量name </span></span><br><span class="line">     <span class="comment"># 并不是修改的全局作用域的变量name</span></span><br><span class="line">     name = <span class="string">&#x27;小花&#x27;</span></span><br><span class="line">     <span class="built_in">print</span>(name)</span><br><span class="line"> <span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">     ex_global()</span><br><span class="line">     <span class="built_in">print</span>(name)</span><br><span class="line"> 	<span class="comment">#输出结果  小花 小明           </span></span><br></pre></td></tr></table></figure>
+
+<p> 代码分析</p>
+<p> 1、运行程序在全局作用域中声明了一个name内存中的值是’小明’</p>
+<p> 2、执行函数ex_global()在本地作用域声明又声明了一个name的变量值是’小花’</p>
+<p> 3、调用函数print(),根据上面说的作用域的查找顺序可以知道先从本地作用域查找,所以第一次输出结果是小花</p>
+<p> 4、此时方法执行完毕,执行第二个print(name)由于前面学过的作用域可以知道第二个name变量只会在全局作用域中查找,所以输出小明</p>
+</li>
+</ul>
+<h2 id="五、nonlocal-Python3-2引入的"><a href="#五、nonlocal-Python3-2引入的" class="headerlink" title="五、nonlocal(Python3.2引入的)"></a>五、nonlocal(Python3.2引入的)</h2><h3 id="1、说明-2"><a href="#1、说明-2" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>用来在函数或其他作用域中使用外层(非全局)变量</p>
+</blockquote>
+<h3 id="2、举个栗子-1"><a href="#2、举个栗子-1" class="headerlink" title="2、举个栗子"></a>2、举个栗子</h3><ul>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer</span>():</span><br><span class="line">    num = <span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="comment"># 把 num 绑定到外部函数的局部变量 num 上</span></span><br><span class="line">        <span class="keyword">nonlocal</span> num</span><br><span class="line">        num = <span class="number">2</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;inner:&quot;</span>, num)</span><br><span class="line">    inner()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;outer:&quot;</span>, num)</span><br><span class="line">	    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    outer()</span><br></pre></td></tr></table></figure>
+
+<p> 代码分析</p>
+<p> 1、outer()函数执行</p>
+<p> 2、定义一个局部变量 num 并且赋值1</p>
+<p> 3、执行inner函数，把 num 绑定到外部函数的局部变量 num 上</p>
+<p> 4、赋值num为2,所以第一个print()函数在控制台输出2,函数执行完毕</p>
+<p> 5、执行第二个print()方法，由于上一步可以知道,num=2，所以也是输出2，代码执行完毕</p>
+</li>
+</ul>
+<h3 id="4、综合栗子"><a href="#4、综合栗子" class="headerlink" title="4、综合栗子"></a>4、综合栗子</h3><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">scope_complex</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ex_local</span>():</span><br><span class="line">         <span class="comment"># 此函数定义了另外的一个var字符串变量，并且生命周期只在此函数内。</span></span><br><span class="line">         <span class="comment"># 此处的var和外层的var是两个变量，</span></span><br><span class="line">        var = <span class="string">&quot;本地作用域2&quot;</span> </span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ex_nonlocal</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> var  <span class="comment">#使用外层的var变量</span></span><br><span class="line">        var = <span class="string">&quot;闭包作用域&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ex_global</span>():</span><br><span class="line">        <span class="keyword">global</span> var</span><br><span class="line">        var = <span class="string">&quot;全局作用域&quot;</span></span><br><span class="line"></span><br><span class="line">    var = <span class="string">&quot;局部作用域1&quot;</span></span><br><span class="line">    </span><br><span class="line">    ex_local()</span><br><span class="line">    <span class="built_in">print</span>(var)</span><br><span class="line">    </span><br><span class="line">    ex_nonlocal()</span><br><span class="line">    <span class="built_in">print</span>(var)</span><br><span class="line">    </span><br><span class="line">    ex_global()</span><br><span class="line">    <span class="built_in">print</span>(var)</span><br><span class="line">    </span><br><span class="line">scope_complex()                   </span><br><span class="line"><span class="built_in">print</span>(var)  </span><br></pre></td></tr></table></figure>
+
+<p>   代码分析</p>
+<p>   1、执行函数 scope_complex() ，定义局部变量 var = “局部作用域1”</p>
+<p>   2、执行函数ex_local() ，定义局部变量var = “本地作用域2” ，作用范围仅仅ex_local函数中</p>
+<p>   3、执行函数print(var) ，输出的第一步定义的局部变量,而不是第二步定义的局部变量</p>
+<p>   4、执行函数ex_nonlocal()，将var变量绑定在第一步定义的变量上，讲var的值改为”闭包作用域”</p>
+<p>   5、执行函数print(var)，输出”闭包作用域”</p>
+<p>   6、执行函数ex_global()，声明全局变量var赋值”全局作用域”</p>
+<p>   7、执行函数print(var)，先从本地函数作用域查找,所有输出还是”闭包作用域”,</p>
+<p>   8、scope_complex()  执行完成</p>
+<p>   9、执行函数print(var),从本地作用域中查找,由于在第七步声明了var，所以输出”全局作用域”</p>
+</li>
+<li><p>栗子2                     </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">  <span class="keyword">def</span> <span class="title function_">ex_nonlocal</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">ex_nonlocal2</span>():</span><br><span class="line">      <span class="keyword">nonlocal</span> var</span><br><span class="line">      var = <span class="string">&quot;闭包变量&quot;</span></span><br><span class="line">      ex_nonlocal2()</span><br><span class="line">      var = <span class="string">&quot;局部变量&quot;</span></span><br><span class="line">      ex_nonlocal()</span><br><span class="line">      <span class="built_in">print</span>(var)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    test()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2、注意"><a href="#2、注意" class="headerlink" title="2、注意"></a>2、注意</h4><ol>
+<li>使用<code>global</code>关键字修饰的变量之前可以并不存在，</li>
+<li>而使用<code>nonlocal</code>关键字修饰的变量在嵌套作用域中必须已经存在。</li>
+</ol>
+<h2 id="六、能改变作用域的"><a href="#六、能改变作用域的" class="headerlink" title="六、能改变作用域的"></a>六、能改变作用域的</h2><ol>
+<li>python能够改变变量作用域的代码段是def、class、lamda.</li>
+<li>if/elif/else、try/except/finally、for/while 并不能涉及变量作用域的更改，也就是说他们的代码块中的变量，在外部也是可以访问的</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/1%E3%80%81Python%E7%AE%80%E4%BB%8B/" rel="prev" title="1、Python简介.md">
+      <i class="fa fa-chevron-left"></i> 1、Python简介.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/21%E3%80%81%E6%A8%A1%E5%9D%97/" rel="next" title="21、模块.md">
+      21、模块.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%EF%BC%88namespace%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、命名空间（namespace）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">1、定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E7%A7%8D%E7%B1%BB-2-2%E4%BB%A5%E5%89%8D%E4%B8%89%E7%A7%8D-2-2%E4%BB%A5%E5%90%8E%E5%9B%9B%E7%A7%8D"><span class="nav-number">2.2.</span> <span class="nav-text">2、命名空间的种类(2.2以前三种,2.2以后四种)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BD%9C%E7%94%A8%E8%8C%83%E5%9B%B4%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">2.3.</span> <span class="nav-text">3、作用范围结构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">2.4.</span> <span class="nav-text">4、举个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%902"><span class="nav-number">2.5.</span> <span class="nav-text">5、举个栗子2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%88scope%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">三、作用域（scope）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">3.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E6%89%BE%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">2、查找顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%85%B6%E5%AE%83"><span class="nav-number">3.3.</span> <span class="nav-text">3、其它</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F-%E8%AF%AD%E6%B3%95%E5%9D%97"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">1、块级作用域(语法块)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81%E5%B1%80%E9%83%A8%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">2、局部作用域</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81global"><span class="nav-number">4.</span> <span class="nav-text">四、global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">4.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">4.2.</span> <span class="nav-text">2、举个栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81nonlocal-Python3-2%E5%BC%95%E5%85%A5%E7%9A%84"><span class="nav-number">5.</span> <span class="nav-text">五、nonlocal(Python3.2引入的)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-2"><span class="nav-number">5.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90-1"><span class="nav-number">5.2.</span> <span class="nav-text">2、举个栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%BB%BC%E5%90%88%E6%A0%97%E5%AD%90"><span class="nav-number">5.3.</span> <span class="nav-text">4、综合栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E6%B3%A8%E6%84%8F"><span class="nav-number">5.3.1.</span> <span class="nav-text">2、注意</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%83%BD%E6%94%B9%E5%8F%98%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9A%84"><span class="nav-number">6.</span> <span class="nav-text">六、能改变作用域的</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

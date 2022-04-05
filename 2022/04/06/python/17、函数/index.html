@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="函数(一)一、简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17、函数.md">
+<meta property="og:url" content="https://tigerfivegit.github.io/2022/04/06/python/17%E3%80%81%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="函数(一)一、简介">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/img/5c7f42ae3a213b0417546ee4.jpg">
+<meta property="og:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201114100345.jpeg">
+<meta property="article:published_time" content="2022-04-05T18:36:32.625Z">
+<meta property="article:modified_time" content="2022-04-05T18:36:32.625Z">
+<meta property="article:author" content="tigerfive">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tigerfive.oss-cn-beijing.aliyuncs.com/img/5c7f42ae3a213b0417546ee4.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2022/04/06/python/17%E3%80%81%E5%87%BD%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>17、函数.md | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2022/04/06/python/17%E3%80%81%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="tigerfive">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          17、函数.md
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-06 02:36:32" itemprop="dateCreated datePublished" datetime="2022-04-06T02:36:32+08:00">2022-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="函数-一"><a href="#函数-一" class="headerlink" title="函数(一)"></a>函数(一)</h1><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><blockquote>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/img/5c7f42ae3a213b0417546ee4.jpg"></p>
+</blockquote>
+<span id="more"></span>
+<blockquote>
+<p>在 Python 中，函数是一等对象。编程语言理论家把“一等对象”定义为满足下述条件的程序实体：</p>
+<ol>
+<li>在运行时创建</li>
+<li>能赋值给变量或数据结构中的元素</li>
+<li>能作为参数传给函数</li>
+<li>能作为函数的返回结果</li>
+</ol>
+<p>在 Python 中，所有函数都是一等对象,是面向对象程序设计最基本的单元</p>
+</blockquote>
+<h2 id="二、什么叫函数"><a href="#二、什么叫函数" class="headerlink" title="二、什么叫函数"></a>二、什么叫函数</h2><h3 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h3><blockquote>
+<p>函数就是把完成特定功能的一段代码封装起来。给该功能起一个名字（函数名）</p>
+<p>在一个完整的项目,某些特定的功能如果被返回使用,那么我们就可以把这些代码封装成函数,当我们要去使用的时候直接调用函数即可</p>
+</blockquote>
+<h3 id="2、优点"><a href="#2、优点" class="headerlink" title="2、优点"></a>2、优点</h3><blockquote>
+<ol>
+<li>函数能提高应用的模块性，</li>
+<li>方便管理和维护,便于复用</li>
+</ol>
+<p>Python提供了许多内建函数，比如print() input()。但也可以自己创建函数，这被叫做用户自定义函数。</p>
+</blockquote>
+<h2 id="三、函数的使用"><a href="#三、函数的使用" class="headerlink" title="三、函数的使用"></a>三、函数的使用</h2><h3 id="3-1、定义函数"><a href="#3-1、定义函数" class="headerlink" title="3.1、定义函数"></a>3.1、定义函数</h3><h4 id="1、语法格式"><a href="#1、语法格式" class="headerlink" title="1、语法格式"></a>1、语法格式</h4><blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">函数名</span>(<span class="params"> 形参列表… </span>):</span><br><span class="line">    <span class="comment">#函数体</span></span><br><span class="line">    <span class="keyword">return</span> [expression]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="2、语法结构图"><a href="#2、语法结构图" class="headerlink" title="2、语法结构图"></a>2、语法结构图</h4><blockquote>
+<p><img src="https://tigerfive.oss-cn-beijing.aliyuncs.com/20201114100345.jpeg"></p>
+</blockquote>
+<h4 id="3、说明"><a href="#3、说明" class="headerlink" title="3、说明"></a>3、说明</h4><ol>
+<li><code>def</code> 是定义函数的关键字。</li>
+<li>函数名是这个函数的符号(引用)，调用这个函数的时候我们需要函数名。</li>
+<li>函数名后的圆括号是必须的。</li>
+<li>形参列表表示我们可以定义多个形参，必须放在()中间，接受函数调用时传递过来的参数。形参不是必须的，根据需要决定是否需要定义形参</li>
+<li>圆括号后面必须有一个分号<code>:</code></li>
+<li>函数体缩进四格,封装功能代码块,</li>
+<li><strong>return [表达式]</strong> 结束函数，不是必须的,选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+<li>当一个文件定义多个函数的时候,函数与代码之间空两行</li>
+</ol>
+<h4 id="4、举个栗子"><a href="#4、举个栗子" class="headerlink" title="4、举个栗子"></a>4、举个栗子</h4><ol>
+<li><p>定义无参数无返回值的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">    <span class="string">&quot;函数_文档字符串&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;自定义函数&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;我是函数内的代码2&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>定义有参函数，无返回值的，形参在函数内部可以作为普通变量使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="comment">#空四格</span></span><br><span class="line">    <span class="built_in">print</span>(a + b)</span><br></pre></td></tr></table></figure></li>
+<li><p>定义无参数有返回值的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_name</span>():</span><br><span class="line">    name = <span class="string">&#x27;隔壁老王&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> name</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>定义有参数有返回值的函数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">n1, n2</span>):</span><br><span class="line">    num = n1 + n2</span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="5、函数命名规则"><a href="#5、函数命名规则" class="headerlink" title="5、函数命名规则"></a>5、函数命名规则</h4><ol>
+<li>可以由字母，下划线，和数字组成</li>
+<li>数字不能开头</li>
+<li>不能与关键字重名</li>
+<li>函数名一般以动词开头</li>
+<li>多个单词小写使用下划线拼接：get_name,set_name,is_delete</li>
+</ol>
+<h4 id="6、函数返回值"><a href="#6、函数返回值" class="headerlink" title="6、函数返回值"></a>6、函数返回值</h4><ol>
+<li><p>无返回值</p>
+<ul>
+<li>不写retrun</li>
+<li>仅retrun 不带返回值</li>
+<li>使用retrun 返回 None类型(返回对象)</li>
+</ul>
+</li>
+<li><p>返回一个对象</p>
+</li>
+<li><p>返回多个对象,其实就是返回一个元组,本质是还是一个对象</p>
+</li>
+</ol>
+<h3 id="3-2、函数调用与引用"><a href="#3-2、函数调用与引用" class="headerlink" title="3.2、函数调用与引用"></a>3.2、函数调用与引用</h3><h4 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h4><blockquote>
+<p>定义函数的目的是为了让函数做一些事情。但是函数如果仅仅定义不会自己去执行。</p>
+<p><strong>时刻记住一句话，函数只有被调用才能被执行！</strong></p>
+<p>所以想要函数执行，必须显示的去调用函数。</p>
+<p><strong>在使用函数的时候，一定要保证声明在前，调用在后！</strong></p>
+</blockquote>
+<h4 id="2、语法格式"><a href="#2、语法格式" class="headerlink" title="2、语法格式"></a>2、语法格式</h4><blockquote>
+<p>函数名(实参)</p>
+</blockquote>
+<h4 id="3、举个栗子"><a href="#3、举个栗子" class="headerlink" title="3、举个栗子"></a>3、举个栗子</h4><ol>
+<li><p>调用无参函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;自定义函数&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;我是函数内的代码2&quot;</span>)</span><br><span class="line">show()</span><br></pre></td></tr></table></figure></li>
+<li><p>调用有参的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="built_in">print</span>(a + b)</span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>调用有参的函数并返回数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">n1, n2</span>):</span><br><span class="line">    num = n1 + n2</span><br><span class="line">    <span class="keyword">return</span> num</span><br><span class="line">number = add(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(number)</span><br></pre></td></tr></table></figure></li>
+<li><p>在函数调用时也可以使用*语法，来分解参数的集合</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">a,b,c,d</span>):  </span><br><span class="line">    <span class="built_in">print</span> a,b,c,d  </span><br><span class="line"></span><br><span class="line">func(*(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))  </span><br><span class="line">func(<span class="number">1</span>,*(<span class="number">2</span>,<span class="number">3</span>),**&#123;<span class="string">&#x27;d&#x27;</span>:<span class="number">4</span>&#125;)  </span><br><span class="line">func(<span class="number">1</span>,c=<span class="number">3</span>,*(<span class="number">2</span>,),**&#123;<span class="string">&#x27;d&#x27;</span>:<span class="number">4</span>&#125;) </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="4、注意事项"><a href="#4、注意事项" class="headerlink" title="4、注意事项"></a>4、注意事项</h4><ol>
+<li><p>函数的引用</p>
+<p>所谓的函数的引用其实就是将一个函数对象赋值给变量,一个函数个可以赋值给多个不同变量</p>
+</li>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;函数引用&#x27;</span>)</span><br><span class="line"></span><br><span class="line">func1 = func</span><br><span class="line">func2 = func</span><br><span class="line">func3 = func</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际就是想相当于func()</span></span><br><span class="line">func1()</span><br><span class="line">func2()</span><br><span class="line">func3()</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="四、-参数详解"><a href="#四、-参数详解" class="headerlink" title="四、 参数详解"></a>四、 参数详解</h2><h3 id="1、说明-1"><a href="#1、说明-1" class="headerlink" title="1、说明"></a>1、说明</h3><blockquote>
+<p>除了支持正常的参数外,Python函数还支持数量可变的参数。这些参数有主要有三种类别</p>
+<p>完整的语法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">position_arg, keyword_args,defalut_args, *tuple_args, **dict_kw_args</span>):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>简要说明:</p>
+<ol>
+<li><p>position_arg</p>
+<p>位置参数(必须参数)。必须参数必须以对应的关系一个一个传递进入函数，函数调用时传递的实参必须和函数定义时的形参一一对应，不能多也不能少，顺序也得一致</p>
+</li>
+<li><p>keyword_args</p>
+<p>关键字参数。指的是调用的时候可以使用参数名的方式传入,特点是传入的时候可以不需要按着顺序出传入</p>
+</li>
+<li><p>defalut_args</p>
+<p>默认值参数 ,非必传参数 声明了默认值的参数</p>
+</li>
+<li><p>*tuple_args</p>
+<p>可变长度参数,特点,只能接收未命名的参数,把这些参数先封装到一个列表或元组中</p>
+</li>
+<li><p>**dict_kw_args</p>
+<p>可变长度参数,特点是将参数放入字典中</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="2、-默认参数值"><a href="#2、-默认参数值" class="headerlink" title="2、 默认参数值"></a>2、 默认参数值</h3><h4 id="2-1、说明"><a href="#2-1、说明" class="headerlink" title="2.1、说明"></a>2.1、说明</h4><blockquote>
+<p>这允许用户为函数的参数定义一些默认值。这种情况下，可以以更少的参数来调用该函数，而函数调用时未提供的参数，Python会使用默认提供的值作为这些参数值</p>
+</blockquote>
+<h4 id="2-2、举个栗子"><a href="#2-2、举个栗子" class="headerlink" title="2.2、举个栗子"></a>2.2、举个栗子</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_args</span>(<span class="params">arg, agr1,def_arg=<span class="number">1</span>, def_arg2=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;arg=&#123;&#125;, def_arg=&#123;&#125;, def_arg2=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(arg, def_arg, def_arg2)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-3、调用方式-三种"><a href="#2-3、调用方式-三种" class="headerlink" title="2.3、调用方式(三种)"></a>2.3、调用方式(三种)</h4><ol>
+<li><p>只提供非缺省位置参数值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_args</span>(<span class="params">arg, def_arg=<span class="number">1</span>, def_arg2=<span class="number">2</span></span>):</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;arg=&#123;&#125;, def_arg=&#123;&#125;, def_arg2=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(arg, def_arg, def_arg2)</span><br><span class="line"> show_args(<span class="string">&quot;普通参数&quot;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">  <span class="comment">#指定参数名称 </span></span><br><span class="line"> show_args(arg=<span class="string">&quot;普通参数&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>提供的值覆盖一些默认的参数值,包括非缺省位置参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_args</span>(<span class="params">arg, def_arg=<span class="number">1</span>, def_arg2=<span class="number">2</span></span>):</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;arg=&#123;&#125;, def_arg=&#123;&#125;, def_arg2=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(arg, def_arg, def_arg2)</span><br><span class="line">    </span><br><span class="line">show_args(<span class="string">&quot;普通参数&quot;</span>, <span class="string">&quot;默认参数1&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>为所有参数提供值，可以用这些值覆盖默认参数值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_args</span>(<span class="params">arg, def_arg=<span class="number">1</span>, def_arg2=<span class="number">2</span></span>):</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;arg=&#123;&#125;, def_arg=&#123;&#125;, def_arg2=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(arg, def_arg, def_arg2)</span><br><span class="line">      </span><br><span class="line">show_args(<span class="string">&quot;普通参数&quot;</span>, <span class="string">&quot;默认参数1&quot;</span>, <span class="string">&quot;默认参数2&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-4、注意事项"><a href="#2-4、注意事项" class="headerlink" title="2.4、注意事项"></a>2.4、注意事项</h4><ol>
+<li>必选参数在前，默认参数在后</li>
+<li>有默认值的参数在调用的时候是非必要的</li>
+</ol>
+<h3 id="3、关键字参数-kwarg"><a href="#3、关键字参数-kwarg" class="headerlink" title="3、关键字参数(kwarg)"></a>3、关键字参数(kwarg)</h3><h4 id="3-1、说明"><a href="#3-1、说明" class="headerlink" title="3.1、说明"></a>3.1、说明</h4><blockquote>
+<p>关键字参数是实参里面的概念，以“kwarg=value”的形式使用关键字参数也可以调用函数。其中kwarg指函数定义中使用的参数名称，在调用函数的时候声明某个参数是属于某个关键字的。使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。</p>
+</blockquote>
+<p>举个栗子</p>
+<ol>
+<li><p>栗子1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def f(name,age):</span><br><span class="line">  	print(name,age)</span><br><span class="line">f(name=&quot;小明&quot;, age=20)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4、默认值参数"><a href="#4、默认值参数" class="headerlink" title="4、默认值参数"></a>4、默认值参数</h3><h4 id="4-1、说明"><a href="#4-1、说明" class="headerlink" title="4.1、说明"></a>4.1、说明</h4><blockquote>
+<p>默认参数是在函数声明的时候，可以给某个参数指定默认值，这样的参数叫做默认值参数。如果在调用函数的时候，默认参数没有接收到对应的实参，那么就会将默认值赋值给这个参数</p>
+</blockquote>
+<h4 id="4-2、举个栗子"><a href="#4-2、举个栗子" class="headerlink" title="4.2、举个栗子"></a>4.2、举个栗子</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">name,age,sex=<span class="string">&quot;男&quot;</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(name,age,sex)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">f(name=<span class="string">&quot;小明&quot;</span>,age=<span class="number">18</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="5、不定长参数-args"><a href="#5、不定长参数-args" class="headerlink" title="5、不定长参数(*args)"></a>5、不定长参数(*args)</h3><h4 id="5-1、说明"><a href="#5-1、说明" class="headerlink" title="5.1、说明"></a>5.1、说明</h4><blockquote>
+<p>通常情况下, 定义函数的时候, 我们只能定义有限的形参个数, 实参个数通常情况下也要和形参来定义.</p>
+<p>如果我们想传递任意多个参数给函数, 只能把这些参数先封装到一个列表或元组中, 然后再传进去.  比较麻烦.</p>
+<p>python 提供了可变参数, 可以接受任意多个参数, 然后函数内部会自动的把这些参数封装在一个元组中, 供函数内部使用,注意*args只能接受位置参数</p>
+</blockquote>
+<h4 id="5-2、举个栗子"><a href="#5-2、举个栗子" class="headerlink" title="5.2、举个栗子"></a>5.2、举个栗子</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="built_in">print</span>(args)</span><br><span class="line">fun(<span class="string">&quot;小明&quot;</span>,<span class="number">18</span>,<span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>栗子2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">*args</span>):</span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line">fun(<span class="string">&quot;小明&quot;</span>,<span class="number">18</span>,<span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="5-3、注意事项"><a href="#5-3、注意事项" class="headerlink" title="5.3、注意事项"></a>5.3、注意事项</h4><ol>
+<li>函数的形参中最多只能定义一个可变参数, 定义多个可变参数会出现语法错误.</li>
+<li>可变参数一般作为形参中的最后一个参数.</li>
+<li>如果可变参数不是最后一参数, 则给可变参数后的参数赋值的时候只能使用关键字参数赋值</li>
+</ol>
+<h3 id="6、不定长参数-kwargs"><a href="#6、不定长参数-kwargs" class="headerlink" title="6、不定长参数( **kwargs)"></a>6、不定长参数( **kwargs)</h3><h4 id="6-1、说明"><a href="#6-1、说明" class="headerlink" title="6.1、说明"></a>6.1、说明</h4><blockquote>
+<p>但是上面的args只能接收未命名的参数，那假如有类似于关键字参数的不定长参数该怎么办呢？python里面使用(<strong>变量名)来接收不定长的命名变量参数。同样，python里面也约定俗成使用</strong>kwargs接收不定长命名参数。**kwargs接收了不定长参数之后，将这些参数放到一个字典里面，可以通过key获取到相应的参数值</p>
+</blockquote>
+<h4 id="6-2、举个栗子"><a href="#6-2、举个栗子" class="headerlink" title="6.2、举个栗子"></a>6.2、举个栗子</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">**kwargs</span>):</span><br><span class="line">    <span class="built_in">print</span>(kwargs)</span><br><span class="line">f(name=<span class="string">&quot;小明&quot;</span>,age=<span class="number">18</span>,sex=<span class="string">&quot;male&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、综合"><a href="#五、综合" class="headerlink" title="五、综合"></a>五、综合</h2><h4 id="1、说明-2"><a href="#1、说明-2" class="headerlink" title="1、说明"></a>1、说明</h4><blockquote>
+<p>假如一个函数使用了上面所有种类的参数，那该怎么办？为了不产生歧义，python里面规定了假如有多种参数混合的情况下，遵循如下的顺序使用规则</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">必须参数,默认参数,*args,**kwargs</span>)：</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="2、举个栗子"><a href="#2、举个栗子" class="headerlink" title="2、举个栗子"></a>2、举个栗子</h4><ol>
+<li><p>栗子1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">*args,**kwargs</span>):</span><br><span class="line">     <span class="built_in">print</span>(args)</span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> kwargs:</span><br><span class="line">         <span class="built_in">print</span>(<span class="string">&quot;%s:%s&quot;</span>%(i,kwargs[i]))</span><br><span class="line"></span><br><span class="line"> f(*[<span class="number">100</span>,<span class="number">200</span>,<span class="number">300</span>],**&#123;<span class="string">&quot;a&quot;</span>:<span class="string">&#x27;abc&#x27;</span>,<span class="string">&quot;b&quot;</span>:<span class="number">31231</span>&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3、注意事项"><a href="#3、注意事项" class="headerlink" title="3、注意事项"></a>3、注意事项</h4><blockquote>
+<p>函数在执行过程中只要遇到return语句，就会停止执行并返回结果，也可以理解为 return 语句代表着函数的结束 如果未在函数中指定return,那这个函数的返回值为None,return多个对象，解释器会把这多个对象组装成一个元组作为一个一个整体结果输出</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/16%E3%80%81%E9%9B%86%E5%90%88/" rel="prev" title="16、集合.md">
+      <i class="fa fa-chevron-left"></i> 16、集合.md
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/06/python/18%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0/" rel="next" title="18、匿名函数.md">
+      18、匿名函数.md <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0-%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">函数(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E5%8F%AB%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">二、什么叫函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">三、函数的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1%E3%80%81%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1、定义函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1、语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2、语法结构图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">4、举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%87%BD%E6%95%B0%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">5、函数命名规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.3.1.6.</span> <span class="nav-text">6、函数返回值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2%E3%80%81%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E4%B8%8E%E5%BC%95%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2、函数调用与引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2、语法格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3、举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">4、注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">四、 参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81-%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%80%BC"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、 默认参数值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">2.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2.2、举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3%E3%80%81%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F-%E4%B8%89%E7%A7%8D"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">2.3、调用方式(三种)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">2.4、注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%82%E6%95%B0-kwarg"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、关键字参数(kwarg)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">3.1、说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%BB%98%E8%AE%A4%E5%80%BC%E5%8F%82%E6%95%B0"><span class="nav-number">1.4.4.</span> <span class="nav-text">4、默认值参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">4.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">4.2、举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E4%B8%8D%E5%AE%9A%E9%95%BF%E5%8F%82%E6%95%B0-args"><span class="nav-number">1.4.5.</span> <span class="nav-text">5、不定长参数(*args)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">5.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.4.5.2.</span> <span class="nav-text">5.2、举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.4.5.3.</span> <span class="nav-text">5.3、注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E4%B8%8D%E5%AE%9A%E9%95%BF%E5%8F%82%E6%95%B0-kwargs"><span class="nav-number">1.4.6.</span> <span class="nav-text">6、不定长参数( **kwargs)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1%E3%80%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.4.6.1.</span> <span class="nav-text">6.1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.4.6.2.</span> <span class="nav-text">6.2、举个栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BB%BC%E5%90%88"><span class="nav-number">1.5.</span> <span class="nav-text">五、综合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E8%AF%B4%E6%98%8E-2"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">2、举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">3、注意事项</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">tigerfive</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tigerfive</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
