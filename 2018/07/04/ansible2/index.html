@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="写在前面的话关于安装和基础的使用请参考,上一篇ansible,本文只记录一些ansible的扩展知识 动态inventory12345Cobbler 外部 Inventory 脚本AWS EC2 外部 inventory 脚本其它 inventory 脚本使用多个 inventory 源动态组作为静态组的子组 使用配置管理系统经常有一种需求,可能要在其他的软件系统中保存自己的 inventory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible2">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/07/04/ansible2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="写在前面的话关于安装和基础的使用请参考,上一篇ansible,本文只记录一些ansible的扩展知识 动态inventory12345Cobbler 外部 Inventory 脚本AWS EC2 外部 inventory 脚本其它 inventory 脚本使用多个 inventory 源动态组作为静态组的子组 使用配置管理系统经常有一种需求,可能要在其他的软件系统中保存自己的 inventory">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-07-04T02:29:11.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="持续集成">
+<meta property="article:tag" content="ansible">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/07/04/ansible2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ansible2 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/07/04/ansible2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ansible2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-04 10:29:11" itemprop="dateCreated datePublished" datetime="2018-07-04T10:29:11+08:00">2018-07-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">持续集成</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/ansible/" itemprop="url" rel="index"><span itemprop="name">ansible</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h3><p>关于安装和基础的使用请参考,上一篇ansible,本文只记录一些ansible的扩展知识</p>
+<h3 id="动态inventory"><a href="#动态inventory" class="headerlink" title="动态inventory"></a>动态inventory</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cobbler 外部 Inventory 脚本</span><br><span class="line">AWS EC2 外部 inventory 脚本</span><br><span class="line">其它 inventory 脚本</span><br><span class="line">使用多个 inventory 源</span><br><span class="line">动态组作为静态组的子组</span><br></pre></td></tr></table></figure>
+<p>使用配置管理系统经常有一种需求,可能要在其他的软件系统中保存自己的 inventory 配置信息.</p>
+<p>Ansible 本身通过基于文本的方式来记录 inventory 配置信息,这在前面已介绍过（详见 Inventory文件 ）.</p>
+<p>除此之外,Ansible 也支持用其他方式保存配置信息.</p>
+<span id="more"></span>
+
+<p>在其他软件系统保存配置信息的例子有:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1, 从云端拉取 inventory</span><br><span class="line">2, LDAP（Lightweight Directory Access Protocol,轻量级目录访问协议）</span><br><span class="line">3, `Cobbler &lt;http://cobbler.github.com&gt;`_</span><br><span class="line">4, 或者是一份昂贵的企业版的 CMDB（配置管理数据库） 软件.</span><br></pre></td></tr></table></figure>
+
+<p>对于这些需求,Ansible 可通过一个外部 inventory 系统来支持.在 ansible 的 “/plugins” 插件目录下已经含有一些选项 – 包括 EC2/Eucalyptus, Rackspace Cloud,and OpenStack,我们稍后会详细介绍它们. (说实话我没找到,估计是通过编译安装或者是git安装才有,我自己git安装的ansible/lib/ansible/plugins有这份插件目录,)</p>
+<p>Ansible Ansible Tower 提供了一个数据库来存储 inventory 配置信息, 这个数据库可以通过 web 访问,或通过 REST 访问. Tower 与所有你使用的 Ansible 动态 inventory 源保持同步,并提供了一个图形化的 inventory 编辑器. 有了这个数据库,便可以很容易的关联过去的事件历史,可以看到在上一次 playbook 运行时,哪里出现了运行失败的情况.</p>
+<p>关于如何编写你自己的动态inventory源,请参见<a target="_blank" rel="noopener" href="http://ansible-tran.readthedocs.io/en/latest/docs/developing_inventory.html">http://ansible-tran.readthedocs.io/en/latest/docs/developing_inventory.html</a></p>
+<h4 id="AWS-EC2-外部-inventory-脚本"><a href="#AWS-EC2-外部-inventory-脚本" class="headerlink" title="AWS EC2 外部 inventory 脚本"></a>AWS EC2 外部 inventory 脚本</h4><p>(里边有用到几个脚本,放在GitHub上,但是由于GitHub被微软收购原因,一直链接不到,这部分职能暂时放弃,之后去英文版的找找看吧.)<br>使用 AWC EC2时,维护一份 inventory 文件有时不是最好的方法.因为主机的数量有可能发生变动,或者主机是由外部的应用管理的,或者使用了 AWS autoscaling.这时,使用 EC2 external inventory 脚本是更好的选择.</p>
+<p>脚本的使用方式有两种,最简单的是直接使用 Ansible 的命令行选项 -i ,指定脚本的路径（脚本要有可执行权限）:</p>
+<h3 id="playbook"><a href="#playbook" class="headerlink" title="playbook"></a>playbook</h3><p>Playbooks 是 Ansible的配置,部署,编排语言.他们可以被描述为一个需要希望远程主机执行命令的方案,或者一组IT程序运行的命令集合.</p>
+<p>如果 Ansible 模块你是工作室中的工具,那么 playbooks 就是你设置的方案计划.</p>
+<p>在基础层面, playbooks 可以被用来管理用于部署到远程主机的配置文件.在更高的层面上,playbooks 可以依次对多层式架构上的服务器执行上线包括滚动更新在内的操作并可以将操作委托给其他主机包括在此过程中发生的与监视服务器,负载均衡服务器的交互操作在内.</p>
+<p>虽然这里讲发很多,但是不需要立刻一次性全部学完.你可以从小功能开始,当你需要的时候再来这里找对应的功能即可.</p>
+<p>Playbooks 被设计的非常简单易懂和基于text language二次开发.有多种办法来组织 playbooks 和其附属的文件,同时我们也会提供一些关于学习 Ansible 的建议.</p>
+<p>这里强烈建议在阅读的 playbook 文档的时候同步参阅 Example Playbooks <a target="_blank" rel="noopener" href="https://github.com/ansible/ansible-examples">https://github.com/ansible/ansible-examples</a> (这个git的内容真的特别棒,强烈建议去看一看)章节. 这些例子是最佳实战以及如何将各种概念灵活贯穿结合在一起.</p>
+<hr>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>Playbooks 与 adhoc 相比,是一种完全不同的运用 ansible 的方式,是非常之强大的.</p>
+<p>简单来说,playbooks 是一种简单的配置管理系统与多机器部署系统的基础.与现有的其他系统有不同之处,且非常适合于复杂应用的部署.</p>
+<p>Playbooks 可用于声明配置,更强大的地方在于,在 playbooks 中可以编排有序的执行过程,甚至于做到在多组机器间,来回有序的执行特别指定的步骤.并且可以同步或异步的发起任务.</p>
+<p>我们使用 adhoc 时,主要是使用 /usr/bin/ansible 程序执行任务.而使用 playbooks 时,更多是将之放入源码控制之中,用之推送你的配置或是用于确认你的远程系统的配置是否符合配置规范.</p>
+<p>在如右的连接中: ansible-examples repository ,有一些整套的playbooks,它们阐明了上述的这些技巧.我们建议你在另一个标签页中打开它看看,配合本章节一起看.</p>
+<p>即便学完 playbooks 这个章节,仍有许多知识点只是入门的级别.</p>
+<h4 id="playbook语言示例"><a href="#playbook语言示例" class="headerlink" title="playbook语言示例"></a>playbook语言示例</h4><p>Playbooks 的格式是YAML（详见:YAML 语法:<a target="_blank" rel="noopener" href="http://ansible-tran.readthedocs.io/en/latest/docs/YAMLSyntax.html%EF%BC%89,%E8%AF%AD%E6%B3%95%E5%81%9A%E5%88%B0%E6%9C%80%E5%B0%8F%E5%8C%96,%E6%84%8F%E5%9C%A8%E9%81%BF%E5%85%8D">http://ansible-tran.readthedocs.io/en/latest/docs/YAMLSyntax.html）,语法做到最小化,意在避免</a> playbooks 成为一种编程语言或是脚本,但它也并不是一个配置模型或过程的模型.</p>
+<p>playbook 由一个或多个 ‘plays’ 组成.它的内容是一个以 ‘plays’ 为元素的列表.</p>
+<p>在 play 之中,一组机器被映射为定义好的角色.在 ansible 中,play 的内容,被称为 tasks,即任务.在基本层次的应用中,一个任务是一个对 ansible 模块的调用,这在前面章节学习过.</p>
+<p>‘plays’ 好似音符,playbook 好似由 ‘plays’ 构成的曲谱,通过 playbook,可以编排步骤进行多机器的部署,比如在 webservers 组的所有机器上运行一定的步骤, 然后在 database server 组运行一些步骤,最后回到 webservers 组,再运行一些步骤,诸如此类.</p>
+<p>“plays” 算是一个体育方面的类比,你可以通过多个 plays 告诉你的系统做不同的事情,不仅是定义一种特定的状态或模型.你可以在不同时间运行不同的 plays.</p>
+<p>对初学者,这里有一个 playbook,其中仅包含一个 play:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">vars:</span></span><br><span class="line">    <span class="attr">http_port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">max_clients:</span> <span class="number">200</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">at</span> <span class="string">the</span> <span class="string">latest</span> <span class="string">version</span></span><br><span class="line">    <span class="attr">yum:</span> <span class="string">pkg=httpd</span> <span class="string">state=latest</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">write</span> <span class="string">the</span> <span class="string">apache</span> <span class="string">config</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">template:</span> <span class="string">src=/srv/httpd.j2</span> <span class="string">dest=/etc/httpd.conf</span></span><br><span class="line">    <span class="attr">notify:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">restart</span> <span class="string">apache</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ensure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">running</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">name=httpd</span> <span class="string">state=started</span></span><br><span class="line">  <span class="attr">handlers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">restart</span> <span class="string">apache</span></span><br><span class="line">      <span class="attr">service:</span> <span class="string">name=httpd</span> <span class="string">state=restarted</span></span><br></pre></td></tr></table></figure>
+<p>(上述playbook在执行的时候出现一个warning:希望使用install而非latest)<br>在下面,我们将分别讲解 playbook 语言的多个特性.</p>
+<h4 id="plabook基础"><a href="#plabook基础" class="headerlink" title="plabook基础"></a>plabook基础</h4><h5 id="主机与用户"><a href="#主机与用户" class="headerlink" title="主机与用户"></a>主机与用户</h5><p>你可以为 playbook 中的每一个 play,个别地选择操作的目标机器是哪些,以哪个用户身份去完成要执行的步骤（called tasks）.</p>
+<p>hosts 行的内容是一个或多个组或主机的 patterns,以逗号为分隔符,<br>  remote_user就是账户名:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br></pre></td></tr></table></figure>
+<p><strong>!!!note:参数 remote_user 以前写做 user,在 Ansible 1.4 以后才改为 remote_user.主要为了不跟 user 模块混淆（user 模块用于在远程系统上创建用户）.</strong></p>
+<p>再者,在每一个 task 中,可以定义自己的远程用户:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test</span> <span class="string">connection</span></span><br><span class="line">      <span class="attr">ping:</span></span><br><span class="line">      <span class="attr">remote_user:</span> <span class="string">yourname</span></span><br></pre></td></tr></table></figure>
+<p><strong>!!!note:task 中的 remote_user 参数在 1.4 版本以后添加.</strong></p>
+<p>也支持从 sudo 执行命令:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">yourname</span></span><br><span class="line">  <span class="attr">sudo:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>同样的,你可以仅在一个 task 中,使用 sudo 执行命令,而不是在整个 play 中使用 sudo:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">yourname</span></span><br><span class="line">  <span class="attr">tasks:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">service:</span> <span class="string">name=nginx</span> <span class="string">state=started</span></span><br><span class="line">      <span class="attr">sudo:</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<p>你也可以登陆后,sudo 到不同的用户身份,而不是使用 root:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">hosts:</span> <span class="string">webservers</span></span><br><span class="line">  <span class="attr">remote_user:</span> <span class="string">yourname</span></span><br><span class="line">  <span class="attr">sudo:</span> <span class="literal">yes</span></span><br><span class="line">  <span class="attr">sudo_user:</span> <span class="string">postgres</span></span><br></pre></td></tr></table></figure>
+<p>如果你需要在使用 sudo 时指定密码,可在运行 ansible-playbook 命令时加上选项 <code>--ask-sudo-pass (-K)</code>. 如果使用 sudo 时,playbook 疑似被挂起,可能是在 sudo prompt 处被卡住,这时可执行 Control-C 杀死卡住的任务,再重新运行一次.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">important:</span><br><span class="line">当使用 sudo_user 切换到 非root 用户时,模块的参数会暂时写入 /tmp 目录下的一个随机临时文件. 当命令执行结束后,临时文件立即删除.这种情况发生在普通用户的切换时,比如从 ‘bob’ 切换到 ‘timmy’, 切换到 root 账户时,不会发生,如从 ‘bob’ 切换到 ‘root’,直接以普通用户或root身份登录也不会发生. 如果你不希望这些数据在短暂的时间内可以被读取（不可写）,请避免在 sudo_user 中传递未加密的密码. 其他情况下,’/tmp’ 目录不被使用,这种情况不会发生.Ansible 也有意识的在日志中不记录密码参数.</span><br></pre></td></tr></table></figure>
+<h5 id="Tasks列表"><a href="#Tasks列表" class="headerlink" title="Tasks列表"></a>Tasks列表</h5><p>每一个 play 包含了一个 task 列表（任务列表）.一个 task 在其所对应的所有主机上（通过 host pattern 匹配的所有主机）执行完毕之后,下一个 task 才会执行.有一点需要明白的是（很重要）,在一个 play 之中,所有 hosts 会获取相同的任务指令,这是 play 的一个目的所在,也就是将一组选出的 hosts 映射到 task.（注:此处翻译未必准确,暂时保留原文）</p>
+<p>在运行 playbook 时（从上到下执行）,如果一个 host 执行 task 失败,这个 host 将会从整个 playbook 的 rotation 中移除. 如果发生执行失败的情况,请修正 playbook 中的错误,然后重新执行即可.</p>
+<p>每个 task 的目标在于执行一个 moudle, 通常是带有特定的参数来执行.在参数中可以使用变量（variables）.</p>
+<p>modules 具有”幂等”性,意思是如果你再一次地执行 moudle（译者注:比如遇到远端系统被意外改动,需要恢复原状）,moudle 只会执行必要的改动,只会改变需要改变的地方.所以重复多次执行 playbook 也很安全.</p>
+<p>对于 command module 和 shell module,重复执行 playbook,实际上是重复运行同样的命令.如果执行的命令类似于 ‘chmod’ 或者 ‘setsebool’ 这种命令,这没有任何问题.也可以使用一个叫做 ‘creates’ 的 flag 使得这两个 module 变得具有”幂等”特性 （不是必要的）.</p>
+<p>每一个 task 必须有一个名称 name,这样在运行 playbook 时,从其输出的任务执行信息中可以很好的辨别出是属于哪一个 task 的. 如果没有定义 name,‘action’ 的值将会用作输出信息中标记特定的 task.</p>
+<p>如果要声明一个 task,以前有一种格式: “action: module options” （可能在一些老的 playbooks 中还能见到）.现在推荐使用更常见的格式:”module: options” ,本文档使用的就是这种格式.</p>
+<p>下面是一种基本的 task 的定义,service moudle 使用 key=value 格式的参数,这也是大多数 module 使用的参数格式:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">make</span> <span class="string">sure</span> <span class="string">apache</span> <span class="string">is</span> <span class="string">running</span></span><br><span class="line">    <span class="attr">service:</span> <span class="string">name=httpd</span> <span class="string">state=running</span></span><br></pre></td></tr></table></figure>
+<p>比较特别的两个 modudle 是 command 和 shell ,它们不使用 key=value 格式的参数,而是这样:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">disable</span> <span class="string">selinux</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">/sbin/setenforce</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>使用 command module 和 shell module 时,我们需要关心返回码信息,如果有一条命令,它的成功执行的返回码不是0, 你或许希望这样做:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">run</span> <span class="string">this</span> <span class="string">command</span> <span class="string">and</span> <span class="string">ignore</span> <span class="string">the</span> <span class="string">result</span></span><br><span class="line">    <span class="attr">shell:</span> <span class="string">/usr/bin/somecommand</span> <span class="string">||</span> <span class="string">/bin/true</span></span><br></pre></td></tr></table></figure>
+<p>或者是这样:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">run</span> <span class="string">this</span> <span class="string">command</span> <span class="string">and</span> <span class="string">ignore</span> <span class="string">the</span> <span class="string">result</span></span><br><span class="line">    <span class="attr">shell:</span> <span class="string">/usr/bin/somecommand</span></span><br><span class="line">    <span class="attr">ignore_errors:</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>如果 action 行看起来太长,你可以使用 space（空格） 或者 indent（缩进） 隔开连续的一行:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Copy</span> <span class="string">ansible</span> <span class="string">inventory</span> <span class="string">file</span> <span class="string">to</span> <span class="string">client</span></span><br><span class="line">    <span class="attr">copy:</span> <span class="string">src=/etc/ansible/hosts</span> <span class="string">dest=/etc/ansible/hosts</span></span><br><span class="line">            <span class="string">owner=root</span> <span class="string">group=root</span> <span class="string">mode=0644</span></span><br></pre></td></tr></table></figure>
+<p>在 action 行中可以使用变量.假设在 ‘vars’ 那里定义了一个变量 ‘vhost’ ,可以这样使用它:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">create</span> <span class="string">a</span> <span class="string">virtual</span> <span class="string">host</span> <span class="string">file</span> <span class="string">for</span> &#123;&#123; <span class="string">vhost</span> &#125;&#125;</span><br><span class="line">    <span class="attr">template:</span> <span class="string">src=somefile.j2</span> <span class="string">dest=/etc/httpd/conf.d/&#123;&#123;</span> <span class="string">vhost</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>这些变量在 tempates 中也是可用的,稍后会讲到.</p>
+<p>在一个基础的 playbook 中,所有的 task 都是在一个 play 中列出,稍后将介绍一种更合理的安排 task 的方式:使用 <code>‘include:’</code> 指令.</p>
+<h5 id="Acton-shorthand"><a href="#Acton-shorthand" class="headerlink" title="Acton shorthand"></a>Acton shorthand</h5><p>在 0.8 及以后的版本中,ansible 更喜欢使用如下的格式列出 modules:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">template:</span> <span class="string">src=templates/foo.j2</span> <span class="string">dest=/etc/foo.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>在早期的版本中,使用以下的格式:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">action:</span> <span class="string">template</span> <span class="string">src=templates/foo.j2</span> <span class="string">dest=/etc/foo.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>早期的格式在新版本中仍然可用,并且没有计划将这种旧的格式弃用.</p>
+<h5 id="Handlers-在发生改变时执行的操作"><a href="#Handlers-在发生改变时执行的操作" class="headerlink" title="Handlers: 在发生改变时执行的操作"></a>Handlers: 在发生改变时执行的操作</h5><p>上面我们曾提到过,module 具有”幂等”性,所以当远端系统被人改动时,可以重放 playbooks 达到恢复的目的. playbooks 本身可以识别这种改动,并且有一个基本的 event system（事件系统）,可以响应这种改动.</p>
+<p>（当发生改动时）’notify’ actions 会在 playbook 的每一个 task 结束时被触发,而且即使有多个不同的 task 通知改动的发生, ‘notify’ actions 只会被触发一次.</p>
+<p>举例来说,比如多个 resources 指出因为一个配置文件被改动,所以 apache 需要重新启动,但是重新启动的操作只会被执行一次.</p>
+<p>这里有一个例子,当一个文件的内容被改动时,重启两个 services:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- name: template configuration file</span><br><span class="line">  template: src=template.j2 dest=/etc/foo.conf</span><br><span class="line">  notify:</span><br><span class="line">     - restart memcached</span><br><span class="line">     - restart apache</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" rel="tag"># 持续集成</a>
+              <a href="/tags/ansible/" rel="tag"># ansible</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/01/ansible/" rel="prev" title="ansible">
+      <i class="fa fa-chevron-left"></i> ansible
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/08/ansible-yaml/" rel="next" title="ansible-yaml">
+      ansible-yaml <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2%E7%9A%84%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81inventory"><span class="nav-number">2.</span> <span class="nav-text">动态inventory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AWS-EC2-%E5%A4%96%E9%83%A8-inventory-%E8%84%9A%E6%9C%AC"><span class="nav-number">2.1.</span> <span class="nav-text">AWS EC2 外部 inventory 脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#playbook"><span class="nav-number">3.</span> <span class="nav-text">playbook</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#playbook%E8%AF%AD%E8%A8%80%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">playbook语言示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plabook%E5%9F%BA%E7%A1%80"><span class="nav-number">3.3.</span> <span class="nav-text">plabook基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E4%B8%8E%E7%94%A8%E6%88%B7"><span class="nav-number">3.3.1.</span> <span class="nav-text">主机与用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tasks%E5%88%97%E8%A1%A8"><span class="nav-number">3.3.2.</span> <span class="nav-text">Tasks列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Acton-shorthand"><span class="nav-number">3.3.3.</span> <span class="nav-text">Acton shorthand</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Handlers-%E5%9C%A8%E5%8F%91%E7%94%9F%E6%94%B9%E5%8F%98%E6%97%B6%E6%89%A7%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.4.</span> <span class="nav-text">Handlers: 在发生改变时执行的操作</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

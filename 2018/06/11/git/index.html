@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="分布式版本控制系统 git下载git for windownhttps:&#x2F;&#x2F;github.com&#x2F;git-for-windows&#x2F;git&#x2F;releases&#x2F;download&#x2F;v2.18.0.windows.1&#x2F;Git-2.18.0-64-bit.exe 下载完的git没有快捷方式，只是一个工具，右键就可以使用 创建新仓库打开文件夹，打开，然后执行git init以创建新的git仓库 检出仓库执行g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/06/11/git/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分布式版本控制系统 git下载git for windownhttps:&#x2F;&#x2F;github.com&#x2F;git-for-windows&#x2F;git&#x2F;releases&#x2F;download&#x2F;v2.18.0.windows.1&#x2F;Git-2.18.0-64-bit.exe 下载完的git没有快捷方式，只是一个工具，右键就可以使用 创建新仓库打开文件夹，打开，然后执行git init以创建新的git仓库 检出仓库执行g">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-06-11T02:36:22.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="持续集成">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="版本控制">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/06/11/git/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>git | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/06/11/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-11 10:36:22" itemprop="dateCreated datePublished" datetime="2018-06-11T10:36:22+08:00">2018-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">持续集成</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" itemprop="url" rel="index"><span itemprop="name">版本控制</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>分布式版本控制系统</p>
+<h2 id="git下载"><a href="#git下载" class="headerlink" title="git下载"></a>git下载</h2><p>git for windown<br><a target="_blank" rel="noopener" href="https://github.com/git-for-windows/git/releases/download/v2.18.0.windows.1/Git-2.18.0-64-bit.exe">https://github.com/git-for-windows/git/releases/download/v2.18.0.windows.1/Git-2.18.0-64-bit.exe</a></p>
+<p>下载完的git没有快捷方式，只是一个工具，右键就可以使用</p>
+<h2 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h2><p>打开文件夹，打开，然后执行<code>git init</code>以创建新的git仓库</p>
+<h2 id="检出仓库"><a href="#检出仓库" class="headerlink" title="检出仓库"></a>检出仓库</h2><p>执行<code>git clone /path/to/reposity</code> 创建一个本地仓库的克隆版<br>执行<code>git clone username@host:/path/to/reposity</code> 创建远端仓库的克隆版</p>
+<span id="more"></span>
+
+<h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><p>本地仓库是由git 维护的三棵树组成，第一个石<code>工作目录</code>，它是实际持有文件 的；第二个是<code>暂存区（index）</code>,它就像一个缓存区，临时保存你的改动；第三个是<code>HEAD</code>，它指向你最后一次提交的结果。</p>
+<p>work dir—&gt;index(stage)–&gt;HEAD</p>
+<h2 id="添加和提交"><a href="#添加和提交" class="headerlink" title="添加和提交"></a>添加和提交</h2><p>你可以使用<code>git add &lt;filename&gt;</code> <code>git add *</code> <code>git add -A</code> 将你在工作目录的改动提交的暂存区，这是git基本工作流程的第一步；<br>使用<code>git commit -m &#39;代码提交信息&#39; </code>将改动提交到HEAD，但是它们还没有提交到远程仓库。</p>
+<h2 id="推送改动"><a href="#推送改动" class="headerlink" title="推送改动"></a>推送改动</h2><p>提交已经到本地仓库的HEAD了，执行<code>git push origin master</code> <code>git push</code>将改动提交到远端仓库</p>
+<p>如果你还没有克隆现有仓库，你想将你的仓库推送到某个远程仓库，使用<code>git remote add orgin &lt;server&gt;</code> 这样就把改动推送到所添加的服务器上。</p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支是用来将特性开发分离开来，</p>
+<h1 id="gitignore详解"><a href="#gitignore详解" class="headerlink" title=".gitignore详解"></a>.gitignore详解</h1><p>今天讲讲Git中非常重要的一个文件——.gitignore。</p>
+<p>首先要强调一点，这个文件的完整文件名就是“.gitignore”，注意最前面有个“.”。这样没有扩展名的文件在Windows下不太好创建，这里给出win7的创建方法：</p>
+<p>创建一个文件，文件名为：“.gitignore.”，注意前后都有一个点。保存之后系统会自动重命名为“.gitignore”。</p>
+<p>一般来说每个Git项目中都需要一个“.gitignore”文件，这个文件的作用就是告诉Git哪些文件不需要添加到版本管理中。</p>
+<p>实际项目中，很多文件都是不需要版本管理的，比如Python的.pyc文件和一些包含密码的配置文件等等。</p>
+<p>这个文件的内容是一些规则，Git会根据这些规则来判断是否将文件添加到版本控制中。</p>
+<p>下面我们看看常用的规则：</p>
+<p>/mtk/ 过滤整个文件夹</p>
+<p>*.zip 过滤所有.zip文件</p>
+<p>/mtk/do.c 过滤某个具体文件</p>
+<p>很简单吧，被过滤掉的文件就不会出现在你的GitHub库中了，当然本地库中还有，只是push的时候不会上传。</p>
+<p>需要注意的是，gitignore还可以指定要将哪些文件添加到版本管理中：</p>
+<p>!*.zip</p>
+<p>!/mtk/one.txt</p>
+<p>唯一的区别就是规则开头多了一个感叹号，Git会将满足这类规则的文件添加到版本管理中。</p>
+<p>为什么要有两种规则呢？想象一个场景：我们只需要管理/mtk/目录中的one.txt文件，这个目录中的其他文件都不需要管理。那么我们就需要使用：</p>
+<p>/mtk/</p>
+<p>!/mtk/one.txt</p>
+<p>假设我们只有过滤规则没有添加规则，那么我们就需要把/mtk/目录下除了one.txt以外的所有文件都写出来！</p>
+<p>最后需要强调的一点是，如果你不慎在创建.gitignore文件之前就push了项目，那么即使你在.gitignore文件中写入新的过滤规则，这些规则也不会起作用，Git仍然会对所有文件进行版本管理。</p>
+<p>简单来说，出现这种问题的原因就是Git已经开始管理这些文件了，所以你无法再通过过滤规则过滤它们。</p>
+<p>所以大家一定要养成在项目开始就创建.gitignore文件的习惯，否则一旦push，处理起来会非常麻烦。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 此为注释 – 将被 Git 忽略</span><br><span class="line"> </span><br><span class="line">*.a       # 忽略所有 .a 结尾的文件</span><br><span class="line">!lib.a    # 但 lib.a 除外</span><br><span class="line">/TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">build/    # 忽略 build/ 目录下的所有文件</span><br><span class="line">doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br></pre></td></tr></table></figure>
+<h1 id="git详解"><a href="#git详解" class="headerlink" title=".git详解"></a>.git详解</h1><p><a target="_blank" rel="noopener" href="http://blog.jobbole.com/98634/">http://blog.jobbole.com/98634/</a></p>
+<p>当你创建一个仓库的时候，使用 git init 指令， git 将会创建一个神奇的目录：.git。这个目录下包含了所有 git 正常工作所需要的信息。说白一点，如果你想从你的项目中删除 git 但是又要保留项目文件，只需要删除 .git 文件夹就可以了。但是，你确定要辣么做?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├── HEAD</span><br><span class="line">├── branches</span><br><span class="line">├── config</span><br><span class="line">├── description</span><br><span class="line">├── hooks</span><br><span class="line">│ ├── pre-commit.sample</span><br><span class="line">│ ├── pre-push.sample</span><br><span class="line">│ └── ...</span><br><span class="line">├── info</span><br><span class="line">│ └── exclude</span><br><span class="line">├── objects</span><br><span class="line">│ ├── info</span><br><span class="line">│ └── pack</span><br><span class="line">└── refs</span><br><span class="line">  ├── heads</span><br><span class="line">  └── tags</span><br></pre></td></tr></table></figure>
+<p>这就是你第一次提交之前 <code>.git</code>的样子：</p>
+<p>Git 提供了一系列的脚本，你可以在<code>git</code>每一个有实质意义的阶段让它们自动运行。这些脚本就是 hooks，可以在 commit/rebase/pull…. 的前后运行。脚本的名字表示它什么时候被运行。例如一个有用的预推送 hook 可能会测试关于保持远程仓库一致性的式样原则。</p>
+<p>你可以把你不想让 git 处理的文件放到 <code>.gitignore</code> 文件里。那么，<code>exclude</code>文件也有同样的作用，不同的地方是它不会被共享，比如当你不想跟踪你的自定义的<code>IDE</code>相关的配置文件时，即使通常情况下 <code>.gitignore </code>就足够了</p>
+<p> 每次你在控制台使用“<code>git config…</code>”指令时，修改的就是这里。</p>
+<h2 id="commit-的真相"><a href="#commit-的真相" class="headerlink" title="commit 的真相"></a>commit 的真相</h2><p>每一次你创建一个文件并跟踪它会发现，git 会对其进行压缩然后以 git 自己的数据结构形式来存储。这个压缩的对象会有一个唯一的名字，即一个哈希值，这个值存放在 object 目录下。</p>
+<p>在探索 object 目录前，我们先要问自己 commit 到底是何方神圣。commit 大致可以视为你工作目录的快照，但是它又不仅仅只是一种快照。</p>
+<p>实际上，当你提交的时候，为创建你工作目录的快照 git 只做了两件事：</p>
+<p>如果这个文件没有改变，git 仅仅只把压缩文件的名字（就是哈希值）放入快照。<br>如果文件发生了变化，git 会压缩它，然后把压缩后的文件存入 object 目录。最后再把压缩文件的名字（哈希值）放入快照。<br>这里只是简单介绍，整个过程有一点复杂，以后会作说明的。</p>
+<p>一旦快照创建好，其本身也会被压缩并且以一个哈希值命名。那么所有的压缩对象都放在哪里呢？答案是object 目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├── 17</span><br><span class="line">│ └── 4b628096c17f5d68d558e7352f6a5f94ebdc6c // hash</span><br><span class="line">├── 29</span><br><span class="line">│ └── 9975e7c8f30f41149317023a6ef77ac8c69233 // hash</span><br><span class="line">├── 62</span><br><span class="line">│ └── 89942b059434181521c6ecd568b553de33ff52 // hash</span><br><span class="line">├── info // let&#x27;s ignore that</span><br><span class="line">└── pack // let&#x27;s ignore that too</span><br></pre></td></tr></table></figure>
+<p>这就是我创建一个空文件 test1.txt 并提交后 object 目录看起来的样子。请注意如果你的文件的哈希值是“89faaee…”，git 会把这个文件存在 “89” 目录下然后命名这个文件为 “faaee…”。</p>
+<p>你会看到3个哈希。一个对应 test1.txt ，另一个对应在提交时所创建的快照。那么第三个是什么呢？其实是因为 commit 本身也是一个对象并且也被压缩存放在 object 目录下。</p>
+<p>现在，你需要记住的是一个 commit 包含四个部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">工作目录快照的哈希</span><br><span class="line">提交的说明信息</span><br><span class="line">提交者的信息</span><br><span class="line">父提交的哈希值</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" rel="tag"># 持续集成</a>
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" rel="tag"># 版本控制</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/06/12/svn/" rel="next" title="svn">
+      svn <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">git下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E4%BB%93%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">创建新仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E5%87%BA%E4%BB%93%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">检出仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number">4.</span> <span class="nav-text">工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%92%8C%E6%8F%90%E4%BA%A4"><span class="nav-number">5.</span> <span class="nav-text">添加和提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E6%94%B9%E5%8A%A8"><span class="nav-number">6.</span> <span class="nav-text">推送改动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF"><span class="nav-number">7.</span> <span class="nav-text">分支</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitignore%E8%AF%A6%E8%A7%A3"><span class="nav-number"></span> <span class="nav-text">.gitignore详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git%E8%AF%A6%E8%A7%A3"><span class="nav-number"></span> <span class="nav-text">.git详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#commit-%E7%9A%84%E7%9C%9F%E7%9B%B8"><span class="nav-number">1.</span> <span class="nav-text">commit 的真相</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="首先要说，这并不是一篇教你如何学习的文章，因为到今天为止我也没有找到一种通用的方法来解决如何学习的问题。但是在探索的道路上，我确实产生过一些思路，我想把这些思考的过程分享出来让大家探讨。如果这对你有帮助的话，那我会非常高兴。 我最近在学习 Rust ，这是一门很酷但是相对冷门的语言（学习冷门语言可能是我的一大爱好，比如我就非常喜欢 CoffeeScript ，这是 JavaScript 的一门方言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何学习一门新的语言">
+<meta property="og:url" content="https://tigerfivegit.github.io/2019/01/17/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="首先要说，这并不是一篇教你如何学习的文章，因为到今天为止我也没有找到一种通用的方法来解决如何学习的问题。但是在探索的道路上，我确实产生过一些思路，我想把这些思考的过程分享出来让大家探讨。如果这对你有帮助的话，那我会非常高兴。 我最近在学习 Rust ，这是一门很酷但是相对冷门的语言（学习冷门语言可能是我的一大爱好，比如我就非常喜欢 CoffeeScript ，这是 JavaScript 的一门方言">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-01-17T09:15:08.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="转载">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2019/01/17/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>如何学习一门新的语言 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2019/01/17/%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E4%B8%80%E9%97%A8%E6%96%B0%E7%9A%84%E8%AF%AD%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何学习一门新的语言
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-17 17:15:08" itemprop="dateCreated datePublished" datetime="2019-01-17T17:15:08+08:00">2019-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BD%AC%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">转载</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>首先要说，这并不是一篇教你如何学习的文章，因为到今天为止我也没有找到一种通用的方法来解决如何学习的问题。但是在探索的道路上，我确实产生过一些思路，我想把这些思考的过程分享出来让大家探讨。如果这对你有帮助的话，那我会非常高兴。</p>
+<p>我最近在学习 Rust ，这是一门很酷但是相对冷门的语言（学习冷门语言可能是我的一大爱好，比如我就非常喜欢 CoffeeScript ，这是 JavaScript 的一门方言）。自从在某些语言的舒适区待久之后，经常会产生自己无所不能的错觉，这也是我不断想学习新语言的一大动力。</p>
+<p>而我的学习过程跟大多数人类似，就是先在网上找文档然后自学。而在看文档的过程中，我就发现了一些问题。</p>
+<p>原文章链接:<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015566529">https://segmentfault.com/a/1190000015566529</a></p>
+<span id="more"></span>
+<h3 id="手册的作用"><a href="#手册的作用" class="headerlink" title="手册的作用"></a>手册的作用</h3><p>“去看文档喽。”这是老鸟在面对新手时最喜欢扔的一句话，我通常也是这么扔给自己的。但当你打开一门语言的手册，你会发现它除了教你语法外，几乎没有教你什么其它东西。于是你会陷入这样一个境地：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">“背下来了么？”</span><br><span class="line">“背不下来，太难懂了。”</span><br><span class="line">“再看一遍，给我背下来。”</span><br><span class="line">。。。</span><br><span class="line">“背下来了么？”</span><br><span class="line">“大部分背下来了。”</span><br><span class="line">“给我写个程序，实现个XX功能。”</span><br><span class="line">“不会。。。”</span><br><span class="line">“。。。”</span><br></pre></td></tr></table></figure>
+
+<p>在一个高级开发者眼里，你会了语法理所当然就应该会写程序了，但实际情况并非如此。这让我想起前段时间跟一个朋友关于目前编程教育市场的一个讨论。我出于自己的经验提出一个想法：让大牛开发者来教新手入门。在我的设想中，大牛开发者拥有强大的实战经验，以及丰富的专业知识，更是自带光环，这不比现在市场上那些半吊子的讲师好多了。在我为自己“伟大”的想法得意的时候，朋友给我浇了一盆冷水。他告诉我这样根本行不通，大牛根本不知道菜鸟需要什么知识，你可能以为基础语法讲清楚就好了，人家却连编辑器是什么都不清楚。设想一下，让一个大学教授去教一群小学生，这对两者来说都是一种灾难吧。</p>
+<p>这些语言的创造者，或者文档的作者，无疑都是一些大神。它们在撰写一个语言手册的过程中，只能尽量负责地把这个语言的全貌准确地有组织地展现给你。然而这种全面的展现，对于一个没有任何引导的初学者来说并不完全是一件好事。简单来说就是，你会在一些次要的事情上浪费太多时间，而一些主要的概念又没有理解透彻。</p>
+<h3 id="关于看真实代码"><a href="#关于看真实代码" class="headerlink" title="关于看真实代码"></a>关于看真实代码</h3><p>当觉得文档满足不了你的时候，老鸟们往往会扔给你第二招：看代码。看什么代码呢？那还用说，当然是被业界奉为经典的，在 GitHub 上至少有一万颗星的知名开源项目代码啦。</p>
+<p>当你怀着崇敬的心情，打开扔给你的网址，看着满屏幕的代码时，你会对自己问出那三个经典的哲学问题。这是什么东西？它是怎么做到的？为什么要这么写？搞不好某些人还会因为惊吓过度，从而失去了学习下去的信心。</p>
+<p>那么让我们一起来看看这些代码里有什么鬼东西，会吓得新手信心不足。</p>
+<h4 id="大段的注释"><a href="#大段的注释" class="headerlink" title="大段的注释"></a>大段的注释</h4><p>说一件事你们不要笑，在我还是个萌新的时候，我曾经对这些穿插在代码中的神秘文字产生了深深的困惑，我还以为它们对代码有某种加成作用，以至于我还试验过把注释去掉会对代码执行产生什么影响。而现实中好的代码会让后面的维护者方便很多，但不好的甚至错误的注释会让人迷惑不已。</p>
+<h4 id="语法糖"><a href="#语法糖" class="headerlink" title="语法糖"></a>语法糖</h4><p>语法糖是个好东西，它大大简化了我们的编程过程，高手用起语法糖写起代码来简直不要太爽，所以越强大的项目这玩意儿越多。但是对于初学者来说，语法糖隐藏了一些细节，而且让语法看起来很怪异。有些代码如果你用标准语法来写是很好懂的，但如果用语法糖来写的话很难让人一下子明白。</p>
+<p>初学者为了弄懂这些语法往往要花大量时间，但其实这些时间在这个阶段是没必要的浪费。你看不懂它觉得它是一个很重要的东西，其实它只是一个做工精巧的小玩意儿，离开了它这些代码照样能工作。而随着你的经验丰富，也可以随时随地用起来，用的方法可能也不尽相同。</p>
+<h4 id="代码里的重点"><a href="#代码里的重点" class="headerlink" title="代码里的重点"></a>代码里的重点</h4><p>对于一个开源项目来说，往往 50% 的代码可能都是在适配各种不同的运行环境，将系统的 API 抽象成项目里通用的接口，这部分代码除非你自己要做类似的项目，要不然的话对初学者来说参考意义不大。更何况，为了适配某些系统奇葩的运行环境，开发者往往会大开脑洞，创造出一些非常奇怪的代码。这些旁门左道充满了玄学和不确定性，初学者看多了可能会发生如武侠小说里练功出差错的结果：走火入魔。</p>
+<p>剩下的代码里 20% 是项目内部的接口抽象和定义，最后 30% 才是真正值得看的东西，它们往往散落在各个地方，但又为了一个设计核心服务。让初学者识别出这些代码来，未免太强人所难。</p>
+<h3 id="野文档"><a href="#野文档" class="headerlink" title="野文档"></a>野文档</h3><p>这是我自己的一个定义，我把一切非官方的开发文档都称为野文档。初学者会在搜索引擎里得到大量的相关文档，他们很多是学习心得，很多人在写这篇文章时水平可能比你也高不了多少。这就造成了这些文档的水平参差不齐，所面向的重点也不同，也许你花了大把时间弄懂的是一个错误的或者过时的知识。而大部分号称教你入门的文章，可能也就是告诉了你如何搭建一个运行环境，这门语言的精髓和重点作者自己估计也没弄明白。</p>
+<p>而如果你碰到一篇被奉为经典的好的入门文章，那你真的要好好感谢作者。因为这意味着作者付出了大量的深入思考，深入浅出这四个字说起来简单，做起来可是需要相当的功底的。</p>
+<h2 id="相对较好的做法"><a href="#相对较好的做法" class="headerlink" title="相对较好的做法"></a>相对较好的做法</h2><p>在这么多语言的学习过程中，我也总结了一些相对比较好的学习方法。我认为看代码是非常有必要的，因为光死记语法是无法掌握好这门语言的。但是去看一些大型项目代码的缺点我在上面也说了，到底该如何是好呢？</p>
+<p>我建议大家可以去看官方给出的，专门供初学者学习的 Step-By-Step 代码，这种代码一般在官方的文档页就可以找到链接入口，它有如下好处：</p>
+<p>由浅入深，富有层次。这些代码往往是跟随者文档的深入，慢慢把语法细节展开的。不会一下给你展现太多，让你无法 GET 到重点。每段代码都会有一个重点要表现的特性，这样看起来会一目了然。<br>有质量保证。这些代码的撰写一般是官方人员负责，这可以在很大程度上保证准确性。<br>更新及时。我们知道很多语言的细节是会随着版本的升级有所改变的，而很多网上的第三方文档往往缺乏维护，但官方文档一般都会同步更新。<br>我建议大家一边看手册一边看代码，这样印象会更深刻。眼睛看了之后，我认为要尽快找一些好的例子来练手，不需要一上来就搞比较复杂的大型项目，也是由浅入深。这种练手项目去哪里找呢，很多语言的 tutorial 板块就是干这个的，做的比较完善的甚至还提供在线的教学体验环境，大家应该好好利用。</p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>这篇讨论学习方法的文章引发了我的一些额外思考。我经常在开发者社区里看到老鸟和初学者互怼，写这篇文章的过程也让我理性思考了产生这些矛盾的原因。总的来说就是一些信息的不对称造成的。老鸟认为这个问题根本不是问题，网上一搜一大把，不愿多讲甚至冷嘲热讽。而初学者却觉得这些信息根本理解不能，老鸟的嘲讽就是一种羞辱。</p>
+<p>我认为要打破这种不对称需要双方付出耐心，而这种耐心的付出是相互的，你付出的多回报的就越多。而最先迈出付出这一步的，应该是初学者，毕竟从情理上来说是你请求人家办事。而你需要付出的不过是把自己的问题讲明白，说出你的思考过程，附上必要的信息。一个好学的人是不会让人讨厌的，但前提是你得有一个不让人讨厌的姿态展现出来。</p>
+<h3 id="其他人评论"><a href="#其他人评论" class="headerlink" title="其他人评论"></a>其他人评论</h3><p>分享一下我个人的学习方法</p>
+<p>初级阶段<br>用不到就不学<br>实在好奇可以学<br>需要用到也不学<br>学也只学基本语法/用法<br>中级阶段<br>用基本语法写多了觉得太麻烦了，这时候</p>
+<p>搜搜看别人怎么写的。例如“python 遍历数组”，你可能会搜到for i in arr:，然后忘掉for i in range(len(arr)):<br>别人的写法也太麻烦了或者根本搜不到，就自己造轮子，封装函数<br>使用各种库和包时，看到一个你觉得非常神奇的函数/库，按ctrl看源码<br>看别人源码时，看到一个神奇的写法，百度谷歌一起上，搞懂它<br>一个别人写的库/包/函数不会用时</p>
+<p>猜并验证<br>猜不出来就去搜索<br>搜不出来再去看官方文档<br>看不懂文档（指的是官方文档写成一坨shi）就看源码<br>源码也是一坨shi就把决定使用这个库的人打一顿（自己除外），然后自己造轮子<br>觉得自己造的轮子还行，就丢到github上，搞个logo和README，当然还有license<br>终极阶段<br>带别人入坑<br>换一门语言<br>究极阶段<br>没有。</p>
+<p>不要妄想能学透一门语言。学透了语法还有一堆库呢。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AC%E8%BD%BD/" rel="tag"># 转载</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/02/Log4j%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/" rel="prev" title="Log4j日志配置详解">
+      <i class="fa fa-chevron-left"></i> Log4j日志配置详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/05/hello-world/" rel="next" title="Hello World">
+      Hello World <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%86%8C%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">手册的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%9C%8B%E7%9C%9F%E5%AE%9E%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">关于看真实代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E6%AE%B5%E7%9A%84%E6%B3%A8%E9%87%8A"><span class="nav-number">2.1.</span> <span class="nav-text">大段的注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%B3%96"><span class="nav-number">2.2.</span> <span class="nav-text">语法糖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84%E9%87%8D%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">代码里的重点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8E%E6%96%87%E6%A1%A3"><span class="nav-number">3.</span> <span class="nav-text">野文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E8%BE%83%E5%A5%BD%E7%9A%84%E5%81%9A%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">相对较好的做法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">1.</span> <span class="nav-text">写在最后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E4%BA%BA%E8%AF%84%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">其他人评论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="监控对象：　　　　1. 监控对象的理解：CPU是怎么工作的，原理　　　　2. 监控对象的指标：CPU使用率 CPU负载 CPU个数 上下文切换　　　　3. 确定性能基准线：怎么样才算故障？CPU负载多上才算高监控范围：　　　　1.硬件监控服务器的硬件故障　　　　2.操作系统监控 CPU、内存、硬盘、IO、进程　　　　3.应用服务监控 nginx、MySQL、等服务　　　　4.业务监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="监控体系">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="监控对象：　　　　1. 监控对象的理解：CPU是怎么工作的，原理　　　　2. 监控对象的指标：CPU使用率 CPU负载 CPU个数 上下文切换　　　　3. 确定性能基准线：怎么样才算故障？CPU负载多上才算高监控范围：　　　　1.硬件监控服务器的硬件故障　　　　2.操作系统监控 CPU、内存、硬盘、IO、进程　　　　3.应用服务监控 nginx、MySQL、等服务　　　　4.业务监控">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139a40ccaac.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139a7dbf4d3.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139adfd7ab3.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139b3a8ece4.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139b6978986.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139bd30d9d5.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139be8400bd.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139bf883548.jpg">
+<meta property="article:published_time" content="2018-12-14T11:13:41.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="监控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/14/5c139a40ccaac.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>监控体系 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/14/%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          监控体系
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-14 19:13:41" itemprop="dateCreated datePublished" datetime="2018-12-14T19:13:41+08:00">2018-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>监控对象：<br>　　　　1. 监控对象的理解：CPU是怎么工作的，原理<br>　　　　2. 监控对象的指标：CPU使用率 CPU负载 CPU个数 上下文切换<br>　　　　3. 确定性能基准线：怎么样才算故障？CPU负载多上才算高<br>监控范围：<br>　　　　1.硬件监控服务器的硬件故障<br>　　　　2.操作系统监控 CPU、内存、硬盘、IO、进程<br>　　　　3.应用服务监控 nginx、MySQL、等服务<br>　　　　4.业务监控</p>
+<hr>
+<span id="more"></span>
+<h3 id="硬件监控："><a href="#硬件监控：" class="headerlink" title="硬件监控："></a>硬件监控：</h3><p>　　1.使用IPMI<br>　　2.机房巡检<br>远程控制卡：<br>　　　　DELL服务器：iDRAC<br>　　　　HP服务器：ILO ————-Linux就可以使用IPMI（依赖于BMC控制器）<br>　　　　IBM服务器：IMM |<br>　　　　Linux是管理IPMI工具<br>　　　　‘ipmitool’（监控和控制） </p>
+<h4 id="1-硬件要支持"><a href="#1-硬件要支持" class="headerlink" title="1.硬件要支持"></a>1.硬件要支持</h4><h4 id="2-操作系统-‘Linux-IPMI’"><a href="#2-操作系统-‘Linux-IPMI’" class="headerlink" title="2.操作系统 ‘Linux IPMI’"></a>2.操作系统 ‘Linux IPMI’</h4><p>ipmitool安装:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install OpenIPMI ipmitool -y</span><br><span class="line">[root@localhost ~]# rpm -qa OpenIPMI ipmitool</span><br><span class="line">ipmitool-1.8.13-8.el7_1.x86_64</span><br><span class="line">OpenIPMI-2.0.19-11.el7.x86_64</span><br></pre></td></tr></table></figure>
+<p>使用IPMI有两种方式<br>1、本地进行调用<br>2、远程调用 （IP地址 用户名和密码）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start ipmi  #启动</span><br><span class="line">本次以Centos7进行演示</span><br></pre></td></tr></table></figure>
+<p>IPMI相关命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ipmitool --help</span><br><span class="line">ipmitool: invalid option -- &#x27;-&#x27;</span><br><span class="line">ipmitool version 1.8.13</span><br><span class="line">usage: ipmitool [options...] &lt;command&gt;</span><br><span class="line">       -h             This help</span><br><span class="line">       -V             Show version information</span><br><span class="line">       -v             Verbose (can use multiple times)</span><br><span class="line">       -c             Display output in comma separated format</span><br><span class="line">       -d N           Specify a /dev/ipmiN device to use (default=0)</span><br><span class="line">       -I intf        Interface to use</span><br><span class="line">       -H hostname    Remote host name for LAN interface</span><br><span class="line">       -p port        Remote RMCP port [default=623]</span><br><span class="line">       -U username    Remote session username</span><br><span class="line">       -f file        Read remote session password from file</span><br><span class="line">       -z size        Change Size of Communication Channel (OEM)</span><br><span class="line">       -S sdr         Use local file for remote SDR cache</span><br><span class="line">       -D tty:b[:s]   Specify the serial device, baud rate to use</span><br><span class="line">                      and, optionally, specify that interface is the system one</span><br><span class="line">       -a             Prompt for remote password</span><br><span class="line">       -Y             Prompt for the Kg key for IPMIv2 authentication</span><br><span class="line">       -e char        Set SOL escape character</span><br><span class="line">       -C ciphersuite Cipher suite to be used by lanplus interface</span><br><span class="line">       -k key         Use Kg key for IPMIv2 authentication</span><br><span class="line">       -y hex_key     Use hexadecimal-encoded Kg key for IPMIv2 authentication</span><br><span class="line">       -L level       Remote session privilege level [default=ADMINISTRATOR]</span><br><span class="line">                      Append a &#x27;+&#x27; to use name/privilege lookup in RAKP1</span><br><span class="line">       -A authtype    Force use of auth type NONE, PASSWORD, MD2, MD5 or OEM</span><br><span class="line">       -P password    Remote session password</span><br><span class="line">       -E             Read password from IPMI_PASSWORD environment variable</span><br><span class="line">       -K             Read kgkey from IPMI_KGKEY environment variable</span><br><span class="line">       -m address     Set local IPMB address</span><br><span class="line">       -b channel     Set destination channel for bridged request</span><br><span class="line">       -t address     Bridge request to remote target address</span><br><span class="line">       -B channel     Set transit channel for bridged request (dual bridge)</span><br><span class="line">       -T address     Set transit address for bridge request (dual bridge)</span><br><span class="line">       -l lun         Set destination lun for raw commands</span><br><span class="line">       -o oemtype     Setup for OEM (use &#x27;list&#x27; to see available OEM types)</span><br><span class="line">       -O seloem      Use file for OEM SEL event descriptions</span><br><span class="line">       -N seconds     Specify timeout for lan [default=2] / lanplus [default=1] interface</span><br><span class="line">       -R retry       Set the number of retries for lan/lanplus interface [default=4]</span><br><span class="line">Interfaces:</span><br><span class="line">    open          Linux OpenIPMI Interface [default]</span><br><span class="line">    imb           Intel IMB Interface </span><br><span class="line">    lan           IPMI v1.5 LAN Interface </span><br><span class="line">    lanplus       IPMI v2.0 RMCP+ LAN Interface </span><br><span class="line">    serial-terminal  Serial Interface, Terminal Mode </span><br><span class="line">    serial-basic  Serial Interface, Basic Mode </span><br><span class="line">Commands:</span><br><span class="line">    raw           Send a RAW IPMI request and print response</span><br><span class="line">    i2c           Send an I2C Master Write-Read command and print response</span><br><span class="line">    spd           Print SPD info from remote I2C device</span><br><span class="line">    lan           Configure LAN Channels</span><br><span class="line">    chassis       Get chassis status and set power state</span><br><span class="line">    power         Shortcut to chassis power commands</span><br><span class="line">    event         Send pre-defined events to MC</span><br><span class="line">    mc            Management Controller status and global enables</span><br><span class="line">    sdr           Print Sensor Data Repository entries and readings</span><br><span class="line">    sensor        Print detailed sensor information</span><br><span class="line">    fru           Print built-in FRU and scan SDR for FRU locators</span><br><span class="line">    gendev        Read/Write Device associated with Generic Device locators sdr</span><br><span class="line">    sel           Print System Event Log (SEL)</span><br><span class="line">    pef           Configure Platform Event Filtering (PEF)</span><br><span class="line">    sol           Configure and connect IPMIv2.0 Serial-over-LAN</span><br><span class="line">    tsol          Configure and connect with Tyan IPMIv1.5 Serial-over-LAN</span><br><span class="line">    isol          Configure IPMIv1.5 Serial-over-LAN</span><br><span class="line">    user          Configure Management Controller users</span><br><span class="line">    channel       Configure Management Controller channels</span><br><span class="line">    session       Print session information</span><br><span class="line">    dcmi          Data Center Management Interface</span><br><span class="line">    sunoem        OEM Commands for Sun servers</span><br><span class="line">    kontronoem    OEM Commands for Kontron devices</span><br><span class="line">    picmg         Run a PICMG/ATCA extended cmd</span><br><span class="line">    fwum          Update IPMC using Kontron OEM Firmware Update Manager</span><br><span class="line">    firewall      Configure Firmware Firewall</span><br><span class="line">    delloem       OEM Commands for Dell systems</span><br><span class="line">    shell         Launch interactive IPMI shell</span><br><span class="line">    exec          Run list of commands from file</span><br><span class="line">    set           Set runtime variable for shell and exec</span><br><span class="line">    hpm           Update HPM components using PICMG HPM.1 file</span><br><span class="line">    ekanalyzer    run FRU-Ekeying analyzer using FRU files</span><br><span class="line">    ime           Update Intel Manageability Engine Firmware</span><br></pre></td></tr></table></figure>
+<p>IPMI配置网络，有两种方式：<br>ipmi over lan（大体意思是通过网卡来进行连接）<br>独立 （给服务器单独插一个网线） DELL服务器可以在小面板中设置ipmi 云主机我们不需要考虑IPMI</p>
+<p>对于路由器和交换机：SNMP<br>对于这些设备，就不做具体描述了，毕竟没有接触过</p>
+<h3 id="系统监控"><a href="#系统监控" class="headerlink" title="系统监控"></a>系统监控</h3><p>做为系统运维来说系统监控是重点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- CPU</span><br><span class="line">- 内存</span><br><span class="line">- IO Input/Ouput（网络、磁盘）</span><br></pre></td></tr></table></figure>
+
+<h4 id="CPU三个重要的概念："><a href="#CPU三个重要的概念：" class="headerlink" title="CPU三个重要的概念："></a>CPU三个重要的概念：</h4><p>　　1.上下文切换：CPU调度器实施的进程的切换过程，上下文切换<br>　　2.运行队列（负载）：运行队列，排队 可以参考我是一个进程文章<br>　　3.使用率<br>监控CPU需要确定服务类型：<br>（1） IO密集型 （数据库）<br>（2） CPU密集型（Web/mail）</p>
+<p>确定性能的基准线<br>　　运行队列：1-3个线程 1CPU 4核 负载不超过12<br>　　CPU使用：65%-70%用户态利用率<br>　　　　　　　30%-35%内核态利用率<br>　　　　　　　0%-5% 空闲<br>　　上下文切换： 越少越好<br>所有的监控都要根据业务来考虑</p>
+<h4 id="常见的系统监控工具"><a href="#常见的系统监控工具" class="headerlink" title="常见的系统监控工具"></a>常见的系统监控工具</h4><p>Top、sysstat、mpstat</p>
+<p>工具的使用方法<br>TOP参数解释 </p>
+<p>top的详细可以参考我在51cto的这篇文章 <a target="_blank" rel="noopener" href="http://blog.51cto.com/12419955/2052642">http://blog.51cto.com/12419955/2052642</a></p>
+<p>其实对于Top，现在我更喜欢htop和gtop，gtop虽然色彩和功能更强大，但是因为gtop不在epel源里，导致gtop的使用没有htop用的广泛</p>
+<p>当然gtop这么好用，当然要用一下，这是我的另一片关于gtop的文章 <a href="https://tigerfivegit.github.io/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/">https://tigerfivegit.github.io/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/</a></p>
+<p>第一行 分别显示：系统当前时间 系统运行时间 当前用户登陆数 系统负载。<br>　　系统负载（load average），这里有三个数值，分别是系统最近1分钟，5分钟，15分钟的平均负载。一般对于单个处理器来说，负载在0 — 1.00 之间是正常的，超过1.00就要引起注意了。在多核处理器中，你的系统均值不应该高于处理器核心的总数。</p>
+<p>第二行 分别显示：total进程总数、 running正在运行的进程数、 sleeping睡眠的进程数、stopped停止的进程数、 zombie僵尸进程数。</p>
+<p>第三行<br>分别显示：<br>%us用户空间占用CPU百分比、<br>%sy内核空间占用CPU百分比、<br>%ni用户进程空间内改变过优先级的进程占用CPU百分比、<br>%id空闲CPU百分比、<br>%wa等待输入输出（I/O）的CPU时间百分比 、<br>%hi指的是cpu处理硬件中断的时间、%si指的是cpu处理软中断的时间 、<br>%st用于有虚拟cpu的情况，用来指示被虚拟机偷掉的cpu时间。<br>通常id%值可以反映一个系统cpu的闲忙程度。</p>
+<p>第四行 MEM ：total 物理内存总量、 used 使用的物理内存总量、free 空闲内存总量、 buffers 用作内核缓存的内存量。</p>
+<p>第五行 SWAP：total 交换区总量、 used使用的交换区总量、free 空闲交换区总量、 cached缓冲的交换区总量。<br>buffers和cached的区别需要说明一下，buffers指的是块设备的读写缓冲区，cached指的是文件系统本身的页面缓存。它们都是linux操作系统底层的机制，目的就是为了加速对磁盘的访问。</p>
+<p>第六行 PID(进程号)、 USER（运行用户）、PR（优先级）、NI（任务nice值）、VIRT（虚拟内存用量）VIRT=SWAP+RES 、RES（物理内存用量）、SHR（共享内存用量）、S（进程状态）、%CPU（CPU占用比）、%MEM（物理内存占用比）、TIME+（累计CPU占 用时间)、　COMMAND 命令名/命令行。</p>
+<p>下面简单介绍top命令的使用方法：<br>top [-] [d]</p>
+<p>[q] [c] [C] [S]  [n]<br>运维必会！<br>参数说明<br>d指定每两次屏幕信息刷新之间的时间间隔。当然用户可以使用s交互命令来改变之。<br>p通过指定监控进程ID来仅仅监控某个进程的状态。<br>q该选项将使top没有任何延迟的进行刷新。如果调用程序有超级用户权限，那么top将以尽可能高的优先级运行。<br>S指定累计模式。<br>s使top命令在安全模式中运行。这将去除交互命令所带来的潜在危险。<br>i使top不显示任何闲置或者僵死进程。<br>c显示整个命令行而不只是显示命令名。<br>下面介绍在top命令执行过程中可以使用的一些交互命令<br>　　从使用角度来看，熟练的掌握这些命令比掌握选项还重要一些。<br>　　这些命令都是单字母的，如果在命令行选项中使用了s选项，则可能其中一些命令会被屏蔽掉。<br>Ctrl+L 擦除并且重写屏幕。<br>h或者? 显示帮助画面，给出一些简短的命令总结说明。<br>k 终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。<br>i 忽略闲置和僵死进程。这是一个开关式命令。<br>q 退出程序。<br>r 重新安排一个进程的优先级别。系统提示用户输入需要改变的进程PID以及需要设置的进程优先级值。输入一个正值将使优先级降低，反之则可以使该进程拥有更高的优先权。默认值是10。<br>s 改变两次刷新之间的延迟时间。系统将提示用户输入新的时间，单位为s。如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s。需要注意的是如果设置太小的时间，很可能会引起不断刷新，从而根本来不及看清显示的情况，而且系统负载也会大大增加。<br>f或者F 从当前显示中添加或者删除项目。<br>o或者O 改变显示项目的顺序。<br>l 切换显示平均负载和启动时间信息。<br>m 切换显示内存信息。<br>t 切换显示进程和CPU状态信息。<br>c 切换显示命令名称和完整命令行。<br>M 根据驻留内存大小进行排序。<br>P 根据CPU使用百分比大小进行排序。<br>T 根据时间/累计时间进行排序。<br>W 将当前设置写入~/.toprc文件中。这是写top配置文件的推荐方法。<br>Shift+M 可按内存占用情况进行排序。</p>
+<h4 id="sysstat-说明"><a href="#sysstat-说明" class="headerlink" title="sysstat 说明"></a>sysstat 说明</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum install sysstat -y</span><br><span class="line">vmstat --help</span><br><span class="line">usage: vmstat [-V] [-n] [delay [count]]</span><br><span class="line">              -V prints version.</span><br><span class="line">              -n causes the headers not to be reprinted regularly.</span><br><span class="line">              -a print inactive/active page stats.</span><br><span class="line">              -d prints disk statistics</span><br><span class="line">              -D prints disk table</span><br><span class="line">              -p prints disk partition statistics</span><br><span class="line">              -s prints vm table</span><br><span class="line">              -m prints slabinfo</span><br><span class="line">              -t add timestamp to output</span><br><span class="line">              -S unit size</span><br><span class="line">              delay is the delay between updates in seconds. </span><br><span class="line">              unit size k:1000 K:1024 m:1000000 M:1048576 (default is K)</span><br><span class="line">              count is the number of updates.</span><br></pre></td></tr></table></figure>
+
+<p>例子：每隔1秒获取1次，次数不限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># vmstat 1</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 0  0      0 547332 177544 535336    0    0     1     6    5   41  1  0 98  0  0    </span><br><span class="line"> 0  0      0 547324 177544 535336    0    0     0     0  210  445  1  0 99  0  0    </span><br><span class="line"> 0  0      0 547324 177544 535336    0    0     0     0  195  435  0  0 100  0  0</span><br><span class="line"> 0  0      0 547324 177544 535336    0    0     0     0  208  440  1  0 99  0  0    </span><br><span class="line"> 0  0      0 547332 177544 535336    0    0     0     0  209  446  0  0 100  0  0</span><br><span class="line"> 0  0      0 547332 177544 535336    0    0     0     0  207  442  1  1 98  0  0    </span><br><span class="line"> 0  0      0 547332 177544 535336    0    0     0     0  201  438  0  0 100  0  0</span><br></pre></td></tr></table></figure>
+<p>#r表示CPU排队的情况，b代表 进程堵塞，等待io<br>每隔1秒获取1次，次数10次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># vmstat 1 10</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 1  0      0 547340 177544 535344    0    0     1     6    5   41  1  0 98  0  0    </span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0    28  210  453  1  1 97  1  0    </span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0     0  200  433  0  0 100  0  0</span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0     0  211  445  1  0 99  0  0    </span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0     0  201  439  0  1 99  0  0    </span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0     0  197  436  0  0 100  0  0</span><br><span class="line"> 0  0      0 547332 177544 535344    0    0     0     0  201  442  1  0 99  0  0    </span><br><span class="line"> 0  0      0 547324 177544 535348    0    0     0     0  240  484  2  1 97  0  0    </span><br><span class="line"> 0  0      0 547324 177544 535348    0    0     0     0  203  438  0  0 100  0  0</span><br><span class="line"> 0  0      0 547324 177544 535348    0    0     0     0  197  430  1  0 99  0  0    </span><br></pre></td></tr></table></figure>
+<p>mpstat<br>查看所有CPU的平均值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mpstat 1</span><br><span class="line">Linux 2.6.32-431.23.3.el6.x86_64 (www)  08/30/2016  _x86_64_    (1 CPU)</span><br><span class="line">05:13:22 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</span><br><span class="line">05:13:23 PM  all    1.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00</span><br><span class="line">105:13:24 PM  all    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</span><br><span class="line">05:13:25 PM  all    2.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   97.00</span><br><span class="line">05:13:26 PM  all    1.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00   99.00</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mpstat 1 10</span><br><span class="line">Linux 2.6.32-431.23.3.el6.x86_64 (www)  08/30/2016  _x86_64_    (1 CPU)</span><br><span class="line">05:13:38 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest   %idle</span><br><span class="line">05:13:39 PM  all    2.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00   98.00</span><br><span class="line">05:13:40 PM  all    0.00    0.00    1.00    0.00    0.00    0.00    0.00    0.00   99.00</span><br><span class="line">05:13:41 PM  all    1.01    0.00    0.00    0.00    0.00    0.00    0.00    0.00   98.99</span><br></pre></td></tr></table></figure>
+<p>上述是CPU监控，CPU监控主要靠经验。因为业务不同指标不同，指标越低越好是不变的道理</p>
+<p>sar命令也有类似的功能，但是sar命令更能看到历史的信息，对于问题排查有更好的作用<br>当然对于我这种喜欢骚操作的人，sar命令不可能不搞啊，这里放个链接 <a href="https://tigerfivegit.github.io/2018/11/21/sar/">https://tigerfivegit.github.io/2018/11/21/sar/</a></p>
+<h4 id="内存硬盘监控："><a href="#内存硬盘监控：" class="headerlink" title="内存硬盘监控："></a>内存硬盘监控：</h4><p>硬盘格式化后分成块（blog）<br>内存默认是页（大小4kb）读取按照页来进行读取<br>内存：free vmstat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">free -m</span><br><span class="line">             total       used       free     shared    buffers     cached</span><br><span class="line">Mem:          1875       1338        537          0        173        523</span><br><span class="line">-/+ buffers/cache:        640       1234</span><br><span class="line">Swap:            0          0          0</span><br></pre></td></tr></table></figure>
+
+<p>total 总内存<br>used 已使用内存<br>free 空闲内存<br>shared 共享内存（进程间相互通信使用共享内存）<br>buffers 缓冲<br>cached 缓存<br>Centos7 会有一个available，活动内存<br>#云服务器一般不分配swap分区，物理机能不使用交换分区就不使用交换分区</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vmstat 1</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 0  0      0 550628 177684 536324    0    0     1     6    7   46  1  0 98  0  0    </span><br><span class="line"> 0  0      0 550620 177684 536324    0    0     0    40  187  429  0  0 100  0  0</span><br><span class="line"> 0  0      0 550620 177684 536324    0    0     0     0  183  427  1  0 99  0  0    </span><br><span class="line"> 0  0      0 550620 177684 536324    0    0     0     0  197  436  0  1 99  0  0</span><br></pre></td></tr></table></figure>
+
+<p>swpd交换分区的大小<br>free可用的物理内存大小<br>buff 缓冲区的大小<br>cache 缓存区的大小<br>si 数据从交换分区读取到内存的大小<br>so 数据从内存到交换分区<br>bi 从交换分区读到内存（block）<br>bo 内存写到硬盘的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">内存达到多少报警呢？ 80%</span><br></pre></td></tr></table></figure>
+
+<h4 id="硬盘：IOPS-IO’s-Per-Second-iotop-df-h-iostat"><a href="#硬盘：IOPS-IO’s-Per-Second-iotop-df-h-iostat" class="headerlink" title="硬盘：IOPS IO’s Per Second iotop df -h iostat"></a>硬盘：IOPS IO’s Per Second iotop df -h iostat</h4><p>　　顺序IO（快）<br>　　随机IO（慢）<br>查看磁盘剩余空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/xvda1       40G  4.1G   34G  11% /</span><br><span class="line">tmpfs           938M     0  938M   0% /dev/shm</span><br></pre></td></tr></table></figure>
+
+<p>监控磁盘IO iotop</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install iotop -y</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2018/12/14/5c139a40ccaac.jpg" alt="htop"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">可以使用dd命令生成一个文件夹进行测试 </span><br><span class="line">生成命令如下：</span><br><span class="line"></span><br><span class="line"># dd if=/dev/zero of=/tmp/1.txt bs=1M count=1000</span><br><span class="line">1000+0 records in</span><br><span class="line">1000+0 records out</span><br><span class="line">1048576000 bytes (1.0 GB) copied, 20.509 s, 51.1 MB/s</span><br><span class="line">[root@www ~]# ls -lh /tmp/1.txt </span><br><span class="line">-rw-r--r-- 1 root root 1000M Aug 30 19:48 /tmp/1.txt</span><br></pre></td></tr></table></figure>
+<p>此时IO写入如下图<br><img src="https://i.loli.net/2018/12/14/5c139a7dbf4d3.jpg" alt="IO写如图"><br>iostat命令，可以看到那块磁盘，比iotop更加细致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># iostat 1 2</span><br><span class="line">Linux 2.6.32-431.23.3.el6.x86_64 (www)  08/30/2016  _x86_64_    (1 CPU)</span><br><span class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span><br><span class="line">           1.10    0.00    0.27    0.16    0.00   98.46</span><br><span class="line">Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn</span><br><span class="line">xvda              1.51         2.26        17.09     986748    7467560</span><br><span class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span><br><span class="line">           1.02    0.00    0.00    0.00    0.00   98.98</span><br><span class="line">Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn</span><br><span class="line">xvda              0.00         0.00         0.00          0          0</span><br></pre></td></tr></table></figure>
+<p>tps 设备每秒的传输次数（每秒多少的io请求）<br>Blk_read/s 每秒从设备读取的数据量<br>Blk_wrtn/s 每秒像设备写入的数据量<br>Blk_read 写入数据的总数<br>Blk_wrtn 读取数据的总数</p>
+<h4 id="网络监控：iftop"><a href="#网络监控：iftop" class="headerlink" title="网络监控：iftop"></a>网络监控：iftop</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum install iftop -y</span><br><span class="line"># iftop -n    #-n不做域名解析</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/12/14/5c139adfd7ab3.jpg" alt="iftop"></p>
+<p>正常监控只需要监控网卡带宽即可<br>其中网络监控是最复杂的，ping监控网络延迟网络丢包等。但是此类的网络监控只是监控自己到客户端是否丢包，并不能保证客户端到服务器这边不丢包<br>　其中就产生了如：阿里测、奇云测、站长工具等一系列多节点的监控工具</p>
+<p>性能测试常用工具：IBM nmon （nmon analyser—生成AIX性能报告的免费工具）<br><a target="_blank" rel="noopener" href="http://nmon.sourceforge.net/pmwiki.php">http://nmon.sourceforge.net/pmwiki.php</a> #下载地址（需要翻墙工具）<br>所以我们提供了百度云下载<br>链接：<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1boXV6R9">http://pan.baidu.com/s/1boXV6R9</a> 密码：sblf<br>只需要下载对应的版本，给执行权限。执行即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># chmod +x nmon16e_x86_rhel72 </span><br><span class="line"># ./nmon16e_x86_rhel72</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2018/12/14/5c139b3a8ece4.jpg" alt="nmon"></p>
+<p>我们可以直接输入一个c 一个m一个d。这个是实时的一个状态 </p>
+<p><img src="https://i.loli.net/2018/12/14/5c139b6978986.jpg" alt="nmon1"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">./nmon16e_x86_rhel72 --help</span><br><span class="line">./nmon16e_x86_rhel72: invalid option -- &#x27;-&#x27;</span><br><span class="line">Hint for nmon16e_x86_rhel72 version 16e</span><br><span class="line">    Full Help Info : nmon16e_x86_rhel72 -h</span><br><span class="line">    On-screen Stats: nmon16e_x86_rhel72</span><br><span class="line">    Data Collection: nmon16e_x86_rhel72 -f [-s &lt;seconds&gt;] [-c &lt;count&gt;] [-t|-T]</span><br><span class="line">    Capacity Plan  : nmon16e_x86_rhel72 -x</span><br><span class="line">Interactive-Mode:</span><br><span class="line">    Read the Welcome screen &amp; at any time type: &quot;h&quot; for more help</span><br><span class="line">    Type &quot;q&quot; to exit nmon</span><br><span class="line">For Data-Collect-Mode</span><br><span class="line">    -f            Must be the first option on the line (switches off interactive mode)</span><br><span class="line">                  Saves data to a CSV Spreadsheet format .nmon file in then local directory</span><br><span class="line">                  Note: -f sets a defaults -s300 -c288    which you can then modify</span><br><span class="line">    Further Data Collection Options:</span><br><span class="line">    -s &lt;seconds&gt;  time between data snapshots</span><br><span class="line">    -c &lt;count&gt;    of snapshots before exiting</span><br><span class="line">    -t            Includes Top Processes stats (-T also collects command arguments)</span><br><span class="line">    -x            Capacity Planning=15 min snapshots for 1 day. (nmon -ft -s 900 -c 96)</span><br><span class="line">---- End of Hints</span><br><span class="line">-c  采集的次数</span><br><span class="line">-s  采集的间隔时间</span><br><span class="line">-f  生成一个文件</span><br><span class="line">-m  指定生成文件位置</span><br></pre></td></tr></table></figure>
+
+<p>采集10次 间隔10秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># ./nmon16e_x86_rhel72 -c 10 -s 10 -f -m /tmp/</span><br><span class="line"># ls</span><br><span class="line">localhost_160831_0435.nmon  nmon16e_x86_rhel72</span><br></pre></td></tr></table></figure>
+
+<p>前面为主机名后面是日期（年月日时分）<br>因为测试可能需要，我们要制作成表格，所以现在将文件上传到桌面上 </p>
+<h1 id="sz-localhost-160831-0435-nmon"><a href="#sz-localhost-160831-0435-nmon" class="headerlink" title="sz localhost_160831_0435.nmon"></a>sz localhost_160831_0435.nmon</h1><p>我们打开下载的工具 </p>
+<p><img src="https://i.loli.net/2018/12/14/5c139bd30d9d5.jpg"></p>
+<p>解压文件夹，打开nmon analyser v34a.xls </p>
+<p><img src="https://i.loli.net/2018/12/14/5c139be8400bd.jpg"></p>
+<p>点击Analyse nmon data找到我们刚刚复制出来的文件，就可以看到了。</p>
+<p><img src="https://i.loli.net/2018/12/14/5c139bf883548.jpg"></p>
+<h4 id="应用服务监控："><a href="#应用服务监控：" class="headerlink" title="应用服务监控："></a>应用服务监控：</h4><p>举例：Nginx<br>安装nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y gcc glibc gcc-c++ prce-devel openssl-devel pcre-devel</span><br></pre></td></tr></table></figure>
+
+<p>提示：nginx可以使用稳定版的最新版，因为安全性会不断的提高。如果是特别老的版本会有一些漏洞和功能<br>　　要想监控nginx需要在编译时添加如下参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--with-http_stub_status_module</span><br></pre></td></tr></table></figure>
+
+<p>下载Nginx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.10.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+
+<p>解压，后面步骤太简单不说了<br>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx-1.10.1]# useradd -s /sbin/nologin www</span><br><span class="line">[root@localhost nginx-1.10.1]# ./configure --prefix=/usr/local/nginx-1.10.1 --user=www --group=www --with-http_ssl_module --with-http_stub_status_module</span><br></pre></td></tr></table></figure>
+<p>#configure 是一个shell脚本，执行它的作用是生成MAKEFILE（编译make需要）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx-1.10.1]# make &amp;&amp; make install</span><br><span class="line">[root@localhost nginx-1.10.1]# ll</span><br><span class="line">total 676</span><br><span class="line">drwxr-xr-x 6 1001 1001   4096 Aug 31 06:02 auto</span><br><span class="line">-rw-r--r-- 1 1001 1001 262898 May 31 09:47 CHANGES</span><br><span class="line">-rw-r--r-- 1 1001 1001 400701 May 31 09:47 CHANGES.ru</span><br><span class="line">drwxr-xr-x 2 1001 1001   4096 Aug 31 06:02 conf</span><br><span class="line">-rwxr-xr-x 1 1001 1001   2481 May 31 09:47 configure</span><br><span class="line">drwxr-xr-x 4 1001 1001     68 Aug 31 06:02 contrib</span><br><span class="line">drwxr-xr-x 2 1001 1001     38 Aug 31 06:02 html</span><br><span class="line">-rw-r--r-- 1 1001 1001   1397 May 31 09:47 LICENSE</span><br><span class="line">-rw-r--r-- 1 root root    404 Aug 31 07:46 Makefile</span><br><span class="line">drwxr-xr-x 2 1001 1001     20 Aug 31 06:02 man</span><br><span class="line">drwxr-xr-x 3 root root    119 Aug 31 07:46 objs</span><br><span class="line">-rw-r--r-- 1 1001 1001     49 May 31 09:47 README</span><br><span class="line">drwxr-xr-x 9 1001 1001     84 Aug 31 06:02 src</span><br></pre></td></tr></table></figure>
+
+<p>#make是生成文件，make install是将生成的文件拷贝到不同的地方<br>make install 完成之后可以直接将当前目录拷贝到其他服务器上，安装相同的依赖就可以进行使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost nginx-1.10.1]# ln -s /usr/local/nginx-1.10.1/ /usr/local/nginx</span><br><span class="line">[root@localhost nginx-1.10.1]# netstat -lntp|grep nginx</span><br><span class="line">tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      7058/nginx: master  </span><br></pre></td></tr></table></figure>
+
+<p>修改nginx.conf配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    location /status &#123;</span><br><span class="line">    stub_status on;</span><br><span class="line">    access_log off;</span><br><span class="line">        allow 192.168.56.0/24;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置只允许56网段访问，并开启日志和状态模块<br>#这个比较基础，如果不知道怎么添加。可以参考<a target="_blank" rel="noopener" href="http://www.nginx.org/">www.nginx.org</a> 状态模块<br>浏览器访问：<a target="_blank" rel="noopener" href="http://192.168.56.11/status">http://192.168.56.11/status</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Active connections: 1 </span><br><span class="line">server accepts handled requests</span><br><span class="line"> 3 3 163 </span><br><span class="line">Reading: 0 Writing: 1 Waiting: 0 </span><br></pre></td></tr></table></figure>
+
+<p>Active connections: 当前活跃的连接数<br>3—-&gt; 一共处理了多少个链接（请求）<br>3—-&gt; 成功创建多少次握手<br>163–&gt; 总共创建了多少个请求<br>Reading:当前读取客户端heardr的数量<br>Writing:当前返回给客户端heardr的数量 　#如果这个指标飙升，说明是后面的节点挂掉了，例如数据库等。<br>Waiting:大体意思是已经处理完，等待下次请求的数量<br>提示：我们只需要关注活动链接即可</p>
+<p>监控最基础的功能<br>采集 存储 展示 告警</p>
+<p>几款监控软件说明：<br>几款监控软件大家都知道应该是zabbix，这个入门和部署比较简单，对于中小企业都是友好的，但是难以细化和深入化。<br>后来因业务需求从zabbix逐渐转用小米的开源监控open-falcon，这个对于新手不太友好，但是后期的添加和细化都是特别友好的，模块化、分支化</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag"># 监控</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/14/Linux%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7-gtop/" rel="prev" title="Linux性能监控工具-gtop">
+      <i class="fa fa-chevron-left"></i> Linux性能监控工具-gtop
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/14/zsh-on-my-zsh%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E6%8C%87%E5%8D%97/" rel="next" title="zsh+on-my-zsh配置教程指南">
+      zsh+on-my-zsh配置教程指南 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E7%9B%91%E6%8E%A7%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">硬件监控：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.</span> <span class="nav-text">1.硬件要支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E2%80%98Linux-IPMI%E2%80%99"><span class="nav-number">1.2.</span> <span class="nav-text">2.操作系统 ‘Linux IPMI’</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7"><span class="nav-number">2.</span> <span class="nav-text">系统监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPU%E4%B8%89%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">CPU三个重要的概念：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7"><span class="nav-number">2.2.</span> <span class="nav-text">常见的系统监控工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sysstat-%E8%AF%B4%E6%98%8E"><span class="nav-number">2.3.</span> <span class="nav-text">sysstat 说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%A1%AC%E7%9B%98%E7%9B%91%E6%8E%A7%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">内存硬盘监控：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E7%9B%98%EF%BC%9AIOPS-IO%E2%80%99s-Per-Second-iotop-df-h-iostat"><span class="nav-number">2.5.</span> <span class="nav-text">硬盘：IOPS IO’s Per Second iotop df -h iostat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7%EF%BC%9Aiftop"><span class="nav-number">2.6.</span> <span class="nav-text">网络监控：iftop</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sz-localhost-160831-0435-nmon"><span class="nav-number"></span> <span class="nav-text">sz localhost_160831_0435.nmon</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7%EF%BC%9A"><span class="nav-number">0.1.</span> <span class="nav-text">应用服务监控：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

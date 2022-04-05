@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Linux终端复用神器-tmux初探1Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tmux-初探">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux终端复用神器-tmux初探1Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2018/12/14/5c139f4ab6ad2.jpg">
+<meta property="article:published_time" content="2018-12-07T05:59:25.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="tmux">
+<meta property="article:tag" content="骚操作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/14/5c139f4ab6ad2.jpg">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>tmux-初探 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/07/tmux-%E5%88%9D%E6%8E%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tmux-初探
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-07 13:59:25" itemprop="dateCreated datePublished" datetime="2018-12-07T13:59:25+08:00">2018-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Linux终端复用神器-tmux初探"><a href="#Linux终端复用神器-tmux初探" class="headerlink" title="Linux终端复用神器-tmux初探"></a>Linux终端复用神器-tmux初探</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权。使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机。是BSD实现的Screen替代品，相对于Screen，它更加先进：支持屏幕切分，而且具备丰富的命令行参数，使其可以灵活、动态的进行各种布局和操作。</span><br></pre></td></tr></table></figure>
+<p>废话不多说来个效果图<br><img src="https://i.loli.net/2018/12/14/5c139f4ab6ad2.jpg" alt="tmux"></p>
+<h3 id="Tmux的使用场景"><a href="#Tmux的使用场景" class="headerlink" title="Tmux的使用场景"></a>Tmux的使用场景</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1）可以某个程序在执行时一直是输出状态，需要结合nohup、&amp;来放在后台执行，并且ctrl+c结束。这时可以打开一个Tmux窗口，在该窗口里执行这个程序，用来保证该程序一直在执行中，只要Tmux这个窗口不关闭</span><br><span class="line">2）公司需要备份数据库时，数据量巨大，备份两三天弄不完，这时不小心关闭了终端窗口或误操作就前功尽弃了，使用Tmux会话运行命令或任务，就不用担心这些问题。</span><br><span class="line">3）下班后，你需要断开ssh或关闭电脑，将运行的命令或任务放置后台运行。</span><br><span class="line">4）关闭终端,再次打开时原终端里面的任务进程依然不会中断</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h3 id="Tmux功能："><a href="#Tmux功能：" class="headerlink" title="Tmux功能："></a>Tmux功能：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-  提供了强劲的、易于使用的命令行界面。</span><br><span class="line">-  可横向和纵向分割窗口。</span><br><span class="line">-  窗格可以自由移动和调整大小，或直接利用四个预设布局之一。</span><br><span class="line">-  支持 UTF-8 编码及 256 色终端。</span><br><span class="line">-  可在多个缓冲区进行复制和粘贴。</span><br><span class="line">-  可通过交互式菜单来选择窗口、会话及客户端。</span><br><span class="line">-  支持跨窗口搜索。</span><br><span class="line">-  支持自动及手动锁定窗口。</span><br></pre></td></tr></table></figure>
+<h3 id="Tmux安装"><a href="#Tmux安装" class="headerlink" title="Tmux安装"></a>Tmux安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install tmux</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tmux个性化配置"><a href="#Tmux个性化配置" class="headerlink" title="Tmux个性化配置"></a>Tmux个性化配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">此类配置可以在命令行模式中输入show-options -g查询</span><br><span class="line"></span><br><span class="line">tmux加上下列参数,实现个性化设置</span><br><span class="line">set-option -g base-index 1                        # 窗口的初始序号；默认为0，这里设置为1</span><br><span class="line">set-option -g display-time 5000                   # 提示信息的持续时间；设置足够的时间以避免看不清提示，单位为毫秒</span><br><span class="line">set-option -g repeat-time 1000                    # 控制台激活后的持续时间；设置合适的时间以避免每次操作都要先激活控制台，单位为毫秒</span><br><span class="line">set-option -g status-keys vi                      # 操作状态栏时的默认键盘布局；可以设置为vi或emacs</span><br><span class="line">set-option -g status-utf8 on                      # 开启状态栏的UTF-8支持</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">set-option -g status-bg blue</span><br><span class="line">set-option -g status-fg &#x27;#bbbbbb&#x27;</span><br><span class="line">set-option -g status-left-fg green</span><br><span class="line">set-option -g status-left-bg blue</span><br><span class="line">set-option -g status-right-fg green</span><br><span class="line">set-option -g status-right-bg blue</span><br><span class="line">set-option -g status-left-length 10               # 状态栏左方的内容长度；</span><br><span class="line">set-option -g status-right-length 15              # 状态栏右方的内容长度；建议把更多的空间留给状态栏左方（用于列出当前窗口）</span><br><span class="line">set-option -g status-left &#x27;[#(whoami)]&#x27;           # 状态栏左方的内容</span><br><span class="line">set-option -g status-right &#x27;[#(date +&quot; %m-%d %H:%M &quot;)]&#x27;     # 状态栏右方的内容；这里的设置将得到类似23:59的显示</span><br><span class="line">set-option -g status-justify &quot;centre&quot;             # 窗口列表居中显示</span><br><span class="line">set-option -g default-terminal &quot;screen-256color&quot;  # 支持256色显示</span><br><span class="line">分割窗口边界的颜色</span><br><span class="line">set-option -g pane-active-border-fg &#x27;#55ff55&#x27;</span><br><span class="line">set-option -g pane-border-fg &#x27;#555555&#x27;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">此类设置可以在命令行模式中输入show-window-options -g查询</span><br><span class="line">set-window-option -g mode-keys vi    # 复制模式中的默认键盘布局；可以设置为vi或emacs</span><br><span class="line">set-window-option -g utf8 on         # 开启窗口的UTF-8支持</span><br><span class="line">set-window-option -g mode-mouse on   # 窗口切换后让人可以用鼠标上下滑动显示历史输出</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">窗口切分快捷键(没设置成功)</span><br><span class="line">bind \ split-window -h                      # 使用 \ 将窗口竖切</span><br><span class="line">bind - split-window -v                      # 使用 - 将窗口横切</span><br><span class="line">bind K confirm-before -p &quot;kill-window #W? (y/n)&quot; kill-window    # 使用大写 K 来关闭窗口</span><br><span class="line">bind &#x27;&quot;&#x27; choose-window                      # 双引号选择窗口</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">Pane之间切换的快捷键</span><br><span class="line">bind h select-pane -L                       # 定位到左边窗口的快捷键</span><br><span class="line">bind j select-pane -D                       # 定位到上边窗口的快捷键</span><br><span class="line">bind k select-pane -U                       # 定位到下方窗口的快捷键</span><br><span class="line">bind l select-pane -R                       # 定位到右边窗口的快捷键</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">设置window属性</span><br><span class="line">setw -g window-status-current-bg red</span><br><span class="line">setw -g window-status-current-fg white</span><br><span class="line">setw -g window-status-current-attr bright</span><br><span class="line">setw -g window-status-attr bright</span><br><span class="line">set-option -g window-status-format &#x27;#I #W&#x27;</span><br><span class="line">set-option -g window-status-current-format &#x27; #I #W &#x27;</span><br><span class="line">setw -g window-status-current-bg blue</span><br><span class="line">setw -g window-status-current-fg green</span><br><span class="line">不使用prefix键，使用Ctrl和左右方向键方便切换窗口</span><br><span class="line">bind-key -n &quot;C-Left&quot; select-window -t :-</span><br><span class="line">bind-key -n &quot;C-Right&quot; select-window -t :+</span><br></pre></td></tr></table></figure>
+
+<h3 id="tmux-session-使用介绍"><a href="#tmux-session-使用介绍" class="headerlink" title="tmux session 使用介绍"></a>tmux session 使用介绍</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">运行tmux并开启一个新的会话</span><br><span class="line">tmux</span><br><span class="line"></span><br><span class="line">显示所有会话</span><br><span class="line">tmux ls</span><br><span class="line"></span><br><span class="line">新建会话并指定会话名称（建议制定会话名称，以便了解该会话用途）</span><br><span class="line">tmux new -s &lt;session-name&gt;</span><br><span class="line"></span><br><span class="line">新建会话（不指定会话名称）</span><br><span class="line">tmux new</span><br><span class="line"></span><br><span class="line">接入上一个会话</span><br><span class="line">tmux a</span><br><span class="line"></span><br><span class="line">接入指定名称的会话</span><br><span class="line">tmux a -t &lt;session-name&gt;</span><br><span class="line"></span><br><span class="line">断开当前会话（还可以使用快捷键：control+b，再按d）</span><br><span class="line">tmux detach</span><br><span class="line"></span><br><span class="line">关闭指定会话</span><br><span class="line">tmux kill-session -t session-name</span><br><span class="line"></span><br><span class="line">关闭除指定会话外的所有会话</span><br><span class="line">tmux kill-session -a -t session-name</span><br><span class="line"></span><br><span class="line">在会话中切换</span><br><span class="line">control+b，再按s 显示会话列表，再进行会话切换</span><br><span class="line"></span><br><span class="line">销毁所有会话并停止tmux</span><br><span class="line">tmux kill-serverG</span><br><span class="line"></span><br><span class="line">复制粘贴</span><br><span class="line">Ctrl+b   [          //进入复制模式</span><br><span class="line">空格+方向键      //选择</span><br><span class="line">回车                  //  确认</span><br><span class="line">Ctrl+b  [           //粘贴</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="需要注意的几点"><a href="#需要注意的几点" class="headerlink" title="需要注意的几点"></a>需要注意的几点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1）进入tmux面板后，一定要先按ctrl+b，然后松开，再按其他的组合键才生效。</span><br><span class="line"> </span><br><span class="line">2）常用到的几个组合键：</span><br><span class="line">ctrl+b ?            显示快捷键帮助</span><br><span class="line">ctrl+b 空格键       采用下一个内置布局，这个很有意思，在多屏时，用这个就会将多有屏幕竖着展示</span><br><span class="line">ctrl+b !            把当前窗口变为新窗口</span><br><span class="line">ctrl+b  &quot;           模向分隔窗口</span><br><span class="line">ctrl+b %            纵向分隔窗口</span><br><span class="line">ctrl+b q            显示分隔窗口的编号</span><br><span class="line">ctrl+b o            跳到下一个分隔窗口。多屏之间的切换</span><br><span class="line">ctrl+b 上下键      上一个及下一个分隔窗口</span><br><span class="line">ctrl+b C-方向键    调整分隔窗口大小</span><br><span class="line">ctrl+b &amp;           确认后退出当前tmux</span><br><span class="line">ctrl+b [           复制模式，即将当前屏幕移到上一个的位置上，其他所有窗口都向前移动一个。</span><br><span class="line">ctrl+b c           创建新窗口</span><br><span class="line">ctrl+b n           选择下一个窗口</span><br><span class="line">ctrl+b l           最后使用的窗口</span><br><span class="line">ctrl+b p           选择前一个窗口</span><br><span class="line">ctrl+b w           以菜单方式显示及选择窗口</span><br><span class="line">ctrl+b s           以菜单方式显示和选择会话。这个常用到，可以选择进入哪个tmux</span><br><span class="line">ctrl+b t           显示时钟。然后按enter键后就会恢复到shell终端状态</span><br><span class="line">ctrl+b d           脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话</span><br></pre></td></tr></table></figure>
+
+<h3 id="tmux的常规运维命令"><a href="#tmux的常规运维命令" class="headerlink" title="tmux的常规运维命令"></a>tmux的常规运维命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">1）安装命令：　</span><br><span class="line">[root@Centos6 ~]# yum -y install tmux</span><br><span class="line">　　</span><br><span class="line">2）默认创建一个会话，以数字命名。（不推荐）</span><br><span class="line">[root@Centos6 ~]# tmux</span><br><span class="line">　　</span><br><span class="line">3）新建会话，比如新创建一个会话以&quot;ccc&quot;命名</span><br><span class="line">[root@Centos6 ~]# tmux new -s ccc</span><br><span class="line"> </span><br><span class="line">加上参数-d，表示在后台新建会话</span><br><span class="line">root@bobo:~# tmux new -s shibo -d</span><br><span class="line">root@bobo:~# tmux ls</span><br><span class="line">shibo: 1 windows (created Tue Oct  2 19:22:32 2018) [135x35]</span><br><span class="line"> </span><br><span class="line">4）查看创建得所有会话</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">0: 1 windows (created Wed Aug 30 17:58:20 2017) [112x22](attached)    #这里的attached表示该会话是当前会话</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">ccc: 1 windows (created Wed Aug 30 17:01:05 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">5）登录一个已知会话。即从终端环境进入会话。</span><br><span class="line">第一个参数a也可以写成attach。后面的aaa是会话名称。</span><br><span class="line">[root@Centos6 ~]# tmux a -t aaa </span><br><span class="line">　　</span><br><span class="line">6）退出会话不是关闭：</span><br><span class="line">登到某一个会话后，依次按键ctrl-b + d，这样就会退化该会话，但不会关闭会话。</span><br><span class="line">如果直接ctrl + d，就会在退出会话的通话也关闭了该会话！</span><br><span class="line">   </span><br><span class="line">7）关闭会话（销毁会话）</span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">bbb: 1 windows (created Wed Aug 30 19:02:09 2017) [112x22]</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux kill-session -t bbb</span><br><span class="line">   </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">aaa: 2 windows (created Wed Aug 30 16:54:33 2017) [112x22]</span><br><span class="line">  </span><br><span class="line">8）重命名会话</span><br><span class="line">[root@Centos6 ~]# tmux ls  </span><br><span class="line">wangshibo: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux rename -t wangshibo kevin</span><br><span class="line">  </span><br><span class="line">[root@Centos6 ~]# tmux ls</span><br><span class="line">kevin: 1 windows (created Sun Sep 30 10:17:00 2018) [136x29] (attached)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tmux/" rel="tag"># tmux</a>
+              <a href="/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/" rel="tag"># 骚操作</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/29/hexo-githubpage%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" rel="prev" title="hexo+githubpage构建自己的博客">
+      <i class="fa fa-chevron-left"></i> hexo+githubpage构建自己的博客
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/10/%E6%89%93%E9%80%A0%E9%AB%98%E9%80%BC%E6%A0%BC%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0/" rel="next" title="打造高逼格、可视化的Docker容器监控系统平台">
+      打造高逼格、可视化的Docker容器监控系统平台 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8%E7%A5%9E%E5%99%A8-tmux%E5%88%9D%E6%8E%A2"><span class="nav-number">1.</span> <span class="nav-text">Linux终端复用神器-tmux初探</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">Tmux的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux%E5%8A%9F%E8%83%BD%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">Tmux功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">Tmux安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">Tmux个性化配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux-session-%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.</span> <span class="nav-text">tmux session 使用介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%87%A0%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">需要注意的几点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux%E7%9A%84%E5%B8%B8%E8%A7%84%E8%BF%90%E7%BB%B4%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">tmux的常规运维命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

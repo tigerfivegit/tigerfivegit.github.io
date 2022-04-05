@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="rsync服务介绍 rsync功能  做为命令，实现本地-远程文件同步 做为服务，实现本地-远程文件同步   rsync特点  可以镜像保存整个目录树和文件系统 可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息 传输效率高，使用同步算法，至比较变化的 支持匿名传输，方便网站镜；也可以做验证，加强安全   rsyn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rsync">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/11/20/rsync/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="rsync服务介绍 rsync功能  做为命令，实现本地-远程文件同步 做为服务，实现本地-远程文件同步   rsync特点  可以镜像保存整个目录树和文件系统 可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息 传输效率高，使用同步算法，至比较变化的 支持匿名传输，方便网站镜；也可以做验证，加强安全   rsyn">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-11-20T07:19:29.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/11/20/rsync/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>rsync | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/11/20/rsync/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          rsync
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-20 15:19:29" itemprop="dateCreated datePublished" datetime="2018-11-20T15:19:29+08:00">2018-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="rsync服务介绍"><a href="#rsync服务介绍" class="headerlink" title="rsync服务介绍"></a>rsync服务介绍</h3><ul>
+<li><p>rsync功能</p>
+<ul>
+<li>做为命令，实现本地-远程文件同步</li>
+<li>做为服务，实现本地-远程文件同步</li>
+</ul>
+</li>
+<li><p>rsync特点</p>
+<ul>
+<li>可以镜像保存整个目录树和文件系统</li>
+<li>可以保留原有的权限(permssion，mode)，owner，group，时间(修改时间，modifiy time)，软硬链接等信息</li>
+<li>传输效率高，使用同步算法，至比较变化的</li>
+<li>支持匿名传输，方便网站镜；也可以做验证，加强安全</li>
+</ul>
+</li>
+<li><p>rsync同类服务</p>
+<ul>
+<li>sync同步:刷新文件系统缓存，强制将修改过的数据写入磁盘，并且更新超级块</li>
+<li> async异步:将数据先放到缓冲区，在周期性(一般是30s)的去同步到磁盘</li>
+<li> rsync 远程同步，remote synchronous</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="rsync语法介绍"><a href="#rsync语法介绍" class="headerlink" title="rsync语法介绍"></a>rsync语法介绍</h3><h4 id="man-rsync语法"><a href="#man-rsync语法" class="headerlink" title="man rsync语法"></a>man rsync语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rsync(1)                                                   rsync(1)</span><br><span class="line"></span><br><span class="line">NAME</span><br><span class="line">       rsync - a fast, versatile, remote (and local) file-copying tool             ##rsync命令介绍</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       Local:  rsync [OPTION...] SRC... [DEST]</span><br><span class="line"></span><br><span class="line">       Access via remote shell:</span><br><span class="line">         Pull: rsync [OPTION...] [USER@]HOST:SRC... [DEST]</span><br><span class="line">         Push: rsync [OPTION...] SRC... [USER@]HOST:DEST</span><br><span class="line"></span><br><span class="line">       Access via rsync daemon:</span><br><span class="line">         Pull: rsync [OPTION...] [USER@]HOST::SRC... [DEST]</span><br><span class="line">               rsync [OPTION...] rsync://[USER@]HOST[:PORT]/SRC... [DEST]</span><br><span class="line">         Push: rsync [OPTION...] SRC... [USER@]HOST::DEST</span><br><span class="line">               rsync [OPTION...] SRC... rsync://[USER@]HOST[:PORT]/DEST</span><br><span class="line"></span><br><span class="line">       Usages with just one SRC arg and no DEST arg will list the source files instead of copying.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="rsync-相关参数"><a href="#rsync-相关参数" class="headerlink" title="rsync 相关参数"></a>rsync 相关参数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-v      详细模式输出</span><br><span class="line">-a      归档模式，递归的方式传输文件，并保持文件的属性，equals -rlptgoD</span><br><span class="line">-r      递归拷贝目录</span><br><span class="line">-l      保留软链接</span><br><span class="line">-p      保留原有权限</span><br><span class="line">-t      保留原有时间（修改）</span><br><span class="line">-g      保留属组权限</span><br><span class="line">-o      保留属主权限</span><br><span class="line">-D      等于--devices  --specials    表示支持b,c,s,p类型的文件</span><br><span class="line">-R      保留相对路径</span><br><span class="line">-H      保留硬链接</span><br><span class="line">-A      保留ACL策略</span><br><span class="line">-e      指定要执行的远程shell命令</span><br><span class="line">-E      保留可执行权限</span><br><span class="line">-X      保留扩展属性信息  a属性</span><br></pre></td></tr></table></figure>
+<h3 id="rsync做为命令使用"><a href="#rsync做为命令使用" class="headerlink" title="rsync做为命令使用"></a>rsync做为命令使用</h3><h4 id="同步本地数据"><a href="#同步本地数据" class="headerlink" title="同步本地数据"></a>同步本地数据</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">[root@116v85v26v24 tmp]# mkdir dir1</span><br><span class="line">[root@116v85v26v24 tmp]# mkdir dir2</span><br><span class="line">[root@116v85v26v24 tmp]# touch dir1/file&#123;1..5&#125;</span><br><span class="line">[root@116v85v26v24 tmp]# ls dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# ls dir2</span><br><span class="line">[root@116v85v26v24 tmp]# rsync -va  dir1 dir2/</span><br><span class="line">sending incremental file list</span><br><span class="line">dir1/</span><br><span class="line">dir1/file1</span><br><span class="line">dir1/file2</span><br><span class="line">dir1/file3</span><br><span class="line">dir1/file4</span><br><span class="line">dir1/file5</span><br><span class="line"></span><br><span class="line">sent 279 bytes  received 111 bytes  780.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/</span><br><span class="line">dir1</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/dir1/</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@116v85v26v24 tmp]# rsync -va  dir1/ dir2/</span><br><span class="line">sending incremental file list</span><br><span class="line">./</span><br><span class="line">file1</span><br><span class="line">file2</span><br><span class="line">file3</span><br><span class="line">file4</span><br><span class="line">file5</span><br><span class="line"></span><br><span class="line">sent 266 bytes  received 110 bytes  752.00 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 tmp]# ls /tmp/dir2/</span><br><span class="line">dir1  file1  file2  file3  file4  file5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>总结： </p>
+<ol>
+<li>本地数据同步的时候，源目录后面的“/”会影响同步的结果 </li>
+<li><h1 id="rsync-av-dir1-dir3-只同步目录下面的文件到指定的路径"><a href="#rsync-av-dir1-dir3-只同步目录下面的文件到指定的路径" class="headerlink" title="rsync -av /dir1/ /dir3 //只同步目录下面的文件到指定的路径"></a>rsync -av /dir1/ /dir3 //只同步目录下面的文件到指定的路径</h1></li>
+<li><h1 id="rsync-av-dir1-dir2-将当前目录dir1和目录下的所有文件一起同步"><a href="#rsync-av-dir1-dir2-将当前目录dir1和目录下的所有文件一起同步" class="headerlink" title="rsync -av /dir1 /dir2 //将当前目录dir1和目录下的所有文件一起同步"></a>rsync -av /dir1 /dir2 //将当前目录dir1和目录下的所有文件一起同步</h1></li>
+</ol>
+<p>-R：不管加不加”/”，都会将源数据的绝对路径一起同步</p>
+<hr>
+<h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><p>需求一: 本地(116.85.26.24)的/root/dir1文件同步到远端服务器(59.110.85.64)的/root/dir2中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@116v85v26v24 ~]# rsync -av /root/dir1 root@59.110.85.64:/root/dir/       //同步的命令</span><br><span class="line">The authenticity of host &#x27;59.110.85.64 (59.110.85.64)&#x27; can&#x27;t be establis</span><br><span class="line">RSA key fingerprint is 24:36:34:69:1f:6e:b7:60:b0:2a:ae:90:46:aa:86:c5.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes              //key授权</span><br><span class="line">Warning: Permanently added &#x27;59.110.85.64&#x27; (RSA) to the list of known hosts.</span><br><span class="line">root@59.110.85.64&#x27;s password:                                      //远端用户密码</span><br><span class="line">sending incremental file list</span><br><span class="line">dir1/</span><br><span class="line">dir1/file1</span><br><span class="line">dir1/file2</span><br><span class="line">dir1/file3</span><br><span class="line">dir1/file4</span><br><span class="line">dir1/file5</span><br><span class="line"></span><br><span class="line">sent 279 bytes  received 111 bytes  26.90 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 ~]#</span><br><span class="line"></span><br><span class="line">//远端：59.110.85.64</span><br><span class="line">[root@59v110v85v64 dir]# pwd</span><br><span class="line">/root/dir</span><br><span class="line">[root@59v110v85v64 dir]# ls</span><br><span class="line">dir1</span><br><span class="line">[root@59v110v85v64 dir]# </span><br><span class="line">//同步成功</span><br></pre></td></tr></table></figure>
+<hr>
+<p>本地同步到远端的另一种写法，利用ssh</p>
+<p>本地(116.85.26.24)的/root/dir1文件同步到远端服务器(59.110.85.64)的/root/dir2中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@116v85v26v24 ~]# rsync -ave &#x27;ssh -lroot&#x27; /root/dir 59.110.85.64:/root/ </span><br><span class="line">root@59.110.85.64&#x27;s password: </span><br><span class="line">sending incremental file list</span><br><span class="line">dir/</span><br><span class="line">dir/dir1/</span><br><span class="line">dir/dir1/file1</span><br><span class="line">dir/dir1/file2</span><br><span class="line">dir/dir1/file3</span><br><span class="line">dir/dir1/file4</span><br><span class="line">dir/dir1/file5</span><br><span class="line"></span><br><span class="line">sent 300 bytes  received 115 bytes  26.77 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line"></span><br><span class="line">主机59.110.85.64</span><br><span class="line"></span><br><span class="line">[root@59v110v85v64 ~]# pwd</span><br><span class="line">/root</span><br><span class="line">[root@59v110v85v64 ~]# ls</span><br><span class="line">anaconda-ks.cfg  install.log         software</span><br><span class="line">dir              install.log.syslog  testdir</span><br><span class="line">[root@59v110v85v64 ~]# cd dir</span><br><span class="line">[root@59v110v85v64 dir]# ls</span><br><span class="line">dir1</span><br><span class="line">[root@59v110v85v64 dir]# </span><br><span class="line">//同步成功</span><br></pre></td></tr></table></figure>
+
+<p>需求2：将远程数据/root/dir同步到本地/root中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@116v85v26v24 ~]# rsync -av root@59.110.85.64:/root/dir /root</span><br><span class="line">root@59.110.85.64&#x27;s password: </span><br><span class="line">receiving incremental file list</span><br><span class="line">dir/</span><br><span class="line">dir/dir1/</span><br><span class="line">dir/dir1/file1</span><br><span class="line">dir/dir1/file2</span><br><span class="line">dir/dir1/file3</span><br><span class="line">dir/dir1/file4</span><br><span class="line">dir/dir1/file5</span><br><span class="line"></span><br><span class="line">sent 114 bytes  received 305 bytes  25.39 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 ~]# ls /root</span><br><span class="line">anaconda-ks.cfg  dir  dir1  </span><br><span class="line">[root@116v85v26v24 ~]# </span><br><span class="line">//同步成功！</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>&amp;&amp;<br>rsync不单单是复制文件，它的主要功能是进行文件同步!</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">//主机：59.110.85.64 中testdir目录下有5个文件</span><br><span class="line">[root@59v110v85v64 testdir]# pwd</span><br><span class="line">/root/testdir </span><br><span class="line">[root@59v110v85v64 testdir]# ls</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@59v110v85v64 testdir]# </span><br><span class="line"></span><br><span class="line">//本地主机：116.85.26.24 中/root目录</span><br><span class="line">[root@116v85v26v24 ~]# ls</span><br><span class="line">anaconda-ks.cfg  install.log  install.log.syslog</span><br><span class="line">//将远程testdir同步到本地</span><br><span class="line">[root@116v85v26v24 ~]# rsync -avR root@59.110.85.64:testdir /root/</span><br><span class="line">root@59.110.85.64&#x27;s password: </span><br><span class="line">receiving incremental file list</span><br><span class="line">testdir/</span><br><span class="line">testdir/file1</span><br><span class="line">testdir/file2</span><br><span class="line">testdir/file3</span><br><span class="line">testdir/file4</span><br><span class="line">testdir/file5</span><br><span class="line"></span><br><span class="line">sent 110 bytes  received 287 bytes  27.38 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 ~]# ls</span><br><span class="line">anaconda-ks.cfg  install.log  install.log.syslog  testdir</span><br><span class="line">[root@116v85v26v24 ~]# cd testdir/</span><br><span class="line">[root@116v85v26v24 testdir]# ls</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line"></span><br><span class="line">//远端删除file1-file3</span><br><span class="line">[root@59v110v85v64 testdir]# ls</span><br><span class="line">file1  file2  file3  file4  file5</span><br><span class="line">[root@59v110v85v64 testdir]# rm file&#123;2..4&#125;</span><br><span class="line">rm: remove regular empty file `file2&#x27;? y</span><br><span class="line">rm: remove regular empty file `file3&#x27;? y</span><br><span class="line">rm: remove regular empty file `file4&#x27;? y</span><br><span class="line">[root@59v110v85v64 testdir]# ls</span><br><span class="line">file1  file5</span><br><span class="line">//本地同步</span><br><span class="line">[root@116v85v26v24 testdir]# rsync -avR --delete root@59.110.85.64:testdir /root/</span><br><span class="line">root@59.110.85.64&#x27;s password: </span><br><span class="line">receiving incremental file list</span><br><span class="line">deleting testdir/file4</span><br><span class="line">deleting testdir/file3</span><br><span class="line">deleting testdir/file2</span><br><span class="line">testdir/</span><br><span class="line"></span><br><span class="line">sent 15 bytes  received 75 bytes  3.16 bytes/sec</span><br><span class="line">total size is 0  speedup is 0.00</span><br><span class="line">[root@116v85v26v24 testdir]# ls</span><br><span class="line">file1  file5</span><br><span class="line">[root@review1 testdir]# </span><br><span class="line">//加上--delete参数，源文件删除，本地也删除</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<p>​ rsync是一个同步命令（服务），它不仅可以用来复制、备份，最大的作用在于同步，即保持两端一直，所以远端文件被删除后，同步后，本地文件也可以删除，要注意rsync的灵活用法。</p>
+<hr>
+<p>&amp;&amp;2</p>
+<p>rsync同步参数-R是会同步绝对路径的。</p>
+<p>总结：</p>
+<p>​ rsync -R会同步绝对路径，没有则自动创建，所以在写命令时一定要注意。</p>
+<h3 id="rsync做为服务运行"><a href="#rsync做为服务运行" class="headerlink" title="rsync做为服务运行"></a>rsync做为服务运行</h3><p>  rsync作为服务是托管给xinetd服务管理的，有以下特点：①进程在后台运行，不受终端影响（关终端不会关闭服务，除非杀死相关进程）②可以用相关参数实现一些功能，比如:日志记录，访问控制，验证登录等</p>
+<h4 id="无密码同步"><a href="#无密码同步" class="headerlink" title="无密码同步"></a>无密码同步</h4><p>修改配置文件 /etc/rsyncd.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/19/confluence/" rel="prev" title="confluence">
+      <i class="fa fa-chevron-left"></i> confluence
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/21/sar/" rel="next" title="sar">
+      sar <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#rsync%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">rsync服务介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rsync%E8%AF%AD%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">rsync语法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#man-rsync%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">man rsync语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rsync-%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">rsync 相关参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rsync%E5%81%9A%E4%B8%BA%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">rsync做为命令使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%9C%AC%E5%9C%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">3.1.</span> <span class="nav-text">同步本地数据</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rsync-av-dir1-dir3-%E5%8F%AA%E5%90%8C%E6%AD%A5%E7%9B%AE%E5%BD%95%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%87%E4%BB%B6%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number"></span> <span class="nav-text">rsync -av &#x2F;dir1&#x2F; &#x2F;dir3 &#x2F;&#x2F;只同步目录下面的文件到指定的路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rsync-av-dir1-dir2-%E5%B0%86%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95dir1%E5%92%8C%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E4%B8%80%E8%B5%B7%E5%90%8C%E6%AD%A5"><span class="nav-number"></span> <span class="nav-text">rsync -av &#x2F;dir1 &#x2F;dir2 &#x2F;&#x2F;将当前目录dir1和目录下的所有文件一起同步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">0.1.</span> <span class="nav-text">远程同步</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rsync%E5%81%9A%E4%B8%BA%E6%9C%8D%E5%8A%A1%E8%BF%90%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">rsync做为服务运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E5%AF%86%E7%A0%81%E5%90%8C%E6%AD%A5"><span class="nav-number">1.1.</span> <span class="nav-text">无密码同步</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

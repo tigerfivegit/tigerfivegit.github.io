@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="认识ansibleansible 是一款自动化运维工具，能够解决我们在it工作中，一遍又一遍执行相同任务。利用它，我们可以只解决一次问题，然后自动化运行我们的解决方案。目前，数以千计的公司正在使用简单但功能强大的it自动化引擎，我相信它可以帮我们加速完成DevOps计划。对了，它是由Red Hat公司出品的。 特性简单、强大、无代理无客户端、推送式任务按顺序执行应用程式部署、 配置管理工作流编排协">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/07/01/ansible/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="认识ansibleansible 是一款自动化运维工具，能够解决我们在it工作中，一遍又一遍执行相同任务。利用它，我们可以只解决一次问题，然后自动化运行我们的解决方案。目前，数以千计的公司正在使用简单但功能强大的it自动化引擎，我相信它可以帮我们加速完成DevOps计划。对了，它是由Red Hat公司出品的。 特性简单、强大、无代理无客户端、推送式任务按顺序执行应用程式部署、 配置管理工作流编排协">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-07-01T02:41:35.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="持续集成">
+<meta property="article:tag" content="ansible">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/07/01/ansible/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ansible | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/07/01/ansible/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ansible
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-01 10:41:35" itemprop="dateCreated datePublished" datetime="2018-07-01T10:41:35+08:00">2018-07-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index"><span itemprop="name">ansible</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" itemprop="url" rel="index"><span itemprop="name">持续集成</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="认识ansible"><a href="#认识ansible" class="headerlink" title="认识ansible"></a>认识ansible</h3><p>ansible 是一款自动化运维工具，能够解决我们在it工作中，一遍又一遍执行相同任务。利用它，我们可以只解决一次问题，然后自动化运行我们的解决方案。目前，数以千计的公司正在使用简单但功能强大的it自动化引擎，我相信它可以帮我们加速完成DevOps计划。对了，它是由Red Hat公司出品的。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>简单、强大、无代理<br>无客户端、推送式<br>任务按顺序执行<br>应用程式部署、 配置管理<br>工作流编排<br>协调应用程序生命周期<br>使用OpenSSH和WinRM、无代理架构<br>没有代理商利用或更新</p>
+<span id="more"></span>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="pip安装"><a href="#pip安装" class="headerlink" title="pip安装"></a>pip安装</h4><p>（官方推荐，我没配置pip3就没测试）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# easy_install pip</span><br><span class="line">[root@alitiger ~]# pip install ansible</span><br></pre></td></tr></table></figure>
+<h4 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h4><p>(测试了，虽然后期配置步骤比较繁琐，但是可以方便的更新到git最新的版本，所以我选择yum安装)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# git clone git://github.com/ansible/ansible.git --recursive</span><br><span class="line">[root@alitiger ~]# cd ./ansible</span><br><span class="line">//使用 Bash:</span><br><span class="line"></span><br><span class="line">[root@alitiger ~]# source ./hacking/env-setup</span><br><span class="line">//使用 Fish:</span><br><span class="line"></span><br><span class="line">[root@alitiger ~]# . ./hacking/env-setup.fish</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="yum源安装"><a href="#yum源安装" class="headerlink" title="yum源安装"></a>yum源安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# yum install ansible</span><br></pre></td></tr></table></figure>
+<h4 id="apt安装"><a href="#apt安装" class="headerlink" title="apt安装"></a>apt安装</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common</span><br><span class="line">$ sudo apt-add-repository ppa:ansible/ansible</span><br><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install ansible</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="管理机器-inventory"><a href="#管理机器-inventory" class="headerlink" title="管理机器(inventory)"></a>管理机器(inventory)</h3><h4 id="编辑机器列表"><a href="#编辑机器列表" class="headerlink" title="编辑机器列表"></a>编辑机器列表</h4><p>修改这个列表/etc/ansible/hosts</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line">10.10.100.205:22 ansible_ssh_user=tiger ansible_ssh_pass=1</span><br><span class="line">10.10.100.230:22 ansible_ssh_user=tiger ansible_ssh_pass=1</span><br></pre></td></tr></table></figure>
+<p>这里使用了用户名密码连接，官方并不建议这种连接方式，我个人平时用的也比价少，目标机器的密码暴露了，下文介绍证书连接。<br>如果提示找不到sshpass，需安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install sshpass</span><br></pre></td></tr></table></figure>
+<p>你还可以通过组的形式添加，(如果是域名的话，需要本地做解析，或者是可用的域名)如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line">10.10.100.[1-10]</span><br><span class="line">server[1-10]</span><br><span class="line">[a-z].company.com</span><br></pre></td></tr></table></figure>
+<p>以上，各自代表一组机器。</p>
+<p>其他参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ansible_ssh_host</span><br><span class="line">    将要连接的远程主机名.与你想要设定的主机的别名不同的话,可通过此变量设置.</span><br><span class="line">ansible_ssh_port</span><br><span class="line">    ssh端口号.如果不是默认的端口号,通过此变量设置.</span><br><span class="line">ansible_ssh_user</span><br><span class="line">    默认的 ssh 用户名</span><br><span class="line">ansible_ssh_pass</span><br><span class="line">    ssh 密码(这种方式并不安全,我们强烈建议使用 --ask-pass 或 SSH 密钥)</span><br><span class="line">ansible_sudo_pass</span><br><span class="line">    sudo 密码(这种方式并不安全,我们强烈建议使用 --ask-sudo-pass)</span><br><span class="line">ansible_sudo_exe (new in version 1.8)</span><br><span class="line">    sudo 命令路径(适用于1.8及以上版本)</span><br><span class="line">ansible_connection</span><br><span class="line">    与主机的连接类型.比如:local, ssh 或者 paramiko. Ansible 1.2 以前默认使用 paramiko.1.2 以后默认使用 &#x27;smart&#x27;,&#x27;smart&#x27; 方式会根据是否支持 ControlPersist, 来判断&#x27;ssh&#x27; 方式是否可行.</span><br><span class="line">ansible_ssh_private_key_file</span><br><span class="line">    ssh 使用的私钥文件.适用于有多个密钥,而你不想使用 SSH 代理的情况.</span><br><span class="line">ansible_shell_type</span><br><span class="line">    目标系统的shell类型.默认情况下,命令的执行使用 &#x27;sh&#x27; 语法,可设置为 &#x27;csh&#x27; 、&#x27;bash&#x27;或 &#x27;fish&#x27;.</span><br><span class="line">ansible_python_interpreter</span><br><span class="line">    目标主机的 python 路径.适用于的情况: 系统中有多个 Python, 或者命令路径不是&quot;/usr/bin/python&quot;,比如  \*BSD, 或者 /usr/bin/python</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="基于证书认证添加机器"><a href="#基于证书认证添加机器" class="headerlink" title="基于证书认证添加机器"></a>基于证书认证添加机器</h4><p>(官方推荐的,安全性比较高)<br>在控制主机中生成ssh密钥对<br><code>ssh-keygen -t rsa</code><br>一路回车下去，然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.10.100.205</span><br><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.10.100.206</span><br><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@10.10.100.207</span><br></pre></td></tr></table></figure>
+<p>/etc/ansible/hosts 中增加机器ip及端口号即可，最后测试一下。</p>
+<p>###简单使用(ad-hoc)<br>列出文件<br><code>ansible test -a &quot;ls&quot; </code><br>测试机器是否通</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# ansible test -m ping -o</span><br><span class="line">10.10.100.205 | SUCCESS =&gt; &#123;&quot;changed&quot;: false, &quot;failed&quot;: false, &quot;ping&quot;: &quot;pong&quot;&#125;</span><br><span class="line">10.10.100.230 | SUCCESS =&gt; &#123;&quot;changed&quot;: false,  &quot;failed&quot;: false,&quot;ping&quot;: &quot;pong&quot;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其他命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 执行远程命令</span><br><span class="line">[root@alitiger ~]# ansible test -m command -a &#x27;uptime&#x27;</span><br><span class="line"></span><br><span class="line"># 执行主控端脚本</span><br><span class="line">[root@alitiger ~]# ansible test -m script -a &#x27;/etc/ansible/script/test.sh&#x27;</span><br><span class="line"></span><br><span class="line"># 执行远程主机的脚本</span><br><span class="line">[root@alitiger ~]# ansible test -m shell -a &#x27;ps aux|grep zabbix&#x27;</span><br><span class="line"></span><br><span class="line"># 类似shell</span><br><span class="line">[root@alitiger ~]# ansible test -m raw -a &quot;ps aux|grep zabbix|awk &#x27;&#123;print \$2&#125;&#x27;&quot;</span><br><span class="line"></span><br><span class="line"># 创建软链接</span><br><span class="line">[root@alitiger ~]# ansible test -m file -a &quot;src=/etc/resolv.conf dest=/tmp/resolv.conf state=link&quot;</span><br><span class="line"></span><br><span class="line"># 删除软链接</span><br><span class="line">[root@alitiger ~]# ansible test -m file -a &quot;path=/tmp/resolv.conf state=absent&quot;</span><br><span class="line"></span><br><span class="line"># 复制文件到远程服务器</span><br><span class="line">[root@alitiger ~]# ansible test -m copy -a &quot;src=/etc/ansible/ansible.cfg dest=/tmp/ansible.cfg owner=root group=root mode=0644&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="使用playbook"><a href="#使用playbook" class="headerlink" title="使用playbook"></a>使用playbook</h3><p>Playbook是一种与adhoc任务执行模式完全不同的方式，而且特别强大。<br>简单地说，Playbooks是一个非常简单的配置管理和多机器部署系统的基础，不同于任何已经存在的配置系统，而且非常适合部署复杂应用程序。</p>
+<h4 id="yml语言"><a href="#yml语言" class="headerlink" title="yml语言"></a>yml语言</h4><p>yml是一种比较精简的语法结构，通过空格来控制层级，具体可移步百度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">包含三种类型：</span><br><span class="line"></span><br><span class="line">键值对：key: value</span><br><span class="line">数组</span><br><span class="line">纯量：整型、字符串、布尔型</span><br><span class="line">这个很好理解：如果你熟悉Python, 这三种类型就相当于：map, list, 变量</span><br><span class="line"></span><br><span class="line">如果你熟悉golang, 这三种类型就相当于： map, 数组， 变量</span><br></pre></td></tr></table></figure>
+
+<p>检测 apache是否是最新版</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: test</span><br><span class="line">  vars:</span><br><span class="line">    http_port: 80</span><br><span class="line">    max_clients: 200</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: ensure apache is at the latest version</span><br><span class="line">    yum: name=httpd state=install</span><br><span class="line">  - name: write the apache config file</span><br><span class="line">    template: src=/srv/httpd.j2 dest=/etc/httpd/conf/httpd.conf</span><br><span class="line">    notify:</span><br><span class="line">    - restart apache</span><br><span class="line">  - name: ensure apache is running (and enable it at boot)</span><br><span class="line">    service: name=httpd state=started enabled=yes</span><br><span class="line">  handlers:</span><br><span class="line">    - name: restart apache</span><br><span class="line">      service: name=httpd state=restarted</span><br></pre></td></tr></table></figure>
+<p>检查语法<br>方法一：<br><code>ansible-playbook test.yml --syntax-check</code><br>方法二(个人比较喜欢第二种，但是第一种不用单独安包)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">先pip install ansible-lint</span><br><span class="line">ansible-lint test.yml</span><br></pre></td></tr></table></figure>
+
+
+<p>保存为test.yml，运行</p>
+<p><code>ansible-playbook test.yml</code></p>
+<h4 id="yml基本结构"><a href="#yml基本结构" class="headerlink" title="yml基本结构"></a>yml基本结构</h4><p>基本结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- host: test</span><br><span class="line">  remote_user:</span><br><span class="line">  tasks: </span><br><span class="line">  - task1</span><br><span class="line">      module_name: module_args</span><br><span class="line">  - task 2</span><br><span class="line">  handlers:</span><br><span class="line">  - handler1</span><br><span class="line">  - handler2</span><br></pre></td></tr></table></figure>
+<p>hosts行是一个或多个组或主机模式的列表，以冒号分隔，<br>每个任务定义可远程用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-  hosts ： youngfit</span><br><span class="line">  remote_user ： root </span><br><span class="line">  tasks ：</span><br><span class="line">    -  name ： test connection </span><br><span class="line">      ping ：</span><br><span class="line">      remote_user ： yourname</span><br></pre></td></tr></table></figure>
+<p>任务分为service、command、shell等：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">tasks:</span><br><span class="line">  - name: make sure apache is running</span><br><span class="line">    service: name=httpd state=started</span><br><span class="line"></span><br><span class="line">tasks:</span><br><span class="line">  - name: enable selinux</span><br><span class="line">    command: /sbin/setenforce 1</span><br><span class="line"></span><br><span class="line">tasks:</span><br><span class="line">  - name: run this command and ignore the result</span><br><span class="line">    shell: /usr/bin/somecommand || /bin/true</span><br><span class="line"></span><br><span class="line">tasks:</span><br><span class="line">  - name: run this command and ignore the result</span><br><span class="line">    shell: /usr/bin/somecommand</span><br><span class="line">    ignore_errors: True</span><br><span class="line"></span><br><span class="line">tasks:</span><br><span class="line">    - name: restart everything</span><br><span class="line">      command: echo &quot;this task will restart the web services&quot;</span><br><span class="line">      notify: &quot;restart web services&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="使用playbook安装nginx"><a href="#使用playbook安装nginx" class="headerlink" title="使用playbook安装nginx"></a>使用playbook安装nginx</h4><p>写安装nginx的sh脚本vim nginx-install.yml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- hosts: youngfit</span><br><span class="line">  vars:</span><br><span class="line">    http_port: 80</span><br><span class="line">    max_clients: 200</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: copy nginx-install.sh to client</span><br><span class="line">    copy: src=nginx-install.sh dest=/tmp/nginx-install.sh</span><br><span class="line">  - name: chomd a+x</span><br><span class="line">    shell: chmod +x /tmp/nginx-install.sh</span><br><span class="line">  - name: install nginx</span><br><span class="line">    shell: /tmp/nginx-install.sh</span><br></pre></td></tr></table></figure>
+
+<p>执行ansible-playbook</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger playbook]# ansible-playbook  nginx-install.yml</span><br></pre></td></tr></table></figure>
+<p>到各机器上观察</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger playbook]# ps -ef |grep nginx</span><br><span class="line">tiger      2477 31369  0 13:09 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
+<p>总结<br>总体来说，ansible功能十分强大，适合大部分公司大部分场景，本文介绍了ansible基本用法，和playbook脚本的一些简单实践。当然如果你熟悉python，你还可以使用python写出各种各样适合自己公司的运维命令来。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" rel="tag"># 持续集成</a>
+              <a href="/tags/ansible/" rel="tag"># ansible</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/12/svn/" rel="prev" title="svn">
+      <i class="fa fa-chevron-left"></i> svn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/04/ansible2/" rel="next" title="ansible2">
+      ansible2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86ansible"><span class="nav-number">1.</span> <span class="nav-text">认识ansible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pip%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">pip安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">源码安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yum%E6%BA%90%E5%AE%89%E8%A3%85"><span class="nav-number">3.3.</span> <span class="nav-text">yum源安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#apt%E5%AE%89%E8%A3%85"><span class="nav-number">3.4.</span> <span class="nav-text">apt安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E6%9C%BA%E5%99%A8-inventory"><span class="nav-number">4.</span> <span class="nav-text">管理机器(inventory)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%BE%91%E6%9C%BA%E5%99%A8%E5%88%97%E8%A1%A8"><span class="nav-number">4.1.</span> <span class="nav-text">编辑机器列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E6%B7%BB%E5%8A%A0%E6%9C%BA%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">基于证书认证添加机器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8playbook"><span class="nav-number">5.</span> <span class="nav-text">使用playbook</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yml%E8%AF%AD%E8%A8%80"><span class="nav-number">5.1.</span> <span class="nav-text">yml语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yml%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">5.2.</span> <span class="nav-text">yml基本结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8playbook%E5%AE%89%E8%A3%85nginx"><span class="nav-number">5.3.</span> <span class="nav-text">使用playbook安装nginx</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

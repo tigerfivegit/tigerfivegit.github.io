@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文为Docker容器部署，包括Dubbo微服务、Zookeeper、Dubbo-admin的部署 本系列文章中所使用的框架版本为Spring Boot 2.0.3-RELEASE，Spring 5.0.7-RELEASE，Dubbo 2.6.2。 Docker容器启动参数1234567891011本文用到的运行参数说明：-d: 后台运行容器，并返回容器ID-i: 以交互模式运行容器，通常与-t同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker部署dubbo">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/10/11/docker%E9%83%A8%E7%BD%B2dubbo/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文为Docker容器部署，包括Dubbo微服务、Zookeeper、Dubbo-admin的部署 本系列文章中所使用的框架版本为Spring Boot 2.0.3-RELEASE，Spring 5.0.7-RELEASE，Dubbo 2.6.2。 Docker容器启动参数1234567891011本文用到的运行参数说明：-d: 后台运行容器，并返回容器ID-i: 以交互模式运行容器，通常与-t同">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdn.net/20180816143528351?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3doeV9zdGlsbF9jb25mdXNlZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="article:published_time" content="2018-10-11T10:57:12.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="dubbo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180816143528351?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3doeV9zdGlsbF9jb25mdXNlZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/10/11/docker%E9%83%A8%E7%BD%B2dubbo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>docker部署dubbo | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/10/11/docker%E9%83%A8%E7%BD%B2dubbo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker部署dubbo
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-11 18:57:12" itemprop="dateCreated datePublished" datetime="2018-10-11T18:57:12+08:00">2018-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/dubbo/" itemprop="url" rel="index"><span itemprop="name">dubbo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>本文为Docker容器部署，包括Dubbo微服务、Zookeeper、Dubbo-admin的部署</code></p>
+<p><code>本系列文章中所使用的框架版本为Spring Boot 2.0.3-RELEASE，Spring 5.0.7-RELEASE，Dubbo 2.6.2。</code></p>
+<h3 id="Docker容器启动参数"><a href="#Docker容器启动参数" class="headerlink" title="Docker容器启动参数"></a>Docker容器启动参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">本文用到的运行参数说明：</span><br><span class="line"></span><br><span class="line">-d: 后台运行容器，并返回容器ID</span><br><span class="line">-i: 以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用</span><br><span class="line">–name: 为容器指定一个名称</span><br><span class="line">-e: 设置环境变量</span><br><span class="line">–env-file: 从指定文件读取环境变量</span><br><span class="line">-p: 端口映射，如果不做端口映射，容器外部无法访问容器内部</span><br><span class="line">-v: 文件挂载</span><br><span class="line">–link: 添加链接到容器，在default网络下，默认不会将容器名称解析到容器IP地址，必须要添加link选项才可以。而在自定义网络下，则不需要添加此选项</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>更多选项可以查看docker文档</p>
+<h3 id="Docker容器部署"><a href="#Docker容器部署" class="headerlink" title="Docker容器部署"></a>Docker容器部署</h3><h3 id="网络接口及数据卷"><a href="#网络接口及数据卷" class="headerlink" title="网络接口及数据卷"></a>网络接口及数据卷</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> # 创建网络接口</span><br><span class="line">sudo docker network create zookeeper</span><br><span class="line">sudo docker network create dubbo</span><br><span class="line"></span><br><span class="line"> # volumn创建，用来持久化数据</span><br><span class="line">sudo docker volume create background</span><br><span class="line">sudo docker volume create dubbo</span><br></pre></td></tr></table></figure>
+
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # zookeeper注册中心</span><br><span class="line">sudo docker run -d \</span><br><span class="line">    --name zookeeper \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    --net dubbo \</span><br><span class="line">    -v background:/var/lib/zookeeper/data \</span><br><span class="line">    -p 2181:2181 \</span><br><span class="line">    -p 2888:2888 \</span><br><span class="line">    -p 3888:3888 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    jplock/zookeeper:3.4.11</span><br></pre></td></tr></table></figure>
+
+<h3 id="dubbo-admin"><a href="#dubbo-admin" class="headerlink" title="dubbo-admin"></a>dubbo-admin</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # dubbo-admin管理中心</span><br><span class="line">docker run -d \</span><br><span class="line">    --name dubbo-admin \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    -v background:/data \</span><br><span class="line">    -p 9600:8080 \</span><br><span class="line">    -e DUBBO_REGISTRY=&quot;zookeeper:\/\/ip:port&quot; \</span><br><span class="line">    -e DUBBO_ROOT_PASSWORD=root \</span><br><span class="line">    -e DUBBO_GUEST_PASSWORD=guest \</span><br><span class="line">    --restart=always \</span><br><span class="line">    riveryang/dubbo-admin</span><br></pre></td></tr></table></figure>
+
+<h3 id="dubbo-monitor"><a href="#dubbo-monitor" class="headerlink" title="dubbo-monitor"></a>dubbo-monitor</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # dubbo-monitor监控中心</span><br><span class="line">docker run -d \</span><br><span class="line">    --name dubbo-monitor \</span><br><span class="line">    --net zookeeper \</span><br><span class="line">    -v background:/dubbo-monitor/data \</span><br><span class="line">    -e DUBBO_IP_TO_REGISTRY=ip \</span><br><span class="line">    -e DUBBO_PORT_TO_REGISTRY=9700 \</span><br><span class="line">    -p &lt;ip&gt;:9700:9700 \</span><br><span class="line">    -p 9601:9601 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    jeromefromcn/dubbo-monitor</span><br></pre></td></tr></table></figure>
+<h3 id="Dubbo微服务"><a href="#Dubbo微服务" class="headerlink" title="Dubbo微服务"></a>Dubbo微服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> # Dubbo微服务</span><br><span class="line">docker run -d \</span><br><span class="line">    --name &lt;containerName&gt; \</span><br><span class="line">    --net dubbo \</span><br><span class="line">    -e DUBBO_IP_TO_REGISTRY=&lt;ip&gt; \</span><br><span class="line">    -e DUBBO_PORT_TO_REGISTRY=&lt;port&gt; \</span><br><span class="line">    -p &lt;ip&gt;:&lt;port&gt;:&lt;port&gt; \</span><br><span class="line">    -v dubbo:/log \</span><br><span class="line">    --restart=always \</span><br><span class="line">    &lt;imageName&gt; \</span><br><span class="line">    --spring.profiles.active=&lt;env&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h3><p><img src="https://img-blog.csdn.net/20180816143528351?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3doeV9zdGlsbF9jb25mdXNlZA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="Docker常用命令图解"></p>
+<p>查看容器状态</p>
+<p><code>docker ps | grep $&#123;CONTAINER_ID&#125;</code></p>
+<p>查看容器日志</p>
+<p><code>docker logs $&#123;CONTAINER_ID&#125;</code></p>
+<p>交互式进入容器中</p>
+<p><code>docker exec -i -t $&#123;IMAGE_NAME&#125; sh</code></p>
+<p>镜像打包</p>
+<p><code>docker commit -m &quot;message&quot; -a  &quot;author&quot; $&#123;CONTAINER_ID&#125;  $&#123;NEW_IMAGE_NAME&#125;</code></p>
+<p>标签</p>
+<p><code>docker tag $&#123;IMAGE_NAME&#125;  $&#123;NEW_IMAGE_NAME&#125;</code></p>
+<p>推送至对应仓库</p>
+<p><code>docker push $&#123;REGISTRY_URL&#125;/$&#123;IMAGE_NAME&#125;</code></p>
+<p>删除所有退出的容器</p>
+<p><code>docker rm $(docker ps -a | grep Exit | awk &#39;&#123; print $1 &#125;&#39;)</code></p>
+<p>删除所有名称为none的镜像</p>
+<p><code>docker images | grep none | awk &#39;&#123;print $3&#125; &#39; | xargs docker rmi</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/dubbo/" rel="tag"># dubbo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/08/ansible-yaml/" rel="prev" title="ansible-yaml">
+      <i class="fa fa-chevron-left"></i> ansible-yaml
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/19/confluence/" rel="next" title="confluence">
+      confluence <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">Docker容器启动参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%B9%E5%99%A8%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">Docker容器部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%8F%8A%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">3.</span> <span class="nav-text">网络接口及数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zookeeper"><span class="nav-number">4.</span> <span class="nav-text">Zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dubbo-admin"><span class="nav-number">5.</span> <span class="nav-text">dubbo-admin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dubbo-monitor"><span class="nav-number">6.</span> <span class="nav-text">dubbo-monitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dubbo%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">Dubbo微服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">Docker常用命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

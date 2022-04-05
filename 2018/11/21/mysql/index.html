@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="数据库基本操作1数据库的增删改查 库操作创建库  12mysql &gt; create database db1; 查看库12mysql &gt; show databases; mysql &gt; show create database db1;  &#x2F;&#x2F;更详细的查看库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/11/21/mysql/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据库基本操作1数据库的增删改查 库操作创建库  12mysql &gt; create database db1; 查看库12mysql &gt; show databases; mysql &gt; show create database db1;  &#x2F;&#x2F;更详细的查看库">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-11-21T07:10:54.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/11/21/mysql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>mysql | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/11/21/mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-11-21 15:10:54" itemprop="dateCreated datePublished" datetime="2018-11-21T15:10:54+08:00">2018-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="数据库基本操作"><a href="#数据库基本操作" class="headerlink" title="数据库基本操作"></a>数据库基本操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据库的增删改查</span><br></pre></td></tr></table></figure>
+<h3 id="库操作"><a href="#库操作" class="headerlink" title="库操作"></a>库操作</h3><p><strong>创建库</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; create database db1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="查看库"><a href="#查看库" class="headerlink" title="查看库"></a><strong>查看库</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; show databases; </span><br><span class="line">mysql &gt; show create database db1;  //更详细的查看库</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p><strong>使用库</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; use db1;</span><br></pre></td></tr></table></figure>
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><p><strong>创建表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt; create tables 表名(字段 类型(修饰符))</span><br></pre></td></tr></table></figure>
+<p><strong>查看表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看所有表：mysql &gt; show tables ;</span><br><span class="line">查看表记录：mysql &gt; show table status like &#x27;表名&#x27; ；</span><br><span class="line">查看表结构：mysql &gt; desc &#x27;表名&#x27; ；</span><br><span class="line">查看表记录：mysql &gt; select * from  &#x27;表名&#x27; ;</span><br></pre></td></tr></table></figure>
+<p><strong>修改表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改表名：mysql &gt; rename table  &#x27;源表名&#x27;  to  &#x27;新表名&#x27; ；</span><br></pre></td></tr></table></figure>
+<h3 id="字段记录操作"><a href="#字段记录操作" class="headerlink" title="字段记录操作"></a>字段记录操作</h3><p><strong>字段</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">添加字段：mysql &gt; alter table &#x27;表名&#x27;  add &#x27;字段&#x27; &#x27;修饰符&#x27;;</span><br><span class="line">删除字段：mysql &gt; alter table &#x27;表名&#x27;  drop &#x27;字段&#x27; ；</span><br><span class="line">修改字段：mysql &gt; alter table  &#x27;表名&#x27; change &#x27;旧字段&#x27; &#x27;新字段&#x27;  &#x27;修饰符&#x27;;</span><br></pre></td></tr></table></figure>
+<p><strong>记录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">添加记录：insert into &#x27;表名(记录，记录)&#x27;  values (),(),();</span><br><span class="line">        ：insert into &#x27;表名&#x27;  values  (),(),();</span><br><span class="line">修改记录：update &#x27;表名&#x27; set 字段=&#x27;&#x27;  where 字段=&#x27;&#x27;;</span><br><span class="line">删除记录：delete from &#x27;表名&#x27; where  &#x27;字段&#x27;=&#x27;&#x27; ;</span><br></pre></td></tr></table></figure>
+<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p><strong>查询</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">简单查询：select * from &#x27;表名&#x27;;</span><br><span class="line">避免重复：select distinct &#x27;字段&#x27; from &#x27;表名&#x27;;</span><br><span class="line">条件查询：select 字段,字段 from 表名 where id&lt;=5(条件);</span><br><span class="line">四则运算查询：select id,dep_id,id*dep_id from company.employee5  where id&lt;=5;</span><br><span class="line">定义显示格式一：select id*dep_id as &quot;id and dep_id&#x27;s sum&quot; from company.employee5  where id&lt;=5;</span><br><span class="line">定义显示格式：SELECT CONCAT(name, &#x27; annual salary: &#x27;, salary*14)  AS Annual_salary FROM employee5;   //定义格式+四个运算，CONCAT是关键字</span><br><span class="line">多条件：select &#x27;字段，字段‘ from &#x27;表名&#x27; WHERRE &#x27;条件一&#x27; AND &#x27;条件二&#x27;;</span><br><span class="line">关键字between and：</span><br><span class="line">select  &#x27;字段，字段&#x27; from &#x27;表名&#x27;  where 字段  BETWEEN</span><br><span class="line">&#x27;条件一&#x27; AND &#x27;条件二&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------</span><br><span class="line">排序查询：</span><br><span class="line">select &#x27;字段&#x27; from  &#x27;表名&#x27; ORDER BY  &#x27;排序字段&#x27;；//字段后加DESC正序，ASC反序</span><br><span class="line"></span><br><span class="line">限制查询的记录数：</span><br><span class="line">select &#x27;字段&#x27; from &#x27;表名&#x27; ORDER BY  &#x27;字段，DESC|ACS&#x27; LIMIT  &#x27;数字&#x27;; //数字有两种的是(5,从初始位置到第五个)(2,5,第三个开始，共显示五个)</span><br><span class="line"></span><br><span class="line">使用集合的查询：</span><br><span class="line">select COUNT(*)  from &#x27;表名&#x27;；</span><br><span class="line">select COUNT(*) FROM &#x27;表名&#x27; WHERE dep_id=101;</span><br><span class="line">select MAX(salary) FROM &#x27;表名&#x27;;</span><br><span class="line">select MIN(salary) FROM &#x27;表名&#x27;;</span><br><span class="line">select AVG(salary) FROM &#x27;表名&#x27;;</span><br><span class="line">select SUM(salary) FROM &#x27;表名&#x27;;</span><br><span class="line">select SUM(salary) FROM &#x27;表名&#x27; WHERE dep_id=101;</span><br><span class="line"></span><br><span class="line">分组查询：</span><br><span class="line">select &#x27;字段&#x27; from  &#x27;表名&#x27; group by 字段;   //可参考下列面试题</span><br><span class="line"></span><br><span class="line">模糊查询：</span><br><span class="line">select &#x27;字段&#x27; from  &#x27;表名&#x27;  LIKE  &#x27;关键字&#x27;；</span><br><span class="line"></span><br><span class="line">正则表达式查询：</span><br><span class="line">select * from &#x27;表名&#x27; where &#x27;字段&#x27;  REGEXP &#x27;关键字&#x27;； </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="删库"><a href="#删库" class="headerlink" title="删库"></a>删库</h3><hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">删库：drop database &#x27;库名&#x27;；</span><br><span class="line">删表：drop table   &#x27;表名&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h2><h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a><strong>连接数据库</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysql -uroot  -p  -h10.18.44.209  -p3306</span><br></pre></td></tr></table></figure>
+<h3 id="修改数据库密码"><a href="#修改数据库密码" class="headerlink" title="修改数据库密码"></a><strong>修改数据库密码</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># vim  /etc/my.cnf 追加</span><br><span class="line">validate_password=off</span><br><span class="line"># systemctl restart mysqld</span><br><span class="line">方法一：</span><br><span class="line">mysql &gt; SET PASSWORD FOR  user3@&#x27;localhost&#x27;=&#x27;new_password&#x27;;</span><br><span class="line">mysql &gt; flush privileges;</span><br><span class="line">方法二：</span><br><span class="line">mysql &gt; update mysql.user set password=password(&#x27;newpassword&#x27;) where user=&#x27;root&#x27;;</span><br><span class="line">mysql &gt; flush privileges;</span><br><span class="line">方式三：</span><br><span class="line">mysql &gt; set password for &#x27;root&#x27;@&#x27;localhost&#x27;=password(&#x27;newpassord&#x27;);</span><br></pre></td></tr></table></figure>
+<h3 id="编译安装需要参数"><a href="#编译安装需要参数" class="headerlink" title="编译安装需要参数"></a><strong>编译安装需要参数</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@mysql-5.7.17 ~]# cmake . \</span><br><span class="line">-DWITH_BOOST=boost_1_59_0/ \                    指定boost目录</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \       指定安装目录</span><br><span class="line">-DSYSCONFDIR=/etc \                             配置文件位置  </span><br><span class="line">-DMYSQL_DATADIR=/usr/local/mysql/data \         数据目录（非常重要 错误日志、数据存放位置）</span><br><span class="line">-DINSTALL_MANDIR=/usr/share/man \               man手册</span><br><span class="line">-DMYSQL_TCP_PORT=3306 \                         默认端口3306</span><br><span class="line">-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \             sock文件位置，用来做网络通信的  </span><br><span class="line">-DDEFAULT_CHARSET=utf8 \                        字符集的支持  默认</span><br><span class="line">-DEXTRA_CHARSETS=all \                          字符集的支持  扩展支持</span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci \           字符集的支持   设定默认排序规则</span><br><span class="line">-DWITH_READLINE=1 \                             可以上下泛历史命令  </span><br><span class="line">-DWITH_SSL=system \                             使用证书登陆   （安全 但是影响传输速度）      </span><br><span class="line">-DWITH_EMBEDDED_SERVER=1 \                      编译嵌入式服务器支持  </span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \                      支持从本机导入</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1                默认引擎   数据如何存储的库</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="msyql中now-、sysdate-、curdate-区别"><a href="#msyql中now-、sysdate-、curdate-区别" class="headerlink" title="msyql中now()、sysdate()、curdate()区别"></a>msyql中now()、sysdate()、curdate()区别</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT date_sub(date_sub(date_format(now(),&#x27;%y-%m-%d &#x27;),interval extract( day from now())-1 day),interval 1 month)</span><br><span class="line">上个月第一天</span><br><span class="line">select date_sub(date_sub(date_format(now(),&#x27;%y-%m-%d&#x27;),interval extract(  day from now()) day),interval 0 month)</span><br><span class="line">上个月最后一天</span><br><span class="line"></span><br><span class="line">select date_sub(date_sub(date_format(now(),&#x27;%y-%m-%d&#x27;),interval extract(  day from now())-1 day),interval 0 month)</span><br><span class="line">这个月第一天</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="Mysql日志管理"><a href="#Mysql日志管理" class="headerlink" title="Mysql日志管理"></a><strong>Mysql日志管理</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">error log    错误日志        排错    /var/log/mysqld.log【默认开启】</span><br><span class="line">bin log      二进制日志      备份    增量备份 DDL DML DCL</span><br><span class="line">Relay log    中继日志        复制    接收 replication master </span><br><span class="line">slow log     慢查询日志       调优    查询时间超过指定值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error Log</span><br><span class="line">log-error=/var/log/mysqld.log</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Binary Log(用于备份恢复数据)</span><br><span class="line">产生binlog日志：</span><br><span class="line">log-bin=/var/log/mysql-bin/slave2</span><br><span class="line">serve-id=2</span><br><span class="line"></span><br><span class="line"># mkdir /var/log/mysql-bin/slave2</span><br><span class="line">#chmod mysql.mysql /var/log/mysql-bin/slave</span><br><span class="line">#systemctl restart mysqld</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1. 重启mysqld 会截断旧日志产生新的日志</span><br><span class="line">2. 刷新日志会截断旧日志产生新的日志</span><br><span class="line">mysql&gt; flush logs </span><br><span class="line">3. 删除所有binlog（禁用）</span><br><span class="line">mysql&gt; reset master</span><br><span class="line">4. 删除部分日志</span><br><span class="line">mysql&gt; PURGE BINARY LOGS TO &#x27;mysql-bin.010&#x27;;</span><br><span class="line">mysql&gt; PURGE BINARY LOGS BEFORE &#x27;2016-04-02 22:46:26&#x27;;</span><br><span class="line">5. 暂停binlog日志功能（仅对当前会话生效）</span><br><span class="line">mysql&gt; SET SQL_LOG_BIN=0;</span><br><span class="line">mysql&gt; SET SQL_LOG_BIN=1;</span><br><span class="line"></span><br><span class="line">读取binlog日志：</span><br><span class="line"># mysqlbinlog mysql.000002</span><br><span class="line"></span><br><span class="line">按datetime读取：</span><br><span class="line"># mysqlbinlog mysql.000002 --start-datetime=&quot;2018-12-05 10:02:56&quot;</span><br><span class="line"># mysqlbinlog mysql.000002 --stop-datetime=&quot;2018-12-05 11:02:54&quot;</span><br><span class="line"># mysqlbinlog mysql.000002 --start-datetime=&quot;2018-12-05 10:02:56&quot; --stop-datetime=&quot;2018-12-05 11:02:54&quot; </span><br><span class="line"> </span><br><span class="line">按position读取：</span><br><span class="line"># mysqlbinlog mysql.000002 --start-position=260</span><br><span class="line"># mysqlbinlog mysql.000002 --stop-position=260</span><br><span class="line"># mysqlbinlog mysql.000002 --start-position=260 --stop-position=930</span><br><span class="line"></span><br><span class="line">查看带加密的binlong日志</span><br><span class="line">mysqlbinlog --base64-output=decode-rows  -v  日志文件</span><br><span class="line"></span><br><span class="line">根据binlog恢复数据：</span><br><span class="line">根据时间点恢复数据</span><br><span class="line"># mysqlbinlog --start-datetime=&#x27;2014-11-25 11:56:54&#x27;  --stop-datetime=&#x27;2014-11-25 11:57:41&#x27;  tiger-bin.000001 | mysql -u root -p1</span><br><span class="line"></span><br><span class="line">根据位置点恢复数据</span><br><span class="line"># mysqlbinlog --start-position 106 --stop-position  527 tiger-bin.000001 | mysql -u root -p1  </span><br><span class="line"></span><br><span class="line">刷新bin-log日志:</span><br><span class="line">#mysqladmin  flush-logs</span><br><span class="line"></span><br><span class="line">去除binlog加密：</span><br><span class="line">transaction_isolation=repeatable-read</span><br><span class="line">binlog_format=mixed</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">慢查询：</span><br><span class="line">slow_query_log=1</span><br><span class="line">slow_query_log_file=/var/log/mysql-slow/slow.log</span><br><span class="line">long_query_time=3</span><br><span class="line"></span><br><span class="line"># mkdir /var/log/mysql-slow/</span><br><span class="line"># chown mysql.mysql /var/log/mysql-slow/</span><br><span class="line"># systemctl restart mysqld</span><br><span class="line"></span><br><span class="line">查看慢查询日志</span><br><span class="line">测试:BENCHMARK(count,expr)</span><br><span class="line">SELECT BENCHMARK(50000000,2*3);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="mysql中TIMESTAMPDIFF和TIMESTAMPADD函数的用法"><a href="#mysql中TIMESTAMPDIFF和TIMESTAMPADD函数的用法" class="headerlink" title="mysql中TIMESTAMPDIFF和TIMESTAMPADD函数的用法"></a>mysql中TIMESTAMPDIFF和TIMESTAMPADD函数的用法</h3><p>今天在处理工单的时候,其中的一个需求是某商品的发货时效(即下单时间和发货时间的时间差),接触到了TIMESTAMPDIFF函数</p>
+<p><strong>TIMESTAMPDIFF</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TIMERSTAMPDIFF语法:</span><br><span class="line">TIMERSTAMPDIFF(interval,datetime_expr1,datetime_expr2)</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line">该函数是返回datetime_expr1和datetime_expr2之间的整数差,其中单位有interval参数决定,interval的常用参数有:</span><br><span class="line">FRAC_SECOND   时间间隔是毫秒</span><br><span class="line">SECOND        时间间隔是秒</span><br><span class="line">MINUTE        时间间隔是分钟</span><br><span class="line">HOUR          时间间隔是小时</span><br><span class="line">DAY           时间间隔是天</span><br><span class="line">WEEK          时间间隔是周</span><br><span class="line">MOUTH         时间间隔是月</span><br><span class="line">QUARTER       时间间隔是季度</span><br><span class="line">YEAR          时间间隔是年</span><br></pre></td></tr></table></figure>
+<p>示例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; select timestampdiff(hour,&#x27;2018-06-05 09:00:00&#x27;,&#x27;2018-06-15 09:00:00&#x27;);</span><br><span class="line">+-----------------------------------------------------------------+</span><br><span class="line">| timestampdiff(hour,&#x27;2018-06-05 09:00:00&#x27;,&#x27;2018-06-15 09:00:00&#x27;) |</span><br><span class="line">+-----------------------------------------------------------------+</span><br><span class="line">|                                                             240 |</span><br><span class="line">+-----------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>示例二:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; select timestampdiff(day,&#x27;2018-06-05 09:00:00&#x27;,&#x27;2018-06-15 09:00:00&#x27;);</span><br><span class="line">+----------------------------------------------------------------+</span><br><span class="line">| timestampdiff(day,&#x27;2018-06-05 09:00:00&#x27;,&#x27;2018-06-15 09:00:00&#x27;) |</span><br><span class="line">+----------------------------------------------------------------+</span><br><span class="line">|                                                             10 |</span><br><span class="line">+----------------------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>TIMESTAMPADD</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TIMESTAMPADD语法:</span><br><span class="line">TIMESTAMPADD(interval,int_expr,datetime_expr)</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line">将整型表达式int_expr 添加到日期或日期时间表达式 datetime_expr中。式中的interval和TIMESTAMPDIFF中列举的取值是一样的。</span><br></pre></td></tr></table></figure>
+<p>示例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; select timestampadd(second,86400,&#x27;2018-06-15 09:00:00&#x27;);</span><br><span class="line">+--------------------------------------------------+</span><br><span class="line">| timestampadd(second,86400,&#x27;2018-06-15 09:00:00&#x27;) |</span><br><span class="line">+--------------------------------------------------+</span><br><span class="line">| 2018-06-16 09:00:00                              |</span><br><span class="line">+--------------------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="msyql中CASE-WHEN语法"><a href="#msyql中CASE-WHEN语法" class="headerlink" title="msyql中CASE WHEN语法"></a>msyql中CASE WHEN语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MySQL中case when语句，用于计算条件列表并返回多个可能表达式之一。</span><br></pre></td></tr></table></figure>
+<p>CASE具有两种格式：简单CASE函数将某个表达式与一组简单表达式进行比较以确定结果。CASE搜索函数计算一组布尔表达式以确定结果。两种都支持可选的ELSE函数。</p>
+<p>1）简单CASE函数<br>语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CASE input_expression  </span><br><span class="line">WHEN when_expression THEN  </span><br><span class="line">    result_expression [...n ] [  </span><br><span class="line">ELSE  </span><br><span class="line">    else_result_expression  </span><br><span class="line">END  </span><br></pre></td></tr></table></figure>
+<p>参数介绍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">input_expression是使用简单 CASE 格式时所计算的表达式。Input_expression 是任何有效的 Microsoft SQL Server 表达式。</span><br><span class="line">WHEN when_expression使用简单 CASE 格式时 input_expression 所比较的简单表达式。When_expression 是任意有效的 SQL Server 表达式。Input_expression 和每个 when_expression 的数据类型必须相同，或者是隐性转换。</span><br><span class="line">占位符，表明可以使用多个 WHEN when_expression THEN result_expression 子句或 WHEN Boolean_expression THEN result_expression 子句。</span><br><span class="line">THEN result_expression 当 input_expression = when_expression 取值为 TRUE，或者 Boolean_expression 取值 TRUE 时返回的表达式。</span><br><span class="line">result expression 是任意有效的 SQL Server 表达式。</span><br><span class="line">ELSE else_result_expression当比较运算取值不为 TRUE 时返回的表达式。如果省略此参数并且比较运算取值不为 TRUE，CASE 将返回 NULL 值。else_result_expression 是任意有效的 SQL Server 表达式。else_result_expression 和所有 result_expression 的数据类型必须相同，或者必须是隐性转换。</span><br><span class="line"></span><br><span class="line">简单 CASE 函数：返回结果值介绍：</span><br><span class="line"></span><br><span class="line">计算 input_expression，然后按指定顺序对每个 WHEN 子句的 input_expression = when_expression 进行计算。</span><br><span class="line">返回第一个取值为 TRUE 的 (input_expression = when_expression) 的 result_expression。如果没有取值为 TRUE 的 input_expression = when_expression，则当指定 ELSE 子句时 SQL Server 将返回 else_result_expression；若没有指定 ELSE 子句，则返回 NULL 值。</span><br></pre></td></tr></table></figure>
+<p>2)CASE搜索函数<br>语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CASE</span>  </span><br><span class="line"><span class="keyword">WHEN</span> Boolean_expression <span class="keyword">THEN</span>  </span><br><span class="line">    result_expression [...n ] [  </span><br><span class="line"><span class="keyword">ELSE</span>  </span><br><span class="line">    else_result_expression  </span><br><span class="line"><span class="keyword">END</span>  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>参数介绍：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WHEN Boolean_expression 使用 CASE 搜索格式时所计算的布尔表达式。Boolean_expression 是任意有效的布尔表达式。结果类型从 result_expressions 和可选 else_result_expression 的类型集合中返回最高的优先规则类型。有关更多信息，请参见数据类型的优先顺序。</span><br><span class="line"></span><br><span class="line">CASE 搜索函数：返回结果值介绍：</span><br><span class="line">按指定顺序为每个 WHEN 子句的 Boolean_expression 求值。返回第一个取值为 TRUE 的 Boolean_expression 的 result_expression。</span><br><span class="line">如果没有取值为 TRUE 的 Boolean_expression，则当指定 ELSE 子句时 SQL Server 将返回 else_result_expression；若没有指定 ELSE 子句，则返回 NULL 值。</span><br></pre></td></tr></table></figure>
+<p>3)CASE WHEN例子介绍<br>1、仅带简单case的select语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">    CASE good_type</span><br><span class="line">WHEN &#x27;0&#x27; THEN</span><br><span class="line">    &#x27;食品类&#x27;</span><br><span class="line">WHEN &#x27;1&#x27; THEN</span><br><span class="line">    &#x27;饮料类&#x27;</span><br><span class="line">WHEN &#x27;2&#x27; THEN</span><br><span class="line">    &#x27;日用品&#x27;</span><br><span class="line">WHEN &#x27;3&#x27; THEN</span><br><span class="line">    &#x27;鲜果类&#x27;</span><br><span class="line">END AS good_type_now,</span><br><span class="line">good_type,user_id,user_name</span><br><span class="line">FROM </span><br><span class="line">    express.t_main_order</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line">| good_type_now | good_type | user_id | user_name |</span><br><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line">| 食品类        |         0 | 1       | tina      |</span><br><span class="line">| 食品类        |         0 | 2       | tige      |</span><br><span class="line">| 饮料类        |         1 | 3       | five      |</span><br><span class="line">| 日用品        |         2 | 4       | wate      |</span><br><span class="line">| 鲜果类        |         3 | 5       | fiww      |</span><br><span class="line">| 鲜果类        |         3 | 6       | www       |</span><br><span class="line">| 鲜果类        |         3 | 7       | wfiw      |</span><br><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2、使用带有简单CASE函数和CASE搜索函数的select语句<br>在select语句中，CASE搜索函数允许根据比较值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">    <span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> good_type<span class="operator">&lt;</span><span class="number">2</span> </span><br><span class="line">    <span class="keyword">THEN</span> <span class="string">&#x27;&lt;2&#x27;</span> </span><br><span class="line"><span class="keyword">WHEN</span> good_type<span class="operator">&gt;=</span><span class="number">2</span> <span class="keyword">AND</span> good_type<span class="operator">&lt;</span><span class="number">3</span> </span><br><span class="line">    <span class="keyword">THEN</span> <span class="string">&#x27;&gt;=2 &amp;&amp; &lt;3&#x27;</span> </span><br><span class="line">    <span class="keyword">ELSE</span> <span class="string">&#x27;&gt;=3&#x27;</span> <span class="keyword">END</span> <span class="keyword">AS</span> good_now_type,</span><br><span class="line">good_type,user_id,user_name </span><br><span class="line"><span class="keyword">FROM</span> t_main_order;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line">| good_now_type | good_type | user_id | user_name |</span><br><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line">| &lt;2            |         0 | 1       | tina      |</span><br><span class="line">| &lt;2            |         0 | 2       | tige      |</span><br><span class="line">| &lt;2            |         1 | 3       | five      |</span><br><span class="line">| &gt;=2 &amp;&amp; &lt;3     |         2 | 4       | wate      |</span><br><span class="line">| &gt;=3           |         3 | 5       | fiww      |</span><br><span class="line">| &gt;=3           |         3 | 6       | www       |</span><br><span class="line">| &gt;=3           |         3 | 7       | wfiw      |</span><br><span class="line">+---------------+-----------+---------+-----------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>3)CASE的其他用法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">    <span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> good_type<span class="operator">&lt;</span><span class="number">2</span> </span><br><span class="line">    <span class="keyword">THEN</span> <span class="string">&#x27;&lt;2&#x27;</span> </span><br><span class="line"><span class="keyword">WHEN</span> good_type<span class="operator">&gt;=</span><span class="number">2</span> <span class="keyword">AND</span> good_type<span class="operator">&lt;</span><span class="number">3</span> </span><br><span class="line">    <span class="keyword">THEN</span> <span class="string">&#x27;&gt;=2 &amp;&amp; &lt;3&#x27;</span> <span class="keyword">ELSE</span> <span class="string">&#x27;&gt;=3&#x27;</span> </span><br><span class="line"><span class="keyword">END</span> <span class="keyword">AS</span> good_now_type,</span><br><span class="line">    <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">AS</span> num_count </span><br><span class="line"><span class="keyword">FROM</span> t_main_order </span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> good_now_type </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> num_count;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+---------------+-----------+</span><br><span class="line">| good_now_type | num_count |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| &gt;=2 &amp;&amp; &lt;3     |         1 |</span><br><span class="line">| &lt;2            |         3 |</span><br><span class="line">| &gt;=3           |         3 |</span><br><span class="line">+---------------+-----------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="left-join、right-join、inner-join的区别"><a href="#left-join、right-join、inner-join的区别" class="headerlink" title="left join、right join、inner join的区别"></a>left join、right join、inner join的区别</h3><p>left join(左联接) 返回包括左表中的所有记录和右表中联结字段相等的记录<br>right join(右联接) 返回包括右表中的所有记录和左表中联结字段相等的记录<br>inner join(等值连接) 只返回两个表中联结字段相等的行</p>
+<p>举例如下： </p>
+<hr>
+<p>表A记录如下：<br>aID　　　　　aNum<br>1　　　　　a20050111<br>2　　　　　a20050112<br>3　　　　　a20050113<br>4　　　　　a20050114<br>5　　　　　a20050115</p>
+<p>表B记录如下:<br>bID　　　　　bName<br>1　　　　　2006032401<br>2　　　　　2006032402<br>3　　　　　2006032403<br>4　　　　　2006032404<br>8　　　　　2006032408</p>
+<hr>
+<h4 id="1-left-join"><a href="#1-left-join" class="headerlink" title="1.left join"></a>1.left join</h4><p>sql语句如下:<br>select * from A<br>left join B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>5　　　　　a20050115　　　　NULL　　　　　NULL</p>
+<p>（所影响的行数为 5 行）<br>结果说明:<br>left join是以A表的记录为基础的,A可以看成左表,B可以看成右表,left join是以左表为准的.<br>换句话说,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).<br>B表记录不足的地方均为NULL.</p>
+<hr>
+<h4 id="2-right-join"><a href="#2-right-join" class="headerlink" title="2.right join"></a>2.right join</h4><p>sql语句如下:<br>select * from A<br>right join B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404<br>NULL　　　　　NULL　　　　　8　　　　　2006032408</p>
+<p>（所影响的行数为 5 行）<br>结果说明:<br>仔细观察一下,就会发现,和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充.</p>
+<hr>
+<h4 id="3-inner-join"><a href="#3-inner-join" class="headerlink" title="3.inner join"></a>3.inner join</h4><p>sql语句如下:<br>select * from A<br>innerjoin B<br>on A.aID = B.bID</p>
+<p>结果如下:<br>aID　　　　　aNum　　　　　bID　　　　　bName<br>1　　　　　a20050111　　　　1　　　　　2006032401<br>2　　　　　a20050112　　　　2　　　　　2006032402<br>3　　　　　a20050113　　　　3　　　　　2006032403<br>4　　　　　a20050114　　　　4　　　　　2006032404</p>
+<p>结果说明:<br>很明显,这里只显示出了 A.aID = B.bID的记录.这说明inner join并不以谁为基础,它只显示符合条件的记录.</p>
+<hr>
+<p>注:<br>LEFT JOIN操作用于在任何的 FROM 子句中，组合来源表的记录。使用 LEFT JOIN 运算来创建一个左边外部联接。左边外部联接将包含了从第一个（左边）开始的两个表中的全部记录，即使在第二个（右边）表中并没有相符值的记录。</p>
+<p>语法：FROM table1 LEFT JOIN table2 ON table1.field1 compopr table2.field2</p>
+<p>说明：table1, table2参数用于指定要将记录组合的表的名称。<br>field1, field2参数指定被联接的字段的名称。且这些字段必须有相同的数据类型及包含相同类型的数据，但它们不需要有相同的名称。<br>compopr参数指定关系比较运算符：”=”， “&lt;”， “&gt;”， “&lt;=”， “&gt;=” 或 “&lt;&gt;”。<br>如果在INNER JOIN操作中要联接包含Memo 数据类型或 OLE Object 数据类型数据的字段，将会发生错误. </p>
+<h3 id="其他常用函数"><a href="#其他常用函数" class="headerlink" title="其他常用函数"></a>其他常用函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DATE_FORMAT</span><br><span class="line">GROUP BY</span><br><span class="line">ORDER BY</span><br><span class="line">LIMIT</span><br><span class="line">AS</span><br><span class="line">DATE</span><br><span class="line">UNION</span><br><span class="line">UNION ALL</span><br><span class="line">AND</span><br><span class="line">IN</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">备份过程中必须考虑因素：</span><br><span class="line">1. 数据的一致性</span><br><span class="line">2. 服务的可用性</span><br><span class="line"></span><br><span class="line">======================================</span><br><span class="line"></span><br><span class="line">逻辑备份： 备份的是建表、建库、插入等操作所执行SQL语句（DDL DML DCL），适用于中小型数据库，效率相对较低。</span><br><span class="line">mysqldump</span><br><span class="line">binlog</span><br><span class="line">mydumper</span><br><span class="line">phpmyadmin</span><br><span class="line"></span><br><span class="line">物理备份： 直接复制数据库文件，适用于大型数据库环境，不受存储引擎的限制，但不能恢复到不同的MySQL版本。</span><br><span class="line">tar,cp</span><br><span class="line">mysqlhotcopy  只能用于备份MyISAM。</span><br><span class="line">xtrabackup</span><br><span class="line">inbackup</span><br><span class="line">lvm snapshot</span><br><span class="line"></span><br><span class="line">======================================</span><br><span class="line"></span><br><span class="line">完全备份</span><br><span class="line">增量备份</span><br><span class="line">差异备份</span><br><span class="line">======================================</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">将测试数据表导入数据库，其中name字段代表“姓名”，score字段代表“分数”。</span><br><span class="line"></span><br><span class="line">create table `t1` (</span><br><span class="line">    `id` double ,</span><br><span class="line">    `name` varchar (300),</span><br><span class="line">    `score` double</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;1&#x27;,&#x27;n1&#x27;,&#x27;59&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;2&#x27;,&#x27;n2&#x27;,&#x27;66&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;3&#x27;,&#x27;n3&#x27;,&#x27;78&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;4&#x27;,&#x27;n1&#x27;,&#x27;48&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;5&#x27;,&#x27;n3&#x27;,&#x27;85&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;6&#x27;,&#x27;n5&#x27;,&#x27;51&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;7&#x27;,&#x27;n4&#x27;,&#x27;98&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;8&#x27;,&#x27;n5&#x27;,&#x27;53&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;9&#x27;,&#x27;n2&#x27;,&#x27;67&#x27;);</span><br><span class="line">insert into `t1` (`id`, `name`, `score`) values(&#x27;10&#x27;,&#x27;n4&#x27;,&#x27;88&#x27;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 单分数最高的人和单分数最低的人。</span><br><span class="line">mysql&gt; select name,score from t1 group by score desc limit 1;</span><br><span class="line">mysql&gt; select name,score from t1 group by score ASC limit 1;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2. 两门分数加起来的第2至5名。</span><br><span class="line">mysql&gt; select name,sum(score) from t1 group by name order by sum(score) desc limit 1,4;</span><br><span class="line">+------+------------+</span><br><span class="line">| name | sum(score) |</span><br><span class="line">+------+------------+</span><br><span class="line">| n3   |        163 |</span><br><span class="line">| n2   |        133 |</span><br><span class="line">| n1   |        107 |</span><br><span class="line">| n5   |        104 |</span><br><span class="line">+------+------------+</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3. 两门总分数在150分以下的人。</span><br><span class="line">select name,sum(score) from t1 group by name having sum(score) &lt; 150;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4. 两门平均分数介于60和80的人。</span><br><span class="line">select name,avg(score) from t1 group by name having avg(score) between 60 and 80;</span><br><span class="line">select name,avg(score) from t1 group by name having avg(score) &gt;60 and avg(score) &lt;80;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">5. 总分大于150分，平均分小于90分的人数。</span><br><span class="line">mysql&gt; select name,sum(score),avg(score) from t1 group by name having sum(score)&gt;150 and avg(score)&lt;90;</span><br><span class="line">+------+------------+------------+</span><br><span class="line">| name | sum(score) | avg(score) |</span><br><span class="line">+------+------------+------------+</span><br><span class="line">| n3   |        163 |       81.5 |</span><br><span class="line">+------+------------+------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6. 总分大于150分，平均分小于90分的人数有几个。</span><br><span class="line">select count(distinct name) from t1 group by name having sum(score) &gt; 150 and avg(score) &lt; 90; </span><br></pre></td></tr></table></figure>
+<h3 id="主从切换"><a href="#主从切换" class="headerlink" title="主从切换"></a>主从切换</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">正常切换</span><br><span class="line"></span><br><span class="line">1.检查slave同步状态</span><br><span class="line"></span><br><span class="line">在开始切换之前先对主库进行锁表：</span><br><span class="line"></span><br><span class="line">flush tables with read lock</span><br><span class="line"></span><br><span class="line">（在执行完成后生产环境必须等待所有语句执行完成）</span><br><span class="line"></span><br><span class="line">在flush tables with read lock成功获得锁之前，必须等待所有语句执行完成（包括SELECT）。所以如果有个慢查询在执行，或者一个打开的事务，或者其他进程拿着表锁，flush tables with read lock就会被阻塞，直到所有的锁被释放。请看下面的例子：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">| Id | User | Host      | db   | Command    | Time | State             | Info                                                                 |</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">|  4 | root | localhost | test | Query      |   80 | Sending data      | select count(*) from t t1 join t t2 join t t3 join t t4 where t1.b=0 |</span><br><span class="line">|  5 | root | localhost | test | Query      |   62 | Flushing tables   | flush tables with read lock                                          |</span><br><span class="line">|  6 | root | localhost | test | Field List |   35 | Waiting for table |                                                                      |</span><br><span class="line">|  7 | root | localhost | test | Query      |    0 | NULL              | show processlist                                                     |</span><br><span class="line">+----+------+-----------+------+------------+------+-------------------+----------------------------------------------------------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line"></span><br><span class="line">flush data</span><br><span class="line"></span><br><span class="line">切换完成后可以释放锁</span><br><span class="line"></span><br><span class="line">unlock tables</span><br><span class="line"></span><br><span class="line">1）在master执行：show processlist;</span><br><span class="line"></span><br><span class="line">显示Master has sent all binlog to slave; waiting for binlog to be updated</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">2）在slave执行：show processlist；</span><br><span class="line"></span><br><span class="line">显示Slave has read all relay log; waiting for the slave I/O thread to update it</span><br><span class="line"></span><br><span class="line">mysql&gt; show slave status \G;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">检查IO及SQL线程是否正常，如果为NO表明同步不一致，需要重新将slave同步保持主从数据一致。</span><br><span class="line"></span><br><span class="line">3）停止slave io线程</span><br><span class="line"></span><br><span class="line">在slave执行：mysql&gt; STOP SLAVE IO_THREAD</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW PROCESSLIST;</span><br><span class="line"></span><br><span class="line">确保状态为：has read all relay log</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">以上都执行完成后可以把slave提升为master：</span><br><span class="line"></span><br><span class="line">4）提升slave为master</span><br><span class="line"></span><br><span class="line">Stop slave；</span><br><span class="line"></span><br><span class="line">Reset master;</span><br><span class="line"></span><br><span class="line">Reset slave all; 在5.6.3版本之后</span><br><span class="line"></span><br><span class="line">Reset slave; 在5.6.3版本之前</span><br><span class="line"></span><br><span class="line">查看slave是否只读模式：show variables like &#x27;read_only&#x27;;</span><br><span class="line"></span><br><span class="line">只读模式需要修改my.cnf文件，注释read-only=1并重启mysql服务。</span><br><span class="line"></span><br><span class="line">或者不重启使用命令关闭只读，但下次重启后失效：set global read_only=off;</span><br><span class="line"></span><br><span class="line">mysql&gt; show master status \G;</span><br><span class="line"></span><br><span class="line">备注：reset slave all 命令会删除从库的 replication 参数，之后 show slave status\G 的信息返回为空。</span><br><span class="line"></span><br><span class="line">5）将原来master变为slave</span><br><span class="line"></span><br><span class="line">在新的master上创建同步用户：</span><br><span class="line"></span><br><span class="line">grant replication slave on *.* repl@&#x27;IP of slave&#x27; identified by &#x27;replpwd&#x27;;</span><br><span class="line"></span><br><span class="line">在新的slave上重置binlog：</span><br><span class="line"></span><br><span class="line">Reset master;</span><br><span class="line"></span><br><span class="line">change master to master_host=&#x27;192.168.0.104&#x27;, //Master 服务器Ip</span><br><span class="line"></span><br><span class="line">master_port=3306,</span><br><span class="line"></span><br><span class="line">master_user=&#x27;repl&#x27;,</span><br><span class="line"></span><br><span class="line">master_password=’replpwd’,</span><br><span class="line"></span><br><span class="line">master_log_file=&#x27;master-bin.000001&#x27;,//Master服务器产生的日志</span><br><span class="line"></span><br><span class="line">master_log_pos=?;//master binlog pos</span><br><span class="line"></span><br><span class="line">以上最后两步可以在master执行：show master status</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">启动slave：start slave； 并查看slave状态：show slave status\G;</span><br><span class="line"></span><br><span class="line">           </span><br><span class="line">           异常切换</span><br><span class="line"></span><br><span class="line">主机故障或者宕机：</span><br><span class="line"></span><br><span class="line">1)   在salve执行：</span><br><span class="line"></span><br><span class="line">stop slave；</span><br><span class="line"></span><br><span class="line">reset master；</span><br><span class="line"></span><br><span class="line">查看是否只读模式：show variables like &#x27;read_only&#x27;;</span><br><span class="line"></span><br><span class="line">只读模式需要修改my.cnf文件，注释read-only=1并重启mysql服务。</span><br><span class="line"></span><br><span class="line">或者不重启使用命令关闭只读，但下次重启后失效：set global read_only=off;</span><br><span class="line"></span><br><span class="line">查看show slave status \G;</span><br><span class="line"></span><br><span class="line">查看show master status \G;</span><br><span class="line"></span><br><span class="line">将从库IP地址改为主库IP地址，测试应用连接是否正常。</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/sql/" rel="tag"># sql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/21/mysql1/" rel="prev" title="mysql1">
+      <i class="fa fa-chevron-left"></i> mysql1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/21/%E4%BD%BF%E7%94%A8dockerfile%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F/" rel="next" title="使用dockerfile创建镜像">
+      使用dockerfile创建镜像 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">数据库基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BA%93"><span class="nav-number">1.2.</span> <span class="nav-text">查看库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E8%AE%B0%E5%BD%95%E6%93%8D%E4%BD%9C"><span class="nav-number">1.4.</span> <span class="nav-text">字段记录操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.5.</span> <span class="nav-text">查询操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E5%BA%93"><span class="nav-number">1.6.</span> <span class="nav-text">删库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">高级操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.1.</span> <span class="nav-text">连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">修改数据库密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E9%9C%80%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-number">2.3.</span> <span class="nav-text">编译安装需要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql%E4%B8%ADnow-%E3%80%81sysdate-%E3%80%81curdate-%E5%8C%BA%E5%88%AB"><span class="nav-number">2.4.</span> <span class="nav-text">msyql中now()、sysdate()、curdate()区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86"><span class="nav-number">2.5.</span> <span class="nav-text">Mysql日志管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E4%B8%ADTIMESTAMPDIFF%E5%92%8CTIMESTAMPADD%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">2.6.</span> <span class="nav-text">mysql中TIMESTAMPDIFF和TIMESTAMPADD函数的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msyql%E4%B8%ADCASE-WHEN%E8%AF%AD%E6%B3%95"><span class="nav-number">2.7.</span> <span class="nav-text">msyql中CASE WHEN语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#left-join%E3%80%81right-join%E3%80%81inner-join%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.8.</span> <span class="nav-text">left join、right join、inner join的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-left-join"><span class="nav-number">2.8.1.</span> <span class="nav-text">1.left join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-right-join"><span class="nav-number">2.8.2.</span> <span class="nav-text">2.right join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-inner-join"><span class="nav-number">2.8.3.</span> <span class="nav-text">3.inner join</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">2.9.</span> <span class="nav-text">其他常用函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="nav-number">3.</span> <span class="nav-text">数据库备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="nav-number">4.1.</span> <span class="nav-text">主从切换</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

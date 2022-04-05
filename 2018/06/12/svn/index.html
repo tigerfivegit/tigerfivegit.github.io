@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="###安装svn(centos)一般情况下是已经安装过的 1svn --version 如果上述命令没有查到svn，则需要安装 yum -y install subversion  &#x2F;&#x2F;经测试 yum -y install svn也行  安装成功之后检查是否正确安装。 版本控制系统的生命周期创建版本库(creat)版本库相当于一个集中的空间，用于存放开发者所有的工作成果。版本库不仅能存放文件，还包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="svn">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/06/12/svn/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="###安装svn(centos)一般情况下是已经安装过的 1svn --version 如果上述命令没有查到svn，则需要安装 yum -y install subversion  &#x2F;&#x2F;经测试 yum -y install svn也行  安装成功之后检查是否正确安装。 版本控制系统的生命周期创建版本库(creat)版本库相当于一个集中的空间，用于存放开发者所有的工作成果。版本库不仅能存放文件，还包">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-06-12T04:38:12.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="持续集成">
+<meta property="article:tag" content="svn">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/06/12/svn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>svn | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/06/12/svn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          svn
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-12 12:38:12" itemprop="dateCreated datePublished" datetime="2018-06-12T12:38:12+08:00">2018-06-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>###安装svn(centos)<br>一般情况下是已经安装过的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn --version</span><br></pre></td></tr></table></figure>
+<p>如果上述命令没有查到svn，则需要安装</p>
+<pre><code>yum -y install subversion  //经测试 yum -y install svn也行
+</code></pre>
+<p>安装成功之后检查是否正确安装。</p>
+<h3 id="版本控制系统的生命周期"><a href="#版本控制系统的生命周期" class="headerlink" title="版本控制系统的生命周期"></a>版本控制系统的生命周期</h3><h4 id="创建版本库-creat"><a href="#创建版本库-creat" class="headerlink" title="创建版本库(creat)"></a>创建版本库(creat)</h4><p>版本库相当于一个集中的空间，用于存放开发者所有的工作成果。版本库不仅能存放文件，还包括了每次修改的历史，即每个文件的变动历史。<br>Create 操作是用来创建一个新的版本库。大多数情况下这个操作只会执行一次。当你创建一个新的版本库的时候，你的版本控制系统会让你提供一些信息来标识版本库，例如创建的位置和版本库的名字。</p>
+<span id="more"></span>
+
+<p>####检出(checkout)<br>Checkout 操作是用来从版本库创建一个工作副本。工作副本是开发者私人的工作空间，可以进行内容的修改，然后提交到版本库中。<br>####更新(update)<br>顾名思义，update 操作是用来更新版本库的。这个操作将工作副本与版本库进行同步。由于版本库是由整个团队共用的，当其他人提交了他们的改动之后，你的工作副本就会过期。</p>
+<p>让我们假设 Tom 和 Jerry 是一个项目的两个开发者。他们同时从版本库中检出了最新的版本并开始工作。此时，工作副本是与版本库完全同步的。然后，Jerry 很高效的完成了他的工作并提交了更改到版本库中。</p>
+<p>此时 Tom 的工作副本就过期了。更新操作将会从版本库中拉取 Jerry 的最新改动并将 Tom 的工作副本进行更新。<br>####执行变更(commit、rename)<br>当检出之后，你就可以做很多操作来执行变更。编辑是最常用的操作。你可以编辑已存在的文件来，例如进行文件的添加/删除操作。</p>
+<p>你可以添加文件/目录。但是这些添加的文件目录不会立刻成为版本库的一部分，而是被添加进待变更列表中，直到执行了 commit 操作后才会成为版本库的一部分。</p>
+<p>同样地你可以删除文件/目录。删除操作立刻将文件从工作副本中删除掉，但该文件的实际删除只是被添加到了待变更列表中，直到执行了 commit 操作后才会真正删除。</p>
+<p>Rename 操作可以更改文件/目录的名字。”移动”操作用来将文件/目录从一处移动到版本库中的另一处。<br>####复查变化(status、diff)<br>当你检出工作副本或者更新工作副本后，你的工作副本就跟版本库完全同步了。但是当你对工作副本进行一些修改之后，你的工作副本会比版本库要新。在 commit 操作之前复查下你的修改是一个很好的习惯。</p>
+<p>Status 操作列出了工作副本中所进行的变动。正如我们之前提到的，你对工作副本的任何改动都会成为待变更列表的一部分。Status 操作就是用来查看这个待变更列表。</p>
+<p>Status 操作只是提供了一个变动列表，但并不提供变动的详细信息。你可以用 diff 操作来查看这些变动的详细信息。<br>####修复错误(revert)<br>我们来假设你对工作副本做了许多修改，但是现在你不想要这些修改了，这时候 revert 操作将会帮助你。</p>
+<p>Revert 操作重置了对工作副本的修改。它可以重置一个或多个文件/目录。当然它也可以重置整个工作副本。在这种情况下，revert 操作将会销毁待变更列表并将工作副本恢复到原始状态。<br>####解决冲突(merge、resolve)<br>合并的时候可能会发生冲突。Merge操作会自动处理可以安全合并的东西。其它的会被当做冲突。例如，”hello.c”文件在一个分支上被修改，在另一个分支上被删除了。这种情况就需要人为处理。Resolve操作就是用来帮助用户找出冲突并告诉版本库如何处理这些冲突。<br>####提交更改(commit)<br>Commit 操作是用来将更改从工作副本到版本库。这个操作会修改版本库的内容，其它开发者可以通过更新他们的工作副本来查看这些修改。</p>
+<p>在提交之前，你必须将文件/目录添加到待变更列表中。列表中记录了将会被提交的改动。当提交的时候，我们通常会提供一个注释来说明为什么会进行这些改动。这个注释也会成为版本库历史记录的一部分。Commit是一个原子操作，也就是说要么完全提交成功，要么失败回滚。用户不会看到成功提交一半的情况。</p>
+<h3 id="svn启动模式"><a href="#svn启动模式" class="headerlink" title="svn启动模式"></a>svn启动模式</h3><h4 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h4><p>首先在服务端进行svn的相关配置<br>手动新建版本库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/svn</span><br></pre></td></tr></table></figure>
+<p>利用svn命令创建版本库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnadmin create /opt/svn/runoob</span><br></pre></td></tr></table></figure>
+<p>利用命令runserver启动服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runserver -d -r 目录 --listen-port 端口号</span><br></pre></td></tr></table></figure>
+<p>####配置介绍<br>-r 配置方式决定了版本库的访问方式<br>–listen-port 制定svn的监听端口，不加参数，svn默认监听3690</p>
+<p>由于-r 配置方式的不一样，SVN启动就可以有两种不同的访问方式</p>
+<p>方式一：-r直接指定到版本库(称之为单库svnserve方式)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r /opt/svn/runoob</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，一个svnserve只能为一个版本库工作。</p>
+<p>authz配置文件中对版本库权限的配置应这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line">admin=user1</span><br><span class="line">dev=user2</span><br><span class="line">[/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br></pre></td></tr></table></figure>
+
+<p>使用类似这样的URL：svn://192.168.0.1/　即可访问runoob版本库</p>
+<p>方式二：指定到版本库的上级目录(称之为多库svnserve方式)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svnserve -d -r /opt/svn</span><br></pre></td></tr></table></figure>
+<p>这种情况，一个svnserve可以为多个版本库工作 </p>
+<p>authz配置文件中对版本库权限的配置应这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line">admin=user1</span><br><span class="line">dev=user2</span><br><span class="line">[runoob:/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br><span class="line"></span><br><span class="line">[runoob01:/]</span><br><span class="line">@admin=rw</span><br><span class="line">user2=r</span><br></pre></td></tr></table></figure>
+<p>如果此时你还用[/]，则表示所有库的根目录，同理，[/src]表示所有库的根目录下的src目录。</p>
+<p>使用类似这样的URL：svn://192.168.0.1/runoob　即可访问runoob版本库。</p>
+<p>###svn创建版本库<br>####使用svn命令创建资源库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger opt]# svnadmin create  /opt/svn/runoob01</span><br><span class="line">[root@alitiger opt]# ll /opt/svn/runoob01/</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 2 root root 4096 May 21 15:22 conf</span><br><span class="line">drwxr-sr-x 6 root root 4096 May 21 15:22 db</span><br><span class="line">-r--r--r-- 1 root root    2 May 21 15:22 format</span><br><span class="line">drwxr-xr-x 2 root root 4096 May 21 15:22 hooks</span><br><span class="line">drwxr-xr-x 2 root root 4096 May 21 15:22 locks</span><br><span class="line">-rw-r--r-- 1 root root  229 May 21 15:22 README.txt</span><br><span class="line">[root@alitiger opt]# ls /opt/svn/runoob01/conf/</span><br><span class="line">authz  passwd  svnserve.conf</span><br></pre></td></tr></table></figure>
+<p>进入/opt/svn/runoob01/conf目录，修改默认配置文件配置，包括svnserver.conf、passwd、authz配置相关用户和权限。<br>####svn服务配置文件svnserver.conf<br>svn服务配置文件为版本库目录中的文件conf/svnserver.conf，该文件仅有一个[general]配置段组成(在ecs测试时有两个配置段[general][sasl])</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[general]</span><br><span class="line">anon-access = none</span><br><span class="line">auth-access = write</span><br><span class="line">password-db = passwd</span><br><span class="line">authz-db = authz</span><br><span class="line">realm = My First Repository</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">anon-access:控制匿名用户访问版本库的权限，取值范围是“write(可读可写)”、“read(可读)”和“none(无访问权限)”，默认值是read </span><br><span class="line">auth-access:控制认证用户访问版本库的权限。取值范围是“write(可读可写)”、“read(可读)”和“none(无访问权限)”，默认值是write</span><br><span class="line">authz-db:指定权限配置文件名，通过该文件实现以路径为基础的访问控制，除非指定路径，否则文件位置为相对conf目录的相对路径。默认值是authz。</span><br><span class="line">realm:指定版本库认定域，即在登录时提示的认证域名称，若两个版本库认证域相同，建议使用相同的用户名口令数据文件。默认值是一个UUID</span><br></pre></td></tr></table></figure>
+<p>####用户名口令文件passwd<br>用户口令文件有svnserver.conf的配置项passwd-db指定，默认为conf目录下的passwd，该文件仅有一个[user]配置段组成<br>[user]配置段的配置行格式为：&lt;用户名&gt;=&lt;口令&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[users]</span><br><span class="line">tiger = tigersecret</span><br><span class="line">five = fivessecret</span><br></pre></td></tr></table></figure>
+<p>####权限配置文件authz<br>权限配置文件有svnserver.conf的配置项authz-db指定，默认为conf目录中的authz。该文件有一个个[group]配置段和若干版本库路径权限段组成。<br>[group]配置段的配置行格式为：&lt;用户组&gt;=&lt;用户列表&gt;<br>版本库路径权限段的段名格式如下：[&lt;版本库名&gt;=&lt;路径&gt;]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[groups]</span><br><span class="line"># tiger_and_five = tiger,five</span><br><span class="line"># tiger_five_and_joe = tiger,five,&amp;joe</span><br><span class="line"></span><br><span class="line">[/foo/bar]</span><br><span class="line">tiger = rw</span><br><span class="line">&amp;joe = r                   //&amp;joe困惑？？</span><br><span class="line">* =</span><br><span class="line"></span><br><span class="line">[repository:/baz/fuz]</span><br><span class="line">@tiger_and_five = rw</span><br><span class="line">* = r</span><br></pre></td></tr></table></figure>
+<p>本例是使用svnsever -d -r /opt/svn 以多库的方式启动SVN， 所以URL为：svn://10.18.44.209/runoob01/ </p>
+<p>###svn检出操作<br>之前我创建了版本库runoob01，URL为svn://10.18.44.209/runoob01，svn用户tiger拥有读写权限，我们就可以在客户端通过这个URL对版本库进行版本操作。<br>svn checkout <a target="_blank" rel="noopener" href="http://svn.server.com/svn/project_repo">http://svn.server.com/svn/project_repo</a> –username=user01 以上命令将产生如下结果(使用阿里云记得开端口默认3690端口)： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# svn checkout svn://10.18.44.209/runoob01 --username=user01</span><br><span class="line">A    runoob01/trunk</span><br><span class="line">A    runoob01/branches</span><br><span class="line">A    runoob01/tags</span><br><span class="line">Checked out revision 1.</span><br></pre></td></tr></table></figure>
+<p>检出成功后在当前目录下生成runoob01副本目录。查看检出的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~]# ll runoob01/</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 6 root root 4096 Jul 21 19:19 ./</span><br><span class="line">drwxr-xr-x 3 root root 4096 Jul 21 19:10 ../</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 21 19:19 branches/</span><br><span class="line">drwxr-xr-x 4 root root 4096 Jul 21 19:19 .svn/</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 21 19:19 tags/</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jul 21 19:19 trunk/</span><br></pre></td></tr></table></figure>
+<p>你想查看更多关于版本库的信息，执行 info 命令。</p>
+<p>###svn解决冲突<br>版本冲突问题<br>假设 A、B 两个用户都在版本号为 100 的时候，更新了 kingtuns.txt 这个文件，A 用户在修改完成之后提交kingtuns.txt到服务器，这个时候提交成功，这个时候kingtuns.txt文件的版本号已经变成101了。同时B用户在版本号为100的 kingtuns.txt文件上作修改，修改完成之后提交到服务器时，由于不是在当前最新的101版本上作的修改，所以导致提交失败。<br>我们已在本地检出 runoob01库，下面我们将实现版本冲突的解决方法。<br>我们发现 HelloWorld.html文件存在错误，需要修改文件并提交到版本库中。<br>我们将HelloWorld.html的内容修改为”HelloWorld!<a target="_blank" rel="noopener" href="http://www.runoob.com/&quot;%E3%80%82">http://www.runoob.com/&quot;。</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# cat HelloWorld.html </span><br><span class="line">HelloWorld! http://www.runoob.com/</span><br></pre></td></tr></table></figure>
+
+<p>用下面的命令进行查看更改:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn diff </span><br><span class="line">Index: HelloWorld.html</span><br><span class="line">===================================================================</span><br><span class="line">--- HelloWorld.html     (revision 5)</span><br><span class="line">+++ HelloWorld.html     (working copy)</span><br><span class="line">@@ -1,2 +1 @@</span><br><span class="line">-HelloWorld! http://www.runoob.com/</span><br><span class="line">+HelloWorld! http://www.runoob.com/!</span><br></pre></td></tr></table></figure>
+<p>尝试使用下面的命令来提交他的更改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn commit -m &quot;change HelloWorld.html first&quot;</span><br><span class="line">Sending        HelloWorld.html</span><br><span class="line">Transmitting file data .svn: E160028: Commit failed (details follow):</span><br><span class="line">svn: E160028: File &#x27;/trunk/HelloWorld.html&#x27; is out of date</span><br></pre></td></tr></table></figure>
+<p>这时我发现提交失败了。</p>
+<p>因为此时，HelloWorld.html已经被five修改并提交到了仓库。Subversion 不会允许tiger(本例使用的svn账号)提交更改，因为five已经修改了仓库，所以我们的工作副本已经失效。</p>
+<p>为了避免两人的代码被互相覆盖，Subversion不允许我们进行这样的操作。所以我们在提交更改之前必须先更新工作副本。所以使用update命令，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn update</span><br><span class="line">Updating &#x27;.&#x27;:</span><br><span class="line">C    HelloWorld.html</span><br><span class="line">Updated to revision 6.</span><br><span class="line">Conflict discovered in file &#x27;HelloWorld.html&#x27;.</span><br><span class="line">Select: (p) postpone, (df) show diff, (e) edit file, (m) merge,</span><br><span class="line">        (mc) my side of conflict, (tc) their side of conflict,</span><br><span class="line">        (s) show all options: mc</span><br><span class="line">Resolved conflicted state of &#x27;HelloWorld.html&#x27;</span><br><span class="line">Summary of conflicts:</span><br><span class="line">  Text conflicts: 0 remaining (and 1 already resolved)</span><br></pre></td></tr></table></figure>
+
+<p>这边输入”mc”,以本地的文件为主。你也可以使用其选项对冲突的文件进行不同的操作。<br>默认是更新到最新的版本，我们也可以指定更新到哪个版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn update -r6</span><br></pre></td></tr></table></figure>
+<p>此时工作副本是和仓库已经同步，可以安全地提交更改了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn commit -m &quot;change HelloWorld.html second&quot;</span><br><span class="line">Sending        HelloWorld.html</span><br><span class="line">Transmitting file data .</span><br><span class="line">Committed revision 7.</span><br></pre></td></tr></table></figure>
+<p>###svn提交操作<br>在之前，我们检出了版本库runood01，对应的目录放在/home/tiger/runood01中，下面我们针对这个库进行版本控制。<br>我们在版本库中，需要借助一个readme的说明文件，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# cat readme </span><br><span class="line">this is SVN tutorial.</span><br></pre></td></tr></table></figure>
+<p>查看工作副本中的状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn status</span><br><span class="line">?       readme</span><br></pre></td></tr></table></figure>
+<p>此时readme的状态为？，说明他还没有加到版本控制中<br>将文件readme加到版本控制，等待提交到版本库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn add readme </span><br><span class="line">A         readme</span><br></pre></td></tr></table></figure>
+<p>查看工作副本中的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn status     </span><br><span class="line">A       readme</span><br></pre></td></tr></table></figure>
+<p>此时 readme的状态为A,它意味着这个文件已经被成功地添加到了版本控制中。</p>
+<p>为了把 readme 存储到版本库中，使用 commit -m 加上注释信息来提交。</p>
+<p>如果你忽略了 -m 选项， SVN会打开一个可以输入多行的文本编辑器来让你输入提交信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn commit -m &quot;SVN readme.&quot;</span><br><span class="line">Adding         readme</span><br><span class="line">Transmitting file data .</span><br><span class="line">Committed revision 8.</span><br><span class="line">svn commit -m &quot;SVN readme.&quot;</span><br></pre></td></tr></table></figure>
+<p>现在 readme 被成功地添加到了版本库中，并且修订版本号自动增加了1。</p>
+<p>###svn版本回退<br>当我们想放弃对文件的修改，可以使用 SVN revert 命令。<br>svn revert 操作将撤销任何文件或目录里的局部更改。<br>我们对文件 readme 进行修改,查看文件状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn status</span><br><span class="line">M       readme</span><br></pre></td></tr></table></figure>
+<p>这时候我们发现修改错误，要撤销修改，通过svn  revert文件readme回归到未修改状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn revert readme </span><br><span class="line">Reverted &#x27;readme&#x27;</span><br></pre></td></tr></table></figure>
+<p>再查看状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn status </span><br><span class="line">[root@alitiger ~/svn/runoob01/trunk]# </span><br></pre></td></tr></table></figure>
+<p>进行revert操作之后，readme文件恢复了原始的状态。revert操作不单单可以使单个文件恢复原状，而且可以使整个目录恢复原状。恢复目录用 -R 命令，如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn revert -R trunk</span><br></pre></td></tr></table></figure>
+<p>但是，假如我们想恢复一个已经提交的版本怎么办。</p>
+<p>为了消除一个旧版本，我们必须撤销旧版本里的所有更改然后提交一个新版本。这种操作叫做 reverse merge。</p>
+<p>首先，找到仓库的当前版本，现在是版本22，我们要撤销回之前的版本，比如版本 21。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn merge -r 22:21 readme</span><br></pre></td></tr></table></figure>
+<p>###svn查看历史信息<br>通过svn命令可以根据时间或修订号去除过去的版本，或者某一版本所做的具体的修改。以下四个命令可以用来查看svn 的历史：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">svn log: 用来展示svn 的版本作者、日期、路径等等。</span><br><span class="line"></span><br><span class="line">svn diff: 用来显示特定修改的行级详细信息。</span><br><span class="line"></span><br><span class="line">svn cat: 取得在特定版本的某文件显示在当前屏幕。</span><br><span class="line"></span><br><span class="line">svn list: 显示一个目录或某一版本存在的文件。</span><br></pre></td></tr></table></figure>
+<p>####svn log<br>可以显示所有的信息，如果只希望查看特定的某两个版本之间的信息，可以使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn log -r 6:8</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r6 | user02 | 2016-11-07 02:01:26 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">change HelloWorld.html first.</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r7 | user01 | 2016-11-07 02:23:26 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">change HelloWorld.html second</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r8 | user01 | 2016-11-07 02:53:13 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">SVN readme.</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>如果只想查看某一个文件的版本修改信息，可以使用svn log文件路径。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01]# svn log trunk/HelloWorld.html </span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r7 | user01 | 2016-11-07 02:23:26 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">change HelloWorld.html second</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r6 | user02 | 2016-11-07 02:01:26 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">change HelloWorld.html first.</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r5 | user01 | 2016-11-07 01:50:03 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r4 | user01 | 2016-11-07 01:45:43 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line">Add function to accept input and to display array contents</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r3 | user01 | 2016-11-07 01:42:35 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r2 | user01 | 2016-08-23 17:29:02 +0800 (Tue, 23 Aug 2016) | 1 line</span><br><span class="line"></span><br><span class="line">first file</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>如果希望得到目录的信息要加-v<br>如果希望显示限定N条记录的目录信息，使用svn log -l N -v。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn diff</span><br><span class="line">Index: rules.txt</span><br><span class="line">===================================================================</span><br><span class="line">--- rules.txt (revision 3)</span><br><span class="line">+++ rules.txt (working copy)</span><br><span class="line">@@ -1,4 +1,5 @@</span><br><span class="line">Be kind to others</span><br><span class="line">Freedom = Responsibility</span><br><span class="line">Everything in moderation</span><br><span class="line">-Chew with your mouth open svn log -l 5 -v </span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r6 | user02 | 2016-11-07 02:01:26 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line">Changed paths:</span><br><span class="line">   M /trunk/HelloWorld.html</span><br><span class="line"></span><br><span class="line">change HelloWorld.html first.</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r5 | user01 | 2016-11-07 01:50:03 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line">Changed paths:</span><br><span class="line">   M /trunk/HelloWorld.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r4 | user01 | 2016-11-07 01:45:43 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line">Changed paths:</span><br><span class="line">   M /trunk/HelloWorld.html</span><br><span class="line"></span><br><span class="line">Add function to accept input and to display array contents</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r3 | user01 | 2016-11-07 01:42:35 +0800 (Mon, 07 Nov 2016) | 1 line</span><br><span class="line">Changed paths:</span><br><span class="line">   A /trunk/HelloWorld.html (from /trunk/helloworld.html:2)</span><br><span class="line">   D /trunk/helloworld.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">r2 | user01 | 2016-08-23 17:29:02 +0800 (Tue, 23 Aug 2016) | 1 line</span><br><span class="line">Changed paths:</span><br><span class="line">   A /trunk/helloworld.html</span><br><span class="line"></span><br><span class="line">first file</span><br><span class="line">------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>####svn diff<br>用来检测历史修改的详情</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">检查本地修改</span><br><span class="line">比较工作修改与版本库</span><br><span class="line">比较版本库与版本库</span><br></pre></td></tr></table></figure>
+<p>如果用svn diff，不带任何参数，它将会比较你的工作文件与缓存文件在.svn的’原始’拷贝</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@alitiger ~/svn/runoob01/trunk]# svn diff</span><br><span class="line">Index: rules.txt</span><br><span class="line">===================================================================</span><br><span class="line">--- rules.txt (revision 3)</span><br><span class="line">+++ rules.txt (working copy)</span><br><span class="line">@@ -1,4 +1,5 @@</span><br><span class="line">Be kind to others</span><br><span class="line">Freedom = Responsibility</span><br><span class="line">Everything in moderation</span><br><span class="line">-Chew with your mouth open</span><br></pre></td></tr></table></figure>
+<p>比较工作拷贝与版本库<br>比较你的工作拷贝和版本库中版本号为 3 的文件 rule.txt。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn diff -r 3 rule.txt</span><br></pre></td></tr></table></figure>
+<p>比较版本库与版本库<br>通过 -r(revision)传递两个通过冒号分开的版本号，这两个版本会进行比较。<br>比较 svn 工作版本中版本号2和3的这个文件的变化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn diff -r 2:3 rule.txt</span><br></pre></td></tr></table></figure>
+<p>####svn cat<br>如果只是希望检查一个过去版本，不希望查看他们的区别，可使用svn cat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn cat -r 版本号 rule.txt</span><br></pre></td></tr></table></figure>
+<p>这个命令会显示在该版本号下的该文件内容<br>####svn list<br>svn list 可以在不下载文件到本地目录的情况下来察看目录中的文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ svn list http://192.168.0.1/runoob01</span><br><span class="line">README</span><br><span class="line">branches/</span><br><span class="line">clients/</span><br><span class="line">tags/</span><br></pre></td></tr></table></figure>
+<p>###svn分支<br>Branch 选项会给开发者创建出另外一条线路。当有人希望开发进程分开成两条不同的线路时，这个选项会非常有用。</p>
+<p>比如项目 demo 下有两个小组，svn 下有一个 trunk 版。</p>
+<p>由于客户需求突然变化，导致项目需要做较大改动，此时项目组决定由小组 1 继续完成原来正进行到一半的工作（某个模块），小组 2 进行新需求的开发。</p>
+<p>那么此时，我们就可以为小组2建立一个分支，分支其实就是 trunk 版（主干线）的一个copy版，不过分支也是具有版本控制功能的，而且是和主干线相互独立的，当然，到最后我们可以通过（合并）功能，将分支合并到 trunk 上来，从而最后合并为一个项目。</p>
+<p>我们在本地副本中创建一个 my_branch 分支。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# ls</span><br><span class="line">branches  tags  trunk</span><br><span class="line">root@runoob:~/svn/runoob01# svn copy trunk/ branches/my_branch</span><br><span class="line">A         branches/my_branch</span><br><span class="line">root@runoob:~/svn/runoob01# </span><br></pre></td></tr></table></figure>
+<p>查看状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# svn status</span><br><span class="line">A  +    branches/my_branch</span><br><span class="line">A  +    branches/my_branch/HelloWorld.html</span><br><span class="line">A  +    branches/my_branch/readme</span><br></pre></td></tr></table></figure>
+<p>提交新增的分支到版本库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# svn commit -m &quot;add my_branch&quot; </span><br><span class="line">Adding         branches/my_branch</span><br><span class="line">Replacing      branches/my_branch/HelloWorld.html</span><br><span class="line">Adding         branches/my_branch/readme</span><br><span class="line"></span><br><span class="line">Committed revision 9.</span><br></pre></td></tr></table></figure>
+
+<p>接着我就到新增的分支进行开发，切换到分支路径并创建index.html文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# cd branches/my_branch/</span><br><span class="line">root@runoob:~/svn/runoob01/branches/my_branch# ls</span><br><span class="line">HelloWorld.html  index.html  readme</span><br></pre></td></tr></table></figure>
+<p>将index.html加入到版本控制，并提交到版本库中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01/trunk# svn commit -m &quot;add index.html&quot;</span><br><span class="line">Adding         index.html</span><br><span class="line">Transmitting file data .</span><br><span class="line">Committed revision 11.</span><br></pre></td></tr></table></figure>
+<p>###svn标签(tag)<br>版本管理系统支持 tag 选项，通过使用 tag 的概念，我们可以给某一个具体版本的代码一个更加有意义的名字。<br>Tags 即标签主要用于项目开发中的里程碑，比如开发到一定阶段可以单独一个版本作为发布等，它往往代表一个可以固定的完整的版本，这跟 VSS 中的 Tag 大致相同。<br>我们在本地工作副本创建一个 tag。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# svn copy trunk/ tags/v1.0</span><br><span class="line">A         tags/v1.0</span><br></pre></td></tr></table></figure>
+<p>上面的代码成功完成，新的目录将会被创建在 tags 目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# ls tags/</span><br><span class="line">v1.0</span><br><span class="line">root@runoob:~/svn/runoob01# ls tags/v1.0/</span><br><span class="line">HelloWorld.html  readme</span><br></pre></td></tr></table></figure>
+<p>查看状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# svn status</span><br><span class="line">A  +    tags/v1.</span><br></pre></td></tr></table></figure>
+<p>提交tag内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@runoob:~/svn/runoob01# svn commit -m &quot;tags v1.0&quot; </span><br><span class="line">Adding         tags/v1.0</span><br><span class="line">Transmitting file data ..</span><br><span class="line">Committed revision 14.</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" rel="tag"># 持续集成</a>
+              <a href="/tags/svn/" rel="tag"># svn</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/11/git/" rel="prev" title="git">
+      <i class="fa fa-chevron-left"></i> git
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/01/ansible/" rel="next" title="ansible">
+      ansible <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">版本控制系统的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93-creat"><span class="nav-number">1.1.</span> <span class="nav-text">创建版本库(creat)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svn%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">svn启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">基础命令</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

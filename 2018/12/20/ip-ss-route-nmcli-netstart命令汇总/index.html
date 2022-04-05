@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tigerfivegit.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="绪论12345678route 路由管理命令    -n      route add [] target [netmask Nm] [gw GW] [[dev] If]                              route del [-net|-host] target [gw Gw] [netmask Nm] [[dev] If] netstart显示网络连接ip配置Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ip-ss-route-nmcli-netstart命令汇总">
+<meta property="og:url" content="https://tigerfivegit.github.io/2018/12/20/ip-ss-route-nmcli-netstart%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="绪论12345678route 路由管理命令    -n      route add [] target [netmask Nm] [gw GW] [[dev] If]                              route del [-net|-host] target [gw Gw] [netmask Nm] [[dev] If] netstart显示网络连接ip配置Linux">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-12-20T02:57:59.000Z">
+<meta property="article:modified_time" content="2022-04-05T15:43:07.927Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="骚操作">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tigerfivegit.github.io/2018/12/20/ip-ss-route-nmcli-netstart%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ip-ss-route-nmcli-netstart命令汇总 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://tigerfivegit.github.io/2018/12/20/ip-ss-route-nmcli-netstart%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ip-ss-route-nmcli-netstart命令汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-20 10:57:59" itemprop="dateCreated datePublished" datetime="2018-12-20T10:57:59+08:00">2018-12-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-04-05 23:43:07" itemprop="dateModified" datetime="2022-04-05T23:43:07+08:00">2022-04-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">route 路由管理命令    -n      route add [] target [netmask Nm] [gw GW] [[dev] If]</span><br><span class="line">                              route del [-net|-host] target [gw Gw] [netmask Nm] [[dev] If] </span><br><span class="line">netstart显示网络连接</span><br><span class="line">ip配置Linux 网络属性</span><br><span class="line">ss显示网络连接</span><br><span class="line">nmcli 显示和管理网络接口 </span><br><span class="line"> 区别：netstat 通过遍历proc 来获取socket 信息，ss 使用netlink 与内核tcp_diag模块通信获取socket 信息。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+
+<h3 id="route命令"><a href="#route命令" class="headerlink" title="route命令"></a>route命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">     路由管理命令 </span><br><span class="line">     查看：route -n </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">192.168.101.0   0.0.0.0         255.255.255.0   U     1      0        0 eth0     添加：route add </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">     route add [-net|-host] target [netmask Nm] [gw Gw][[dev] If] </span><br><span class="line">         目标：192.168.1.3 网关：172.16.0.1 </span><br><span class="line">     # route add -host 192.168.1.3  gw  172.16.0.1  dev  eth0 </span><br><span class="line">         目标：192.168.0.0  网关：172.16.0.1 </span><br><span class="line">     # route add -net 192.168.0.0 netmask 255.255.255.0  gw  172.16.0.1  dev  eth0 </span><br><span class="line">            # route add -net 192.168.0.0/24  gw  172.16.0.1  dev  eth0 </span><br><span class="line">     默认路由，网关：172.16.0.1 </span><br><span class="line">     # route add -net 0.0.0.0 netmask 0.0.0.0  gw  172.16.0.1 </span><br><span class="line">     # route add default  gw  172.16.0.1 </span><br><span class="line">         删除：route del </span><br><span class="line">     route del [-net|-host] target [gw Gw] [netmask Nm] [[dev] If] </span><br><span class="line">         目标：192.168.1.3 网关：172.16.0.1 </span><br><span class="line">     # route del -host 192.168.1.3 </span><br><span class="line">         目标：192.168.0.0  网关：172.16.0.1 </span><br><span class="line">     # route del -net 192.168.0.0 netmask 255.255.255.0 </span><br><span class="line">[root@localhost ~]# route add -net 10.0.0.0/24 gw 127.0.0.1    （添加路由表）</span><br><span class="line">[root@localhost ~]# route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">192.168.101.0   0.0.0.0         255.255.255.0   U     1      0        0 eth0</span><br><span class="line">10.0.0.0        127.0.0.1       255.255.255.0   UG    0      0        0 lo</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# route del -net 10.0.0.0/24 gw 127.0.0.1 （删除路由表）</span><br><span class="line">[root@localhost ~]# route -n</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">192.168.101.0   0.0.0.0         255.255.255.0   U     1      0        0 eth0     </span><br></pre></td></tr></table></figure>
+<h3 id="netstat-命令"><a href="#netstat-命令" class="headerlink" title="netstat 命令"></a>netstat 命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">      netstat – Print network connections, routing tables,  interface statistics, masquerade connections, and multicast memberships </span><br><span class="line">     显示网络连接： </span><br><span class="line">     netstat [–tcp|-t] [–udp|-u] [–raw|-w] [–listening|-l] [–all|-a] [–numeric|-n] [–extend|-e[– </span><br><span class="line">     extend|-e]] [–program|-p] </span><br><span class="line">     -t: tcp 协议相关 </span><br><span class="line">     -u: udp 协议相关 </span><br><span class="line">     -w: raw socket 相关 </span><br><span class="line">     -l:处于监听状态 </span><br><span class="line">     -a:所有状态 </span><br><span class="line">     -n:以数字显示IP 和端口； </span><br><span class="line">     -e:扩展格式 </span><br><span class="line">     -p:显示相关进程及PID </span><br><span class="line">     常用组合： </span><br><span class="line">     -tan, -uan, -tnl, -unl </span><br><span class="line">     显示路由表： </span><br><span class="line">     netstat &#123;–route|-r&#125; [–numeric|-n] </span><br><span class="line">     -r:  显示内核路由表 </span><br><span class="line">     -n:  数字格式 </span><br><span class="line">     显示接口统计数据： </span><br><span class="line">     netstat &#123;–interfaces|-I|-i&#125; [iface] [–all|-a] [–extend|-e] [–program|-p] [–numeric|-n] </span><br><span class="line">     netstat -i </span><br><span class="line">     netstat –I=IFACE </span><br><span class="line">     ifconfig -s eno16777736 </span><br><span class="line">例：</span><br><span class="line">[root@localhost ~]# netstat -rn</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span><br><span class="line">192.168.101.0   0.0.0.0         255.255.255.0   U         0 0          0 eth0</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# netstat -tun</span><br><span class="line">Active Internet connections (w/o servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address               Foreign Address             State      </span><br><span class="line">tcp        0      0 192.168.101.128:22          192.168.101.1:52170         ESTABLISHED</span><br><span class="line">tcp        0     52 192.168.101.128:22          192.168.101.1:54285         ESTABLISHED</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# netstat -tunl</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address               Foreign Address             State      </span><br><span class="line">tcp        0      0 0.0.0.0:44842               0.0.0.0:*                   LISTEN      </span><br><span class="line">tcp        0      0 0.0.0.0:111                 0.0.0.0:*                   LISTEN      </span><br><span class="line">tcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTEN      </span><br><span class="line">tcp        0      0 127.0.0.1:631               0.0.0.0:*                   LISTEN      </span><br><span class="line">tcp        0      0 127.0.0.1:25                0.0.0.0:*                   LISTEN      </span><br><span class="line">tcp        0      0 127.0.0.1:6010              0.0.0.0:*                   LISTEN      </span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# netstat -tunlp</span><br><span class="line">Active Internet connections (only servers)</span><br><span class="line">Proto Recv-Q Send-Q Local Address     Foreign Address     State       PID/Program name   </span><br><span class="line">tcp        0      0 0.0.0.0:44842        0.0.0.0:*         LISTEN      1794/rpc.statd      </span><br><span class="line">tcp        0      0 0.0.0.0:111          0.0.0.0:*         LISTEN      1737/rpcbind        </span><br><span class="line">tcp        0      0 0.0.0.0:22           0.0.0.0:*           LISTEN      2016/sshd           </span><br><span class="line">tcp        0      0 127.0.0.1:631        0.0.0.0:*         LISTEN      1832/cupsd          </span><br><span class="line">tcp        0      0 127.0.0.1:25         0.0.0.0:*         LISTEN      2102/master     </span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# lsof -i :22 （查看22端口）</span><br><span class="line">COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span><br><span class="line">sshd    2016 root    3u  IPv4  15379      0t0  TCP *:ssh (LISTEN)</span><br><span class="line">sshd    2016 root    4u  IPv6  15381      0t0  TCP *:ssh (LISTEN)</span><br><span class="line">sshd    4151 root    3r  IPv4  25697      0t0  TCP 192.168.101.128:ssh-&gt;192.168.101.1:52170 (ESTABLISHED)</span><br><span class="line">sshd    5784 root    3r  IPv4  30652      0t0  TCP 192.168.101.128:ssh-&gt;192.168.101.1:54285 (ESTABLISHED)</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# netstat -Ieth0</span><br><span class="line">Kernel Interface table</span><br><span class="line">Iface       MTU Met    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg</span><br><span class="line">eth0       1500   0     4412      0      0      0     2818      0      0      0 BMRU</span><br></pre></td></tr></table></figure>
+<h3 id="ip命令"><a href="#ip命令" class="headerlink" title="ip命令"></a>ip命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">     配置Linux 网络属性：ip 命令 </span><br><span class="line">     ip – show / manipulate routing, devices, policy routingand tunnels </span><br><span class="line">     ip [ OPTIONS ] OBJECT &#123; COMMAND | help &#125; </span><br><span class="line">     OBJECT := &#123; link | addr | route &#125; </span><br><span class="line">     ip link – network device configuration </span><br><span class="line">     set dev IFACE </span><br><span class="line">     可设置属性： </span><br><span class="line">     up and down ：激活或禁用指定接口 </span><br><span class="line">     ifup/ifdown </span><br><span class="line">     show [dev IFACE] ：指定接口 </span><br><span class="line">     [up]：仅显示处于激活状态的接口 </span><br><span class="line">     ip addr &#123; add | del &#125; IFADDR dev STRING </span><br><span class="line">     [label LABEL] ：添加地址时指明网卡别名 </span><br><span class="line">     [scope &#123;global|link|host&#125;] ：指明作用域 </span><br><span class="line">     global:  全局可用 </span><br><span class="line">     link: 仅链接可用 </span><br><span class="line">     host: 本机可用 </span><br><span class="line">     [broadcast ADDRESS] ：指明广播地址 </span><br><span class="line">     ip address show – look at protocol addresses </span><br><span class="line">     [dev DEVICE] </span><br><span class="line">     [label PATTERN] </span><br><span class="line">     [primary and secondary] </span><br><span class="line">     ip address flush –  使用格式同show </span><br><span class="line">     ip addr add 172.16.100.100/16 dev eth0 label eth0:0 </span><br><span class="line">     ip addr del 172.16.100.100/16 dev eth0 label eth0:0 </span><br><span class="line">     ip addr flush dev eth0 label eth0:0 </span><br><span class="line">     ip route – routing table management </span><br><span class="line">     添加路由：ip route add </span><br><span class="line">     ip route add TARGET via GW dev IFACE src SOURCE_IP </span><br><span class="line">     TARGET: </span><br><span class="line">     主机路由：IP </span><br><span class="line">     网络路由：NETWORK/MASK </span><br><span class="line">     ip route add 192.168.0.0/24 via 172.16.0.1 </span><br><span class="line">     ip route add 192.168.1.13 via 172.16.0.1 </span><br><span class="line">     添加网关：ip route add default via GW dev IFACE </span><br><span class="line">     ip route add default via 172.16.0.1 </span><br><span class="line">     删除路由：ip route delete </span><br><span class="line">     ip route del TARGET </span><br><span class="line">     显示路由：ip route show|list </span><br><span class="line">     清空路由表：ip route flush [dev IFACE]  [via PREFIX] </span><br><span class="line">     ip route flush dev eth0 </span><br><span class="line">例：</span><br><span class="line">[root@localhost ~]# ip a （显示IP地址）</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">5: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:e3 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.101.128/24 brd 192.168.101.255 scope global eth0</span><br><span class="line">    inet6 fe80::20c:29ff:fee4:8ee3/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">6: eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:ed brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet6 fe80::20c:29ff:fee4:8eed/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# ip link</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">5: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:e3 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">6: eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:ed brd ff:ff:ff:ff:ff:ff</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# ip addr add 9.9.9.9/24 dev eth2       添加IP地址</span><br><span class="line">[root@localhost ~]# ip a</span><br><span class="line"> eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:ed brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 9.9.9.9/24 scope global eth2</span><br><span class="line">    inet6 fe80::20c:29ff:fee4:8eed/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# ip a del  9.9.9.9/24 dev eth2</span><br><span class="line">[root@localhost ~]# ip a</span><br><span class="line">eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:ed brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet6 fe80::20c:29ff:fee4:8eed/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# ip a flush  dev eth2</span><br><span class="line">[root@localhost ~]# ip a</span><br><span class="line">eth2: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000</span><br><span class="line">    link/ether 00:0c:29:e4:8e:ed brd ff:ff:ff:ff:ff:ff</span><br><span class="line">[root@localhost ~]# service network restart</span><br><span class="line">Shutting down interface eth0:                              [  OK  ]</span><br><span class="line">Shutting down loopback interface:                          [  OK  ]</span><br><span class="line">Bringing up loopback interface:                            [  OK  ]</span><br><span class="line">Bringing up interface eth0:  </span><br><span class="line">Determining IP information for eth0... done.            [  OK  ] </span><br></pre></td></tr></table></figure>
+<h3 id="ss-命令"><a href="#ss-命令" class="headerlink" title="ss 命令"></a>ss 命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">     格式：ss [OPTION]… [FILTER] </span><br><span class="line">     netstat 通过遍历proc 来获取socket 信息，ss 使用netlink 与内核tcp_diag模块通信获取socket 信息。 </span><br><span class="line">     选项： </span><br><span class="line">     -t: tcp 协议相关 </span><br><span class="line">     -u: udp 协议相关 </span><br><span class="line">     -w:裸套接字相关 </span><br><span class="line">     -x:unix sock 相关 </span><br><span class="line">     -l:listen 状态的连接 </span><br><span class="line">     -a:所有 </span><br><span class="line">     -n:数字格式 </span><br><span class="line">     -p:相关的程序及PID </span><br><span class="line">     -e:扩展的信息 </span><br><span class="line">     -m:内存用量 </span><br><span class="line">     -o:计时器信息 </span><br><span class="line">     FILTER : [ state TCP-STATE ] [ EXPRESSION ] </span><br><span class="line">     TCP 的常见状态： </span><br><span class="line">     tcp finite state machine: </span><br><span class="line">     LISTEN:  监听 </span><br><span class="line">     ESTABLISHED ：已建立的连接 </span><br><span class="line">     FIN_WAIT_1 </span><br><span class="line">     FIN_WAIT_2 </span><br><span class="line">     SYN_SENT </span><br><span class="line">     SYN_RECV </span><br><span class="line">     CLOSED </span><br><span class="line">     EXPRESSION: </span><br><span class="line">     dport = </span><br><span class="line">     sport = </span><br><span class="line">     示例：’( dport = :ssh or sport = :ssh )’ </span><br><span class="line">     常用组合: </span><br><span class="line">     -tan, -tanl, -tanlp, -uan </span><br><span class="line">     常见用法: </span><br><span class="line">     ss -l  显示本地打开的所有端口 </span><br><span class="line">[root@localhost ~]# ss -l</span><br><span class="line">State      Recv-Q Send-Q       Local Address:Port           Peer Address:Port   </span><br><span class="line">LISTEN     0      128                      *:44842                     *:*       </span><br><span class="line">LISTEN     0      128                     :::sunrpc                   :::*       </span><br><span class="line">LISTEN     0      128                      *:sunrpc                    *:*       </span><br><span class="line">LISTEN     0      128                     :::47797                    :::*       </span><br><span class="line">LISTEN     0      128                     :::ssh                      :::*          ss -pl  显示每个进程具体打开的socket </span><br><span class="line">       </span><br><span class="line">[root@localhost ~]# ss -pl</span><br><span class="line">State      Recv-Q Send-Q       Local Address:Port           Peer Address:Port   </span><br><span class="line">LISTEN     0      128                      *:44842                     *:*        users:((&quot;rpc.statd&quot;,1794,8))</span><br><span class="line">LISTEN     0      128                     :::sunrpc                   :::*        users:((&quot;rpcbind&quot;,1737,11))</span><br><span class="line">LISTEN     0      128                      *:sunrpc                    *:*           ss -t -a  显示所有tcp socket </span><br><span class="line">[root@localhost ~]# ss -t -a</span><br><span class="line">State      Recv-Q Send-Q       Local Address:Port           Peer Address:Port   </span><br><span class="line">LISTEN     0      128                      *:44842                     *:*       </span><br><span class="line">LISTEN     0      128                     :::sunrpc                   :::*       </span><br><span class="line">LISTEN     0      128                      *:sunrpc                    *:*       </span><br><span class="line">LISTEN     0      128                     :::47797                    :::*       </span><br><span class="line">LISTEN     0      128                     :::ssh                      :::*       </span><br><span class="line">LISTEN     0      128                      *:ssh                       *:*       </span><br><span class="line">LISTEN     0      128              127.0.0.1:ipp                       *:*         ss -u -a  显示所有的UDP Socekt </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# ss -u -a</span><br><span class="line">State      Recv-Q Send-Q       Local Address:Port           Peer Address:Port   </span><br><span class="line">UNCONN     0      0                        *:bootpc                    *:*       </span><br><span class="line">UNCONN     0      0                        *:bootpc                    *:*       </span><br><span class="line">UNCONN     0      0                        *:49123                     *:*       </span><br><span class="line">UNCONN     0      0                        *:sunrpc                    *:*       </span><br><span class="line">UNCONN     0      0                        *:ipp                       *:*            </span><br><span class="line">     ss -o state established ‘( dport = :ssh or sport = :ssh)’  显示所有已建立的ssh 连接 </span><br><span class="line">     ss -o state established ‘( dport = :http or sport =:http )’  显示所有已建立的HTTP 连接 </span><br><span class="line">     ss -s  列出当前socket </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# ss -s</span><br><span class="line">Total: 911 (kernel 928)</span><br><span class="line">TCP:   16 (estab 2, closed 0, orphaned 0, synrecv 0, timewait 0/0), ports 8</span><br><span class="line"> </span><br><span class="line">Transport Total     IP        IPv6</span><br><span class="line">*     928       -         -        </span><br><span class="line">RAW   0         0         0        </span><br><span class="line">UDP   10        7         3        </span><br><span class="line">TCP   16        9         7        </span><br><span class="line">INET      26        16        10       </span><br><span class="line">FRAG      0         0         0        </span><br><span class="line">      </span><br><span class="line">例：</span><br><span class="line">[root@localhost ~]# ss -nalu</span><br><span class="line">State      Recv-Q Send-Q         Local Address:Port           Peer Address:Port</span><br><span class="line">UNCONN     0      0                          *:68                        *:*     </span><br><span class="line">UNCONN     0      0                          *:68                        *:*     </span><br><span class="line">UNCONN     0      0                          *:49123                     *:*     </span><br><span class="line">UNCONN     0      0                          *:111                       *:*    </span><br><span class="line"> </span><br><span class="line">root@localhost ~]# ss -tnalp</span><br><span class="line">State      Recv-Q Send-Q         Local Address:Port           Peer Address:Port</span><br><span class="line">LISTEN     0      128                        *:44842                     *:*      users:((&quot;rpc.statd&quot;,1794,8))</span><br><span class="line">LISTEN     0      128                       :::111                      :::*      users:((&quot;rpcbind&quot;,1737,11))</span><br><span class="line">LISTEN     0      128                        *:111                       *:*   </span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# ss -nt</span><br><span class="line">State      Recv-Q Send-Q         Local Address:Port           Peer Address:Port</span><br><span class="line">ESTAB      0      0            192.168.101.128:22            192.168.101.1:52170</span><br><span class="line">ESTAB      0      52           192.168.101.128:22            192.168.101.1:54285      </span><br></pre></td></tr></table></figure>
+
+<h3 id="nmcli命令"><a href="#nmcli命令" class="headerlink" title="nmcli命令"></a>nmcli命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br></pre></td><td class="code"><pre><span class="line">     地址配置工具：nmcli </span><br><span class="line">     nmcli [ OPTIONS ] OBJECT &#123; COMMAND | help &#125; </span><br><span class="line">     device – show and manage network interfaces     显示和管理网络接口 </span><br><span class="line">     nmcli device help                               nmcli设备帮助 </span><br><span class="line">     connection – start, stop, and manage network connections连接–启动.停止和管理网络连接 </span><br><span class="line">     nmcli connection help                           nmcli连接帮助 </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# nmcli device show</span><br><span class="line">GENERAL.DEVICE:                         virbr0</span><br><span class="line">GENERAL.TYPE:                           bridge</span><br><span class="line">GENERAL.HWADDR:                         52:54:00:0E:BF:A5</span><br><span class="line">GENERAL.MTU:                            1500</span><br><span class="line">GENERAL.STATE:                          100 (connected)</span><br><span class="line">GENERAL.CONNECTION:                     virbr0</span><br><span class="line">GENERAL.CON-PATH:                       /org/freedesktop/NetworkManager/ActiveConnection/1</span><br><span class="line">IP4.ADDRESS[1]:                         192.168.122.1/24</span><br><span class="line">IP4.GATEWAY:                            </span><br><span class="line">IP6.GATEWAY:                                  </span><br><span class="line">     修改IP 地址等属性： </span><br><span class="line">     #nmcli connection modify IFACE [+|-]setting.property value </span><br><span class="line">     setting.property: </span><br><span class="line">     ipv4.addresses ipv4.gateway </span><br><span class="line">     ipv4.dns1 ipv4.method manual | auto </span><br><span class="line">      </span><br><span class="line">[root@localhost network-scripts]# nmcli connection modify wired\ connection\ 1 connection.id con-eth1</span><br><span class="line">将wired_connection_1改名为eth1      </span><br><span class="line">     修改配置文件执行生效：systemctl restart network </span><br><span class="line">     nmcli con reload </span><br><span class="line">     nmcli命令生效:nmcli con down eth0 ;nmcli con up eth0 </span><br><span class="line">       </span><br><span class="line">     相关工具 </span><br><span class="line">     网络接口配置tui工具：nmtui </span><br><span class="line">     主机名称配置工具：hostnamectl </span><br><span class="line">     status </span><br><span class="line">     set-hostname </span><br><span class="line">       </span><br><span class="line">     使用nmcli 配置主机名 </span><br><span class="line">     CentOS6 之前主机名配置文件：/etc/sysconfig/network </span><br><span class="line">     CentOS7 主机名 配置文件:/etc/hostname ，默认没有这个文件，通过DNS反向解析获取主机名，主机名默认为：localhost.localdomain </span><br><span class="line">     显示主机名信息 </span><br><span class="line">     hostname </span><br><span class="line">     hostnamectl status </span><br><span class="line">     创建并修改文件并生效 </span><br><span class="line">     hostnamectl set-hostname desktopX.example.com </span><br><span class="line">     删除文件，恢复 主机名localhost.localdomain </span><br><span class="line">       </span><br><span class="line">     使用nmcli 配置网络 </span><br><span class="line">     NeworkManager 是管理和监控网络设置的守护进程 </span><br><span class="line">     设备即网络接口，连接是对网络接口的配置。一个网络接口可有多个连接配置，但同时只有一个连接配置生效 </span><br><span class="line">     显示所有包括不活动连接 </span><br><span class="line">     nmcli con show </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# nmcli con show （查看有多少套配置）</span><br><span class="line">NAME    UUID                                  TYPE            DEVICE</span><br><span class="line">ens33   ad4e4a2e-c6fe-4661-94d3-c02901f2e328  802-3-ethernet  ens33  </span><br><span class="line">virbr0  ad2192b6-9a6d-4624-b273-12389b246f54  bridge          virbr0</span><br><span class="line"> </span><br><span class="line">[root@localhost ~]# nmcli connection show ens33</span><br><span class="line">connection.id:                          ens33</span><br><span class="line">connection.uuid:                        ad4e4a2e-c6fe-4661-94d3-c02901f2e328</span><br><span class="line">connection.stable-id:                   --</span><br><span class="line">connection.interface-name:              ens33</span><br><span class="line">connection.type:                        802-3-ethernet</span><br><span class="line">connection.autoconnect:                 yes</span><br><span class="line">connection.autoconnect-priority:        0</span><br><span class="line">connection.timestamp:                   1494160439      </span><br><span class="line">     显示所有活动连接 </span><br><span class="line">     nmcli con show –active </span><br><span class="line">      </span><br><span class="line">[root@localhost network-scripts]# nmcli con show --active</span><br><span class="line">NAME    UUID                                  TYPE            DEVICE</span><br><span class="line">ens33   ad4e4a2e-c6fe-4661-94d3-c02901f2e328  802-3-ethernet  ens33  </span><br><span class="line">virbr0  ad2192b6-9a6d-4624-b273-12389b246f54  bridge          virbr0      </span><br><span class="line">     显示网络连接配置 </span><br><span class="line">     nmcli con show  “System eth0” </span><br><span class="line">     显示设备状态 </span><br><span class="line">     nmcli dev status </span><br><span class="line">       </span><br><span class="line">[root@localhost ~]# nmcli dev status</span><br><span class="line">DEVICE      TYPE         STATE          CONNECTION</span><br><span class="line">virbr0          bridge       connected  virbr0     </span><br><span class="line">ens33       ethernet    connected  ens33      </span><br><span class="line">lo          loopback    unmanaged   --         不可用</span><br><span class="line">virbr0-nic      tun          unmanaged   --         </span><br><span class="line">     显示网络接口属性 </span><br><span class="line">     nmcli dev show eno16777736 </span><br><span class="line">     创建新连接default ，IP 自动通过dhcp 获取 </span><br><span class="line">     nmcli con add con-name default type Ethernet ifname eth0 </span><br><span class="line">     删除连接 </span><br><span class="line">     nmcli con del default </span><br><span class="line">     创建新连接static，指定静态IP，不自动连接 </span><br><span class="line">     nmcti con add con-name static ifname eth0 autoconnect no type Ethernet ip4 172.25.X.10/24 gw4 172.25.X.254 </span><br><span class="line">     启用static 连接配置 </span><br><span class="line">     nmcli con up static </span><br><span class="line">     启用default 连接配置 </span><br><span class="line">     nmcli con up default </span><br><span class="line">     查看帮助 </span><br><span class="line">     nmcli con add help </span><br><span class="line">     修改连接设置 </span><br><span class="line">     nmcli con mod“static” connection.autoconnect no </span><br><span class="line">     nmcli con mod “static” ipv4.dns 172.25.X.254 </span><br><span class="line">     nmcli con mod “static” +ipv4.dns 8.8.8.8 </span><br><span class="line">     nmcli con mod “static” -ipv4.dns 8.8.8.8 </span><br><span class="line">     nmcli con mod “static” ipv4.addresses “172.25.X.10/24  172.25.X.254” </span><br><span class="line">     nmcli con mod “static” +ipv4.addresses 10.10.10.10/16 </span><br><span class="line">     DNS 设置，存放在/etc/resolv.conf 文件中 </span><br><span class="line">     PEERDNS=no  表示当IP通过dhcp 自动获取时，dns仍是手动设置，不自动获取。等价于下面命令： </span><br><span class="line">     nmcli con mod “system eth0” ipv4.ignore-auto-dns yes </span><br><span class="line">       </span><br><span class="line">     网络配置文件 </span><br><span class="line">     设备配置被保存在文本文件中 </span><br><span class="line">     /etc/sysconfig/network-scripts/ifcfg-&lt;name&gt; </span><br><span class="line">     帮助文档列出完整选项列表：/usr/share/doc/initcripts-*/sysconfig.txt </span><br><span class="line">| 动态配置                                                     | 动态配置                                                     |</span><br><span class="line">| :----------------------------------------------------------- | :----------------------------------------------------------- |</span><br><span class="line">| DEVICE=eth X</span><br><span class="line">HWADDR=0:02:8A:A6:30:45</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">ONBOOT=yes</span><br><span class="line">Type=Ethernet | DEVICE=eth X</span><br><span class="line">HWADDR=0:02:8A:A6:30:45</span><br><span class="line">IPADDR=192.168.0.123</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.0.254</span><br><span class="line">ONBOOT=yes</span><br><span class="line">Type=Ethernet |</span><br><span class="line"></span><br><span class="line">     修改连接配置后 ，需要重新加载配置 </span><br><span class="line">     nmcli con reload </span><br><span class="line">     nmcli con down “system eth0”可被自动激活 </span><br><span class="line">     nmcli con up “system eth0” </span><br><span class="line">     nmcli dev dis eth0  禁用网卡，访止被自动激活 </span><br><span class="line">     图形工具 </span><br><span class="line">     nm-connection-editor </span><br><span class="line">     字符工具 </span><br><span class="line">     nmtui </span><br><span class="line">     nmtui-connect </span><br><span class="line">     nmtui-edit </span><br><span class="line">     nmtui-hostname </span><br><span class="line">       </span><br><span class="line">     nmcli 实现bonding </span><br><span class="line">     添加bonding 接口： </span><br><span class="line">     nmcli con add type bond con-name mybond0 ifname </span><br><span class="line">     mybond0 mode active-backup </span><br><span class="line">     添加从属接口： </span><br><span class="line">     nmcli con add type bond-slave ifname ens7 master mybond0 </span><br><span class="line">     nmcli con add type bond-slave ifname ens3 master mybond0 </span><br><span class="line">     注：如无为从属接口提供连接名，则该名称是接口名称加类型构成 </span><br><span class="line">     要启动绑定，则必须首先启动从属接口: </span><br><span class="line">     nmcli con up bond-slave-ens7 </span><br><span class="line">     nmcli con up bond-slave-ens3 </span><br><span class="line">     现在可使用以下方法启动绑定： </span><br><span class="line">     nmcli con up mybond0 </span><br><span class="line">       </span><br><span class="line">     网络组Network Teaming </span><br><span class="line">             网络组：是将多个网卡聚合在一起方法，从而实现冗错和提高吞吐量 </span><br><span class="line">             网络组不同于旧版中bonding 技术，提供更好的性能和扩展性 </span><br><span class="line">             网络组由内核驱动和teamd 守护进程实现. </span><br><span class="line">     多种方式runner </span><br><span class="line">     broadcast </span><br><span class="line">     roundrobin </span><br><span class="line">     activebackup </span><br><span class="line">     loadbalance </span><br><span class="line">     lacp (implements the 802.3ad Link Aggregation Control Protocol) </span><br><span class="line">     网络组 </span><br><span class="line">      启动网络组接口不会自动启动网络组中的port 接口 </span><br><span class="line">             启动网络组接口中的port 接口总会自动启动网络组接口 </span><br><span class="line">             禁用网络组接口会自动禁用网络组中的port 接口 </span><br><span class="line">             没有port 接口的网络组接口可以启动静态IP 连接 </span><br><span class="line">             启用DHCP 连接时，没有port 接口的网络组会等待port接口的加入 </span><br><span class="line">       </span><br><span class="line">     创建网络组接口 </span><br><span class="line">     nmcli con add type team con-name  CNAME ifname INAME [config JSON ] </span><br><span class="line">     CNAME 连接名 ， INAME 接口名 </span><br><span class="line">     JSON 指定runner 方式 </span><br><span class="line">     格式：‘&#123;“runner”: &#123;“name”: ” METHOD “&#125;&#125;’ </span><br><span class="line">     METHOD 可以是broadcast, roundrobin,activebackup, loadbalance, lacp </span><br><span class="line">       </span><br><span class="line">     创建port 接口 </span><br><span class="line">     nmcli con add type team-slave con-name  CNAME ifname INAME master  TEAM </span><br><span class="line">     CNAME 连接名 </span><br><span class="line">     INAME 网络接口名 </span><br><span class="line">     TEAM 网络组接口名 </span><br><span class="line">     连接名若不指定，默认为team-slave- IFACE </span><br><span class="line">     nmcli dev dis  INAME </span><br><span class="line">     nmcli con up  CNAME </span><br><span class="line">     INAME 设备名 CNAME 网络组接口名或port </span><br><span class="line">       </span><br><span class="line">     网络组示例 </span><br><span class="line">     nmcli con add type team con-name team0 ifname team0 config ‘&#123;“runner”: &#123;“name”: “loadbalance”&#125;&#125;’ </span><br><span class="line">     nmcli con mod team0 ipv4.addresses192.168.1.100/24 </span><br><span class="line">     nmcli con mod team0 ipv4.method manual </span><br><span class="line">      nmcli con add con-name team0-eth1 type team-slave ifname eth1 master team0 </span><br><span class="line">     nmcli con add con-name team0-eth2 type team-slave ifname eth2 master team0 </span><br><span class="line">     nmcli con up team0 </span><br><span class="line">     nmcli con up team0-eth1 </span><br><span class="line">     nmcli con up team0-eth2 </span><br><span class="line">     teamdctl team0 state; # nmcli dev dis eth1 </span><br><span class="line">       </span><br><span class="line">     实验: 创建网络组 </span><br><span class="line">     ip link </span><br><span class="line">     nmcli con add type team con-name team0 ifname team0 config ‘&#123;“runner”: &#123;“name”: “activebackup”&#125;&#125;’ </span><br><span class="line">     nmcli con mod team0 ipv4.addresses’192.168.0.100/24′ </span><br><span class="line">     nmcli con mod team0 ipv4.method manual </span><br><span class="line">     nmcli con add con-name team0-port1 type team-slave ifname eth1 master team0 </span><br><span class="line">     nmcli con add con-name team0-port2 type team-slave ifname eth2 master team0 </span><br><span class="line">     teamdctl team0 state </span><br><span class="line">     ping -I team0 192.168.0.254 </span><br><span class="line">     nmcli dev dis eno1 </span><br><span class="line">     teamdctl team0 state </span><br><span class="line">     nmcli con up team0-port1 </span><br><span class="line">     nmcli dev dis eno2 </span><br><span class="line">     teamdctl team0 state </span><br><span class="line">     nmcli con up team0-port2 </span><br><span class="line">     teamdctl team0 state </span><br><span class="line">       </span><br><span class="line">     管理网络组配置文件 </span><br><span class="line">     /etc/sysconfig/network-scripts/ifcfg-team0 </span><br><span class="line">     DEVICE=team0 </span><br><span class="line">     DEVICETYPE=Team </span><br><span class="line">     TEAM_CONFIG=”&#123;\”runner\”: &#123;\”name\”: \”broadcast\”&#125;&#125;” </span><br><span class="line">     BOOTPROTO=none </span><br><span class="line">     IPADDR0=172.25.5.100 </span><br><span class="line">     PREFIX0=24 </span><br><span class="line">     NAME=team0 </span><br><span class="line">     ONBOOT=yes </span><br><span class="line">     /etc/sysconfig/network-scripts/ifcfg-team0-eth1 </span><br><span class="line">     DEVICE=eth1 </span><br><span class="line">     DEVICETYPE=TeamPort </span><br><span class="line">     TEAM_MASTER=team0 </span><br><span class="line">     NAME=team0-eth1 </span><br><span class="line">     ONBOOT=yes </span><br><span class="line">       </span><br><span class="line">     删除网络组 </span><br><span class="line">     nmcli connection down team0 </span><br><span class="line">     teamdctl team0 state </span><br><span class="line">            nmcli connection show </span><br><span class="line">            nmcli connectioni delete team0-eth0 </span><br><span class="line">            nmcli connectioni delete team0-eth1 </span><br><span class="line">            nmcli connection show </span><br><span class="line">     测试网络工具 </span><br><span class="line">     在命令行下测试网络的连通性 </span><br><span class="line">     显示主机名 </span><br><span class="line">     hostname </span><br><span class="line">     测试网络连通性 </span><br><span class="line">     ping </span><br><span class="line">     mtr </span><br><span class="line">      </span><br><span class="line">[root@localhost ~]# ping 172.16.253.193</span><br><span class="line">PING 172.16.253.193 (172.16.253.193) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.16.253.193: icmp_seq=1 ttl=64 time=0.097 ms</span><br><span class="line">64 bytes from 172.16.253.193: icmp_seq=2 ttl=64 time=0.051 ms</span><br><span class="line">64 bytes from 172.16.253.193: icmp_seq=3 ttl=64 time=0.053 ms</span><br><span class="line">64 bytes from 172.16.253.193: icmp_seq=4 ttl=64 time=0.052 ms      </span><br><span class="line">     显示正确的路由表 </span><br><span class="line">     ip route </span><br><span class="line">     确定名称服务器使用： </span><br><span class="line">     nslookup </span><br><span class="line">     host </span><br><span class="line">     dig </span><br><span class="line">     跟踪路由 </span><br><span class="line">     traceroute </span><br><span class="line">     tracepath </span><br><span class="line">       </span><br><span class="line">     网络客户端工具 </span><br><span class="line">     ftp ，lftp </span><br><span class="line">     子命令：get、mget、ls、help </span><br><span class="line">     lftp [-p port] [-u user[,password]] SERVER </span><br><span class="line">     lftpget URL </span><br><span class="line">     wget [option]… [URL]… </span><br><span class="line">     -q:静默模式 </span><br><span class="line">     -c:断点续传 </span><br><span class="line">     -O:保存位置 </span><br><span class="line">     –limit-rates=:指定传输速率 </span><br><span class="line">     links URL </span><br><span class="line">     –dump </span><br><span class="line">     –source</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/%E9%AA%9A%E6%93%8D%E4%BD%9C/" rel="tag"># 骚操作</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/19/hexo-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="prev" title="hexo-配置文件">
+      <i class="fa fa-chevron-left"></i> hexo-配置文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/21/go%E7%B3%BB%E5%88%97-Go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84/" rel="next" title="go系列--Go语言结构">
+      go系列--Go语言结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%AA%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">绪论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#route%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">route命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netstat-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">netstat 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ip%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">ip命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ss-%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">ss 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nmcli%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">nmcli命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
